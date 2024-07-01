@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Buddy Bee - 서브컬쳐 펀딩 프로젝트 관리 사이트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 개요
 
-## Available Scripts
+**Buddy Bee**는 서브컬쳐에 관련된 펀딩 프로젝트를 관리하고 참여할 수 있는 플랫폼입니다. 모집자가 서브컬쳐 관련 콘서트에 동행자를 구하거나, 버스 대절, 옥외광고 모집, 대관, 커피차 등 다양한 프로젝트를 생성하고 펀딩을 받을 수 있습니다. 일반 사용자는 목록을 확인하고 참여하고 싶은 프로젝트에 참여할 수 있습니다!!
+저희 프로젝트는 2024년 8월 1일까지 진행됩니다~!
 
-In the project directory, you can run:
+## 팀 멤버
 
-### `npm start`
+- **Jun**
+  - [GitHub](https://github.com/jun1378527)
+- **Hanul**
+  - [GitHub](https://github.com/shircorgi)
+- **Yoon**
+  - [GitHub](https://github.com/yoon-arc)
+- **Shugaroon**
+  - [GitHub](https://github.com/Shugaroon)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 요구 조건 및 기능 명세
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. 펀딩 프로젝트 관리 기능 (R&R - 업무분장)
 
-### `npm test`
+- 프로젝트 생성, 수정, 삭제 권한을 역할별로 분장
+- 각 프로젝트에 대한 상세 정보 제공
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. 역할별 권한 설계 및 관리 기능
 
-### `npm run build`
+- 관리자, 모집자, 참여자 등의 역할별 권한 설정
+- 권한에 따른 접근 및 조작 기능 제어
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. SNS 간편 로그인 / 연계
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 다양한 SNS 플랫폼과 연계하여 간편 로그인 제공
+- 사용자 계정 관리 및 보안 강화
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. 프로젝트 등록 및 펀딩 조건
 
-### `npm run eject`
+- 프로젝트 등록 시 상세 정보 및 펀딩 조건 입력
+- 목표 금액 설정 및 달성 상태 표시
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 5. 일반 사용자 펀딩 참여 기능
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 사용자들이 펀딩 프로젝트에 쉽게 참여할 수 있도록 지원
+- 참여 내역 조회 및 관리 기능 제공
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 6. 프로젝트 등록, 조회, 수정 기능
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 모집자가 프로젝트를 등록하고 관리할 수 있는 기능 제공
+- 일반 사용자가 프로젝트 목록을 조회하고 상세 정보를 확인
 
-## Learn More
+### 7. 프로젝트 조건값 정렬, 랭킹 구현
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 다양한 조건에 따른 프로젝트 정렬 기능 제공
+- 인기 프로젝트 랭킹 표시
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 8. 완료 시 프로젝트 상태값 변경
 
-### Code Splitting
+- 목표 달성 시 프로젝트 상태를 자동으로 변경
+- 펀딩 종료 후의 처리 로직 구현
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 더 자세한 기능 명세서
 
-### Analyzing the Bundle Size
+[Notion 페이지](https://www.notion.so/72e2cddac15c4c0ab688f08d3f7cd529)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 주제
 
-### Making a Progressive Web App
+Buddy Bee는 연예인, 만화 등 서브컬쳐에 관한 다양한 프로젝트를 중심으로 모집자와 참여자가 함께 서브컬쳐를 즐길 수 있는 플랫폼을 제공합니다. 버스 대절, 옥외광고 모집, 대관, 커피차 등을 통해 좋아하는 연예인이나 최애에게 선물을 보내거나 콘서트에 함께 갈 동행자를 모집할 수 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+화이팅..~!

@@ -1,6 +1,9 @@
 import Layout from "../../components/Layout/Layout";
 import MatterComponent from "../../components/MatterComponent/MatterComponent";
 import header_icon from "../../img/header_icon.svg";
+import section1_flower from "../../img/section1_flower.svg";
+import section1_cloud from "../../img/section1_cloud.svg";
+import section1_bee from "../../img/section1_bee.svg";
 import "./MainPage.css";
 
 const MainPage = () => {
@@ -40,6 +43,18 @@ const MainPage = () => {
           </div>
           <div className="right-section">
             <MatterComponent />
+          </div>
+        </div>
+        <div className="text-container">
+          <div className="text-up-section">
+            <div className="text-section">
+              <h2>Be My Buddy!</h2>
+              <h1>BUDDY BEE</h1>
+              <p>우리...진실게임 하자. 친해지고 싶은 버디비 있어?</p>
+              <img src={section1_flower} alt="Flower" className="flower-icon" />
+              <img src={section1_cloud} alt="Cloud" className="cloud-icon" />
+              <img src={section1_bee} alt="Bee" className="bee-icon" />
+            </div>
           </div>
         </div>
       </div>

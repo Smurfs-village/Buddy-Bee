@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MainPage from "./views/MainPage/MainPage";
+import LoginPage from "./views/LoginPage/LoginPage";
+import RegisterPage from "./views/RegisterPage/RegisterPage";
+import ProfilePage from "./views/ProfilePage/ProfilePage";
+import ProjectListPage from "./views/ProjectListPage/ProjectListPage";
+import ProjectDetailPage from "./views/ProjectDetailPage/ProjectDetailPage";
+import CreateFundingProjectPage from "./views/CreateProjectPage/CreateFundingProjectPage";
+import CreateWithProjectPage from "./views/CreateProjectPage/CreateWithProjectPage";
+import "./styles/global.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" exact element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile/*" element={<ProfilePage />} />
+        <Route path="/projects" exact element={<ProjectListPage />} />
+        <Route
+          path="/projects/:id"
+          element={<ProjectDetailPage projectType="funding" />}
+        />
+        <Route
+          path="/create-funding-project"
+          element={<CreateFundingProjectPage />}
+        />
+        <Route
+          path="/create-with-project"
+          element={<CreateWithProjectPage />}
+        />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

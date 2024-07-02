@@ -1,150 +1,161 @@
-.text-container {
-  text-align: center;
-  padding: 20px;
-  background-color: rgb(0, 0, 0);
-  color: white;
+.recruitment-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 800px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
+  padding: 90px;
+  padding-right: 30px;
+  background-color: #fff;
+  background-image: url("../../img/grid_temp2-18.svg"); /* 격자 무늬 배경 이미지 경로 */
+  background-size: cover;
+  white-space: nowrap;
 }
 
-.text-up-section {
-  padding: 4px 0;
-  border-top: #c4a1ff 6px solid;
-  border-bottom: #fadf0b 6px solid;
-  display: flex;
+.recruitment-section h2 {
+  margin-bottom: 20px;
 }
 
-.text-section {
-  text-align: center;
-  padding: 20px;
-  background-color: rgb(0, 0, 0);
-  color: white;
-  width: 784px;
-  height: 482px;
-  align-items: center;
+.slick-slide {
+  padding-right: 45px;
+  height: 800px;
+  display: flex !important;
   justify-content: center;
+}
+
+.slick-list {
+  height: 500px;
+}
+
+.slick-track {
+  height: 500px;
+}
+
+.slick-prev,
+.slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  color: black;
+  font-size: 50px;
+}
+
+.slick-prev {
+  left: -60px;
+}
+
+.slick-next {
+  right: -40px;
+}
+
+.card {
+  width: 350px !important; /* 카드 너비 고정 */
+  height: 470px; /* 카드 높이 고정 */
+  background-color: #fff; /* 카드 배경 색상 */
+  border-radius: 26px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  border-top: #fadf0b 6px solid;
-  border-bottom: #c4a1ff 6px solid;
+  justify-content: space-between;
+  overflow: hidden;
+  border: black solid 2px;
+  box-sizing: border-box;
+}
+
+.card-line-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-image {
+  width: 350px; /* 이미지 너비 고정 */
+  height: 297px; /* 이미지 높이 고정 */
+  object-fit: cover;
+  opacity: 1; /* 이미지의 투명도 */
+}
+
+.card-content {
+  width: 100%;
+  height: 172px; /* 컨텐츠 높이 고정 */
+  box-sizing: border-box;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: #000 solid 2px;
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.card-line-1 span {
+  font-size: 0.8em;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 0.8em;
+  color: #9b9b9b;
+}
+
+.card_desc {
+  padding-top: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hashtags {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: nowrap; /* 한 줄로 정렬 */
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.hashtag {
+  margin-top: 17px;
+  background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
+  border-radius: 25px;
+  padding: 3px 6px;
+  font-size: 1em;
+  color: #333;
+  white-space: nowrap; /* 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+}
+
+.hashtag.alternate-color {
+  background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+}
+
+.card-image-wrapper {
   position: relative;
 }
 
-.flower-icon {
+.participants-info {
   position: absolute;
-  left: 50px;
-  top: 50px;
-  width: 120px;
+  top: 18px;
+  left: 17px;
+  background: rgba(0, 0, 0);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 50px;
+  font-size: 0.9em;
 }
 
-.cloud-icon {
+.scrap-icon {
   position: absolute;
-  left: -100px;
-  bottom: 120px;
-  width: 150px;
-}
-
-.bee-icon {
-  position: absolute;
-  right: -160px;
-  top: 200px;
-  width: 180px;
-}
-
-.text-section h2 {
-  margin: 96px 0 0 0;
-  font-size: 2em;
-}
-
-.text-section h1 {
-  margin: 50px 0 0 0;
-  font-size: 7em;
-  font-family: "cooper-black-std", sans-serif;
-  color: #ffffff;
-  font-weight: 200;
-  -webkit-text-stroke: 4px black;
-}
-
-.text-section p {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 44px 0 108px 0;
-}
-.text-container {
-  text-align: center;
-  padding: 20px;
-  background-color: rgb(0, 0, 0);
-  color: white;
-  height: 800px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.text-up-section {
-  padding: 4px 0;
-  border-top: #c4a1ff 6px solid;
-  border-bottom: #fadf0b 6px solid;
-  display: flex;
-}
-
-.text-section {
-  text-align: center;
-  padding: 20px;
-  background-color: rgb(0, 0, 0);
-  color: white;
-  width: 784px;
-  height: 482px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  border-top: #fadf0b 6px solid;
-  border-bottom: #c4a1ff 6px solid;
-  position: relative;
-}
-
-.flower-icon {
-  position: absolute;
-  left: 50px;
-  top: 50px;
-  width: 120px;
-}
-
-.cloud-icon {
-  position: absolute;
-  left: -100px;
-  bottom: 120px;
-  width: 150px;
-}
-
-.bee-icon {
-  position: absolute;
-  right: -160px;
-  top: 200px;
-  width: 180px;
-}
-
-.text-section h2 {
-  margin: 96px 0 0 0;
-  font-size: 2em;
-}
-
-.text-section h1 {
-  margin: 50px 0 0 0;
-  font-size: 7em;
-  font-family: "cooper-black-std", sans-serif;
-  color: #ffffff;
-  font-weight: 200;
-  -webkit-text-stroke: 4px black;
-}
-
-.text-section p {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 44px 0 108px 0;
+  top: 10px;
+  right: 13px;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
 }

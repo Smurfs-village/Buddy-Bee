@@ -1,0 +1,212 @@
+.createpage-project-page-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #c4a1ff;
+  background-image: url("../../img/grid_temp2-18.svg");
+}
+
+.createpage-sub-nav {
+  position: fixed;
+  top: 64px; /* 헤더 높이에 맞추어 조정 */
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+
+.createpage-create-main-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 120px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+}
+
+.createpage-create-project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.createpage-create-project-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.createpage-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createpage-form-group label {
+  font-weight: bold;
+}
+
+.createpage-form-group input,
+.createpage-form-group .ql-container {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.createpage-hashtag-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.createpage-hashtag-input-wrapper input {
+  flex: 1;
+  padding: 10px;
+  border: 1px dotted #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding-right: 80px; /* 버튼 공간 확보 */
+}
+
+.createpage-add-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createpage-hashtag-input-wrapper .createpage-char-count {
+  position: absolute;
+  right: 120px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 12px;
+}
+
+.createpage-hashtags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 1px dotted #ccc;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.createpage-hashtag {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 5px 10px 5px 0px;
+  font-size: 12px;
+}
+
+.createpage-hashtag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 1px 4px 1px 8px;
+}
+
+.createpage-period-group {
+  border: 1px dotted #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createpage-period-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.createpage-date-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createpage-date-input input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  justify-content: center;
+  outline: none;
+  text-align: center;
+}
+
+.createpage-recruitment-group {
+  border: 1px dotted #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createpage-recruitment-input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.createpage-number-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createpage-number-input input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  justify-content: center;
+  outline: none;
+  text-align: center;
+}
+
+.createpage-submit-button {
+  padding: 10px;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  width: 332px;
+  height: 83px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 0 auto; /* 중앙 정렬을 위한 속성 추가 */
+}
+
+.ql-editor {
+  height: 700px;
+}

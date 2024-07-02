@@ -1,12 +1,91 @@
+import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import MatterComponent from "../../components/MatterComponent/MatterComponent";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import header_icon from "../../img/header_icon.svg";
 import section1_flower from "../../img/section1_flower.svg";
 import section1_cloud from "../../img/section1_cloud.svg";
 import section1_bee from "../../img/section1_bee.svg";
+import Card from "./Card";
+import birthdayImage from "../../img/birthday1.jpg";
 import "./MainPage.css";
 
 const MainPage = () => {
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplaySpeed: 3000,
+    arrows: true,
+    draggable: true,
+    pauseOnHover: true,
+    variableWidth: true,
+  };
+
+  const initialRecruitmentCards = [
+    {
+      title: "동행 구합니다!",
+      author: "나비123",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+    },
+    {
+      title: "동행 구합니다!",
+      author: "나비123",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+    },
+    {
+      title: "동행 구합니다!",
+      author: "나비123",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+    },
+    {
+      title: "동행 구합니다!",
+      author: "나비123",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+    },
+  ];
+
+  const [recruitmentCards, setRecruitmentCards] = useState(
+    initialRecruitmentCards
+  );
+
+  const toggleScrap = index => {
+    const updatedCards = [...recruitmentCards];
+    updatedCards[index].scrap = !updatedCards[index].scrap;
+    setRecruitmentCards(updatedCards);
+  };
+
   return (
     <Layout>
       <div className="main-page">
@@ -56,6 +135,20 @@ const MainPage = () => {
               <img src={section1_bee} alt="Bee" className="bee-icon" />
             </div>
           </div>
+        </div>
+        <div className="recruitment-section">
+          <h2>#동행 모집</h2>
+          <Slider {...settings}>
+            {recruitmentCards.map((data, index) => (
+              <Card
+                key={index}
+                data={data}
+                index={index}
+                type="recruitment"
+                toggleScrap={toggleScrap}
+              />
+            ))}
+          </Slider>
         </div>
       </div>
     </Layout>

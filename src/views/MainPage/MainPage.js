@@ -4,13 +4,13 @@ import MatterComponent from "../../components/MatterComponent/MatterComponent";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./MainPage.css";
 import header_icon from "../../img/header_icon.svg";
-import section1_flower from "../../img/section1_flower.svg";
-import section1_cloud from "../../img/section1_cloud.svg";
 import section1_bee from "../../img/section1_bee.svg";
+import section1_cloud from "../../img/section1_cloud.svg";
+import section1_flower from "../../img/section1_flower.svg";
 import Card from "./Card";
 import birthdayImage from "../../img/birthday1.jpg";
-import "./MainPage.css";
 
 const MainPage = () => {
   const settings = {
@@ -74,16 +74,72 @@ const MainPage = () => {
       currentParticipants: 2,
       maxParticipants: 4,
     },
+    // 추가적인 목업 데이터...
+  ];
+
+  const initialFundingCards = [
+    {
+      title: "펀딩 구합니다!",
+      author: "나비456",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+    },
+    {
+      title: "펀딩 구합니다!",
+      author: "나비456",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+    },
+    {
+      title: "펀딩 구합니다!",
+      author: "나비456",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+    },
+    {
+      title: "펀딩 구합니다!",
+      author: "나비456",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+    },
+    // 추가적인 목업 데이터...
   ];
 
   const [recruitmentCards, setRecruitmentCards] = useState(
     initialRecruitmentCards
   );
+  const [fundingCards, setFundingCards] = useState(initialFundingCards);
 
-  const toggleScrap = index => {
-    const updatedCards = [...recruitmentCards];
-    updatedCards[index].scrap = !updatedCards[index].scrap;
-    setRecruitmentCards(updatedCards);
+  const toggleScrap = (index, type) => {
+    if (type === "recruitment") {
+      const updatedCards = [...recruitmentCards];
+      updatedCards[index].scrap = !updatedCards[index].scrap;
+      setRecruitmentCards(updatedCards);
+    } else if (type === "funding") {
+      const updatedCards = [...fundingCards];
+      updatedCards[index].scrap = !updatedCards[index].scrap;
+      setFundingCards(updatedCards);
+    }
   };
 
   return (
@@ -103,6 +159,7 @@ const MainPage = () => {
                   className="header-icon"
                 />
               </div>
+
               <h2>Be My Buddy! </h2>
               <p className="left_p">
                 욕망은 욕심보다 모호한 단어다. 마음 심을 쓰는 욕심과 달리 욕망의
@@ -149,6 +206,32 @@ const MainPage = () => {
               />
             ))}
           </Slider>
+        </div>
+        <div className="funding-section">
+          <h2>#펀딩 모집</h2>
+          <Slider {...settings}>
+            {fundingCards.map((data, index) => (
+              <Card
+                key={index}
+                data={data}
+                index={index}
+                type="funding"
+                toggleScrap={toggleScrap}
+              />
+            ))}
+          </Slider>
+        </div>
+        <div className="ranking-section">
+          <h2>현재 많은 버디비들이 보고 있어요!</h2>
+          <div className="ranking-keywords">
+            {["버디", "버디버디", "멈머", "슈머", "현머", "서머"].map(
+              (keyword, index) => (
+                <div key={index} className="keyword">
+                  {keyword}
+                </div>
+              )
+            )}
+          </div>
         </div>
       </div>
     </Layout>

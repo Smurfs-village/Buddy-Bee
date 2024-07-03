@@ -1,19 +1,19 @@
-.layout {
+.layout-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.header {
+.headerpage-header {
   flex-shrink: 0;
 }
 
-.content {
+.layout-content {
   flex: 1;
   background-color: #f0f0f0;
 }
 
-.footer {
+.footerpage-footer {
   flex-shrink: 0;
   color: white;
   background-color: black;

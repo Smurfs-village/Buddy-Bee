@@ -8,18 +8,18 @@ body {
   height: 100%;
 }
 
-.main-page {
+.mainpage-main-page {
   display: flex;
   flex-direction: column;
 }
 
-.main-section {
+.mainpage-main-section {
   display: flex;
   height: 800px;
   box-sizing: border-box;
 }
 
-.left-section {
+.mainpage-left-section {
   width: 682px; /* 고정된 너비 */
   background-color: #c4a1ff; /* 연보라색 배경 */
   color: #000;
@@ -30,7 +30,7 @@ body {
   justify-content: space-between;
 }
 
-.left-section h1 {
+.mainpage-left-section h1 {
   font-size: 5em;
   font-family: "cooper-black-std", sans-serif;
   color: #fbf2ed;
@@ -38,37 +38,37 @@ body {
   -webkit-text-stroke: 2px black;
 }
 
-.left-section h2 {
+.mainpage-left-section h2 {
   font-size: 1.7em;
   font-family: "cooper-black-std", sans-serif;
   margin: 0;
 }
 
-.left_bee_icon img {
+.mainpage-left_bee_icon img {
   margin-left: 30px;
   height: 188px;
 }
 
-.left-section .h1_buddy {
+.mainpage-left-section .mainpage-h1_buddy {
   margin: 0;
 }
 
-.left-section .h1_bee {
+.mainpage-left-section .mainpage-h1_bee {
   margin: 0;
 }
 
-.left-section .left_p {
+.mainpage-left-section .mainpage-left_p {
   margin: 30px 10px 20px 0px;
   font-size: 1.2em;
   line-height: 1.7;
 }
 
-.button-container {
+.mainpage-button-container {
   display: flex;
   gap: 10px;
 }
 
-.main-button {
+.mainpage-main-button {
   padding: 10px 20px;
   border: none;
   background-color: #000;
@@ -80,11 +80,11 @@ body {
   text-align: left;
 }
 
-.left_bee_icon {
+.mainpage-left_bee_icon {
   display: flex;
 }
 
-.right-section {
+.mainpage-right-section {
   flex: 1; /* 줄어드는 부분 */
   min-width: 0; /* 최소 너비를 0으로 설정 */
   background-color: #fadf0b; /* 노란색 배경 */
@@ -96,7 +96,7 @@ body {
   background-image: url("../../img/grid_temp2-18.svg");
 }
 
-.text-container {
+.mainpage-text-container {
   text-align: center;
   padding: 20px;
   background-color: rgb(0, 0, 0);
@@ -108,14 +108,14 @@ body {
   flex-direction: column;
 }
 
-.text-up-section {
+.mainpage-text-up-section {
   padding: 4px 0;
   border-top: #c4a1ff 6px solid;
   border-bottom: #fadf0b 6px solid;
   display: flex;
 }
 
-.text-section {
+.mainpage-text-section {
   text-align: center;
   padding: 20px;
   background-color: rgb(0, 0, 0);
@@ -131,33 +131,33 @@ body {
   position: relative;
 }
 
-.flower-icon {
+.mainpage-flower-icon {
   position: absolute;
   left: 50px;
   top: 50px;
   width: 120px;
 }
 
-.cloud-icon {
+.mainpage-cloud-icon {
   position: absolute;
   left: -100px;
   bottom: 120px;
   width: 150px;
 }
 
-.bee-icon {
+.mainpage-bee-icon {
   position: absolute;
   right: -160px;
   top: 200px;
   width: 180px;
 }
 
-.text-section h2 {
+.mainpage-text-section h2 {
   margin: 96px 0 0 0;
   font-size: 2em;
 }
 
-.text-section h1 {
+.mainpage-text-section h1 {
   margin: 50px 0 0 0;
   font-size: 7em;
   font-family: "cooper-black-std", sans-serif;
@@ -166,13 +166,13 @@ body {
   -webkit-text-stroke: 4px black;
 }
 
-.text-section p {
+.mainpage-text-section p {
   font-size: 1.3em;
   font-weight: bold;
   margin: 44px 0 108px 0;
 }
 
-.recruitment-section {
+.mainpage-recruitment-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -185,11 +185,11 @@ body {
   white-space: nowrap;
 }
 
-.recruitment-section h2 {
+.mainpage-recruitment-section h2 {
   margin-bottom: 20px;
 }
 
-.funding-section {
+.mainpage-funding-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -201,11 +201,11 @@ body {
   white-space: nowrap;
 }
 
-.funding-section h2 {
+.mainpage-funding-section h2 {
   margin-bottom: 20px;
 }
 
-.ranking-section {
+.mainpage-ranking-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -218,17 +218,17 @@ body {
   white-space: nowrap;
 }
 
-.ranking-section h2 {
+.mainpage-ranking-section h2 {
   margin-bottom: 20px;
 }
 
-.ranking-keywords {
+.mainpage-ranking-keywords {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
 }
 
-.keyword {
+.mainpage-keyword {
   background-color: #feb92e;
   color: #000;
   padding: 10px 15px;
@@ -238,7 +238,7 @@ body {
 }
 
 /* Carousel Styles */
-.carousel {
+.mainpage-carousel {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -249,7 +249,7 @@ body {
   box-sizing: border-box;
 }
 
-.card {
+.mainpage-card {
   width: 350px !important; /* 카드 너비 고정 */
   height: 470px; /* 카드 높이 고정 */
   background-color: #fff; /* 카드 배경 색상 */
@@ -264,20 +264,20 @@ body {
   box-sizing: border-box;
 }
 
-.card-line-1 {
+.mainpage-card-line-1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.card-image {
+.mainpage-card-image {
   width: 350px; /* 이미지 너비 고정 */
   height: 297px; /* 이미지 높이 고정 */
   object-fit: cover;
   opacity: 1; /* 이미지의 투명도 */
 }
 
-.card-content {
+.mainpage-card-content {
   width: 100%;
   height: 172px; /* 컨텐츠 높이 고정 */
   box-sizing: border-box;
@@ -288,29 +288,29 @@ body {
   border-top: #000 solid 2px;
 }
 
-.card-content h3 {
+.mainpage-card-content h3 {
   margin: 0;
   font-size: 1.3em;
 }
 
-.card-line-1 span {
+.mainpage-card-line-1 span {
   font-size: 0.8em;
 }
 
-.card-content p {
+.mainpage-card-content p {
   margin: 0;
   font-size: 0.8em;
   color: #9b9b9b;
 }
 
-.card_desc {
+.mainpage-card_desc {
   padding-top: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.hashtags {
+.mainpage-hashtags {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -319,7 +319,7 @@ body {
   max-width: 100%;
 }
 
-.hashtag {
+.mainpage-hashtag {
   margin-top: 17px;
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
@@ -330,7 +330,7 @@ body {
   overflow: hidden; /* 넘치는 텍스트 숨김 */
 }
 
-.hashtag.alternate-color {
+.mainpage-hashtag.mainpage-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
 }
 
@@ -370,11 +370,11 @@ body {
   right: -40px;
 }
 
-.card-image-wrapper {
+.mainpage-card-image-wrapper {
   position: relative;
 }
 
-.participants-info {
+.mainpage-participants-info {
   position: absolute;
   top: 18px;
   left: 17px;
@@ -385,7 +385,7 @@ body {
   font-size: 0.9em;
 }
 
-.scrap-icon {
+.mainpage-scrap-icon {
   position: absolute;
   top: 10px;
   right: 13px;

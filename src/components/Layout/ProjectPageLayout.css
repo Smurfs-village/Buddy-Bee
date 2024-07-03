@@ -9,7 +9,6 @@
 
 .createpage-sub-nav {
   position: fixed;
-  top: 64px; /* 헤더 높이에 맞추어 조정 */
   width: 100%;
   background-color: #000;
   color: #fff;

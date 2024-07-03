@@ -26,65 +26,102 @@ const MatterComponent = () => {
     const { Engine, Render, Runner, Bodies, Mouse, MouseConstraint, World } =
       Matter;
 
-    // 엔진과 러너 생성
     const engine = Engine.create();
     const runner = Runner.create();
     const { world } = engine;
 
-    // 렌더러 생성
     const render = Render.create({
       element: sceneRef.current,
       engine: engine,
       options: {
-        width: sceneRef.current.clientWidth,
-        height: sceneRef.current.clientHeight,
+        width: sceneRef.current ? sceneRef.current.clientWidth : 0,
+        height: 800, // 고정 높이 설정
         wireframes: false,
         background: `url(${grid})`,
       },
     });
 
-    // 엔진과 렌더러 레퍼런스 설정
     engineRef.current = engine;
     renderRef.current = render;
 
-    // 벽 두께 설정
-    const wallThickness = 100;
+    const wallThickness = 1;
+    const mainSectionHeight = 800; // 고정 높이
 
-    // 벽 생성 함수
-    const createWalls = (width, height) => {
+    const createWalls = width => {
       return [
-        Bodies.rectangle(width / 2, -wallThickness / 2, width, wallThickness, {
+        Bodies.rectangle(width / 2, wallThickness / 2, width, wallThickness, {
           isStatic: true,
-        }),
+        }), // 상단 벽
         Bodies.rectangle(
           width / 2,
-          height + wallThickness / 2,
+          mainSectionHeight - wallThickness / 2,
           width,
           wallThickness,
           { isStatic: true }
-        ),
+        ), // 하단 벽
         Bodies.rectangle(
-          width + wallThickness / 2,
-          height / 2,
+          wallThickness / 2,
+          mainSectionHeight / 2,
           wallThickness,
-          height,
+          mainSectionHeight,
           { isStatic: true }
-        ),
+        ), // 좌측 벽
         Bodies.rectangle(
-          -wallThickness / 2,
-          height / 2,
+          width - wallThickness / 2,
+          mainSectionHeight / 2,
           wallThickness,
-          height,
+          mainSectionHeight,
           { isStatic: true }
-        ),
+        ), // 우측 벽
       ];
     };
 
-    // 벽 추가
-    const walls = createWalls(render.options.width, render.options.height);
-    wallsRef.current = walls;
+    const handleResize = () => {
+      if (!sceneRef.current) return;
 
-    // 이미지와 밀도 및 초기 위치 설정
+      const { width } = sceneRef.current.getBoundingClientRect();
+
+      render.canvas.width = width;
+      render.canvas.height = mainSectionHeight;
+
+      render.bounds.max.x = width;
+      render.bounds.max.y = mainSectionHeight;
+      render.options.width = width;
+      render.options.height = mainSectionHeight;
+      Render.setPixelRatio(render, window.devicePixelRatio);
+
+      Matter.Bounds.update(render.bounds, [
+        { x: 0, y: 0 },
+        { x: width, y: mainSectionHeight },
+      ]);
+
+      // 기존 벽 제거
+      wallsRef.current.forEach(wall => {
+        World.remove(world, wall);
+      });
+
+      // 새 벽 생성
+      const newWalls = createWalls(width);
+      World.add(world, newWalls);
+      wallsRef.current = newWalls;
+
+      // 박스 위치 업데이트
+      Matter.Composite.allBodies(world).forEach(body => {
+        if (body.label === "box") {
+          Matter.Body.setPosition(body, {
+            x: (body.position.x / render.bounds.max.x) * width,
+            y: body.position.y,
+          });
+        }
+      });
+    };
+
+    // 초기 벽 생성
+    const width = sceneRef.current.clientWidth;
+    const initialWalls = createWalls(width);
+    World.add(world, initialWalls);
+    wallsRef.current = initialWalls;
+
     const images = [
       { src: B, density: 0.001, x: 100, y: 200 },
       { src: U, density: 0.001, x: 200, y: 200 },
@@ -100,30 +137,22 @@ const MatterComponent = () => {
       { src: cloud, density: 0.001, x: 1100, y: 200 },
     ];
 
-    // 이미지 박스 생성
     const boxes = images.map((img, index) =>
-      Bodies.rectangle(
-        img.x, // x 좌표 설정
-        img.y, // y 좌표 설정
-        200, // 넓이 증가
-        200, // 높이 증가
-        {
-          render: {
-            sprite: {
-              texture: img.src,
-              xScale: 1.5, // 가로 크기 증가
-              yScale: 1.5, // 세로 크기 증가
-            },
+      Bodies.rectangle(img.x, img.y, 200, 200, {
+        label: "box",
+        render: {
+          sprite: {
+            texture: img.src,
+            xScale: 1.5,
+            yScale: 1.5,
           },
-          density: img.density, // 밀도 설정
-        }
-      )
+        },
+        density: img.density,
+      })
     );
 
-    // 월드에 박스와 벽 추가
-    World.add(world, [...boxes, ...walls]);
+    World.add(world, boxes);
 
-    // 마우스 생성 및 마우스 제약 추가
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
@@ -139,39 +168,11 @@ const MatterComponent = () => {
 
     render.mouse = mouse;
 
-    // 러너와 렌더러 실행
     Runner.run(runner, engine);
     Render.run(render);
 
-    // 창 크기 조정 핸들러
-    const handleResize = () => {
-      const width = sceneRef.current.clientWidth;
-      const height = sceneRef.current.clientHeight;
-
-      render.bounds.max.x = width;
-      render.bounds.max.y = height;
-      render.options.width = width;
-      render.options.height = height;
-      Render.setPixelRatio(render, window.devicePixelRatio);
-      render.canvas.width = width;
-      render.canvas.height = height;
-      Matter.Bounds.update(render.bounds, [
-        { x: 0, y: 0 },
-        { x: width, y: height },
-      ]);
-
-      wallsRef.current.forEach(wall => {
-        World.remove(world, wall);
-      });
-
-      const newWalls = createWalls(width, height);
-      World.add(world, newWalls);
-      wallsRef.current = newWalls;
-    };
-
     window.addEventListener("resize", handleResize);
-
-    handleResize();
+    handleResize(); // 페이지 로드 시 한 번 호출하여 벽을 설정
 
     return () => {
       Render.stop(render);
@@ -181,20 +182,17 @@ const MatterComponent = () => {
       render.textures = {};
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [sceneRef]);
 
-  // window 스크롤을 업데이트하는 마우스 휠 이벤트 추가
   useEffect(() => {
     const handleWheel = event => {
       if (sceneRef.current && sceneRef.current.contains(event.target)) {
-        event.preventDefault(); // 기본 스크롤 방지
+        event.preventDefault();
         const now = Date.now();
 
         if (now - lastScrollTime.current < 100) {
-          // 최근 스크롤 이벤트로부터 200ms 이내에 새 스크롤 이벤트가 발생한 경우
           scrollBehavior.current = "auto";
         } else {
-          // 최근 스크롤 이벤트로부터 200ms 이후에 새 스크롤 이벤트가 발생한 경우
           scrollBehavior.current = "smooth";
         }
 
@@ -212,7 +210,7 @@ const MatterComponent = () => {
       window.scrollBy({
         top: scrollDeltaY.current,
         left: 0,
-        behavior: scrollBehavior.current, // 부드러운 스크롤
+        behavior: scrollBehavior.current,
       });
       scrollDeltaY.current = 0;
       isScrolling.current = false;

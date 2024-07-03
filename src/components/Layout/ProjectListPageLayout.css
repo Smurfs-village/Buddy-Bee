@@ -1,15 +1,34 @@
-.project-list-page-layout {
+/* .project-list-page-layout {
   /* margin: 0; */
-  width: 100%;
-  height: auto;
-  background-color: aquamarine;
-}
+/* width: 100%; 
+} */
 
 .project-list-page-layout-grid {
-  height: 100%;
+  box-sizing: border-box;
+  /* height: 100%; */
+  border: 2px solid black;
+  border-top: none;
+  width: 100%;
+  background-color: white;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 20px;
   padding: 40px 40px 40px 35px;
+}
+
+.project-page-list-sub-nav {
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+
+.project-page-list-sub-nav button {
+  border: none;
+  background-color: transparent;
+  color: white;
 }

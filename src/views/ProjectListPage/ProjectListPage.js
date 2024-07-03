@@ -6,11 +6,7 @@ const ProjectPageList = () => {
   return (
     <Layout>
       <div className="project-page-list-layout">
-        <div className="project-page-list-sub-nav">
-          <button>#버디비_동행</button>
-          <button>#버디비_펀딩</button>
-          <ProjectListPageLayout />
-        </div>
+        <ProjectListPageLayout />
       </div>
     </Layout>
   );

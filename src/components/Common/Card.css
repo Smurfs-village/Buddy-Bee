@@ -1,0 +1,108 @@
+.common-card {
+  width: auto !important; /* 카드 너비 고정 */
+  height: 158.8px; /* 카드 높이 고정 */
+  background-color: #fff; /* 카드 배경 색상 */
+  border-radius: 26px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: black solid 2px;
+  box-sizing: border-box;
+}
+
+.common-card-line-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.common-card-image {
+  width: 350px; /* 이미지 너비 고정 */
+  height: 297px; /* 이미지 높이 고정 */
+  object-fit: cover;
+  opacity: 1; /* 이미지의 투명도 */
+}
+
+.common-card-content {
+  width: 100%;
+  height: 172px; /* 컨텐츠 높이 고정 */
+  box-sizing: border-box;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: #000 solid 2px;
+}
+
+.common-card-content h3 {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.common-card-line-1 span {
+  font-size: 0.8em;
+}
+
+.common-card-content p {
+  margin: 0;
+  font-size: 0.8em;
+  color: #9b9b9b;
+}
+
+.common-card_desc {
+  padding-top: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.common-hashtags {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: nowrap; /* 한 줄로 정렬 */
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.common-hashtag {
+  margin-top: 17px;
+  background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
+  border-radius: 25px;
+  padding: 3px 6px;
+  font-size: 1em;
+  color: #333;
+  white-space: nowrap; /* 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+}
+
+.common-hashtag.common-alternate-color {
+  background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+}
+
+.common-card-image-wrapper {
+  position: relative;
+}
+
+.common-participants-info {
+  position: absolute;
+  top: 18px;
+  left: 17px;
+  background: rgba(0, 0, 0);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 50px;
+  font-size: 0.9em;
+}
+
+.common-scrap-icon {
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}

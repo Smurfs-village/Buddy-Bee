@@ -1,0 +1,24 @@
+.project-page-list-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #c4a1ff;
+  background-image: url("../../img/grid_temp2-18.svg");
+}
+
+.project-page-list-sub-nav {
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+
+.project-page-list-sub-nav button {
+  border: none;
+  background-color: transparent;
+  color: white;
+}

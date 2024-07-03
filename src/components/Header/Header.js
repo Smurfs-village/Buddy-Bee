@@ -48,26 +48,32 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="header-left">
+    <header className="headerpage-header">
+      <div className="headerpage-header-container">
+        <div className="headerpage-header-left">
           <img src={icon} alt="Icon" />
           <img src={logo} alt="Logo" />
         </div>
-        <div className="header-right">
-          <div className="search-container">
+        <div className="headerpage-header-right">
+          <div className="headerpage-search-container">
             <input
               type="text"
               placeholder="Search..."
               onKeyDown={handleSearch}
             />
-            <img src={searchIcon} alt="Search" className="search-icon" />
+            <img
+              src={searchIcon}
+              alt="Search"
+              className="headerpage-search-icon"
+            />
           </div>
           <button type="button" onClick={handleButtonClick}>
             만들기
           </button>
           <div
-            className={`dropdown-menu ${isDropdownOpen ? "open" : ""}`}
+            className={`headerpage-dropdown-menu ${
+              isDropdownOpen ? "headerpage-open" : ""
+            }`}
             ref={dropdownRef}
           >
             <ul>
@@ -76,12 +82,19 @@ const Header = () => {
               <li>Option 3</li>
             </ul>
           </div>
-          <div className="profile-container" onClick={handleProfileClick}>
-            <img src={myprofile} alt="My Profile" className="profile-image" />
+          <div
+            className="headerpage-profile-container"
+            onClick={handleProfileClick}
+          >
+            <img
+              src={myprofile}
+              alt="My Profile"
+              className="headerpage-profile-image"
+            />
           </div>
           <div
-            className={`profile-dropdown-menu ${
-              isProfileDropdownOpen ? "open" : ""
+            className={`headerpage-profile-dropdown-menu ${
+              isProfileDropdownOpen ? "headerpage-open" : ""
             }`}
             ref={profileDropdownRef}
           >

@@ -19,31 +19,33 @@ const Card = ({ data, index, type, toggleScrap }) => {
   }, [data.hashtags]);
 
   return (
-    <div className="card" key={index}>
-      <div className="card-image-wrapper">
-        <img src={data.image} alt="Sample" className="card-image" />
-        <div className="participants-info">
+    <div className="mainpage-card" key={index}>
+      <div className="mainpage-card-image-wrapper">
+        <img src={data.image} alt="Sample" className="mainpage-card-image" />
+        <div className="mainpage-participants-info">
           {data.currentParticipants} / {data.maxParticipants}명
         </div>
         <img
           src={data.scrap ? scrap_yes : scrap_none}
           alt="Scrap"
-          className="scrap-icon"
+          className="mainpage-scrap-icon"
           onClick={() => toggleScrap(index, type)}
         />
       </div>
-      <div className="card-content">
-        <div className="card-line-1">
+      <div className="mainpage-card-content">
+        <div className="mainpage-card-line-1">
           <h3>{data.title}</h3>
           <span>작성자: {data.author}</span>
         </div>
         <p>조회수: {data.views}</p>
-        <p className="card_desc">{data.description}</p>
-        <div className="hashtags" ref={hashtagsRef}>
+        <p className="mainpage-card_desc">{data.description}</p>
+        <div className="mainpage-hashtags" ref={hashtagsRef}>
           {data.hashtags.map((tag, idx) => (
             <span
               key={idx}
-              className={`hashtag ${idx % 2 === 0 ? "alternate-color" : ""}`}
+              className={`mainpage-hashtag ${
+                idx % 2 === 0 ? "mainpage-alternate-color" : ""
+              }`}
             >
               #{tag}
             </span>

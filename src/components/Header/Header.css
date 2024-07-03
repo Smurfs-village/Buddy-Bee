@@ -1,7 +1,7 @@
 @import "../../styles/mixins.css";
 @import "../../styles/variables.css";
 
-.header {
+.headerpage-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.header-container {
+.headerpage-header-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,32 +30,32 @@
   margin: 0 20px;
 }
 
-.header-left img {
+.headerpage-header-left img {
   margin-right: 20px;
 }
 
-.header-right img {
+.headerpage-header-right img {
   margin: 4px;
 }
 
-.header-left {
+.headerpage-header-left {
   display: flex;
   align-items: center;
 }
 
-.header-right {
+.headerpage-header-right {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.search-container {
+.headerpage-search-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.search-container input {
+.headerpage-search-container input {
   padding-right: 30px; /* 검색 아이콘 공간 확보 */
   border-radius: 15px;
   box-sizing: border-box;
@@ -63,14 +63,14 @@
   margin-right: 10px;
 }
 
-.search-container .search-icon {
+.headerpage-search-container .headerpage-search-icon {
   position: absolute;
   right: 10px;
   width: 20px;
   height: 20px;
 }
 
-.header-right button {
+.headerpage-header-right button {
   margin-right: 10px;
   background-color: #ff8473;
   border-radius: 15px;
@@ -79,7 +79,7 @@
   font-weight: bold;
 }
 
-.profile-container {
+.headerpage-profile-container {
   width: 40px;
   height: 40px;
   overflow: hidden;
@@ -92,14 +92,14 @@
   cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
 }
 
-.profile-image {
+.headerpage-profile-image {
   width: 100%;
   height: auto;
 }
 
 /* 드롭다운 메뉴 스타일 */
-.dropdown-menu,
-.profile-dropdown-menu {
+.headerpage-dropdown-menu,
+.headerpage-profile-dropdown-menu {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -110,37 +110,37 @@
   opacity: 0;
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
-.dropdown-menu {
+.headerpage-dropdown-menu {
   position: absolute;
   top: 65px;
   right: 50px;
 }
-.profile-dropdown-menu {
+.headerpage-profile-dropdown-menu {
   position: absolute;
   top: 65px;
   right: -49px;
 }
-.dropdown-menu.open,
-.profile-dropdown-menu.open {
+.headerpage-dropdown-menu.headerpage-open,
+.headerpage-profile-dropdown-menu.headerpage-open {
   max-height: 200px; /* 실제 높이보다 충분히 큰 값 */
   opacity: 1;
 }
 
-.dropdown-menu ul,
-.profile-dropdown-menu ul {
+.headerpage-dropdown-menu ul,
+.headerpage-profile-dropdown-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.dropdown-menu li,
-.profile-dropdown-menu li {
+.headerpage-dropdown-menu li,
+.headerpage-profile-dropdown-menu li {
   padding: 10px 20px;
   cursor: pointer;
 }
 
-.dropdown-menu li:hover,
-.profile-dropdown-menu li:hover {
+.headerpage-dropdown-menu li:hover,
+.headerpage-profile-dropdown-menu li:hover {
   background-color: #f0f0f0;
 }
 

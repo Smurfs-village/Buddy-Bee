@@ -1,7 +1,7 @@
 import "./MyProfile.css";
 import { useState, useRef } from "react";
 import editProfileImg from "../../img/edit_profile_img.svg";
-import flowerImg from "../../img/flower.svg";
+import myPageflowerImg from "../../img/myPage_flower.svg";
 import cloudImg from "../../img/cloud2.svg";
 import profileImg from "../../img/profile_img.svg";
 
@@ -34,7 +34,7 @@ const MainAside = () => {
             </p>
             <p className="MyProfile_main_aside_word">작성한 글</p>
             <p className="MyProfile_main_aside_word">진행중인 프로젝트</p>
-            <p className="MyProfile_main_aside_word">좋아요</p>
+            <p className="MyProfile_main_aside_word">나의 꿀단지</p>
             <div className="MyProfile_main_aside_setting_deleteId_wrapper">
                 <p className="MyProfile_main_aside_setting">설정</p>
                 <p className="MyProfile_main_aside_deleteId">회원탈퇴</p>
@@ -55,7 +55,7 @@ const MainRightContainer = () => {
     const [contactInfo, setContactInfo] = useState("01012345678");
     const [accountInfo, setAccountInfo] = useState("홍*동 KB국민은행 123456-7");
     {
-        /* 뒤에 숫자 더 넣으면 웹페이지에서 숫자가 짤려서 나옴*/
+        /* 123456-7 뒤에 숫자 더 넣으면 웹페이지에서 숫자가 짤려서 나옴*/
     }
     const [intro, setIntro] = useState("");
 
@@ -119,10 +119,12 @@ const MainRightContainer = () => {
                     />
                 </label>
             </div>
-            <img
-                src={editProfileImg}
-                className="MyProfile_main_right_container_profile_edit_img"
-            />
+            <div className="MyProfile_main_right_container_profile_edit_img_wrapper">
+                <img
+                    src={editProfileImg}
+                    className="MyProfile_main_right_container_profile_edit_img"
+                />
+            </div>
             <input
                 className="MyProfile_main_right_container_introductionLetterBox"
                 placeholder="최대 50자"
@@ -131,7 +133,7 @@ const MainRightContainer = () => {
                 onChange={onChangeIntroValue}
             />
             <img
-                src={flowerImg}
+                src={myPageflowerImg}
                 className="MyProfile_main_right_container_flowerImg"
             />
             {/* flowerImg가 introductionLetterBox 밑의 영역을 차지함 */}

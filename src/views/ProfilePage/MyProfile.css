@@ -108,14 +108,11 @@
     outline: none;
     padding-top: 10px;
 }
-
-.MyProfile_main_right_container_profile_edit_img {
-    /* height: 160px;
-    width: 160px;
-    border-radius: 50%; */
-    position: absolute; /* relative로 하면 introductionLetterBox 위 영역 차지*/
-    right: 450px;
+.MyProfile_main_right_container_profile_edit_img_wrapper {
+    position: absolute;
+    right: 450px; /* 화면 resize시 이미지가 고정되어있지 않고 움직임 */
 }
+
 .MyProfile_main_right_container_profile_edit_img:hover {
     cursor: pointer;
 }

@@ -1,0 +1,15 @@
+.project-list-page-layout {
+  /* margin: 0; */
+  width: 100%;
+  height: auto;
+  background-color: aquamarine;
+}
+
+.project-list-page-layout-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 20px;
+  padding: 40px 40px 40px 35px;
+}

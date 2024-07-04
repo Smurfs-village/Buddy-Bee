@@ -24,7 +24,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       <div className="common-card-image-wrapper">
         <img src={data.image} alt="Sample" className="common-card-image" />
         <div className="common-participants-info">
-          {data.currentParticipants} / {data.maxParticipants}명
+          {data.currentParticipants}/{data.maxParticipants}명
         </div>
         <img
           src={data.scrap ? scrap_yes : scrap_none}
@@ -36,9 +36,9 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       <div className="common-card-content">
         <div className="common-card-line-1">
           <h3>{data.title}</h3>
-          <span>작성자: {data.author}</span>
+          <span>{data.author}</span>
         </div>
-        <p>조회수: {data.views}</p>
+        <p>조회수 {data.views}</p>
         <p className="common-card_desc">{data.description}</p>
         <div className="common-hashtags" ref={hashtagsRef}>
           {data.hashtags.map((tag, idx) => (

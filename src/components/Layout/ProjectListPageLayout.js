@@ -8,16 +8,29 @@ import birthdayImage from "../../img/birthday1.jpg";
 const ProjectListPageLayout = () => {
   const initialRecruitmentCards = [
     {
-      title: "동행 구합니다!",
-      author: "나비123",
+      title: "거기 당신",
+      author: "위팬덕",
       views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
       maxParticipants: 4,
+      date: new Date(),
+    },
+    {
+      title: "동행 구합니다!",
+      author: "비비디바비디",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date() + 3,
     },
     {
       title: "동행 구합니다!",
@@ -42,18 +55,7 @@ const ProjectListPageLayout = () => {
       scrap: false,
       currentParticipants: 2,
       maxParticipants: 4,
-    },
-    {
-      title: "동행 구합니다!",
-      author: "나비123",
-      views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 2,
-      maxParticipants: 4,
+      date: new Date() - 5,
     },
     // 추가적인 목업 데이터...
   ];
@@ -69,6 +71,7 @@ const ProjectListPageLayout = () => {
       scrap: false,
       currentParticipants: 3,
       maxParticipants: 5,
+      date: new Date() + 10,
     },
     {
       title: "펀딩 구합니다!",
@@ -80,28 +83,31 @@ const ProjectListPageLayout = () => {
       scrap: false,
       currentParticipants: 3,
       maxParticipants: 5,
+      date: new Date() - 4,
     },
     {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      title: "오늘은 7월 4일",
+      author: "서머",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
       hashtags: ["펀딩", "지원", "버디비"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 3,
       maxParticipants: 5,
+      date: new Date(),
     },
     {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
-      hashtags: ["펀딩", "지원", "버디비"],
+      title: "날짜 테스트용",
+      author: "나비",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 3,
       maxParticipants: 5,
+      date: new Date() + 3,
     },
     // 추가적인 목업 데이터...
   ];
@@ -110,6 +116,7 @@ const ProjectListPageLayout = () => {
     initialRecruitmentCards
   );
   const [fundingCards, setFundingCards] = useState(initialFundingCards);
+  const [sortBtn, setSortBtn] = useState(false);
 
   const toggleScrap = (index, type) => {
     if (type === "recruitment") {
@@ -122,6 +129,14 @@ const ProjectListPageLayout = () => {
       setFundingCards(updatedCards);
     }
   };
+
+  const sortCards = e => {
+    if (e.target.className === "sort-latest") {
+      setSortBtn(!sortBtn);
+    } else if (e.target.className === "sort-popularity") {
+      setSortBtn(!sortBtn);
+    }
+  };
   return (
     <div className="project-list-page-layout">
       <BackGroundGrid>
@@ -130,25 +145,46 @@ const ProjectListPageLayout = () => {
           <button>#버디비_펀딩</button>
         </div>
         <PageLayout>
-          <div className="project-list-page-layout-grid">
-            {recruitmentCards.map((data, index) => (
-              <ListCard
-                key={index}
-                data={data}
-                index={index}
-                type="recruitment"
-                toggleScrap={toggleScrap}
-              />
-            ))}
-            {fundingCards.map((data, index) => (
-              <ListCard
-                key={index}
-                data={data}
-                index={index}
-                type="funding"
-                toggleScrap={toggleScrap}
-              />
-            ))}
+          <div className="project-list-page-layout-wrapper">
+            <div className="project-list-page-layout-line1">
+              <h1>#동행 모집</h1>
+              <div className="project-list-btn-wrapper">
+                <button
+                  className={`sort-latest ${sortBtn ? "btn-sort-true" : ""}`}
+                  onClick={sortCards}
+                >
+                  최신순
+                </button>
+                <button
+                  className={`sort-popurality ${
+                    sortBtn ? "btn-sort-true" : ""
+                  }`}
+                  onClick={sortCards}
+                >
+                  인기순
+                </button>
+              </div>
+            </div>
+            <div className="project-list-page-layout-grid">
+              {recruitmentCards.map((data, index) => (
+                <ListCard
+                  key={index}
+                  data={data}
+                  index={index}
+                  type="recruitment"
+                  toggleScrap={toggleScrap}
+                />
+              ))}
+              {fundingCards.map((data, index) => (
+                <ListCard
+                  key={index}
+                  data={data}
+                  index={index}
+                  type="funding"
+                  toggleScrap={toggleScrap}
+                />
+              ))}
+            </div>
           </div>
         </PageLayout>
       </BackGroundGrid>

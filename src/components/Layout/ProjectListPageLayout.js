@@ -132,9 +132,7 @@ const ProjectListPageLayout = () => {
 
   const sortCards = e => {
     if (e.target.className === "sort-latest") {
-      setSortBtn(!sortBtn);
     } else if (e.target.className === "sort-popularity") {
-      setSortBtn(!sortBtn);
     }
   };
   return (
@@ -150,8 +148,11 @@ const ProjectListPageLayout = () => {
               <h1>#동행 모집</h1>
               <div className="project-list-btn-wrapper">
                 <button
-                  className={`sort-latest ${sortBtn ? "btn-sort-true" : ""}`}
-                  onClick={sortCards}
+                  className={`sort-latest ${!sortBtn ? "btn-sort-true" : ""}`}
+                  onClick={e => {
+                    sortCards(e);
+                    setSortBtn(false);
+                  }}
                 >
                   최신순
                 </button>
@@ -159,7 +160,10 @@ const ProjectListPageLayout = () => {
                   className={`sort-popurality ${
                     sortBtn ? "btn-sort-true" : ""
                   }`}
-                  onClick={sortCards}
+                  onClick={e => {
+                    sortCards(e);
+                    setSortBtn(true);
+                  }}
                 >
                   인기순
                 </button>

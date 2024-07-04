@@ -1,0 +1,40 @@
+.MyProfile_main_top_container {
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  padding: 0 0 0 30px;
+  position: relative;
+}
+
+.MyProfile_main_top_container_title_desc_wrapper {
+  margin-left: 22px;
+}
+
+.MyProfile_cloud_img {
+  position: absolute;
+  right: -100px;
+  bottom: -90px;
+  z-index: 1;
+}
+
+.MyProfile_main_top_container_img {
+  padding: 20px;
+}
+
+.MyProfile_main_top_container_title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.MyProfile_main_top_container_desc {
+  transform: translateY(-10px);
+  font-size: 12px;
+  width: 190px;
+}

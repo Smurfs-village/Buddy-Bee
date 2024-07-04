@@ -4,6 +4,7 @@ import PageLayout from "./PageLayout";
 import "./ProjectListPageLayout.css";
 import ListCard from "../Common/ListCard";
 import birthdayImage from "../../img/birthday1.jpg";
+import rightArrow from "../../img/right_arrow.svg";
 
 const ProjectListPageLayout = () => {
   const initialRecruitmentCards = [
@@ -138,7 +139,7 @@ const ProjectListPageLayout = () => {
   return (
     <div className="project-list-page-layout">
       <BackGroundGrid>
-        <div className="project-page-list-sub-nav">
+        <div className="project-list-page-sub-nav">
           <button>#버디비_동행</button>
           <button>#버디비_펀딩</button>
         </div>
@@ -169,6 +170,7 @@ const ProjectListPageLayout = () => {
                 </button>
               </div>
             </div>
+            {/* 목록 페이지 그리드/카드 나열 부분 */}
             <div className="project-list-page-layout-grid">
               {recruitmentCards.map((data, index) => (
                 <ListCard
@@ -188,6 +190,15 @@ const ProjectListPageLayout = () => {
                   toggleScrap={toggleScrap}
                 />
               ))}
+            </div>
+            {/* 페이지 버튼 컴포넌트화 할 예정입니다 */}
+            <div className="project-list-pagenation-btn-wrapper">
+              <button className="project-list-pagenation-btn">1</button>
+              <img
+                src={rightArrow}
+                alt=""
+                className="project-list-pagenation-arrow"
+              />
             </div>
           </div>
         </PageLayout>

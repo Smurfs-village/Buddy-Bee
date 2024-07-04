@@ -15,14 +15,13 @@
   height: 301px; /* 카드 높이 고정 */
   background-color: #fff; /* 카드 배경 색상 */
   border-radius: 20px;
-  /* box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.1); */
-  /* scroll-snap-align: start; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
   border: rgba(0, 0, 0, 0.836) solid 2px;
   box-sizing: border-box;
+  aspect-ratio: 225/301 auto;
 }
 
 .common-card-line-1 {
@@ -32,21 +31,23 @@
 }
 
 .common-card-image {
-  width: 225px; /* 이미지 너비 고정 */
-  height: 180px; /* 이미지 높이 고정 */
+  max-width: 225px; /* 이미지 너비 고정 */
+  max-height: 180px; /* 이미지 높이 고정 */
   object-fit: cover;
   opacity: 0.6; /* 이미지의 투명도 */
+  aspect-ratio: 225/180;
 }
 
 .common-card-content {
   width: 100%;
-  height: 130px; /* 컨텐츠 높이 고정 */
+  max-height: 130px; /* 컨텐츠 높이 고정 */
   box-sizing: border-box;
   padding: 7px 10px;
   display: flex;
   flex-direction: column;
   gap: 1px;
   border-top: #000 solid 1px;
+  aspect-ratio: 2/1 auto;
 }
 
 .common-card-content h3 {
@@ -119,7 +120,7 @@
   position: absolute;
   top: 6px;
   right: 5px;
-  width: 38px;
-  height: 38px;
+  max-width: 38px;
+  max-height: 38px;
   cursor: pointer;
 }

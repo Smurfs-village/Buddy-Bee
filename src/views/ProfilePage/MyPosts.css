@@ -1,230 +1,124 @@
-/* main */
-.MyPosts_main {
-    height: 100%;
-    padding: 4% 21% 0% 21%;
-    background-image: url("../../img/grid_temp2-18.svg");
-    background-size: cover;
-    background-color: #c4a1ff;
+.MyPosts_main_rightContainer_wrapper {
+  display: flex;
 }
 
-/* main_top */
-
-.MyPosts_main_top_container,
-.MyPosts_main_aside,
 .MyPosts_main_right_container {
-    border-top-width: 2px;
-    border-bottom-width: 8px;
-    border-left-width: 2px;
-    border-right-width: 8px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 15px;
-    margin: 10px;
-    background-color: white;
-}
-
-.MyPosts_main_top_container {
-    display: flex;
-    padding: 0 0 0 30px;
-    position: relative;
-}
-.MyPosts_main_top_container_title_desc_wrapper {
-    margin-left: 22px;
-}
-.MyPosts_cloud_img {
-    position: absolute;
-    right: -100px;
-    bottom: -90px;
-    z-index: 1;
-}
-.MyPosts_main_top_container_img {
-    padding: 20px;
-}
-.MyPosts_main_top_container_title {
-    font-size: 30px;
-    font-weight: bold;
-}
-.MyPosts_main_top_container_desc {
-    transform: translateY(-10px);
-    font-size: 12px;
-    width: 190px;
-}
-/* main_aside */
-
-.MyPosts_main_aside_rightContainer_wrapper {
-    display: flex;
-}
-
-.MyPosts_main_aside {
-    display: flex;
-    flex: 2;
-    flex-direction: column;
-    padding: 40px 15px 0 15px;
-}
-.MyPosts_main_aside_word {
-    color: #505050;
-    font-size: 16px;
-    font-weight: bold;
-    border-bottom: 1px dashed gray;
-    padding-bottom: 10px;
-}
-.MyPosts_main_aside_word_writtenPosts {
-    color: black;
-}
-.MyPosts_main_aside_deleteId_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    padding: 10px;
-    font-size: 15px;
-    color: #afafaf;
-}
-
-/* main_right_container */
-.MyPosts_main_right_container {
-    display: flex;
-    flex-direction: column;
-    flex: 8;
-    padding: 55px 76px;
-    position: relative;
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 8;
+  padding: 35px 80px;
+  position: relative;
 }
 
 .MyPosts_main_right_container_writtenPosts {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.MyPosts_main_right_container_box {
-    display: flex;
-    border: 2px solid black;
-    border-radius: 20px;
-    margin-top: 18px;
-    height: 84px;
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.MyPosts_main_right_container_box_img {
-    border-right: 2px solid black;
-}
 .MyPosts_main_right_container_cards_wrapper {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-}
-.MyPosts_main_right_container_box_text_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    padding-left: 27.8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.MyPosts_finishedProject_text_wrapper {
-    opacity: 0.6;
-}
-
-.MyPosts_main_right_container_box_projectName {
-    font-size: 15px;
-    font-weight: bold;
-}
-.MyPosts_main_right_container_box_numbersOfParticipants {
-    font-size: 12px;
-}
-
-.MyPosts_main_right_container_box_btn_wrapper {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
+.MyPosts_main_right_container_box {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  width: calc(50% - 10px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .MyPosts_main_right_container_box_img_wrapper {
-    width: 123px;
-    background-image: url("../../img/shinee_concert.jpg");
-    background-size: cover;
-    border-right: 2px solid black;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 15px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
 }
 
-.Myposts_finishedProjectImg {
-    width: 123px;
-    background-image: url("../../img/kissOfLife_concert.jpg");
-    background-size: cover;
-    border-right: 2px solid black;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 15px;
-    filter: grayscale(25%);
-    opacity: 0.6;
+.MyPosts_main_right_container_box_text_wrapper {
+  margin-top: 10px;
 }
 
-.MyPosts_main_right_container_box_btn_wrapper > button {
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 2px solid;
-    margin-right: 7px;
-    height: 31px;
-    width: 64.9px; /* height, width값 고정으로 반응형 구현 미비*/
+.MyPosts_main_right_container_box_projectName {
+  font-size: 18px;
+  font-weight: bold;
 }
-.MyPosts_main_right_container_box_progressingBtn {
-    background-color: #fadf0b;
+
+.MyPosts_main_right_container_box_numbersOfParticipants {
+  font-size: 14px;
+  color: #888;
 }
-.MyPosts_main_right_container_box_deleteBtn {
-    background-color: white;
+
+.MyPosts_main_right_container_box_btn_wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
+
+.MyPosts_main_right_container_box_progressingBtn,
 .MyPosts_main_right_container_box_endBtn {
-    color: white;
-    background-color: #bfbfbf;
-    border: none;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
-.Myposts_finishedProject_container {
-    /* opacity: 0.7; */
-}
-
-.MyPosts_finishedProject_container_deleteBtn {
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 2px solid;
-    margin-right: 7px;
-    height: 31px;
-    width: 64.9px;
-    opacity: 1;
+.MyPosts_main_right_container_box_deleteBtn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .MyPosts_main_right_container_flowerImg {
-    width: 117px;
-    height: 117px;
-    position: absolute;
-    left: 45px;
-    bottom: 40px;
+  width: 117px;
+  height: 117px;
+  position: absolute;
+  left: 45px;
+  bottom: 40px;
 }
 
 .MyPosts_main_right_container_btn_arrow_wrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .MyPosts_main_right_container_btn {
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 50%;
-    font-size: 12px;
-    margin-right: 8px;
-    padding: 6px 12px 6px 12px;
-}
-.MyPosts_main_right_container_pageOneBtn {
-    background-color: #fadf0b;
-}
-.MyPosts_main_right_container_pageTwoBtn {
-    background-color: white;
+  background-color: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 .MyPosts_rightArrow {
-    cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
-/* etc */
+.MyPosts_main_right_container_btn:hover,
+.MyPosts_rightArrow:hover {
+  background-color: #bbb;
+}

@@ -1,0 +1,37 @@
+.MyProfile_main_aside {
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  padding: 40px 15px 0 15px;
+}
+
+.MyProfile_main_aside_word {
+  color: #505050;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px dashed gray;
+  padding-bottom: 10px;
+}
+
+.MyProfile_main_aside_word_profileSetting {
+  color: black;
+}
+
+.MyProfile_main_aside_deleteId_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 10px;
+  font-size: 15px;
+  color: #afafaf;
+}

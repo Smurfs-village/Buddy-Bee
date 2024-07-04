@@ -2,7 +2,7 @@ import { useState } from "react";
 import BackGroundGrid from "./BackGroundGrid";
 import PageLayout from "./PageLayout";
 import "./ProjectListPageLayout.css";
-import ListCard from "../Common/Card";
+import ListCard from "../Common/ListCard";
 import birthdayImage from "../../img/birthday1.jpg";
 
 const ProjectListPageLayout = () => {

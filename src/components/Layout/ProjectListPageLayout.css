@@ -22,6 +22,14 @@
   padding: 0px 21px 40px 35px;
 }
 
+@media screen and (max-width: 767px) {
+  .project-list-page-layout-wrapper {
+    width: 100%;
+    height: auto;
+    position: relative;
+    aspect-ratio: 320 / 100;
+  }
+}
 .project-list-page-layout-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -36,7 +44,7 @@
 }
 
 .project-list-btn-wrapper {
-  align-items: last baseline;
+  align-items: flex-end;
 }
 
 .project-list-page-layout-wrapper h1 {

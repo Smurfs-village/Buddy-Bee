@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
-import "./Card.css";
+import "./ListCard.css";
 
 const ListCard = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);

@@ -86,6 +86,7 @@ const MainRightContainer = () => {
       <div className="MyProfile_main_right_container_profile_edit_img_wrapper">
         <img
           src={editProfileImg}
+          alt=""
           className="MyProfile_main_right_container_profile_edit_img"
         />
       </div>
@@ -98,6 +99,7 @@ const MainRightContainer = () => {
       />
       <img
         src={myPageflowerImg}
+        alt=""
         className="MyProfile_main_right_container_flowerImg"
       />
       <form className="MyProfile_main_right_container_btn_wrapper">

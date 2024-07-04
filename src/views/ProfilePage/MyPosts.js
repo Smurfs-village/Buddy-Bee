@@ -1,23 +1,27 @@
 import "./MyPosts.css";
 import myPageflowerImg from "../../img/myPage_flower.svg";
 import rightArrow from "../../img/right_arrow.svg";
+import shineeConcertImg from "../../img/shinee_concert.jpg";
+import kissOfLifeConcertImg from "../../img/kissOfLife_concert.jpg";
 
-const Card = () => {
+const Card = ({ imgSrc, projectName, participants, status }) => {
   return (
     <div className="MyPosts_main_right_container_box">
-      <div className="MyPosts_main_right_container_box_img_wrapper"></div>
+      <div
+        className="MyPosts_main_right_container_box_img_wrapper"
+        style={{ backgroundImage: `url(${imgSrc})` }}
+      ></div>
       <div className="MyPosts_main_right_container_box_text_wrapper">
         <div className="MyPosts_main_right_container_box_projectName">
-          프로젝트 이름
+          {projectName}
         </div>
         <div className="MyPosts_main_right_container_box_numbersOfParticipants">
-          12/30명
+          {participants}
         </div>
       </div>
-
       <div className="MyPosts_main_right_container_box_btn_wrapper">
         <button className="MyPosts_main_right_container_box_progressingBtn">
-          진행중
+          {status}
         </button>
         <button className="MyPosts_main_right_container_box_deleteBtn">
           삭제
@@ -27,19 +31,21 @@ const Card = () => {
   );
 };
 
-const FinishedProject = () => {
+const FinishedProject = ({ imgSrc, projectName, participants }) => {
   return (
     <div className="MyPosts_main_right_container_box Myposts_finishedProject_container">
-      <div className="MyPosts_main_right_container_box_img_wrapper Myposts_finishedProjectImg"></div>
+      <div
+        className="MyPosts_main_right_container_box_img_wrapper Myposts_finishedProjectImg"
+        style={{ backgroundImage: `url(${imgSrc})` }}
+      ></div>
       <div className="MyPosts_main_right_container_box_text_wrapper MyPosts_finishedProject_text_wrapper">
         <div className="MyPosts_main_right_container_box_projectName">
-          프로젝트 이름
+          {projectName}
         </div>
         <div className="MyPosts_main_right_container_box_numbersOfParticipants">
-          30/30명
+          {participants}
         </div>
       </div>
-
       <div className="MyPosts_main_right_container_box_btn_wrapper">
         <button className="MyPosts_main_right_container_box_endBtn">
           종료
@@ -57,10 +63,29 @@ const MainRightContainer = () => {
     <div className="MyPosts_main_right_container">
       <div className="MyPosts_main_right_container_writtenPosts">작성한 글</div>
       <div className="MyPosts_main_right_container_cards_wrapper">
-        <Card />
-        <Card />
-        <Card />
-        <FinishedProject />
+        <Card
+          imgSrc={shineeConcertImg}
+          projectName="프로젝트 이름"
+          participants="12/30명"
+          status="진행중"
+        />
+        <Card
+          imgSrc={shineeConcertImg}
+          projectName="프로젝트 이름"
+          participants="12/30명"
+          status="진행중"
+        />
+        <Card
+          imgSrc={shineeConcertImg}
+          projectName="프로젝트 이름"
+          participants="12/30명"
+          status="진행중"
+        />
+        <FinishedProject
+          imgSrc={kissOfLifeConcertImg}
+          projectName="프로젝트 이름"
+          participants="30/30명"
+        />
       </div>
       <img
         src={myPageflowerImg}
@@ -82,7 +107,7 @@ const MainRightContainer = () => {
 
 const MyPosts = () => {
   return (
-    <div className="MyPosts_main_rightContainer_wrapper">
+    <div className="MyPosts_container">
       <MainRightContainer />
     </div>
   );

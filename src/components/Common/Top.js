@@ -1,11 +1,15 @@
 import profileImg from "../../img/profile_img.svg";
 import cloudImg from "../../img/cloud2.svg";
-import "./Top.css"; // 필요한 CSS 파일을 임포트합니다.
+import "./Top.css";
 
 const Top = () => {
   return (
     <div className="MyProfile_main_top_container">
-      <img src={profileImg} className="Myprofile_main_top_container_img" />
+      <img
+        src={profileImg}
+        alt=""
+        className="Myprofile_main_top_container_img"
+      />
       <div className="MyProfile_main_top_container_title_desc_wrapper">
         <p className="MyProfile_main_top_container_title">용감한 버디비</p>
         <p className="MyProfile_main_top_container_desc">
@@ -13,7 +17,7 @@ const Top = () => {
           도전을 즐깁니다.
         </p>
       </div>
-      <img src={cloudImg} className="MyProfile_cloud_img" />
+      <img src={cloudImg} alt="" className="MyProfile_cloud_img" />
     </div>
   );
 };

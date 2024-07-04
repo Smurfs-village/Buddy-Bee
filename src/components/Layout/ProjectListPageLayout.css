@@ -1,0 +1,89 @@
+/* .project-list-page-layout {
+  /* margin: 0; */
+/* width: 100%; 
+} */
+
+.project-list-page-sub-nav {
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 0;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+.project-list-page-sub-nav :nth-child(1) {
+  margin-left: 18%;
+}
+
+.project-list-page-layout-wrapper {
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-top: none;
+  width: 100%;
+  background-color: white;
+  padding: 0px 21px 40px 35px;
+}
+
+.project-list-page-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 30px 5px;
+}
+
+.project-list-page-layout-line1 {
+  padding: 40px 0 50px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-list-btn-wrapper {
+  align-items: flex-end;
+}
+
+.project-list-page-layout-wrapper h1 {
+  margin: 0;
+}
+
+.project-list-page-layout-line1 button {
+  background-color: white;
+  border: solid black 2px;
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  border-radius: 26px;
+  margin-left: 5px;
+  align-items: last baseline;
+}
+.project-list-page-sub-nav button {
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+
+.project-list-page-layout-line1 .btn-sort-true {
+  background-color: black;
+  color: white;
+}
+
+.project-list-pagenation-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.project-list-pagenation-btn-wrapper button {
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-right: 8px;
+  padding: 6px 12px 6px 12px;
+}
+
+.project-list-pagenation-btn {
+  background-color: #fadf0b;
+}
+
+.project-list-pagenation-arrow {
+  cursor: pointer;
+}

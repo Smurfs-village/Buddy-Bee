@@ -35,6 +35,7 @@
     position: absolute;
     right: -100px;
     bottom: -90px;
+    z-index: 1;
 }
 .MyProfile_main_top_container_img {
     padding: 20px;
@@ -70,16 +71,14 @@
 .MyProfile_main_aside_word_profileSetting {
     color: black;
 }
-.MyProfile_main_aside_setting_deleteId_wrapper {
+.MyProfile_main_aside_deleteId_wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     height: 100%;
     padding: 10px;
-}
-.MyProfile_main_aside_setting,
-.MyProfile_main_aside_deleteId {
     font-size: 15px;
+    color: #afafaf;
 }
 
 /* main_right_container */
@@ -87,7 +86,8 @@
     display: flex;
     flex-direction: column;
     flex: 8;
-    padding: 35px; /* 동서남북으로 px값 주면 introLetterBox가 삐뚤어짐*/
+    padding: 35px 80px;
+    position: relative;
 }
 .MyProfile_main_right_container_userInfo_wrapper label {
     font-weight: bold;
@@ -110,7 +110,8 @@
 }
 .MyProfile_main_right_container_profile_edit_img_wrapper {
     position: absolute;
-    right: 450px; /* 화면 resize시 이미지가 고정되어있지 않고 움직임 */
+    right: 80px;
+    top: 50px;
 }
 
 .MyProfile_main_right_container_profile_edit_img:hover {
@@ -127,13 +128,14 @@
 .MyProfile_main_right_container_flowerImg {
     width: 117px;
     height: 117px;
-    position: relative;
-    right: 35px;
-    bottom: 50px;
+    position: absolute;
+    left: 45px;
+    bottom: 40px;
 }
 
 .MyProfile_main_right_container_btn_wrapper {
     text-align: right;
+    margin-top: 31px;
 }
 
 .MyProfile_main_right_container_btn {

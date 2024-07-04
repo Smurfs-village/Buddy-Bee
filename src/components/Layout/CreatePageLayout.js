@@ -5,6 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import "./CreatePageLayout.css";
 import PageLayout from "./PageLayout";
 import BackGroundGrid from "./BackGroundGrid";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // 이미지 업로드 핸들러
 const imageHandler = function () {
@@ -29,9 +31,12 @@ const ProjectPageLayout = ({ children }) => {
   const [content, setContent] = useState("");
   const [hashtag, setHashtag] = useState("");
   const [hashtags, setHashtags] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [maxParticipants, setMaxParticipants] = useState("");
+  const [options, setOptions] = useState([]);
+  const [optionName, setOptionName] = useState("");
+  const [optionPrice, setOptionPrice] = useState("");
   const quillRef = useRef(null);
 
   const handleSubmit = event => {
@@ -44,6 +49,7 @@ const ProjectPageLayout = ({ children }) => {
       startDate,
       endDate,
       maxParticipants,
+      options,
     });
   };
 
@@ -63,6 +69,18 @@ const ProjectPageLayout = ({ children }) => {
     setHashtags(hashtags.filter(t => t !== tag));
   };
 
+  const addOption = () => {
+    if (optionName.trim() && optionPrice.trim()) {
+      setOptions([...options, { name: optionName, price: optionPrice }]);
+      setOptionName("");
+      setOptionPrice("");
+    }
+  };
+
+  const removeOption = index => {
+    setOptions(options.filter((_, i) => i !== index));
+  };
+
   return (
     <Layout>
       <BackGroundGrid>
@@ -76,8 +94,8 @@ const ProjectPageLayout = ({ children }) => {
               onSubmit={handleSubmit}
             >
               <div className="createpage-form-group">
-                <label>제목</label>
                 <input
+                  className="createpage-title-input"
                   type="text"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
@@ -85,7 +103,6 @@ const ProjectPageLayout = ({ children }) => {
                 />
               </div>
               <div className="createpage-form-group">
-                <label>내용</label>
                 <ReactQuill
                   ref={quillRef}
                   value={content}
@@ -108,7 +125,7 @@ const ProjectPageLayout = ({ children }) => {
                 />
               </div>
               <div className="createpage-form-group">
-                <label>
+                <label className="createpage-hashtag-label">
                   해시태그 입력{" "}
                   <span className="createpage-hashtag-limit">(최대 10개)</span>
                 </label>
@@ -117,19 +134,20 @@ const ProjectPageLayout = ({ children }) => {
                     type="text"
                     value={hashtag}
                     onChange={e => setHashtag(e.target.value)}
-                    placeholder="해시태그를 입력해주세요"
                     maxLength="15"
                   />
-                  <button
-                    type="button"
-                    onClick={addHashtag}
-                    className="createpage-add-button"
-                  >
-                    추가하기
-                  </button>
-                  <span className="createpage-char-count">
-                    {hashtag.length}/15
-                  </span>
+                  <div>
+                    <span className="createpage-char-count">
+                      {hashtag.length}/15
+                    </span>
+                    <button
+                      type="button"
+                      onClick={addHashtag}
+                      className="createpage-add-button"
+                    >
+                      추가하기
+                    </button>
+                  </div>
                 </div>
                 <div className="createpage-hashtags-display">
                   {hashtags.map((tag, index) => (
@@ -149,36 +167,64 @@ const ProjectPageLayout = ({ children }) => {
                   ))}
                 </div>
               </div>
+              {/* 옵션 추가 섹션 */}
               <div>
-                <label>기간 설정</label>
-                <div className="createpage-form-group createpage-period-group">
-                  <div className="createpage-period-input-wrapper">
-                    <span>시작 날짜:</span>
-                    <div className="createpage-date-input">
+                <label>옵션 추가</label>
+
+                <div className="createpage-form-group createpate-option-form-group">
+                  <div className="createpage-option-input-wrapper">
+                    <div className="input-wrapper">
+                      <span>옵션명</span>
                       <input
-                        type="date"
-                        value={startDate}
-                        onChange={e => setStartDate(e.target.value)}
-                        placeholder="시작 날짜"
+                        type="text"
+                        value={optionName}
+                        onChange={e => setOptionName(e.target.value)}
                       />
                     </div>
-                    <span>종료 날짜:</span>
-                    <div className="createpage-date-input">
+                    <div className="input-wrapper">
+                      <span>가격</span>
                       <input
-                        type="date"
-                        value={endDate}
-                        onChange={e => setEndDate(e.target.value)}
-                        placeholder="종료 날짜"
+                        type="text"
+                        value={optionPrice}
+                        onChange={e => setOptionPrice(e.target.value)}
                       />
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={addOption}
+                      className="createpage-add-button"
+                      id="option-add"
+                    >
+                      추가하기
+                    </button>
+                  </div>
+                  <div className="createpage-options-display">
+                    {options.map((option, index) => (
+                      <div key={index} className="createpage-option">
+                        <div className="button-span-group">
+                          <button
+                            type="button"
+                            onClick={() => removeOption(index)}
+                          >
+                            ✕
+                          </button>
+                          <span>{option.name}</span>
+                        </div>
+
+                        <span>{option.price}원</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
+              {/* 옵션 추가 섹션 끝 */}
+
               <div>
                 <label>프로젝트 설정</label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
-                    <span>모집 인원:</span>
+                    <span>모집 인원</span>
                     <div className="createpage-number-input">
                       <input
                         type="number"
@@ -191,6 +237,36 @@ const ProjectPageLayout = ({ children }) => {
                   </div>
                 </div>
               </div>
+
+              <div>
+                <label>기간 설정</label>
+                <div className="createpage-form-group createpage-period-group">
+                  <div className="createpage-period-input-wrapper">
+                    <div className="createpage-flex-row">
+                      <span>시작 날짜:</span>
+                      <div className="createpage-date-input">
+                        <DatePicker
+                          selected={startDate}
+                          onChange={date => setStartDate(date)}
+                          dateFormat="yyyy-MM-dd"
+                          placeholderText="달력에서 선택 ㄱ"
+                        />
+                      </div>
+                    </div>
+                    <div className="createpage-flex-row">
+                      <span>종료 날짜:</span>
+                      <div className="createpage-date-input">
+                        <DatePicker
+                          selected={endDate}
+                          onChange={date => setEndDate(date)}
+                          dateFormat="yyyy-MM-dd"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <button type="submit" className="createpage-submit-button">
                 프로젝트 등록하기
               </button>

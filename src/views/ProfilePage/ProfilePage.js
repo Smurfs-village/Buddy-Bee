@@ -2,7 +2,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 // import Sidebar from "../../components/Common/Sidebar";
 import MyProfile from "./MyProfile";
-// import MyPosts from "./MyPosts";
+import MyPosts from "./MyPosts";
 // import Bookmarks from "./Bookmarks";
 import "./ProfilePage.css";
 
@@ -26,8 +26,8 @@ const ProfilePage = () => {
                 <div className="profile-content">
                     <Routes>
                         <Route path="/" element={<MyProfile />} />
-                        {/* <Route path="posts" element={<MyPosts />} />
-                        <Route path="bookmarks" element={<Bookmarks />} /> */}
+                        <Route path="posts" element={<MyPosts />} />
+                        {/* <Route path="bookmarks" element={<Bookmarks />} /> */}
                     </Routes>
                 </div>
             </div>

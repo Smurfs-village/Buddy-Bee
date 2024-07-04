@@ -35,8 +35,7 @@ const MainAside = () => {
             <p className="MyProfile_main_aside_word">작성한 글</p>
             <p className="MyProfile_main_aside_word">진행중인 프로젝트</p>
             <p className="MyProfile_main_aside_word">나의 꿀단지</p>
-            <div className="MyProfile_main_aside_setting_deleteId_wrapper">
-                <p className="MyProfile_main_aside_setting">설정</p>
+            <div className="MyProfile_main_aside_deleteId_wrapper">
                 <p className="MyProfile_main_aside_deleteId">회원탈퇴</p>
             </div>
         </div>
@@ -44,20 +43,27 @@ const MainAside = () => {
 };
 
 const MainRightContainer = () => {
+    const [nickname, setNickname] = useState("용감한 버디비");
+    const [password, setPassword] = useState(12345678);
+    const [contactInfo, setContactInfo] = useState("01012345678");
+    const [accountInfo, setAccountInfo] = useState("홍*동 KB국민은행 123456-7");
+    const [intro, setIntro] = useState("");
+    const userInfo = [
+        { nickname: { nickname } },
+        { password: { password } },
+        { contactInfo: { contactInfo } },
+        { accountInfo: { accountInfo } },
+        { intro: { intro } },
+    ];
+    console.log(userInfo.nickname);
     let nicknameRef = useRef();
     let passwordRef = useRef();
     let contactInfoRef = useRef();
     let accountInfoRef = useRef();
     let introRef = useRef();
-
-    const [nickname, setNickname] = useState("용감한 버디비");
-    const [password, setPassword] = useState(12345678);
-    const [contactInfo, setContactInfo] = useState("01012345678");
-    const [accountInfo, setAccountInfo] = useState("홍*동 KB국민은행 123456-7");
     {
         /* 123456-7 뒤에 숫자 더 넣으면 웹페이지에서 숫자가 짤려서 나옴*/
     }
-    const [intro, setIntro] = useState("");
 
     const onChangeNicknameValue = event => {
         setNickname(event.target.value);
@@ -82,7 +88,7 @@ const MainRightContainer = () => {
                     닉네임
                     <input
                         type="text"
-                        value={nickname}
+                        value={userInfo.nickname}
                         className="MyProfile_main_right_container_userInfo_input"
                         ref={nicknameRef}
                         onChange={onChangeNicknameValue}

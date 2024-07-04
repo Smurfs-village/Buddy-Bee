@@ -90,7 +90,7 @@ const MainRightContainer = () => {
           className="MyProfile_main_right_container_profile_edit_img"
         />
       </div>
-      <input
+      <textarea
         className="MyProfile_main_right_container_introductionLetterBox"
         placeholder="최대 50자"
         value={intro}

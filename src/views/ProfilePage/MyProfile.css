@@ -58,7 +58,15 @@
   box-sizing: border-box;
   outline: none;
   margin-top: 35px;
-  height: 240px; /* placeholder(최대 50자)가 중앙으로 가고 텍스트도 중앙 위치부터 입력됨*/
+  height: 240px;
+  padding: 20px; /* 텍스트 시작 위치 조정 */
+  font-size: 15px;
+  resize: none;
+}
+
+.MyProfile_main_right_container_introductionLetterBox::placeholder {
+  font-size: 15px;
+  color: #888;
 }
 
 .MyProfile_main_right_container_flowerImg {
@@ -79,7 +87,7 @@
   border-radius: 20px;
   font-weight: 900;
   font-size: 18px;
-  padding: 7px 20px 7px 20px;
+  padding: 7px 20px;
   margin-right: 5px;
 }
 

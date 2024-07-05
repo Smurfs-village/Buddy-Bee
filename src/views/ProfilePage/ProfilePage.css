@@ -1,20 +1,19 @@
 .profile-page {
-  height: 100%;
-  padding: 4% 21% 0% 21%;
-  background-image: url("../../img/grid_temp2-18.svg");
-  background-size: cover;
-  background-color: #c4a1ff;
-  display: flex;
-  flex-direction: column;
+    padding: 4% 21%;
+    background-image: url("../../img/grid_temp2-18.svg");
+    background-size: cover;
+    background-color: #c4a1ff;
+    display: flex;
+    flex-direction: column;
 }
 
 .MyProfile_main_aside_rightContainer_wrapper {
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 2;
 }
 
 .profile-content {
-  flex: 8;
-  display: flex;
-  flex-direction: column;
+    flex: 8;
+    display: flex;
+    flex-direction: column;
 }

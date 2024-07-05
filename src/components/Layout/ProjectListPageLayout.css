@@ -11,6 +11,7 @@
   padding: 10px 0;
   z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
 }
+
 .project-list-page-sub-nav :nth-child(1) {
   margin-left: 18%;
 }
@@ -26,8 +27,7 @@
 
 .project-list-page-layout-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 30px 5px;
 }
 
@@ -54,6 +54,7 @@
   margin-left: 5px;
   align-items: last baseline;
 }
+
 .project-list-page-sub-nav button {
   border: none;
   background-color: transparent;

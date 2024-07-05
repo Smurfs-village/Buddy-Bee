@@ -21,8 +21,10 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
 
   return (
     <div className="common-card" key={index}>
-      <div className="common-card-image-wrapper">
-        <img src={data.image} alt="Sample" className="common-card-image" />
+      <div
+        className="common-card-image-wrapper"
+        style={{ backgroundImage: `url(${data.image})` }}
+      >
         <div className="common-participants-info">
           {data.currentParticipants}/{data.maxParticipants}명
         </div>

@@ -5,17 +5,38 @@ import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import backgroundImg from "../../img/login_illust.svg";
 import frontCloudImg from "../../img/login_cloud.svg";
 import loginIcon from "../../img/login_bee.svg";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const LoginPage = () => {
   //나중에 onLogin 받아 와야할 것 같슴니다
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegisterDropDownOpen, setIsProfileDropDownOpen] = useState(false);
+  const registerRef = useRef(null);
 
   const handleSubmit = async e => {
     e.preventDefault();
     // await onLogin(email, password);
   };
+
+  const registerButton = e => {
+    //회원가입 드롭다운
+    setIsProfileDropDownOpen(!isRegisterDropDownOpen);
+    e.preventDefault();
+  };
+
+  const handleClickOutside = event => {
+    if (registerRef.current && !registerRef.current.contains(event.target)) {
+      setIsProfileDropDownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <Layout>
@@ -65,11 +86,30 @@ const LoginPage = () => {
               </div>
 
               <div className="login-page-btn-wrapper">
-                <Link to="/register">
-                  <button className="login-page-sign-up-btn">Sign up</button>
-                </Link>
+                <button
+                  className="login-page-sign-up-btn"
+                  onClick={registerButton}
+                >
+                  Sign up
+                </button>
+
                 <button className="login-page-login-btn">Login</button>
               </div>
+              {isRegisterDropDownOpen && (
+                <div className="login-page-register-dropdown" ref={registerRef}>
+                  <ul className="login-page-dropdown-list">
+                    <li>
+                      <Link
+                        to="/register"
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        이메일로 가입하기
+                      </Link>
+                    </li>
+                    <li>SNS로 가입하기</li>
+                  </ul>
+                </div>
+              )}
             </div>
           </form>
           <div className="login-page-cloud-img">

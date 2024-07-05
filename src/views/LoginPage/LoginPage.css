@@ -3,7 +3,7 @@
   height: auto;
   display: flex;
   justify-content: center;
-  padding: 145px 0 175px 3%;
+  padding: 145px 0 175px 2.5%;
 }
 
 .login-page-back-img {
@@ -28,6 +28,7 @@
   border: 2px solid black;
   z-index: 1;
   box-shadow: 7px 8px 0 0 rgb(0, 0, 0);
+  position: relative;
 }
 
 .login-page-cloud-img {
@@ -99,6 +100,31 @@
   justify-content: flex-end;
 }
 
+.login-page-register-dropdown {
+  position: absolute;
+  top: 410px;
+  right: 35px;
+  width: 130px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 2px 2px 0px rgb(0, 0, 0);
+  text-align: left;
+  line-height: 22px;
+  z-index: 9999;
+  animation: register-dropdown 0.12s ease;
+}
+
+@keyframes register-dropdown {
+  0% {
+    opacity: 0.5;
+    top: 400px;
+  }
+  100% {
+    opacity: 1;
+    top: 410;
+  }
+}
+
 .login-page-icon-wrapper img {
   width: 5.7rem;
 }
@@ -128,4 +154,18 @@
 .login-page-btn-wrapper button:focus {
   box-shadow: none;
   transform: translateX(2px);
+}
+
+.login-page-dropdown-list {
+  padding: 0 0 0 15px;
+}
+
+.login-page-dropdown-list li {
+  list-style: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.login-page-dropdown-list li:hover {
+  font-weight: bold;
 }

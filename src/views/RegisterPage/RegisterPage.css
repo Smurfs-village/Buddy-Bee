@@ -1,0 +1,19 @@
+.register-page-nickname-wrapper {
+  display: flex;
+}
+
+.check-nickname-btn {
+  padding: auto 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  /* align-items: center; */
+  box-sizing: border-box;
+  /* margin: 0 14px; */
+  font-size: 14px;
+  /* font-weight: bold; */
+  /* white-space: nowrap; */
+  justify-content: space-between;
+}

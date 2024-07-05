@@ -1,0 +1,155 @@
+.ParticipatedProjects_main_right_container {
+    border-top-width: 2px;
+    border-bottom-width: 8px;
+    border-left-width: 2px;
+    border-right-width: 8px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 55px 76px;
+    position: relative;
+}
+
+.ParticipatedProjects_main_right_container_writtenPosts {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.ParticipatedProjects_main_right_container_box {
+    display: flex;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-top: 18px;
+    height: 84px;
+}
+
+.ParticipatedProjects_main_right_container_box_img {
+    border-right: 2px solid black;
+}
+
+.ParticipatedProjects_main_right_container_cards_wrapper {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.ParticipatedProjects_main_right_container_box_text_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    padding-left: 27.8px;
+}
+
+.ParticipatedProjects_finishedProject_text_wrapper {
+    opacity: 0.6;
+}
+
+.ParticipatedProjects_main_right_container_box_projectName {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.ParticipatedProjects_main_right_container_box_numbersOfParticipants {
+    font-size: 12px;
+}
+
+.ParticipatedProjects_main_right_container_box_btn_wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.ParticipatedProjects_main_right_container_box_img_wrapper {
+    width: 123px;
+    background-size: cover;
+    border-right: 2px solid black;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 15px;
+}
+
+.ParticipatedProjects_finishedProjectImg {
+    width: 123px;
+    background-size: cover;
+    border-right: 2px solid black;
+    border-top-left-radius: 18px;
+    border-bottom-left-radius: 15px;
+    filter: grayscale(25%);
+    opacity: 0.6;
+}
+
+.ParticipatedProjects_main_right_container_box_btn_wrapper > button {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid;
+    margin-right: 7px;
+    height: 31px;
+    width: 64.9px;
+}
+
+.ParticipatedProjects_main_right_container_box_progressingBtn {
+    background-color: #fadf0b;
+}
+
+.ParticipatedProjects_main_right_container_box_deleteBtn {
+    background-color: white;
+}
+
+.ParticipatedProjects_main_right_container_box_endBtn {
+    color: white;
+    background-color: #bfbfbf;
+    border: none;
+}
+
+.ParticipatedProjects_finishedProject_container_deleteBtn {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid;
+    margin-right: 7px;
+    height: 31px;
+    width: 64.9px;
+    opacity: 1;
+}
+
+.ParticipatedProjects_main_right_container_flowerImg {
+    width: 117px;
+    height: 117px;
+    position: absolute;
+    left: 45px;
+    bottom: 40px;
+}
+
+.ParticipatedProjects_main_right_container_btn_arrow_wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.ParticipatedProjects_main_right_container_btn {
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 50%;
+    font-size: 12px;
+    margin-right: 8px;
+    padding: 6px 12px 6px 12px;
+}
+
+.ParticipatedProjects_main_right_container_pageOneBtn {
+    background-color: #fadf0b;
+}
+
+.ParticipatedProjects_main_right_container_pageTwoBtn {
+    background-color: white;
+}
+
+.ParticipatedProjects_rightArrow {
+    cursor: pointer;
+}

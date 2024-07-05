@@ -1,122 +1,122 @@
-@font-face {
+/* @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
   font-weight: 400;
   font-style: normal;
-}
+} */
 
 * {
-  font-family: "Pretendard-Regular";
-  /* font-weight: ; */
+    font-family: "Pretendard-Regular";
+    /* font-weight: ; */
 }
 
 .common-card {
-  width: 100%;
-  background-color: #fff; /* 카드 배경 색상 */
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  border: rgba(0, 0, 0, 0.836) solid 2px;
-  box-sizing: border-box;
-  aspect-ratio: 225 / 301;
+    width: 100%;
+    background-color: #fff; /* 카드 배경 색상 */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border: rgba(0, 0, 0, 0.836) solid 2px;
+    box-sizing: border-box;
+    aspect-ratio: 225 / 301;
 }
 
 .common-card-line-1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .common-card-image-wrapper {
-  width: 100%;
-  aspect-ratio: 225 / 180; /* 이미지 비율 설정 */
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.6;
+    width: 100%;
+    aspect-ratio: 225 / 180; /* 이미지 비율 설정 */
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.6;
 }
 
 .common-card-content {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 7px 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-top: #000 solid 1px;
-  flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: #000 solid 1px;
+    flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
 }
 
 .common-card-content h3 {
-  margin: 0;
-  font-size: 1em; /* 20.8px */
-  font-weight: 600;
+    margin: 0;
+    font-size: 1em; /* 20.8px */
+    font-weight: 600;
 }
 
 .common-card-line-1 span {
-  font-size: 0.7em; /* 12.8px */
-  font-weight: 600;
+    font-size: 0.7em; /* 12.8px */
+    font-weight: 600;
 }
 
 .common-card-content p {
-  margin: 0;
-  font-size: 0.5em; /* 12.8px */
-  color: #9b9b9b;
-  margin-top: 5px;
+    margin: 0;
+    font-size: 0.5em; /* 12.8px */
+    color: #9b9b9b;
+    margin-top: 5px;
 }
 
 .common-card_desc {
-  padding-top: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex-grow: 1; /* 설명 부분도 공간을 차지하도록 설정 */
+    padding-top: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1; /* 설명 부분도 공간을 차지하도록 설정 */
 }
 
 .common-hashtags {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  flex-wrap: nowrap; /* 한 줄로 정렬 */
-  overflow: hidden;
-  max-width: 100%;
-  margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: nowrap; /* 한 줄로 정렬 */
+    overflow: hidden;
+    max-width: 100%;
+    margin-top: 3px;
 }
 
 .common-hashtag {
-  margin-top: 3px;
-  background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
-  border-radius: 25px;
-  padding: 3px 8px;
-  font-size: 0.77em; /* 16px */
-  color: #333;
-  white-space: nowrap; /* 한 줄로 표시 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
+    margin-top: 3px;
+    background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
+    border-radius: 25px;
+    padding: 3px 8px;
+    font-size: 0.77em; /* 16px */
+    color: #333;
+    white-space: nowrap; /* 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
 }
 
 .common-hashtag.common-alternate-color {
-  background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+    background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
 }
 
 .common-participants-info {
-  position: absolute;
-  top: 11px;
-  left: 10px;
-  background: rgba(0, 0, 0);
-  color: #fff;
-  padding: 6px 9px;
-  border-radius: 50px;
-  font-size: 0.7em; /* 14.4px */
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    background: rgba(0, 0, 0);
+    color: #fff;
+    padding: 6px 9px;
+    border-radius: 50px;
+    font-size: 0.7em; /* 14.4px */
 }
 
 .common-scrap-icon {
-  position: absolute;
-  top: 6px;
-  right: 5px;
-  max-width: 38px;
-  max-height: 38px;
-  cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    max-width: 38px;
+    max-height: 38px;
+    cursor: pointer;
 }

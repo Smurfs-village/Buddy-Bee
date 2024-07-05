@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import MatterComponent from "../../components/MatterComponent/MatterComponent";
 import Slider from "react-slick";
@@ -10,7 +10,7 @@ import section1_bee from "../../img/section1_bee.svg";
 import section1_cloud from "../../img/section1_cloud.svg";
 import section1_flower from "../../img/section1_flower.svg";
 import Card from "./Card";
-import birthdayImage from "../../img/birthday1.jpg";
+import axios from "axios";
 
 const MainPage = () => {
   const settings = {
@@ -25,110 +25,27 @@ const MainPage = () => {
     variableWidth: true,
   };
 
-  const initialRecruitmentCards = [
-    {
-      title: "동행 구합니다!",
-      author: "나비123",
-      views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 2,
-      maxParticipants: 4,
-    },
-    {
-      title: "동행 구합니다!",
-      author: "나비123",
-      views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 2,
-      maxParticipants: 4,
-    },
-    {
-      title: "동행 구합니다!",
-      author: "나비123",
-      views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 2,
-      maxParticipants: 4,
-    },
-    {
-      title: "동행 구합니다!",
-      author: "나비123",
-      views: 1373,
-      description:
-        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 2,
-      maxParticipants: 4,
-    },
-    // 추가적인 목업 데이터...
-  ];
+  const [recruitmentCards, setRecruitmentCards] = useState([]);
+  const [fundingCards, setFundingCards] = useState([]);
 
-  const initialFundingCards = [
-    {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
-      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 3,
-      maxParticipants: 5,
-    },
-    {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
-      hashtags: ["펀딩", "지원", "버디비"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 3,
-      maxParticipants: 5,
-    },
-    {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
-      hashtags: ["펀딩", "지원", "버디비"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 3,
-      maxParticipants: 5,
-    },
-    {
-      title: "펀딩 구합니다!",
-      author: "나비456",
-      views: 2567,
-      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
-      hashtags: ["펀딩", "지원", "버디비"],
-      image: birthdayImage,
-      scrap: false,
-      currentParticipants: 3,
-      maxParticipants: 5,
-    },
-    // 추가적인 목업 데이터...
-  ];
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/projects");
+        const projects = response.data;
 
-  const [recruitmentCards, setRecruitmentCards] = useState(
-    initialRecruitmentCards
-  );
-  const [fundingCards, setFundingCards] = useState(initialFundingCards);
+        const recruitment = projects.filter(project => project.type === "with");
+        const funding = projects.filter(project => project.type === "funding");
+
+        setRecruitmentCards(recruitment);
+        setFundingCards(funding);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const toggleScrap = (index, type) => {
     if (type === "recruitment") {

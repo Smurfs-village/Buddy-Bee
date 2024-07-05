@@ -1,32 +1,15 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "./CreatePageLayout.css";
+import "./CreatePageLayout.css"; // CSS 파일 import
 import PageLayout from "./PageLayout";
 import BackGroundGrid from "./BackGroundGrid";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import Editor from "../Common/Editor"; // Editor 컴포넌트 import
+import moment from "moment"; // moment import
 
-// 이미지 업로드 핸들러
-const imageHandler = function () {
-  const input = document.createElement("input");
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
-
-  input.onchange = async () => {
-    const file = input.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const range = this.quill.getSelection();
-      this.quill.insertEmbed(range.index, "image", reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-};
-
-const ProjectPageLayout = ({ children }) => {
+const CreatePageLayout = ({ children, type }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [hashtag, setHashtag] = useState("");
@@ -37,20 +20,38 @@ const ProjectPageLayout = ({ children }) => {
   const [options, setOptions] = useState([]);
   const [optionName, setOptionName] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
-  const quillRef = useRef(null);
+  const [mainImage, setMainImage] = useState(""); // 메인 이미지 상태 추가
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // 프로젝트 생성 로직 추가
-    console.log("Project created:", {
+
+    const formattedStartDate = startDate
+      ? moment(startDate).format("YYYY-MM-DD HH:mm:ss")
+      : null;
+    const formattedEndDate = endDate
+      ? moment(endDate).format("YYYY-MM-DD HH:mm:ss")
+      : null;
+
+    const projectData = {
       title,
       content,
-      hashtags,
-      startDate,
-      endDate,
+      type, // type 추가
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
       maxParticipants,
       options,
-    });
+      mainImage, // 메인 이미지 추가
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/projects",
+        projectData
+      );
+      console.log("Project created:", response.data);
+    } catch (error) {
+      console.error("Error creating project:", error);
+    }
   };
 
   const addHashtag = () => {
@@ -103,25 +104,10 @@ const ProjectPageLayout = ({ children }) => {
                 />
               </div>
               <div className="createpage-form-group">
-                <ReactQuill
-                  ref={quillRef}
-                  value={content}
-                  onChange={setContent}
-                  placeholder="텍스트를 입력해주세요"
-                  modules={{
-                    toolbar: {
-                      container: [
-                        [{ header: "1" }, { header: "2" }, { font: [] }],
-                        [{ list: "ordered" }, { list: "bullet" }],
-                        ["bold", "italic", "underline"],
-                        ["image"],
-                      ],
-                      handlers: {
-                        image: imageHandler,
-                      },
-                    },
-                  }}
-                  style={{ minHeight: "300px" }} // 글 내용 부분에 최소 높이 설정
+                <Editor
+                  setDesc={setContent}
+                  desc={content}
+                  setImage={setMainImage}
                 />
               </div>
               <div className="createpage-form-group">
@@ -279,4 +265,4 @@ const ProjectPageLayout = ({ children }) => {
   );
 };
 
-export default ProjectPageLayout;
+export default CreatePageLayout;

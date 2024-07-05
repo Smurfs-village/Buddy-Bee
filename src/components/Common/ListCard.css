@@ -10,9 +10,9 @@
   font-family: "Pretendard-Regular";
   /* font-weight: ; */
 }
+
 .common-card {
-  width: 225px !important; /* 카드 너비 고정 */
-  height: 301px; /* 카드 높이 고정 */
+  width: 100%;
   background-color: #fff; /* 카드 배경 색상 */
   border-radius: 20px;
   display: flex;
@@ -21,7 +21,7 @@
   overflow: hidden;
   border: rgba(0, 0, 0, 0.836) solid 2px;
   box-sizing: border-box;
-  aspect-ratio: 225/301 auto;
+  aspect-ratio: 225 / 301;
 }
 
 .common-card-line-1 {
@@ -30,40 +30,40 @@
   align-items: center;
 }
 
-.common-card-image {
-  max-width: 225px; /* 이미지 너비 고정 */
-  max-height: 180px; /* 이미지 높이 고정 */
-  object-fit: cover;
-  opacity: 0.6; /* 이미지의 투명도 */
-  aspect-ratio: 225/180;
+.common-card-image-wrapper {
+  width: 100%;
+  aspect-ratio: 225 / 180; /* 이미지 비율 설정 */
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6;
 }
 
 .common-card-content {
   width: 100%;
-  max-height: 130px; /* 컨텐츠 높이 고정 */
   box-sizing: border-box;
   padding: 7px 10px;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  justify-content: space-between;
   border-top: #000 solid 1px;
-  aspect-ratio: 2/1 auto;
+  flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
 }
 
 .common-card-content h3 {
   margin: 0;
-  font-size: 1em; /*20.8px*/
+  font-size: 1em; /* 20.8px */
   font-weight: 600;
 }
 
 .common-card-line-1 span {
-  font-size: 0.7em; /*12.8px*/
+  font-size: 0.7em; /* 12.8px */
   font-weight: 600;
 }
 
 .common-card-content p {
   margin: 0;
-  font-size: 0.5em; /*12.8px*/
+  font-size: 0.5em; /* 12.8px */
   color: #9b9b9b;
   margin-top: 5px;
 }
@@ -73,6 +73,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-grow: 1; /* 설명 부분도 공간을 차지하도록 설정 */
 }
 
 .common-hashtags {
@@ -90,7 +91,7 @@
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
   padding: 3px 8px;
-  font-size: 0.77em; /*16px*/
+  font-size: 0.77em; /* 16px */
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
@@ -98,10 +99,6 @@
 
 .common-hashtag.common-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
-}
-
-.common-card-image-wrapper {
-  position: relative;
 }
 
 .common-participants-info {
@@ -112,8 +109,7 @@
   color: #fff;
   padding: 6px 9px;
   border-radius: 50px;
-  font-size: 0.7em; /*14.4px*/
-  /* font-weight: 500; */
+  font-size: 0.7em; /* 14.4px */
 }
 
 .common-scrap-icon {

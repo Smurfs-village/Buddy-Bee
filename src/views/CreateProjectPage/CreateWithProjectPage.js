@@ -1,10 +1,10 @@
-import ProjectPageLayout from "../../components/Layout/CreatePageLayout";
+import CreatePageLayout from "../../components/Layout/CreatePageLayout";
 
 const CreateWithProjectPage = () => {
   return (
-    <ProjectPageLayout>
+    <CreatePageLayout type="with">
       {/* 추가적인 내용이 필요하면 여기에 작성 */}
-    </ProjectPageLayout>
+    </CreatePageLayout>
   );
 };
 

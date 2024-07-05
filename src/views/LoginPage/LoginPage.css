@@ -16,6 +16,9 @@
   top: -155px;
 }
 
+.login-page-form {
+  z-index: 10;
+}
 .login-page-wrapper {
   width: 400px;
   height: 550px;
@@ -29,7 +32,7 @@
 
 .login-page-cloud-img {
   position: relative;
-  z-index: 2;
+  z-index: 20;
 }
 
 .login-page-cloud-img img {

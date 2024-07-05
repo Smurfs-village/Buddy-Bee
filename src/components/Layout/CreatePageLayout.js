@@ -22,14 +22,16 @@ const CreatePageLayout = ({ children, type }) => {
   const [optionPrice, setOptionPrice] = useState("");
   const [mainImage, setMainImage] = useState(""); // 메인 이미지 상태 추가
 
+  const createdBy = 1; // 목업 유저 ID (테스트용)
+
   const handleSubmit = async event => {
     event.preventDefault();
 
     const formattedStartDate = startDate
-      ? moment(startDate).format("YYYY-MM-DD HH:mm:ss")
+      ? moment(startDate).format("YYYY-MM-DD")
       : null;
     const formattedEndDate = endDate
-      ? moment(endDate).format("YYYY-MM-DD HH:mm:ss")
+      ? moment(endDate).format("YYYY-MM-DD")
       : null;
 
     const projectData = {
@@ -41,6 +43,8 @@ const CreatePageLayout = ({ children, type }) => {
       maxParticipants,
       options,
       mainImage, // 메인 이미지 추가
+      createdBy, // 목업 유저 추가
+      hashtags, // 해시태그 추가
     };
 
     try {

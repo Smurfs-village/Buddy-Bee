@@ -25,6 +25,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "dbzlxoddl1",
   database: "buddy_bee",
+  multipleStatements: true,
 });
 
 connection.connect(err => {
@@ -105,53 +106,119 @@ app.post("/api/projects", (req, res) => {
     const projectId = results.insertId;
 
     if (hashtags && hashtags.length > 0) {
-      const hashtagQueries = hashtags.map(
-        tag => `
+      const hashtagQueries = hashtags
+        .map(
+          tag => `
         INSERT INTO hashtag (name)
         VALUES (?)
         ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id)
       `
-      );
-      const hashtagValues = hashtags.map(tag => [tag]);
+        )
+        .join("; ");
 
-      connection.query(
-        hashtagQueries.join("; "),
-        [].concat(...hashtagValues),
-        (error, results) => {
-          if (error) {
-            console.error("Error inserting hashtags:", error);
-            res.status(500).send("Server error");
-            return;
-          }
+      const hashtagValues = hashtags.flatMap(tag => [tag]);
 
-          const hashtagIds = results.map(result => result.insertId);
-          const projectHashtagQueries = hashtagIds.map(
-            hashtagId => `
+      connection.query(hashtagQueries, hashtagValues, (error, results) => {
+        if (error) {
+          console.error("Error inserting hashtags:", error);
+          res.status(500).send("Server error");
+          return;
+        }
+
+        const hashtagIds = Array.isArray(results)
+          ? results.map(result => result.insertId)
+          : [results.insertId];
+        const projectHashtagQueries = hashtagIds.map(
+          hashtagId => `
           INSERT INTO projecthashtag (project_id, hashtag_id)
           VALUES (?, ?)
         `
-          );
-          const projectHashtagValues = hashtagIds.map(hashtagId => [
-            projectId,
-            hashtagId,
-          ]);
+        );
+        const projectHashtagValues = hashtagIds.map(hashtagId => [
+          projectId,
+          hashtagId,
+        ]);
 
-          connection.query(
-            projectHashtagQueries.join("; "),
-            [].concat(...projectHashtagValues),
-            error => {
-              if (error) {
-                console.error("Error inserting project hashtags:", error);
-                res.status(500).send("Server error");
-                return;
-              }
+        connection.query(
+          projectHashtagQueries.join("; "),
+          [].concat(...projectHashtagValues),
+          error => {
+            if (error) {
+              console.error("Error inserting project hashtags:", error);
+              res.status(500).send("Server error");
+              return;
             }
-          );
-        }
-      );
+            res.status(201).send("Project created");
+          }
+        );
+      });
+    } else {
+      res.status(201).send("Project created");
+    }
+  });
+});
+
+// 프로젝트 목록 가져오기 API
+app.get("/api/projects", (req, res) => {
+  const query = `
+    SELECT p.*, u.username AS author
+    FROM project p
+    JOIN user u ON p.created_by = u.id
+    ORDER BY p.created_at DESC
+  `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching projects:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+    res.status(200).json(results);
+  });
+});
+
+// 프로젝트 해시태그 가져오기 API
+app.get("/api/project/:id/hashtags", (req, res) => {
+  const projectId = req.params.id;
+
+  const query = `
+    SELECT h.name
+    FROM hashtag h
+    JOIN projecthashtag ph ON h.id = ph.hashtag_id
+    WHERE ph.project_id = ?
+  `;
+
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error fetching hashtags:", error);
+      res.status(500).send("Server error");
+      return;
     }
 
-    res.status(201).send("Project created");
+    const hashtags = results.map(row => row.name);
+    res.status(200).json(hashtags);
+  });
+});
+
+// 프로젝트 현재 참가자 수 가져오기 API
+app.get("/api/project/:id/participants", (req, res) => {
+  const projectId = req.params.id;
+
+  const query = `
+    SELECT COUNT(*) as currentParticipants
+    FROM participant
+    WHERE project_id = ?
+  `;
+
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error fetching participants:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const currentParticipants = results[0].currentParticipants;
+    res.status(200).json({ currentParticipants });
   });
 });
 

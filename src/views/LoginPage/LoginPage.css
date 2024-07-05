@@ -111,7 +111,7 @@
   text-align: left;
   line-height: 22px;
   z-index: 9999;
-  animation: register-dropdown 0.15s ease;
+  animation: register-dropdown 0.12s ease;
 }
 
 @keyframes register-dropdown {
@@ -163,4 +163,9 @@
 .login-page-dropdown-list li {
   list-style: none;
   font-size: 14px;
+  transition: 0.3s;
+}
+
+.login-page-dropdown-list li:hover {
+  font-weight: bold;
 }

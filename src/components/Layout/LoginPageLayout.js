@@ -9,17 +9,17 @@ const LoginPageLayout = ({ children }) => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-page-back-img">
+    <div className="login-page-layout">
+      <div className="login-page-layout-back-img">
         <img src={backgroundImg} alt="backImg" />
       </div>
-      <form className="login-page-form" onSubmit={handleSubmit}>
-        <div className="login-page-wrapper">
-          <div className="login-page-action-bar">
-            <div className="login-page-three-color">
-              <div className="login-page-color-circle color-green"></div>
-              <div className="login-page-color-circle color-yellow"></div>
-              <div className="login-page-color-circle color-red"></div>
+      <form className="login-page-layout-form" onSubmit={handleSubmit}>
+        <div className="login-page-layout-wrapper">
+          <div className="login-page-layout-action-bar">
+            <div className="login-page-layout-three-color">
+              <div className="login-page-layout-color-circle color-green"></div>
+              <div className="login-page-layout-color-circle color-yellow"></div>
+              <div className="login-page-layout-color-circle color-red"></div>
             </div>
           </div>
           <></>
@@ -27,7 +27,7 @@ const LoginPageLayout = ({ children }) => {
           <></>
         </div>
       </form>
-      <div className="login-page-cloud-img">
+      <div className="login-page-layout-cloud-img">
         <img src={frontCloudImg} alt="cloudImg" />
       </div>
     </div>

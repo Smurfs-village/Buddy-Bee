@@ -1,4 +1,4 @@
-.login-page {
+.login-page-layout {
   width: 97%;
   height: auto;
   display: flex;
@@ -6,20 +6,20 @@
   padding: 145px 0 175px 2.5%;
 }
 
-.login-page-back-img {
+.login-page-layout-back-img {
   position: relative;
 }
 
-.login-page-back-img img {
+.login-page-layout-back-img img {
   position: absolute;
   left: -200px;
   top: -155px;
 }
 
-.login-page-form {
+.login-page-layout-form {
   z-index: 10;
 }
-.login-page-wrapper {
+.login-page-layout-wrapper {
   width: 400px;
   height: 550px;
   /* width: 50%;
@@ -31,12 +31,12 @@
   position: relative;
 }
 
-.login-page-cloud-img {
+.login-page-layout-cloud-img {
   position: relative;
   z-index: 20;
 }
 
-.login-page-cloud-img img {
+.login-page-layout-cloud-img img {
   position: absolute;
   top: 490px;
   right: -65px;
@@ -44,11 +44,11 @@
 
 /* 로그인창 신호등 부분 */
 
-.login-page-action-bar {
+.login-page-layout-action-bar {
   border-bottom: 2px solid black;
 }
 
-.login-page-three-color {
+.login-page-layout-three-color {
   width: 100%;
   background-color: white;
   display: flex;
@@ -57,7 +57,7 @@
   box-sizing: border-box;
   padding: 3px;
 }
-.login-page-color-circle {
+.login-page-layout-color-circle {
   width: 9px;
   height: 9px;
   background-color: #000;

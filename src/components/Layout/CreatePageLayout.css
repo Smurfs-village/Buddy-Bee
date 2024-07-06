@@ -199,6 +199,7 @@
   box-sizing: border-box; /* 패딩과 테두리를 요소의 전체 크기에 포함 */
 }
 
+/* 프로젝트 설정 영역 CSS */
 .createpage-recruitment-group {
   border: 1px dotted #000;
   padding: 20px;
@@ -207,10 +208,11 @@
   flex-direction: column;
   gap: 10px;
 }
-
+.createpage-recruitment-group span {
+  white-space: nowrap;
+}
 .createpage-recruitment-input-wrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
@@ -226,17 +228,24 @@
   width: 80%;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid #000;
+
   border-radius: 0;
   justify-content: center;
   outline: none;
   text-align: center;
 }
+
 .whitespace-nowrap {
   white-space: nowrap;
   margin: 0 10px;
 }
-
+.createpage-project-setting-group {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  flex: 1;
+}
 /* 옵션 추가 섹션 스타일 추가 */
 .createpate-option-form-group {
   border: 1px dotted black;
@@ -342,4 +351,40 @@
 }
 .ql-toolbar.ql-snow {
   border: 1px solid black;
+}
+
+.createpage-account-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px dotted #000;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.createpage-account-input-wrapper input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+
+  color: #8b8b8b;
+  cursor: not-allowed; /* 읽기 전용일 때 커서를 not-allowed로 변경 */
+}
+
+.createpage-account-input-wrapper input.editable {
+  color: #000;
+  cursor: text; /* 수정 가능할 때 커서를 text로 변경 */
+}
+
+.createpage-edit-button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: bold;
+  white-space: nowrap;
 }

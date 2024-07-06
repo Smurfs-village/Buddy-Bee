@@ -17,10 +17,13 @@ const CreatePageLayout = ({ children, type }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [maxParticipants, setMaxParticipants] = useState("");
+  const [targetAmount, setTargetAmount] = useState(""); // 목표 금액 상태 추가
   const [options, setOptions] = useState([]);
   const [optionName, setOptionName] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
   const [mainImage, setMainImage] = useState(""); // 메인 이미지 상태 추가
+  const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456"); // 초기 계좌 정보
+  const [isEditingAccount, setIsEditingAccount] = useState(false); // 수정 모드 상태
 
   const createdBy = 1; // 목업 유저 ID (테스트용)
 
@@ -41,10 +44,12 @@ const CreatePageLayout = ({ children, type }) => {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       maxParticipants,
+      targetAmount, // 목표 금액 추가
       options,
       mainImage, // 메인 이미지 추가
       createdBy, // 목업 유저 추가
       hashtags, // 해시태그 추가
+      accountInfo, // 계좌 정보 추가
     };
 
     try {
@@ -84,6 +89,14 @@ const CreatePageLayout = ({ children, type }) => {
 
   const removeOption = index => {
     setOptions(options.filter((_, i) => i !== index));
+  };
+
+  const handleAccountEdit = () => {
+    setIsEditingAccount(true);
+  };
+
+  const handleAccountSave = () => {
+    setIsEditingAccount(false);
   };
 
   return (
@@ -157,9 +170,41 @@ const CreatePageLayout = ({ children, type }) => {
                   ))}
                 </div>
               </div>
-              {/* 옵션 추가 섹션 */}
+
+              {type === "funding" && (
+                <div className="createpage-form-group">
+                  <label>입금 계좌 설정</label>
+                  <div className="createpage-account-input-wrapper">
+                    <input
+                      type="text"
+                      value={accountInfo}
+                      onChange={e => setAccountInfo(e.target.value)}
+                      readOnly={!isEditingAccount}
+                      className={isEditingAccount ? "editable" : ""}
+                    />
+                    {isEditingAccount ? (
+                      <button
+                        type="button"
+                        onClick={handleAccountSave}
+                        className="createpage-edit-button"
+                      >
+                        저장하기
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={handleAccountEdit}
+                        className="createpage-edit-button"
+                      >
+                        수정하기
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div>
-                <label>옵션 추가</label>
+                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
 
                 <div className="createpage-form-group createpate-option-form-group">
                   <div className="createpage-option-input-wrapper">
@@ -208,22 +253,40 @@ const CreatePageLayout = ({ children, type }) => {
                   </div>
                 </div>
               </div>
-              {/* 옵션 추가 섹션 끝 */}
 
               <div>
                 <label>프로젝트 설정</label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
                     <span>모집 인원</span>
-                    <div className="createpage-number-input">
-                      <input
-                        type="number"
-                        value={maxParticipants}
-                        onChange={e => setMaxParticipants(e.target.value)}
-                        placeholder="모집 인원"
-                      />
+                    <div className="createpage-project-setting-group">
+                      <div className="createpage-number-input">
+                        <input
+                          type="number"
+                          value={maxParticipants}
+                          onChange={e => setMaxParticipants(e.target.value)}
+                          placeholder="모집 인원"
+                        />
+                      </div>
+                      <span>명</span>
                     </div>
-                    <span>명</span>
+
+                    {type === "funding" && (
+                      <>
+                        <span className="whitespace-nowrap">목표 금액</span>
+                        <div className="createpage-project-setting-group">
+                          <div className="createpage-number-input">
+                            <input
+                              type="number"
+                              value={targetAmount}
+                              onChange={e => setTargetAmount(e.target.value)}
+                              placeholder="목표 금액"
+                            />
+                          </div>
+                          <span>원</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,0 +1,33 @@
+/* 게시글 해시태그 */
+.ProjectDetailPage_hash_wrap {
+  width: 100%;
+  margin: 0 auto;
+  padding: 76px 0 47px 0;
+}
+
+.ProjectDetailPage_hash {
+  text-align: center;
+}
+
+.ProjectDetailPage_hash_list {
+  gap: 25px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ProjectDetailPage_hash_tag {
+  border-radius: 50px;
+  padding: 10px;
+  border: 2px solid #000;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.yellow {
+  background-color: #fadf0b;
+}
+
+.purple {
+  background-color: #c4a1ff;
+}

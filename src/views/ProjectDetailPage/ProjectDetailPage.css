@@ -1,0 +1,145 @@
+/* 윈도우 페이지 배경 */
+.ProjectDetailPage_all {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-sizing: border-box;
+}
+
+.ProjectDetailPage_container {
+  box-sizing: border-box;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* 관리자 전용 조회수 */
+.ProjectDetailPage-participate {
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.ProjectDetailPage-participate_txt {
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ProjectDetailPage-participate-btn {
+  display: flex;
+  gap: 3px;
+}
+
+.ProjectDetailPage-participate-btn button {
+  width: 66px;
+  height: 42px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.ProjectDetailPage-modify {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.ProjectDetailPage-delete {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
+
+/* 게시글 수요조사 옵션 합계금액 */
+.ProjectDetailPage_detail_wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dbdbdb;
+  border-radius: 18px;
+  justify-content: center;
+}
+
+.ProjectDetailPage_detail {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0 40px 0;
+}
+
+.ProjectDetailPage_detail_title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 수요조사 */
+
+.ProjectDetailPage_day {
+  margin-bottom: 44px;
+}
+
+.ProjectDetailPage_detail_day {
+  font-size: 1.2rem;
+}
+
+.ProjectDetailPage_detail_title span {
+  color: #ff8473;
+}
+
+/* 옵션 선택 */
+.ProjectDetailPage_goods_wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.ProjectDetailPage_goods {
+  font-size: 1.2rem;
+  padding: 0 0 15px 0;
+}
+
+.ProjectDetailPage_input input {
+  width: 60px;
+  height: 28px;
+  border-radius: 5px;
+  border: 2px solid #000;
+}
+
+.ProjectDetailPage_input span {
+  padding-left: 12px;
+  font-size: 14pt;
+}
+
+.ProjectDetailPage_goods span {
+  color: #a3a3a3;
+}
+/* 총 결제금약 */
+.ProjectDetailPage_total {
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+.ProjectDetailPage_total_cash {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* 펀딩 참여하기 버튼 */
+.ProjectDetailPage_click {
+  width: 100%;
+  margin: 150px 0 134px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ProjectDetailPage_click_btn button {
+  padding: 30px 79px 30px 79px;
+  border: 3px solid #000;
+  border-radius: 50px;
+  background-color: #fadf0b;
+  font-size: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+}

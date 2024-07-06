@@ -1,0 +1,7 @@
+/* 게시글 내용 */
+.ProjectDetailPage_content {
+  background-color: #ccc;
+  margin-top: 19px;
+  height: 500px;
+  /* height: auto !important; */
+}

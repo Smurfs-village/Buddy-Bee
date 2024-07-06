@@ -1,0 +1,29 @@
+/* 꿀단지 및 공유하기 버튼 */
+.ProjectDetailPage_btn {
+  margin-top: 109px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.ProjectDetailPage_like {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ProjectDetailPage_like img {
+  width: 42px;
+  height: 43px;
+}
+
+.ProjectDetailPage_btn button {
+  width: 140px;
+  height: 68px;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 18px;
+  border: 2px solid #000;
+  cursor: pointer;
+}

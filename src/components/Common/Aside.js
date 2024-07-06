@@ -9,7 +9,7 @@ const Aside = () => {
   const isParticipatedProject = pathname === "/profile/participated-projects";
   const isBookmarks = pathname === "/profile/bookmarks";
 
-  const activeCateColor = "MyProfile_main_aside_category_active";
+  const activateColor = "MyProfile_main_aside_category_active";
   const defaultColor = "MyProfile_main_aside_category";
 
   const onDeleteId = () => {
@@ -22,12 +22,10 @@ const Aside = () => {
   return (
     <div className="MyProfile_main_aside">
       <Link to="/profile" style={{ textDecoration: "none" }}>
-        <p className={isProfile ? activeCateColor : defaultColor}>
-          프로필 설정
-        </p>
+        <p className={isProfile ? activateColor : defaultColor}>프로필 설정</p>
       </Link>
       <Link to="/profile/posts" style={{ textDecoration: "none" }}>
-        <p className={isPost ? activeCateColor : defaultColor} id="posts">
+        <p className={isPost ? activateColor : defaultColor} id="posts">
           작성한 글
         </p>
       </Link>
@@ -35,12 +33,12 @@ const Aside = () => {
         to="/profile/participated-projects"
         style={{ textDecoration: "none" }}
       >
-        <p className={isParticipatedProject ? activeCateColor : defaultColor}>
+        <p className={isParticipatedProject ? activateColor : defaultColor}>
           참여중인 프로젝트
         </p>
       </Link>
       <Link to="/profile/bookmarks" style={{ textDecoration: "none" }}>
-        <p className={isBookmarks ? activeCateColor : defaultColor}>
+        <p className={isBookmarks ? activateColor : defaultColor}>
           나의 꿀단지
         </p>
       </Link>

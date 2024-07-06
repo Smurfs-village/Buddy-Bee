@@ -27,7 +27,7 @@
 .common-card-line-1 {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 }
 
 .common-card-image-wrapper {
@@ -128,4 +128,77 @@
   max-width: 38px;
   max-height: 38px;
   cursor: pointer;
+}
+
+/*미디어 쿼리*/
+@media screen and (min-width: 504px) and (max-width: 730px) {
+  .common-card-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: #000 solid 1px;
+    flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+  }
+
+  .common-card-content h3 {
+    margin: 0;
+    font-size: 1.5em; /* 20.8px */
+    font-weight: 600;
+  }
+
+  .common-card-line-1 span {
+    font-size: 1em; /* 12.8px */
+    font-weight: 600;
+  }
+
+  .common-card-content p {
+    margin: 0;
+    font-size: 0.9em; /* 12.8px */
+    color: #9b9b9b;
+    margin: 3px 0 0 3px;
+  }
+
+  .common-card_desc {
+    padding-top: 18%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1; /* 설명 부분도 공간을 차지하도록 설정 */
+  }
+
+  .common-hashtags {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .common-hashtag {
+    background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
+    border-radius: 25px;
+    padding: 6px 10px;
+    font-size: 1em; /* 16px */
+  }
+
+  .common-participants-info {
+    position: absolute;
+    top: 15px;
+    left: 13px;
+    background: rgba(0, 0, 0);
+    color: #fff;
+    padding: 6px 9px;
+    border-radius: 50px;
+    font-size: 1em;
+  }
+
+  .common-scrap-icon {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    max-width: 50px;
+    max-height: 50px;
+    cursor: pointer;
+  }
 }

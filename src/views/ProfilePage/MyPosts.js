@@ -1,54 +1,57 @@
-import "./MyPosts.css";
+import "./Common.css";
 import { useState, useEffect } from "react";
 import shineeConcertImg from "../../img/shinee_concert.jpg";
 import kissOfLifeConcertImg from "../../img/kissOfLife_concert.jpg";
-import myPageflowerImg from "../../img/myPage_flower.svg";
-import rightArrow from "../../img/right_arrow.svg";
+import markLee from "../../img/marklee.jpg";
+import taemin from "../../img/taemin.jpg";
+import treasureConcertImg from "../../img/treasure_concert.jpg";
+import { FlowerImg } from "./Common";
+import { SelectPageItems } from "./Common";
 
 const Card = ({ imgSrc, projectName, participants, status }) => (
-    <div className="MyPosts_main_right_container_box">
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box">
         <div
-            className="MyPosts_main_right_container_box_img_wrapper"
+            className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper"
             style={{ backgroundImage: `url(${imgSrc})` }}
         ></div>
-        <div className="MyPosts_main_right_container_box_text_wrapper">
-            <div className="MyPosts_main_right_container_box_projectName">
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
                 {projectName}
             </div>
-            <div className="MyPosts_main_right_container_box_numbersOfParticipants">
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants">
                 {participants}
             </div>
         </div>
-        <div className="MyPosts_main_right_container_box_btn_wrapper">
-            <button className="MyPosts_main_right_container_box_progressingBtn">
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
+            <button className="MyPosts_ParticipatedProjects_main_right_container_box_progressingBtn">
                 {status}
             </button>
-            <button className="MyPosts_main_right_container_box_deleteBtn">
+            <button className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn">
                 삭제
             </button>
         </div>
     </div>
 );
 
-const FinishedProject = ({ imgSrc, projectName, participants }) => (
-    <div className="MyPosts_main_right_container_box Myposts_finishedProject_container">
+const FinishedProject = ({ imgSrc, projectName, participants, status }) => (
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box MyPosts_ParticipatedProjects_finishedProject_container">
         <div
-            className="MyPosts_main_right_container_box_img_wrapper Myposts_finishedProjectImg"
+            className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper MyPosts_ParticipatedProjects_finishedProjectImg"
             style={{ backgroundImage: `url(${imgSrc})` }}
         ></div>
-        <div className="MyPosts_main_right_container_box_text_wrapper MyPosts_finishedProject_text_wrapper">
-            <div className="MyPosts_main_right_container_box_projectName">
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper MyPosts_ParticipatedProjects_finishedProject_text_wrapper">
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
                 {projectName}
             </div>
-            <div className="MyPosts_main_right_container_box_numbersOfParticipants">
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants">
                 {participants}
             </div>
         </div>
-        <div className="MyPosts_main_right_container_box_btn_wrapper">
-            <button className="MyPosts_main_right_container_box_endBtn">
-                종료
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
+            <button className="MyPosts_ParticipatedProjects_main_right_container_box_endBtn">
+                {status}
             </button>
-            <button className="MyPosts_main_right_container_box_deleteBtn MyPosts_finishedProject_container_deleteBtn">
+            <button className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn MyPosts_ParticipatedProjects_finishedProject_container_deleteBtn">
                 삭제
             </button>
         </div>
@@ -56,7 +59,7 @@ const FinishedProject = ({ imgSrc, projectName, participants }) => (
 );
 
 const MainRightContainer = () => {
-    const [projects, setProjects] = useState([]);
+    const [myProjects, setMyProjects] = useState([]);
     const [finishedProjects, setFinishedProjects] = useState([]);
 
     useEffect(() => {
@@ -76,9 +79,15 @@ const MainRightContainer = () => {
                 status: "진행중",
             },
             {
-                imgSrc: shineeConcertImg,
+                imgSrc: taemin,
                 projectName: "프로젝트 이름",
                 participants: "15/30명",
+                status: "진행중",
+            },
+            {
+                imgSrc: markLee,
+                projectName: "프로젝트 이름",
+                participants: "29/30명",
                 status: "진행중",
             },
         ];
@@ -87,19 +96,20 @@ const MainRightContainer = () => {
                 imgSrc: kissOfLifeConcertImg,
                 projectName: "프로젝트 이름",
                 participants: "30/30명",
+                status: "종료",
             },
         ];
-        setProjects(activeProjects);
+        setMyProjects(activeProjects);
         setFinishedProjects(finishedProjects);
     }, []);
 
     return (
-        <div className="MyPosts_main_right_container">
-            <div className="MyPosts_main_right_container_writtenPosts">
+        <div className="MyPosts_ParticipatedProjects_main_right_container">
+            <p className="MyPosts_ParticipatedProjects_main_right_container_writtenPosts">
                 작성한 글
-            </div>
-            <div className="MyPosts_main_right_container_cards_wrapper">
-                {projects.map((project, index) => (
+            </p>
+            <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
+                {myProjects.map((project, index) => (
                     <Card
                         key={index}
                         imgSrc={project.imgSrc}
@@ -114,31 +124,20 @@ const MainRightContainer = () => {
                         imgSrc={project.imgSrc}
                         projectName={project.projectName}
                         participants={project.participants}
+                        status={project.status}
                     />
                 ))}
             </div>
-            <img
-                src={myPageflowerImg}
-                alt=""
-                className="MyPosts_main_right_container_flowerImg"
-            />
-            <form className="MyPosts_main_right_container_btn_arrow_wrapper">
-                <button className="MyPosts_main_right_container_btn MyPosts_main_right_container_pageOneBtn">
-                    1
-                </button>
-                <button className="MyPosts_main_right_container_btn MyPosts_main_right_container_pageTwoBtn">
-                    2
-                </button>
-                <img src={rightArrow} alt="" className="MyPosts_rightArrow" />
-            </form>
+            <FlowerImg />
+            <SelectPageItems />
         </div>
     );
 };
 
 const MyPosts = () => (
-    <div className="MyPosts_container">
+    <>
         <MainRightContainer />
-    </div>
+    </>
 );
 
 export default MyPosts;

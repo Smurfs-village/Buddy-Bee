@@ -1,19 +1,27 @@
 .profile-page {
-    padding: 4% 21%;
-    background-image: url("../../img/grid_temp2-18.svg");
-    background-size: cover;
-    background-color: #c4a1ff;
-    display: flex;
-    flex-direction: column;
+  padding: 4% 21%;
+  background-image: url("../../img/grid_temp2-18.svg");
+  background-size: cover;
+  background-color: #c4a1ff;
+  display: flex;
+  flex-direction: column;
 }
 
 .MyProfile_main_aside_rightContainer_wrapper {
-    display: flex;
-    flex: 2;
+  display: flex;
+  flex: 2;
 }
 
 .profile-content {
-    flex: 8;
-    display: flex;
-    flex-direction: column;
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+}
+
+.ProfilePage_main_right_container_flowerImg {
+  width: 117px;
+  height: 117px;
+  position: absolute;
+  left: 45px;
+  bottom: 40px;
 }

@@ -40,16 +40,13 @@
     border: none;
     outline: none;
     padding-top: 10px;
-}
-
-.MyProfile_main_right_container_profile_edit_img_wrapper {
     position: relative;
 }
 
-.MyProfile_main_right_container_profile_edit_img {
+.MyProfile_main_right_container_profile_edit_img_wrapper {
     position: absolute;
-    right: 0;
-    bottom: 20px;
+    right: 80px;
+    top: 60px;
 }
 
 .MyProfile_main_right_container_profile_edit_img:hover {
@@ -71,14 +68,6 @@
 .MyProfile_main_right_container_introductionLetterBox::placeholder {
     font-size: 15px;
     color: #888;
-}
-
-.MyProfile_main_right_container_flowerImg {
-    width: 117px;
-    height: 117px;
-    position: absolute;
-    left: 45px;
-    bottom: 40px;
 }
 
 .MyProfile_main_right_container_btn_wrapper {

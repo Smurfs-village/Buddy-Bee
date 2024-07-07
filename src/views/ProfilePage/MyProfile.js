@@ -1,36 +1,52 @@
 import "./MyProfile.css";
-import { useState, useRef } from "react";
+import "./ProfilePage.css";
+import { useState, useCallback, useEffect, useRef } from "react";
 import editProfileImg from "../../img/edit_profile_img.svg";
-import myPageflowerImg from "../../img/myPage_flower.svg";
+import { FlowerImg } from "./Common";
+
+const USER_INFO_KEY = "userInfo";
 
 const MainRightContainer = () => {
-    const nicknameRef = useRef();
-    const passwordRef = useRef();
-    const contactInfoRef = useRef();
-    const accountInfoRef = useRef();
-    const introRef = useRef();
-    const [nickname, setNickname] = useState("용감한 버디비");
-    const [password, setPassword] = useState(12345678);
-    const [contactInfo, setContactInfo] = useState("01012345678");
-    const [accountInfo, setAccountInfo] = useState("홍*동 KB국민은행 123456-7");
-    const [intro, setIntro] = useState("");
-    const userInfo = [nickname, password, contactInfo, accountInfo, intro];
+    useEffect(() => {
+        const userInfoString = localStorage.getItem(USER_INFO_KEY);
+        if (userInfoString) {
+            const userInfoObject = JSON.parse(userInfoString);
+            setUserInfo(userInfoObject);
+        }
+    }, []);
+
+    const [userInfo, setUserInfo] = useState({
+        nickname: "",
+        password: 0,
+        contactInfo: "",
+        accountInfo: "",
+        intro: "",
+    });
+
+    const { nickname, password, contactInfo, accountInfo, intro } = userInfo;
+
+    const onSaveUserProfile = useCallback(() => {
+        // api 찔러서 백엔드에 저장
+        localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+    }, [userInfo]);
 
     const onChangeNicknameValue = event => {
-        setNickname(event.target.value);
+        setUserInfo(prev => ({ ...prev, nickname: event.target.value }));
     };
     const onChangePasswordValue = event => {
-        setPassword(event.target.value);
+        setUserInfo(prev => ({ ...prev, password: event.target.value }));
     };
     const onChangeContactInfoValue = event => {
-        setContactInfo(event.target.value);
+        setUserInfo(prev => ({ ...prev, contactInfo: event.target.value }));
     };
     const onChangeAccountValue = event => {
-        setAccountInfo(event.target.value);
+        setUserInfo(prev => ({ ...prev, accountInfo: event.target.value }));
     };
     const onChangeIntroValue = event => {
-        setIntro(event.target.value);
+        setUserInfo(prev => ({ ...prev, intro: event.target.value }));
     };
+
+    const inputFileRef = useRef(null);
 
     return (
         <div className="MyProfile_main_right_container">
@@ -41,7 +57,6 @@ const MainRightContainer = () => {
                         type="text"
                         value={nickname}
                         className="MyProfile_main_right_container_userInfo_input"
-                        ref={nicknameRef}
                         onChange={onChangeNicknameValue}
                     />
                 </label>
@@ -51,7 +66,6 @@ const MainRightContainer = () => {
                         type="password"
                         value={password}
                         className="MyProfile_main_right_container_userInfo_input"
-                        ref={passwordRef}
                         onChange={onChangePasswordValue}
                     />
                 </label>
@@ -61,7 +75,6 @@ const MainRightContainer = () => {
                         type="text"
                         value={contactInfo}
                         className="MyProfile_main_right_container_userInfo_input"
-                        ref={contactInfoRef}
                         onChange={onChangeContactInfoValue}
                     />
                 </label>
@@ -71,35 +84,46 @@ const MainRightContainer = () => {
                         type="text"
                         value={accountInfo}
                         className="MyProfile_main_right_container_userInfo_input"
-                        ref={accountInfoRef}
                         onChange={onChangeAccountValue}
                     />
                 </label>
-            </div>
-            <div className="MyProfile_main_right_container_profile_edit_img_wrapper">
-                <img
-                    src={editProfileImg}
-                    alt=""
-                    className="MyProfile_main_right_container_profile_edit_img"
-                />
+                <div className="MyProfile_main_right_container_profile_edit_img_wrapper">
+                    <img
+                        src={editProfileImg}
+                        alt=""
+                        className="MyProfile_main_right_container_profile_edit_img"
+                        onClick={() => {
+                            if (inputFileRef.current) {
+                                inputFileRef.current.click();
+                            }
+                        }}
+                    />
+                    <input
+                        ref={inputFileRef}
+                        type="file"
+                        style={{ display: "none" }}
+                        accept="image/*"
+                    />
+                </div>
             </div>
             <textarea
                 className="MyProfile_main_right_container_introductionLetterBox"
                 placeholder="최대 50자"
                 value={intro}
-                ref={introRef}
                 onChange={onChangeIntroValue}
             />
-            <img
-                src={myPageflowerImg}
-                alt=""
-                className="MyProfile_main_right_container_flowerImg"
-            />
+            <FlowerImg />
             <form className="MyProfile_main_right_container_btn_wrapper">
                 <button className="MyProfile_main_right_container_btn MyProfile_main_right_container_cancelBtn">
                     취소
                 </button>
-                <button className="MyProfile_main_right_container_btn MyProfile_main_right_container_saveBtn">
+                <button
+                    className="MyProfile_main_right_container_btn MyProfile_main_right_container_saveBtn"
+                    onClick={e => {
+                        e.preventDefault();
+                        onSaveUserProfile();
+                    }}
+                >
                     저장
                 </button>
             </form>

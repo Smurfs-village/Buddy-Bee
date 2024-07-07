@@ -43,8 +43,27 @@ const Editor = ({ setDesc, desc, setImage }) => {
       editor={ClassicEditor}
       config={{
         extraPlugins: [uploadPlugin],
+        toolbar: [
+          "heading",
+          "|",
+          "bold",
+          "italic",
+          "link",
+          "bulletedList",
+          "numberedList",
+          "blockQuote",
+          "imageUpload",
+          "|",
+          "insertTable",
+          "tableColumn",
+          "tableRow",
+          "mergeTableCells",
+          "|",
+          "undo",
+          "redo",
+        ],
       }}
-      data="<p>Hello World</p>"
+      data={desc}
       onReady={editor => {
         // Editor is ready to use
       }}

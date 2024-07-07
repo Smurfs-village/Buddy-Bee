@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import "./CreatePageLayout.css"; // CSS 파일 import
 import PageLayout from "./PageLayout";
@@ -8,6 +8,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Editor from "../Common/Editor"; // Editor 컴포넌트 import
 import moment from "moment"; // moment import
+
+// 전역 에러 핸들러를 설정하여 ResizeObserver 오류 무시
+const handleGlobalError = event => {
+  if (
+    event.message === "ResizeObserver loop limit exceeded" ||
+    event.message ===
+      "ResizeObserver loop completed with undelivered notifications."
+  ) {
+    event.preventDefault();
+    return true;
+  }
+  return false;
+};
+
+window.addEventListener("error", handleGlobalError);
 
 const CreatePageLayout = ({ children, type }) => {
   const [title, setTitle] = useState("");
@@ -125,6 +140,26 @@ const CreatePageLayout = ({ children, type }) => {
                   setDesc={setContent}
                   desc={content}
                   setImage={setMainImage}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "blockQuote",
+                      "|",
+                      "insertTable",
+                      "tableColumn",
+                      "tableRow",
+                      "mergeTableCells",
+                      "|",
+                      "undo",
+                      "redo",
+                    ],
+                  }}
                 />
               </div>
               <div className="createpage-form-group">

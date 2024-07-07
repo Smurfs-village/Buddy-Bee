@@ -1,97 +1,94 @@
 .MyProfile_main_rightContainer_wrapper {
-  display: flex;
+    display: flex;
 }
 
 .MyProfile_main_right_container {
-  border-top-width: 2px;
-  border-bottom-width: 8px;
-  border-left-width: 2px;
-  border-right-width: 8px;
-  border-style: solid;
-  border-color: black;
-  border-radius: 15px;
-  margin: 10px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  flex: 8.3;
-  padding: 35px 80px;
-  position: relative;
+    border-top-width: 2px;
+    border-bottom-width: 8px;
+    border-left-width: 2px;
+    border-right-width: 8px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px;
+    margin: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex: 8.3;
+    padding: 35px 80px;
+    position: relative;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label {
-  font-weight: bold;
-  padding: 12px 0 0 0;
-  border-bottom: 1px solid black;
-  width: 50%;
+    font-weight: bold;
+    padding: 12px 0 0 0;
+    border-bottom: 1px solid black;
+    width: 50%;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label input {
-  margin: 0 0 10px 30px;
-  font-size: 15px;
+    margin: 0 0 10px 30px;
+    font-size: 15px;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .MyProfile_main_right_container_userInfo_input {
-  border: none;
-  outline: none;
-  padding-top: 10px;
+    border: none;
+    outline: none;
+    padding-top: 10px;
+    position: relative;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper {
-  position: relative;
-}
-
-.MyProfile_main_right_container_profile_edit_img {
-  position: absolute;
-  right: 0;
-  bottom: 20px;
+    position: absolute;
+    right: 80px;
+    top: 60px;
 }
 
 .MyProfile_main_right_container_profile_edit_img:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .MyProfile_main_right_container_introductionLetterBox {
-  border: 1px dashed black;
-  border-radius: 18px;
-  box-sizing: border-box;
-  outline: none;
-  margin-top: 35px;
-  height: 240px;
-  padding: 20px; /* 텍스트 시작 위치 조정 */
-  font-size: 15px;
-  resize: none;
+    border: 1px dashed black;
+    border-radius: 18px;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 35px;
+    height: 240px;
+    padding: 20px; /* 텍스트 시작 위치 조정 */
+    font-size: 15px;
+    resize: none;
 }
 
 .MyProfile_main_right_container_introductionLetterBox::placeholder {
-  font-size: 15px;
-  color: #888;
+    font-size: 15px;
+    color: #888;
 }
 
 .MyProfile_main_right_container_btn_wrapper {
-  text-align: right;
-  margin-top: 31px;
+    text-align: right;
+    margin-top: 31px;
 }
 
 .MyProfile_main_right_container_btn {
-  cursor: pointer;
-  border-radius: 20px;
-  font-weight: 900;
-  font-size: 18px;
-  padding: 7px 20px;
-  margin-right: 5px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 18px;
+    padding: 7px 20px;
+    margin-right: 5px;
 }
 
 .MyProfile_main_right_container_cancelBtn {
-  background-color: white;
+    background-color: white;
 }
 
 .MyProfile_main_right_container_saveBtn {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
 }

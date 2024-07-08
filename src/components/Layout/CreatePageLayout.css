@@ -11,9 +11,19 @@
   width: 100%;
   background-color: #000;
   color: #fff;
-  text-align: center;
   padding: 10px 0;
   z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+.createpage-button-group {
+  margin-left: 17.75%;
+}
+.createpage-sub-nav button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .createpage-create-main-section {
@@ -387,4 +397,7 @@
   border-radius: 50px;
   font-weight: bold;
   white-space: nowrap;
+}
+.ck.ck-editor__editable_inline {
+  height: 400px;
 }

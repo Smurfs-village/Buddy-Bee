@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate import 추가
 import Layout from "../../components/Layout/Layout";
 import "./CreatePageLayout.css"; // CSS 파일 import
 import PageLayout from "./PageLayout";
@@ -41,6 +42,7 @@ const CreatePageLayout = ({ children, type }) => {
   const [isEditingAccount, setIsEditingAccount] = useState(false); // 수정 모드 상태
 
   const createdBy = 1; // 목업 유저 ID (테스트용)
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -118,7 +120,14 @@ const CreatePageLayout = ({ children, type }) => {
     <Layout>
       <BackGroundGrid>
         <div className="createpage-sub-nav">
-          <button>#버디비_동행</button>
+          <div className="createpage-button-group">
+            <button onClick={() => navigate("/create-with-project")}>
+              #버디비_동행
+            </button>
+            <button onClick={() => navigate("/create-funding-project")}>
+              #버디비_펀딩
+            </button>
+          </div>
         </div>
         <PageLayout>
           <div className="createpage-create-main-section">
@@ -140,26 +149,6 @@ const CreatePageLayout = ({ children, type }) => {
                   setDesc={setContent}
                   desc={content}
                   setImage={setMainImage}
-                  config={{
-                    toolbar: [
-                      "heading",
-                      "|",
-                      "bold",
-                      "italic",
-                      "link",
-                      "bulletedList",
-                      "numberedList",
-                      "blockQuote",
-                      "|",
-                      "insertTable",
-                      "tableColumn",
-                      "tableRow",
-                      "mergeTableCells",
-                      "|",
-                      "undo",
-                      "redo",
-                    ],
-                  }}
                 />
               </div>
               <div className="createpage-form-group">

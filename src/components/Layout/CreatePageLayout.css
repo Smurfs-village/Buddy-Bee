@@ -345,7 +345,7 @@
   font-weight: 500;
   font-size: 2vw;
   width: 20vw;
-  aspect-ratio: 33 / 10; /* 4:1 비율 */
+  aspect-ratio: 33 / 10;
   margin-top: 2vh;
   padding: 0;
 }

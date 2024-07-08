@@ -61,7 +61,7 @@ const CreatePageLayout = ({ children, type }) => {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       maxParticipants,
-      targetAmount, // 목표 금액 추가
+      targetAmount: targetAmount === "" ? null : targetAmount, // 빈 문자열인 경우 null로 변환
       options,
       mainImage, // 메인 이미지 추가
       createdBy, // 목업 유저 추가
@@ -75,6 +75,8 @@ const CreatePageLayout = ({ children, type }) => {
         projectData
       );
       console.log("Project created:", response.data);
+      const projectId = response.data.projectId; // projectId 가져오기
+      navigate(`/projects/${projectId}`); // 프로젝트 상세 페이지로 이동
     } catch (error) {
       console.error("Error creating project:", error);
     }

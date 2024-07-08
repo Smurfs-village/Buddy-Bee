@@ -75,24 +75,26 @@ app.post("/api/projects", (req, res) => {
     hashtags,
     maxParticipants,
     options,
+    accountInfo,
   } = req.body;
   const mainImage = extractFirstImage(content);
 
   const createProjectQuery = `
-    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image, account_info)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const projectValues = [
     title,
     content,
     type,
-    targetAmount,
+    targetAmount || null,
     startDate,
     endDate,
     createdBy,
     maxParticipants,
     JSON.stringify(options),
     mainImage,
+    accountInfo,
   ];
 
   connection.query(createProjectQuery, projectValues, (error, results) => {
@@ -147,12 +149,12 @@ app.post("/api/projects", (req, res) => {
               res.status(500).send("Server error");
               return;
             }
-            res.status(201).send("Project created");
+            res.status(201).json({ message: "Project created", projectId });
           }
         );
       });
     } else {
-      res.status(201).send("Project created");
+      res.status(201).json({ message: "Project created", projectId });
     }
   });
 });
@@ -218,6 +220,70 @@ app.get("/api/project/:id/participants", (req, res) => {
 
     const currentParticipants = results[0].currentParticipants;
     res.status(200).json({ currentParticipants });
+  });
+});
+
+// 프로젝트 좋아요 수 가져오기 API
+app.get("/api/project/:id/honey", (req, res) => {
+  const projectId = req.params.id;
+
+  const query = `
+    SELECT COUNT(*) as honeyCount
+    FROM honeypot
+    WHERE project_id = ?
+  `;
+
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error fetching honeypot count:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const honeyCount = results[0].honeyCount;
+    res.status(200).json({ honeyCount });
+  });
+});
+
+// 좋아요 추가 API
+app.post("/api/project/:id/honey", (req, res) => {
+  const projectId = req.params.id;
+  const { userId } = req.body;
+
+  const query = `
+    INSERT INTO honeypot (project_id, user_id)
+    VALUES (?, ?)
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error adding honeypot:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    res.status(201).send("Honeypot added");
+  });
+});
+
+// 좋아요 제거 API
+app.delete("/api/project/:id/honey", (req, res) => {
+  const projectId = req.params.id;
+  const { userId } = req.body;
+
+  const query = `
+    DELETE FROM honeypot
+    WHERE project_id = ? AND user_id = ?
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error removing honeypot:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    res.status(200).send("Honeypot removed");
   });
 });
 

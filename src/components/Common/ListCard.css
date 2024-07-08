@@ -63,11 +63,18 @@
   margin: 0;
   font-size: 1em; /* 20.8px */
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 70%;
 }
 
 .common-card-line-1 span {
   font-size: 0.7em; /* 12.8px */
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .common-card-content p {

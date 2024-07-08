@@ -1,32 +1,32 @@
 /* 개인정보 수집 동의 */
-.ProjectDetailPage_agree_wrap {
+.ProjectDetailPage-agree-wrap {
   width: 100%;
   margin-top: 89px;
 }
 
-.ProjectDetailPage_agree_title {
+.ProjectDetailPage-agree-title {
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.ProjectDetailPage_agree_title span {
+.ProjectDetailPage-agree-title span {
   color: #ff8473;
 }
 
-.ProjectDetailPage_agree_content {
+.ProjectDetailPage-agree-content {
   margin-top: 18px;
   font-size: 0.8rem;
   color: #999999;
 }
 
-.ProjectDetailPage_agree_check {
+.ProjectDetailPage-agree-check {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.ProjectDetailPage_agree_check div {
+.ProjectDetailPage-agree-check div {
   padding-right: 5px;
 }

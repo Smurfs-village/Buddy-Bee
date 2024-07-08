@@ -1,0 +1,56 @@
+/* 달성도 */
+.ProjectDetailPage-funding-wrap {
+  width: 100%;
+  margin-top: 95px;
+}
+
+.ProjectDetailPage-funding {
+  display: flex;
+  flex-direction: column;
+}
+
+.ProjectDetailPage-funding-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.ProjectDetailPage-money {
+  padding-top: 18px;
+  font-size: 3rem;
+  letter-spacing: 0.1rem;
+}
+
+.ProjectDetailPage-status {
+  padding-top: 37px;
+}
+
+.ProjectDetailPage-status-bar {
+  width: 100%;
+}
+
+.ProjectDetailPage-status-bar-bg {
+  height: 28px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  position: relative;
+}
+
+.ProjectDetailPage-status-bar-bee {
+  position: absolute;
+  top: -7px;
+  left: -9px;
+}
+
+.ProjectDetailPage-status-rate {
+  margin-top: 12px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.ProjectDetailPage-status-money {
+  margin-top: 7px;
+  text-align: right;
+  font-weight: bold;
+  color: #9b9b9b;
+}

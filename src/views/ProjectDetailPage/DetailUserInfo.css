@@ -1,42 +1,42 @@
 /* 신청자 정보 */
-.ProjectDetailPage_user_wrap {
+.ProjectDetailPage-user-wrap {
   width: 100%;
   margin-top: 94px;
 }
 
-.ProjectDetailPage_user_title {
+.ProjectDetailPage-user-title {
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.ProjectDetailPage_user_title span {
+.ProjectDetailPage-user-title span {
   color: #ff8473;
 }
 
-.ProjectDetailPage_user_info {
+.ProjectDetailPage-user-info {
   width: 100%;
 }
 
-.ProjectDetailPage_user_info input {
+.ProjectDetailPage-user-info input {
   width: 100%;
   height: 50px;
   border: none;
 }
 
-.ProjectDetailPage_user_info ::placeholder {
+.ProjectDetailPage-user-info ::placeholder {
   padding-left: 10px;
 }
 
-.ProjectDetailPage_user_name {
+.ProjectDetailPage-user-name {
   border-bottom: 1px dashed #888;
   border-width: 2px;
 }
-.ProjectDetailPage_user_email {
+.ProjectDetailPage-user-email {
   border-bottom: 1px dashed #888;
   border-width: 2px;
 }
-.ProjectDetailPage_user_tel {
+.ProjectDetailPage-user-tel {
   border-bottom: 1px dashed #888;
   border-width: 2px;
 }

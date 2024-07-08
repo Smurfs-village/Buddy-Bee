@@ -1,10 +1,10 @@
 /* 작성자 프로필 */
-.ProjectDetailPage_profile_wrap {
+.ProjectDetailPage-profile-wrap {
   display: flex;
   justify-content: center;
 }
 
-.ProjectDetailPage_profile {
+.ProjectDetailPage-profile {
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
 }
 
 /* 작성자 프로필사진 */
-.ProjectDetailPage_profile_img {
+.ProjectDetailPage-profile-img {
   width: 164px;
   height: 164px;
   border-radius: 100%;
@@ -21,25 +21,25 @@
   border: 2px solid #000;
 }
 
-.ProjectDetailPage_profile_detail {
+.ProjectDetailPage-profile-detail {
   text-align: center;
 }
 
 /* 작성자 닉네임 */
-.ProjectDetailPage_profile_name {
+.ProjectDetailPage-profile-name {
   padding-top: 21px;
   font-weight: bold;
 }
 
-.ProjectDetailPage_profile_name span {
+.ProjectDetailPage-profile-name span {
   font-size: 1.2rem;
 }
 
 /* 작성자 자기소개글 */
-.ProjectDetailPage_profile_txt {
+.ProjectDetailPage-profile-txt {
   padding-top: 11px;
 }
 
-.ProjectDetailPage_profile_txt span {
+.ProjectDetailPage-profile-txt span {
   font-size: 1.2rem;
 }

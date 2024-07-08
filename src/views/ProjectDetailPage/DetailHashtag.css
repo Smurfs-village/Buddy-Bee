@@ -1,22 +1,22 @@
 /* 게시글 해시태그 */
-.ProjectDetailPage_hash_wrap {
+.ProjectDetailPage-hash-wrap {
   width: 100%;
   margin: 0 auto;
   padding: 76px 0 47px 0;
 }
 
-.ProjectDetailPage_hash {
+.ProjectDetailPage-hash {
   text-align: center;
 }
 
-.ProjectDetailPage_hash_list {
+.ProjectDetailPage-hash-list {
   gap: 25px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.ProjectDetailPage_hash_tag {
+.ProjectDetailPage-hash-tag {
   border-radius: 50px;
   padding: 10px;
   border: 2px solid #000;

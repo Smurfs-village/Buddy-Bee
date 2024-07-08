@@ -41,6 +41,10 @@
   align-items: flex-end;
 }
 
+.project-list-btn-wrapper button {
+  cursor: pointer;
+}
+
 .project-list-page-layout-wrapper h1 {
   margin: 0;
 }

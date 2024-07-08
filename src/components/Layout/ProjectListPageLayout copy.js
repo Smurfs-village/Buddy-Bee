@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BackGroundGrid from "./BackGroundGrid";
 import PageLayout from "./PageLayout";
 import "./ProjectListPageLayout.css";
@@ -9,7 +9,7 @@ import rightArrow from "../../img/right_arrow.svg";
 const ProjectListPageLayout = () => {
   const initialRecruitmentCards = [
     {
-      title: "7월 8일",
+      title: "거기 당신",
       author: "위팬덕",
       views: 1373,
       description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
@@ -34,7 +34,7 @@ const ProjectListPageLayout = () => {
       date: new Date() + 3,
     },
     {
-      title: "쪼금 늦은 날짜!",
+      title: "동행 구합니다!",
       author: "나비123",
       views: 1373,
       description:
@@ -44,10 +44,9 @@ const ProjectListPageLayout = () => {
       scrap: false,
       currentParticipants: 2,
       maxParticipants: 4,
-      date: new Date() + 2,
     },
     {
-      title: "가장 늦은 날짜!",
+      title: "동행 구합니다!",
       author: "나비123",
       views: 1373,
       description:
@@ -57,14 +56,14 @@ const ProjectListPageLayout = () => {
       scrap: false,
       currentParticipants: 2,
       maxParticipants: 4,
-      date: new Date() + 12,
+      date: new Date() - 5,
     },
     // 추가적인 목업 데이터...
   ];
 
   const initialFundingCards = [
     {
-      title: "좀 늦은 날짜",
+      title: "펀딩 구합니다!",
       author: "나비456",
       views: 2567,
       description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
@@ -76,7 +75,7 @@ const ProjectListPageLayout = () => {
       date: new Date() + 10,
     },
     {
-      title: "빠른 날짜!",
+      title: "펀딩 구합니다!",
       author: "나비456",
       views: 2567,
       description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
@@ -88,7 +87,7 @@ const ProjectListPageLayout = () => {
       date: new Date() - 4,
     },
     {
-      title: "오늘은 7월 8일",
+      title: "오늘은 7월 4일",
       author: "서머",
       views: 12567,
       description: "안녕하세요 날짜 테스트용입니다~",
@@ -118,8 +117,7 @@ const ProjectListPageLayout = () => {
     initialRecruitmentCards
   );
   const [fundingCards, setFundingCards] = useState(initialFundingCards);
-  const [sortBtn, setSortBtn] = useState(false); //sortBtn false -> 최신순(latest) sortBtn true -> 인기순(popularity)
-  const [sortedCardList, setSortedCardList] = useState([]);
+  const [sortBtn, setSortBtn] = useState(false);
 
   const toggleScrap = (index, type) => {
     if (type === "recruitment") {
@@ -132,20 +130,17 @@ const ProjectListPageLayout = () => {
       setFundingCards(updatedCards);
     }
   };
-
-  useEffect(() => {
-    const sortCompare = (a, b) => {
-      if (sortBtn === false) {
-        return Number(b.date) - Number(a.date);
-      } else if (sortBtn === true) {
-        return Number(b.views) - Number(a.views);
-      }
-    };
-
-    const copyCardList = [...recruitmentCards, ...fundingCards];
-    copyCardList.sort(sortCompare);
-    setSortedCardList(copyCardList);
-  }, [sortBtn, recruitmentCards, fundingCards]);
+  const sortedCardList = initialFundingCards.sort((a, b) => {
+    return b.date - a.date;
+  });
+  const sortCards = e => {
+    if (e.target.className === "sort-latest btn-sort-true") {
+      console.log(initialFundingCards[0].date);
+      setFundingCards(sortedCardList);
+    } else if (e.target.className === "sort-popularity btn-sort-true") {
+      console.log("안녕하세요");
+    }
+  };
 
   return (
     <div className="project-list-page-layout">
@@ -162,6 +157,7 @@ const ProjectListPageLayout = () => {
                 <button
                   className={`sort-latest ${!sortBtn ? "btn-sort-true" : ""}`}
                   onClick={e => {
+                    sortCards(e);
                     setSortBtn(false);
                   }}
                 >
@@ -172,6 +168,7 @@ const ProjectListPageLayout = () => {
                     sortBtn ? "btn-sort-true" : ""
                   }`}
                   onClick={e => {
+                    sortCards(e);
                     setSortBtn(true);
                   }}
                 >
@@ -181,7 +178,7 @@ const ProjectListPageLayout = () => {
             </div>
             {/* 목록 페이지 그리드/카드 나열 부분 */}
             <div className="project-list-page-layout-grid">
-              {sortedCardList.map((data, index) => (
+              {recruitmentCards.map((data, index) => (
                 <ListCard
                   key={index}
                   data={data}
@@ -190,7 +187,7 @@ const ProjectListPageLayout = () => {
                   toggleScrap={toggleScrap}
                 />
               ))}
-              {/* {fundingCards.map((data, index) => (
+              {fundingCards.map((data, index) => (
                 <ListCard
                   key={index}
                   data={data}
@@ -198,7 +195,7 @@ const ProjectListPageLayout = () => {
                   type="funding"
                   toggleScrap={toggleScrap}
                 />
-              ))} */}
+              ))}
             </div>
             {/* 페이지 버튼 컴포넌트화 할 예정입니다 */}
             <div className="project-list-pagenation-btn-wrapper">

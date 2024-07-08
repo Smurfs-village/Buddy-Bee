@@ -1,20 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import Layout from "../../components/Layout/Layout";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import LoginPageLayout from "../../components/Layout/LoginPageLayout";
 import loginIcon from "../../img/login_bee.svg";
 import { useRef, useState, useEffect } from "react";
+import { login } from "../../api/api";
 
 const LoginPage = () => {
-  //나중에 onLogin 받아 와야할 것 같슴니다
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegisterDropDownOpen, setIsProfileDropDownOpen] = useState(false);
   const registerRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async e => {
+    e.preventDefault();
+    try {
+      const { token, userId, nickname } = await login(email, password);
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("nickname", nickname);
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Invalid email or password");
+    }
+  };
+
+  const handleKeyPress = e => {
+    if (e.key === "Enter") {
+      handleLogin(e);
+    }
+  };
 
   const registerButton = e => {
-    //회원가입 드롭다운
     setIsProfileDropDownOpen(!isRegisterDropDownOpen);
     e.preventDefault();
   };
@@ -52,6 +72,7 @@ const LoginPage = () => {
                 onChange={e => {
                   setEmail(e.target.value);
                 }}
+                onKeyDown={handleKeyPress} // 엔터 키 이벤트 추가
               />
               <input
                 type="password"
@@ -62,6 +83,7 @@ const LoginPage = () => {
                 onChange={e => {
                   setPassword(e.target.value);
                 }}
+                onKeyDown={handleKeyPress} // 엔터 키 이벤트 추가
               />
             </div>
           </div>
@@ -71,7 +93,9 @@ const LoginPage = () => {
               Sign up
             </button>
 
-            <button className="login-page-login-btn">Login</button>
+            <button className="login-page-login-btn" onClick={handleLogin}>
+              Login
+            </button>
           </div>
           {isRegisterDropDownOpen && (
             <div className="login-page-register-dropdown" ref={registerRef}>

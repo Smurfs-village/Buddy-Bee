@@ -2,10 +2,18 @@ const express = require("express");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const dotenv = require("dotenv");
 const app = express();
+
+// Load .env file
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -18,7 +26,6 @@ if (!fs.existsSync(uploadDir)) {
 
 app.use("/uploads", express.static(uploadDir));
 
-// MySQL 연결 설정
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -56,7 +63,6 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json({ filename: req.file.filename, url });
 });
 
-// content에서 첫 번째 이미지를 추출하는 함수
 const extractFirstImage = content => {
   const imgTag = content.match(/<img[^>]+src="([^">]+)"/);
   return imgTag ? imgTag[1] : null;
@@ -155,6 +161,87 @@ app.post("/api/projects", (req, res) => {
       });
     } else {
       res.status(201).json({ message: "Project created", projectId });
+    }
+  });
+});
+
+// 회원가입 API
+app.post("/api/register", async (req, res) => {
+  const { email, password, nickname } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = `INSERT INTO user (email, password, username) VALUES (?, ?, ?)`;
+    connection.query(
+      query,
+      [email, hashedPassword, nickname],
+      (error, results) => {
+        if (error) {
+          console.error("Error inserting user:", error);
+          return res.status(500).send("Server error");
+        }
+
+        res.status(201).send("User registered");
+      }
+    );
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    res.status(500).send("Server error");
+  }
+});
+
+// 로그인 API
+app.post("/api/login", (req, res) => {
+  const { email, password } = req.body;
+
+  const query = `SELECT * FROM user WHERE email = ?`;
+  connection.query(query, [email], async (error, results) => {
+    if (error) {
+      console.error("Error fetching user:", error);
+      return res.status(500).send("Server error");
+    }
+
+    if (results.length === 0) {
+      return res.status(401).send("Invalid email or password");
+    }
+
+    const user = results[0];
+
+    try {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        return res.status(401).send("Invalid email or password");
+      }
+
+      const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      res.status(200).json({ token, userId: user.id, nickname: user.username });
+    } catch (error) {
+      console.error("Error comparing password:", error);
+      res.status(500).send("Server error");
+    }
+  });
+});
+
+// 닉네임 중복 확인 API
+app.get("/api/check-nickname", (req, res) => {
+  const { nickname } = req.query;
+
+  const query = `SELECT COUNT(*) as count FROM user WHERE username = ?`;
+  connection.query(query, [nickname], (error, results) => {
+    if (error) {
+      console.error("Error checking nickname:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const count = results[0].count;
+    if (count > 0) {
+      res.status(409).json({ isAvailable: false });
+    } else {
+      res.status(200).json({ isAvailable: true });
     }
   });
 });

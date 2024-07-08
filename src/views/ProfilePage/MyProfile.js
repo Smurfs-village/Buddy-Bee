@@ -1,5 +1,5 @@
 import "./MyProfile.css";
-import "./ProfilePage.css";
+import "./Common";
 import { useState, useCallback, useEffect, useRef } from "react";
 import editProfileImg from "../../img/edit_profile_img.svg";
 import { FlowerImg } from "./Common";
@@ -49,7 +49,7 @@ const MainRightContainer = () => {
     const inputFileRef = useRef(null);
 
     return (
-        <div className="MyProfile_main_right_container">
+        <div className="Main_right_container">
             <div className="MyProfile_main_right_container_userInfo_wrapper">
                 <label>
                     닉네임
@@ -77,6 +77,9 @@ const MainRightContainer = () => {
                         className="MyProfile_main_right_container_userInfo_input"
                         onChange={onChangeContactInfoValue}
                     />
+                    <button className="MyProfile_certification_Btn">
+                        인증하기
+                    </button>
                 </label>
                 <label>
                     계좌정보
@@ -132,11 +135,7 @@ const MainRightContainer = () => {
 };
 
 const MyProfile = () => {
-    return (
-        <div className="MyProfile_main_rightContainer_wrapper">
-            <MainRightContainer />
-        </div>
-    );
+    return <MainRightContainer />;
 };
 
 export default MyProfile;

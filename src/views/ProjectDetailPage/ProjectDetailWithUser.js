@@ -9,9 +9,9 @@ import DetailContent from "./DetailContent";
 import DetailButton from "./DetailButton";
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
-import DetailUserInfo from "./DetailUserInfo";
+import DetailHashtag from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
-import DetailFundingStatus from "./DetailFundingStatus";
+
 // CSS
 import "./ProjectDetailPage.css";
 
@@ -25,18 +25,8 @@ const ProjectDetailPage = ({ projectType }) => {
         <button>#버디비_펀딩</button>
       </div>
       <PageLayout>
-        {/* 추가적인 내용이 필요하면 여기에 작성 */}
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">
-            <div className="ProjectDetailPage-participate">
-              <div className="ProjectDetailPage-participate-txt">
-                참여자 수:{id}
-              </div>
-              <div className="ProjectDetailPage-participate-btn">
-                <button className="ProjectDetailPage-modify">수정</button>
-                <button className="ProjectDetailPage-delete">삭제</button>
-              </div>
-            </div>
             <DetailTitle />
             <DetailContent />
             <DetailButton />
@@ -63,8 +53,7 @@ const ProjectDetailPage = ({ projectType }) => {
                           1. GGYUCHIWA <span>(18,000원/1개)</span>
                         </div>
                         <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
+                          <input type="radio" name="optionCount"></input>
                         </div>
                       </div>
 
@@ -73,29 +62,19 @@ const ProjectDetailPage = ({ projectType }) => {
                           2. PUPPY VER <span>(17,000원/1개)</span>
                         </div>
                         <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
+                          <input type="radio" name="optionCount"></input>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="ProjectDetailPage-total">
-                  <div className="ProjectDetailPage-detail-title">
-                    총 결제금액
-                  </div>
-                  <div className="ProjectDetailPage-total-cash">
-                    0 <span>원</span>
-                  </div>
-                </div>
               </div>
             </div>
-            {/* <DetailUserInfo />
-            <DetailAgree /> */}
-            <DetailFundingStatus />
+            <DetailUserInfo />
+            <DetailAgree />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn">
-                <button>펀딩 참여하기</button>
+                <button>동행 참여하기</button>
               </div>
             </div>
           </div>

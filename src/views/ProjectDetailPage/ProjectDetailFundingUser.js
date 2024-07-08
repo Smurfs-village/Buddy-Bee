@@ -9,9 +9,10 @@ import DetailContent from "./DetailContent";
 import DetailButton from "./DetailButton";
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
+import DetailFundingStatus from "./DetailFundingStatus";
 import DetailUserInfo from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
-import DetailFundingStatus from "./DetailFundingStatus";
+
 // CSS
 import "./ProjectDetailPage.css";
 
@@ -28,15 +29,6 @@ const ProjectDetailPage = ({ projectType }) => {
         {/* 추가적인 내용이 필요하면 여기에 작성 */}
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">
-            <div className="ProjectDetailPage-participate">
-              <div className="ProjectDetailPage-participate-txt">
-                참여자 수:{id}
-              </div>
-              <div className="ProjectDetailPage-participate-btn">
-                <button className="ProjectDetailPage-modify">수정</button>
-                <button className="ProjectDetailPage-delete">삭제</button>
-              </div>
-            </div>
             <DetailTitle />
             <DetailContent />
             <DetailButton />
@@ -90,8 +82,8 @@ const ProjectDetailPage = ({ projectType }) => {
                 </div>
               </div>
             </div>
-            {/* <DetailUserInfo />
-            <DetailAgree /> */}
+            <DetailUserInfo />
+            <DetailAgree />
             <DetailFundingStatus />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn">

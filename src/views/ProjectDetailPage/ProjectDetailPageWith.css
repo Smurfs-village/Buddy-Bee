@@ -1,0 +1,60 @@
+/* 관리자 전용 조회수 */
+.ProjectDetailPage-participate {
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.ProjectDetailPage-participate-txt {
+  display: flex;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.ProjectDetailPage-participate-btn {
+  display: flex;
+  gap: 3px;
+}
+
+.ProjectDetailPage-participate-btn button {
+  width: 66px;
+  height: 42px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.ProjectDetailPage-modify {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.ProjectDetailPage-delete {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
+
+/* 옵션선택 */
+.ProjectDetailPage-goods-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.ProjectDetailPage-goods {
+  font-size: 1.2rem;
+  padding: 0 0 15px 0;
+}
+
+.ProjectDetailPage-input {
+  display: flex;
+  align-items: center;
+}
+
+.ProjectDetailPage-input input {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 2px solid #000;
+}

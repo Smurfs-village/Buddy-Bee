@@ -47,6 +47,7 @@
   box-shadow: 2px 2px 0 0 rgb(0, 0, 0);
   cursor: pointer;
   transition: 0.2s;
+  z-index: 3000;
 }
 
 .register-page-btn-wrapper button:focus {
@@ -74,4 +75,9 @@
   box-sizing: border-box;
   font-size: 14px;
   justify-content: space-between;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

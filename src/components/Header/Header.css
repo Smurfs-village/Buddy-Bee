@@ -78,7 +78,24 @@
   padding: 8px 13px;
   font-weight: bold;
 }
+.headerpage-login-button {
+  margin-right: 10px;
+  background-color: #ff8473;
+  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 8px 13px;
+  font-weight: bold;
+  text-decoration: none; /* 밑줄 제거 */
+  color: black; /* 글자 색상 */
+  display: inline-block; /* 링크가 블록처럼 동작하도록 */
+  transition: background-color 0.3s ease; /* 호버 시 배경색 전환 */
+  cursor: pointer; /* 버튼 커서 지정 */
+}
 
+.headerpage-login-button:hover {
+  background-color: #ff6f61; /* 호버 시 배경색 변경 */
+  text-decoration: none; /* 호버 시 밑줄 제거 */
+}
 .headerpage-profile-container {
   width: 40px;
   height: 40px;

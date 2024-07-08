@@ -32,7 +32,7 @@
   flex-direction: column;
   width: 100%;
   background-color: white;
-  padding: 20px 12% 20px 14%;
+  padding: 20px 12% 120px 14%;
   box-sizing: border-box;
   border: 2px black solid;
   border-top: none;
@@ -332,22 +332,30 @@
 }
 
 .createpage-submit-button {
-  padding: 10px;
-  background-color: #ffd700;
-  border: none;
+  background-color: #fadf0b;
+  border: 2px solid black;
   border-radius: 50px;
-  font-weight: bold;
   cursor: pointer;
   text-align: center;
-  width: 332px;
-  height: 83px;
   justify-content: center;
   align-items: center;
   display: flex;
   margin: 0 auto; /* 중앙 정렬을 위한 속성 추가 */
   white-space: nowrap;
+  font-weight: 500;
+  font-size: 2vw;
+  width: 20vw;
+  aspect-ratio: 33 / 10; /* 4:1 비율 */
+  margin-top: 2vh;
+  padding: 0;
 }
 
+.createpage-submit-button span {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .createpage-flex-row {
   display: flex;
   align-items: center;

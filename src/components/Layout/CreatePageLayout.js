@@ -345,7 +345,7 @@ const CreatePageLayout = ({ children, type }) => {
               </div>
 
               <button type="submit" className="createpage-submit-button">
-                프로젝트 등록하기
+                <span>프로젝트 등록하기</span>
               </button>
             </form>
             {children}

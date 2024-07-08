@@ -11,9 +11,19 @@
   width: 100%;
   background-color: #000;
   color: #fff;
-  text-align: center;
   padding: 10px 0;
   z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+.createpage-button-group {
+  margin-left: 17.75%;
+}
+.createpage-sub-nav button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .createpage-create-main-section {
@@ -22,7 +32,7 @@
   flex-direction: column;
   width: 100%;
   background-color: white;
-  padding: 20px 12% 20px 14%;
+  padding: 20px 12% 120px 14%;
   box-sizing: border-box;
   border: 2px black solid;
   border-top: none;
@@ -199,6 +209,7 @@
   box-sizing: border-box; /* 패딩과 테두리를 요소의 전체 크기에 포함 */
 }
 
+/* 프로젝트 설정 영역 CSS */
 .createpage-recruitment-group {
   border: 1px dotted #000;
   padding: 20px;
@@ -207,10 +218,11 @@
   flex-direction: column;
   gap: 10px;
 }
-
+.createpage-recruitment-group span {
+  white-space: nowrap;
+}
 .createpage-recruitment-input-wrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
@@ -226,17 +238,24 @@
   width: 80%;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid #000;
+
   border-radius: 0;
   justify-content: center;
   outline: none;
   text-align: center;
 }
+
 .whitespace-nowrap {
   white-space: nowrap;
   margin: 0 10px;
 }
-
+.createpage-project-setting-group {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  flex: 1;
+}
 /* 옵션 추가 섹션 스타일 추가 */
 .createpate-option-form-group {
   border: 1px dotted black;
@@ -313,22 +332,30 @@
 }
 
 .createpage-submit-button {
-  padding: 10px;
-  background-color: #ffd700;
-  border: none;
+  background-color: #fadf0b;
+  border: 2px solid black;
   border-radius: 50px;
-  font-weight: bold;
   cursor: pointer;
   text-align: center;
-  width: 332px;
-  height: 83px;
   justify-content: center;
   align-items: center;
   display: flex;
   margin: 0 auto; /* 중앙 정렬을 위한 속성 추가 */
   white-space: nowrap;
+  font-weight: 500;
+  font-size: 2vw;
+  width: 20vw;
+  aspect-ratio: 33 / 10;
+  margin-top: 2vh;
+  padding: 0;
 }
 
+.createpage-submit-button span {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .createpage-flex-row {
   display: flex;
   align-items: center;
@@ -342,4 +369,43 @@
 }
 .ql-toolbar.ql-snow {
   border: 1px solid black;
+}
+
+.createpage-account-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px dotted #000;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.createpage-account-input-wrapper input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+
+  color: #8b8b8b;
+  cursor: not-allowed; /* 읽기 전용일 때 커서를 not-allowed로 변경 */
+}
+
+.createpage-account-input-wrapper input.editable {
+  color: #000;
+  cursor: text; /* 수정 가능할 때 커서를 text로 변경 */
+}
+
+.createpage-edit-button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.ck.ck-editor__editable_inline {
+  height: 400px;
 }

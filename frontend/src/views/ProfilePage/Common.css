@@ -1,4 +1,4 @@
-.MyPosts_ParticipatedProjects_main_right_container {
+.Main_right_container {
     border-top-width: 2px;
     border-bottom-width: 8px;
     border-left-width: 2px;
@@ -14,13 +14,13 @@
     position: relative;
 }
 
-.MyPosts_ParticipatedProjects_main_right_container_writtenPosts {
+.Main_right_container_writtenPosts {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.MyPosts_ParticipatedProjects_main_right_container_box {
+.Main_right_container_box {
     display: flex;
     border: 2px solid black;
     border-radius: 20px;

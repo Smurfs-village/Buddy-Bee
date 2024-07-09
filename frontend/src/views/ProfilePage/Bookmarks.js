@@ -1,4 +1,5 @@
 import "./Bookmarks.css";
+import "./Common";
 import { useState, useEffect } from "react";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
@@ -21,7 +22,9 @@ const Card = ({ imgSrc, projectName, status, scrapState, onClickBookmark }) => (
         <div
             className="Bookmarks_main_right_container_box_img_wrapper"
             style={{ backgroundImage: `url(${imgSrc})` }}
-        ></div>
+        >
+            <div className={scrapState ? "scrap_yes" : "scrap_none"}></div>
+        </div>
         <div className="Bookmarks_main_right_container_box_text_wrapper">
             <div className="Bookmarks_main_right_container_box_status_wrapper">
                 {status}
@@ -128,10 +131,8 @@ const MainRightContainer = () => {
     }, []);
 
     return (
-        <>
-            <div className="Bookmarks_main_right_container_writtenPosts">
-                나의 꿀단지
-            </div>
+        <div className="Main_right_container">
+            <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
             <div className="Bookmarks_main_right_container_cards_wrapper">
                 {bookmarks.map((project, index) => (
                     <Card
@@ -152,18 +153,12 @@ const MainRightContainer = () => {
             </div>
             <FlowerImg />
             <SelectPageItems />
-        </>
+        </div>
     );
 };
 
 const Bookmarks = () => {
-    return (
-        <div className="Bookmarks_main_rightContainer_wrapper">
-            <div className="Bookmarks_main_right_container">
-                <MainRightContainer />
-            </div>
-        </div>
-    );
+    return <MainRightContainer />;
 };
 
 export default Bookmarks;

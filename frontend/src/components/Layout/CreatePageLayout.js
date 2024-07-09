@@ -11,7 +11,7 @@ import Editor from "../Common/Editor"; // Editor 컴포넌트 import
 import moment from "moment"; // moment import
 
 // 전역 에러 핸들러를 설정하여 ResizeObserver 오류 무시
-const handleGlobalError = event => {
+const handleGlobalError = (event) => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -44,7 +44,7 @@ const CreatePageLayout = ({ children, type }) => {
   const createdBy = 1; // 목업 유저 ID (테스트용)
   const navigate = useNavigate(); // useNavigate 훅 사용
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formattedStartDate = startDate
@@ -94,8 +94,8 @@ const CreatePageLayout = ({ children, type }) => {
     }
   };
 
-  const removeHashtag = tag => {
-    setHashtags(hashtags.filter(t => t !== tag));
+  const removeHashtag = (tag) => {
+    setHashtags(hashtags.filter((t) => t !== tag));
   };
 
   const addOption = () => {
@@ -106,7 +106,7 @@ const CreatePageLayout = ({ children, type }) => {
     }
   };
 
-  const removeOption = index => {
+  const removeOption = (index) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -142,7 +142,7 @@ const CreatePageLayout = ({ children, type }) => {
                   className="createpage-title-input"
                   type="text"
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="제목을 작성해주세요"
                 />
               </div>
@@ -162,7 +162,7 @@ const CreatePageLayout = ({ children, type }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={e => setHashtag(e.target.value)}
+                    onChange={(e) => setHashtag(e.target.value)}
                     maxLength="15"
                   />
                   <div>
@@ -204,7 +204,7 @@ const CreatePageLayout = ({ children, type }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={e => setAccountInfo(e.target.value)}
+                      onChange={(e) => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
@@ -229,7 +229,7 @@ const CreatePageLayout = ({ children, type }) => {
                 </div>
               )}
 
-              <div>
+              <div className="createpage-form-group">
                 <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
 
                 <div className="createpage-form-group createpate-option-form-group">
@@ -239,7 +239,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <input
                         type="text"
                         value={optionName}
-                        onChange={e => setOptionName(e.target.value)}
+                        onChange={(e) => setOptionName(e.target.value)}
                       />
                     </div>
                     <div className="input-wrapper">
@@ -247,7 +247,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <input
                         type="text"
                         value={optionPrice}
-                        onChange={e => setOptionPrice(e.target.value)}
+                        onChange={(e) => setOptionPrice(e.target.value)}
                       />
                     </div>
 
@@ -280,7 +280,7 @@ const CreatePageLayout = ({ children, type }) => {
                 </div>
               </div>
 
-              <div>
+              <div className="createpage-form-group createpage-recruitment-group-wrap">
                 <label>프로젝트 설정</label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
@@ -290,7 +290,7 @@ const CreatePageLayout = ({ children, type }) => {
                         <input
                           type="number"
                           value={maxParticipants}
-                          onChange={e => setMaxParticipants(e.target.value)}
+                          onChange={(e) => setMaxParticipants(e.target.value)}
                           placeholder="모집 인원"
                         />
                       </div>
@@ -305,7 +305,7 @@ const CreatePageLayout = ({ children, type }) => {
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={e => setTargetAmount(e.target.value)}
+                              onChange={(e) => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                             />
                           </div>
@@ -317,7 +317,7 @@ const CreatePageLayout = ({ children, type }) => {
                 </div>
               </div>
 
-              <div>
+              <div className="createpage-form-group">
                 <label>기간 설정</label>
                 <div className="createpage-form-group createpage-period-group">
                   <div className="createpage-period-input-wrapper">
@@ -326,9 +326,9 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
-                          onChange={date => setStartDate(date)}
+                          onChange={(date) => setStartDate(date)}
                           dateFormat="yyyy-MM-dd"
-                          placeholderText="달력에서 선택 ㄱ"
+                          placeholderText="달력에서 선택"
                         />
                       </div>
                     </div>
@@ -337,8 +337,9 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}
-                          onChange={date => setEndDate(date)}
+                          onChange={(date) => setEndDate(date)}
                           dateFormat="yyyy-MM-dd"
+                          placeholderText="달력에서 선택"
                         />
                       </div>
                     </div>

@@ -44,7 +44,6 @@
   font-weight: 1000;
   font-size: 24px;
   display: inline-block;
-  margin-bottom: 10px;
 }
 .createpage-hashtag-label {
   margin-bottom: 0px !important;
@@ -71,6 +70,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 25px;
 }
 .createpage-hashtag-limit {
   color: #d8d8d8;
@@ -117,7 +117,7 @@
 }
 
 .createpage-add-button {
-  padding: 12px 15px;
+  padding: 12px 15px 12px 15px;
   background-color: #000;
   color: #fff;
   border: none;
@@ -210,6 +210,10 @@
 }
 
 /* 프로젝트 설정 영역 CSS */
+.createpage-recruitment-group-wrap {
+  margin-top: 80px;
+}
+
 .createpage-recruitment-group {
   border: 1px dotted #000;
   padding: 20px;
@@ -308,6 +312,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+  margin-left: 35px;
 }
 
 .createpage-option {
@@ -333,7 +338,7 @@
 
 .createpage-submit-button {
   background-color: #fadf0b;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 50px;
   cursor: pointer;
   text-align: center;
@@ -343,8 +348,8 @@
   margin: 0 auto; /* 중앙 정렬을 위한 속성 추가 */
   white-space: nowrap;
   font-weight: 500;
-  font-size: 2vw;
-  width: 20vw;
+  font-size: 1.6vw;
+  width: 17vw;
   aspect-ratio: 33 / 10;
   margin-top: 2vh;
   padding: 0;
@@ -397,7 +402,7 @@
 }
 
 .createpage-edit-button {
-  padding: 10px 15px;
+  padding: 12px 15px 12px 15px;
   background-color: #000;
   color: #fff;
   border: none;
@@ -405,6 +410,7 @@
   border-radius: 50px;
   font-weight: bold;
   white-space: nowrap;
+  font-size: 15px;
 }
 .ck.ck-editor__editable_inline {
   height: 400px;

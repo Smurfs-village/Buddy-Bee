@@ -22,13 +22,15 @@ const Card = ({ data, index, type, toggleScrap }) => {
   }, [hashtags]);
 
   useEffect(() => {
+    let isMounted = true;
+
     // Fetch hashtags from the server
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/project/${data.id}/hashtags`
+          `http://localhost:5001/api/projects/${data.id}/hashtags`
         );
-        setHashtags(response.data);
+        if (isMounted) setHashtags(response.data);
       } catch (error) {
         console.error("Error fetching hashtags:", error);
       }
@@ -38,9 +40,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/project/${data.id}/participants`
+          `http://localhost:5001/api/projects/${data.id}/participants`
         );
-        setCurrentParticipants(response.data.currentParticipants);
+        if (isMounted)
+          setCurrentParticipants(response.data.currentParticipants);
       } catch (error) {
         console.error("Error fetching participants:", error);
       }
@@ -48,6 +51,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
 
     fetchHashtags();
     fetchParticipants();
+
+    return () => {
+      isMounted = false; // Cleanup function to prevent setting state on unmounted component
+    };
   }, [data.id]);
 
   // HTML 태그를 제거하는 함수

@@ -31,7 +31,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/projects");
+        const response = await axios.get("http://localhost:5001/api/projects");
         const projects = response.data;
 
         const recruitment = projects.filter(project => project.type === "with");
@@ -48,14 +48,16 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
+    const updateCards = cards => {
+      const updatedCards = [...cards];
+      updatedCards[index].scrap = !updatedCards[index].scrap;
+      return updatedCards;
+    };
+
     if (type === "recruitment") {
-      const updatedCards = [...recruitmentCards];
-      updatedCards[index].scrap = !updatedCards[index].scrap;
-      setRecruitmentCards(updatedCards);
+      setRecruitmentCards(updateCards(recruitmentCards));
     } else if (type === "funding") {
-      const updatedCards = [...fundingCards];
-      updatedCards[index].scrap = !updatedCards[index].scrap;
-      setFundingCards(updatedCards);
+      setFundingCards(updateCards(fundingCards));
     }
   };
 

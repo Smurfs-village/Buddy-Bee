@@ -26,3 +26,5 @@ yarn-error.log*
 # additional ignores
 **/node_modules/
 /server/uploads
+.env
+server/.env

@@ -3,19 +3,6 @@
 /* width: 100%; 
 } */
 
-.project-list-page-sub-nav {
-  position: fixed;
-  width: 100%;
-  background-color: #000;
-  color: #fff;
-  padding: 10px 0;
-  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
-}
-
-.project-list-page-sub-nav :nth-child(1) {
-  margin-left: 18%;
-}
-
 .project-list-page-layout-wrapper {
   box-sizing: border-box;
   border: 2px solid black;
@@ -57,12 +44,6 @@
   border-radius: 26px;
   margin-left: 5px;
   align-items: last baseline;
-}
-
-.project-list-page-sub-nav button {
-  border: none;
-  background-color: transparent;
-  color: white;
 }
 
 .project-list-page-layout-line1 .btn-sort-true {

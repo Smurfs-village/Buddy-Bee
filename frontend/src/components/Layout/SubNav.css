@@ -1,0 +1,31 @@
+.sub-nav-wrapper {
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  height: 30px;
+  display: flex;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+
+.sub-nav-with-btn {
+  margin-left: 18%;
+  margin-right: 5px;
+}
+
+.sub-nav-wrapper button {
+  border: none;
+  background-color: transparent;
+}
+
+.sub-nav-wrapper a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.93rem;
+  transition: 0.25s;
+}
+
+.sub-nav-wrapper a:hover {
+  color: #ffe83a;
+}

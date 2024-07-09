@@ -7,6 +7,7 @@ import birthdayImage from "../../img/birthday1.jpg";
 // import rightArrow from "../../img/right_arrow.svg";
 // import { type } from "@testing-library/user-event/dist/type";
 import Pagination from "../Common/Pagination";
+import SubNav from "./SubNav";
 
 const ProjectListPageLayout = () => {
   const initialCards = [
@@ -30,7 +31,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -44,7 +45,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -58,7 +59,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -139,7 +140,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -153,7 +154,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -167,7 +168,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -247,7 +248,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -261,7 +262,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -275,7 +276,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -355,7 +356,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -369,7 +370,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -383,7 +384,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -463,7 +464,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -477,7 +478,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -491,7 +492,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -571,7 +572,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -585,7 +586,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -599,7 +600,7 @@ const ProjectListPageLayout = () => {
       views: 1373,
       description:
         "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
-      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      hashtags: ["동행", "슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
       image: birthdayImage,
       scrap: false,
       currentParticipants: 2,
@@ -664,7 +665,8 @@ const ProjectListPageLayout = () => {
   const [cards, setCards] = useState(initialCards);
   const [sortBtn, setSortBtn] = useState("latest"); //초깃값 최신순으로 정렬
   const [sortedCardList, setSortedCardList] = useState([]); //정렬한 값 담는 배열
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(1); //초기 페이지 값 세팅
+  const [filterItem, setFilterItem] = useState(false); //초깃값 동행
 
   useEffect(() => {
     const sortCompare = (a, b) => {
@@ -678,11 +680,10 @@ const ProjectListPageLayout = () => {
     const copyCardList = [...cards];
     copyCardList.sort(sortCompare);
     setSortedCardList(copyCardList);
-  }, [sortBtn, cards]);
+  }, [sortBtn, cards, filterItem]);
 
   const toggleScrap = (index, type) => {
     if (type === "recruitment") {
-      console.log("test");
       const updatedCards = [...sortedCardList];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       setCards(updatedCards);
@@ -693,6 +694,7 @@ const ProjectListPageLayout = () => {
     }
   };
 
+  //한 페이지당 보여줄 아이템 수
   const itemsCountPerPage = 25;
 
   // 현재 페이지에 보여줄 아이템들을 계산
@@ -706,10 +708,7 @@ const ProjectListPageLayout = () => {
   return (
     <div className="project-list-page-layout">
       <BackGroundGrid>
-        <div className="project-list-page-sub-nav">
-          <button>#버디비_동행</button>
-          <button>#버디비_펀딩</button>
-        </div>
+        <SubNav setFilterItem={setFilterItem} filterItem={filterItem} />
         <PageLayout>
           <div className="project-list-page-layout-wrapper">
             <div className="project-list-page-layout-line1">
@@ -737,17 +736,46 @@ const ProjectListPageLayout = () => {
                 </button>
               </div>
             </div>
-            {/* 목록 페이지 그리드/카드 나열 부분 */}
+            {/* 목록 페이지 그리드/카드 나열 부분, 삼항 연산자로 제어 */}
+            {/* 기본값(동행, 펀딩 둘 다) */}
             <div className="project-list-page-layout-grid">
-              {currentItems.map((data, index) => (
-                <ListCard
-                  key={index}
-                  data={data}
-                  index={index}
-                  type={data.type}
-                  toggleScrap={toggleScrap}
-                />
-              ))}
+              {!filterItem
+                ? currentItems.map((data, index) => (
+                    <ListCard
+                      key={index}
+                      data={data}
+                      index={index}
+                      type={data.type}
+                      toggleScrap={toggleScrap}
+                    />
+                  ))
+                : // 동행만
+                filterItem === "with"
+                ? currentItems
+                    .filter(item => item.type === "recruitment")
+                    .map((data, index) => (
+                      <ListCard
+                        key={index}
+                        data={data}
+                        index={index}
+                        type={data.type}
+                        toggleScrap={toggleScrap}
+                      />
+                    ))
+                : // 펀딩만
+                filterItem === "funding"
+                ? currentItems
+                    .filter(item => item.type === "funding")
+                    .map((data, index) => (
+                      <ListCard
+                        key={index}
+                        data={data}
+                        index={index}
+                        type={data.type}
+                        toggleScrap={toggleScrap}
+                      />
+                    ))
+                : alert("error")}
             </div>
             {/* 페이지네이션 부분 */}
             <Pagination

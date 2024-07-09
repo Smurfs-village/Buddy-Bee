@@ -1,0 +1,26 @@
+.sub-nav-wrapper {
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  height: 30px;
+  display: flex;
+  z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
+}
+
+.sub-nav-with-btn {
+  margin-left: 18%;
+}
+
+.sub-nav-wrapper button {
+  border: none;
+  background-color: transparent;
+  /* padding: ; */
+}
+
+.sub-nav-wrapper a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.9rem;
+}

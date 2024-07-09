@@ -11,16 +11,21 @@
 
 .sub-nav-with-btn {
   margin-left: 18%;
+  margin-right: 5px;
 }
 
 .sub-nav-wrapper button {
   border: none;
   background-color: transparent;
-  /* padding: ; */
 }
 
 .sub-nav-wrapper a {
   text-decoration: none;
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.93rem;
+  transition: 0.25s;
+}
+
+.sub-nav-wrapper a:hover {
+  color: #ffe83a;
 }

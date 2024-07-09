@@ -67,3 +67,25 @@ exports.checkNickname = (req, res) => {
     }
   });
 };
+
+// 현재 사용자 정보를 반환하는 함수 추가
+exports.getMe = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const query = `SELECT id, email, username FROM user WHERE id = ?`;
+    connection.query(query, [decoded.userId], (error, results) => {
+      if (error) {
+        console.error("Error fetching user:", error);
+        return res.status(500).send("Server error");
+      }
+      if (results.length === 0) {
+        return res.status(404).send("User not found");
+      }
+      res.status(200).json(results[0]);
+    });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    res.status(401).send("Unauthorized");
+  }
+};

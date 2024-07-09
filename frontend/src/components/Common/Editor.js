@@ -15,7 +15,7 @@ const Editor = ({ setDesc, desc, setImage }) => {
             data.append("file", file);
 
             axios
-              .post("http://localhost:5000/api/upload", data)
+              .post("http://localhost:5001/api/upload", data)
               .then(res => {
                 if (!flag) {
                   setFlag(true);

@@ -693,7 +693,7 @@ const ProjectListPageLayout = () => {
     }
   };
 
-  const itemsCountPerPage = 8;
+  const itemsCountPerPage = 25;
 
   // 현재 페이지에 보여줄 아이템들을 계산
   const indexOfLastItem = activePage * itemsCountPerPage;

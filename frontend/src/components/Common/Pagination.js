@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import "./Pagination.css";
 import Paging from "react-js-pagination";
 import rightArrow from "../../img/right_arrow.svg";

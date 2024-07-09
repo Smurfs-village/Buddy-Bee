@@ -13,7 +13,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
 
     hashtags.forEach(tag => {
       totalWidth += tag.offsetWidth + 10; // 5는 gap 크기
-      if (totalWidth > containerWidth) {
+      if (totalWidth + 1 > containerWidth) {
         tag.style.display = "none";
       }
     });

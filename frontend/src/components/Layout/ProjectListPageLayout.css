@@ -32,7 +32,7 @@
 }
 
 .project-list-page-layout-line1 {
-  padding: 40px 0 50px 5px;
+  padding: 50px 0 45px 5px;
   display: flex;
   justify-content: space-between;
 }
@@ -68,27 +68,4 @@
 .project-list-page-layout-line1 .btn-sort-true {
   background-color: black;
   color: white;
-}
-
-.project-list-pagenation-btn-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-}
-
-.project-list-pagenation-btn-wrapper button {
-  cursor: pointer;
-  border: 2px solid black;
-  border-radius: 50%;
-  font-size: 12px;
-  margin-right: 8px;
-  padding: 6px 12px 6px 12px;
-}
-
-.project-list-pagenation-btn {
-  background-color: #fadf0b;
-}
-
-.project-list-pagenation-arrow {
-  cursor: pointer;
 }

@@ -4,8 +4,9 @@ import PageLayout from "./PageLayout";
 import "./ProjectListPageLayout.css";
 import ListCard from "../Common/ListCard";
 import birthdayImage from "../../img/birthday1.jpg";
-import rightArrow from "../../img/right_arrow.svg";
+// import rightArrow from "../../img/right_arrow.svg";
 // import { type } from "@testing-library/user-event/dist/type";
+import Pagination from "../Common/Pagination";
 
 const ProjectListPageLayout = () => {
   const initialCards = [
@@ -118,15 +119,552 @@ const ProjectListPageLayout = () => {
       date: new Date().getDate() + 3,
     },
     // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate()}`,
+      author: "위팬덕",
+      type: "recruitment",
+      views: 1373,
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate(),
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "비비디바비디부부",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 2}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 12}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 12,
+    },
+    // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 10}일`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 10,
+    },
+    {
+      title: `날짜 테스트:${new Date().getDate() - 4}일ㅁㄴㅇㅁㄴㅇ`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 4,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() - 2}`,
+      author: "서머",
+      type: "funding",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "나비",
+      type: "funding",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate()}`,
+      author: "위팬덕",
+      type: "recruitment",
+      views: 1373,
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate(),
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "비비디바비디부부",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 2}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 12}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 12,
+    },
+    // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 10}일`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 10,
+    },
+    {
+      title: `날짜 테스트:${new Date().getDate() - 4}일ㅁㄴㅇㅁㄴㅇ`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 4,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() - 2}`,
+      author: "서머",
+      type: "funding",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "나비",
+      type: "funding",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate()}`,
+      author: "위팬덕",
+      type: "recruitment",
+      views: 1373,
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate(),
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "비비디바비디부부",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 2}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 12}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 12,
+    },
+    // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 10}일`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 10,
+    },
+    {
+      title: `날짜 테스트:${new Date().getDate() - 4}일ㅁㄴㅇㅁㄴㅇ`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 4,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() - 2}`,
+      author: "서머",
+      type: "funding",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "나비",
+      type: "funding",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate()}`,
+      author: "위팬덕",
+      type: "recruitment",
+      views: 1373,
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate(),
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "비비디바비디부부",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 2}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 12}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 12,
+    },
+    // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 10}일`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 10,
+    },
+    {
+      title: `날짜 테스트:${new Date().getDate() - 4}일ㅁㄴㅇㅁㄴㅇ`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 4,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() - 2}`,
+      author: "서머",
+      type: "funding",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "나비",
+      type: "funding",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate()}`,
+      author: "위팬덕",
+      type: "recruitment",
+      views: 1373,
+      description: "끝내주는 파티를 즐길 최고의 버디비만 모십니다",
+      hashtags: ["동행", "뒷풀이", "NCT", "20살이상", "안녕ㄴㅇㅇㄴㄹㄴㅇㄹ"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate(),
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 3}`,
+      author: "비비디바비디부부",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 3,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 2}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 2,
+    },
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 12}`,
+      author: "나비123",
+      type: "recruitment",
+      views: 1373,
+      description:
+        "안녕하세요. 이번에 OO와서 함께할 동행을 찾습니다.ㄴㅇㄴㅇㄹㄹㄴㅇ",
+      hashtags: ["슈머", "멈머", "현머", "서머", "안녕", "넘친다"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 2,
+      maxParticipants: 4,
+      date: new Date().getDate() + 12,
+    },
+    // 추가적인 목업 데이터...
+    {
+      title: `날짜 테스트: ${new Date().getDate() + 10}일`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비", "지원", "버디비", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 10,
+    },
+    {
+      title: `날짜 테스트:${new Date().getDate() - 4}일ㅁㄴㅇㅁㄴㅇ`,
+      author: "나비456",
+      type: "funding",
+      views: 2567,
+      description: "안녕하세요. 이번에 OO와서 함께할 펀딩을 찾습니다.",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 4,
+    },
+    {
+      title: `제발제발제발`,
+      author: "서머",
+      type: "funding",
+      views: 12567,
+      description: "안녕하세요 날짜 테스트용입니다~",
+      hashtags: ["펀딩", "지원", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() - 2,
+    },
+    {
+      title: `페이지네이션 테스트`,
+      author: "나비",
+      type: "funding",
+      views: 8567,
+      description: "날짜 테스트용2.",
+      hashtags: ["펀딩", "버디비"],
+      image: birthdayImage,
+      scrap: false,
+      currentParticipants: 3,
+      maxParticipants: 5,
+      date: new Date().getDate() + 3,
+    },
   ];
 
-  // const [recruitmentCards, setRecruitmentCards] = useState(
-  //   initialRecruitmentCards
-  // );
-  // const [fundingCards, setFundingCards] = useState(initialFundingCards);
   const [cards, setCards] = useState(initialCards);
   const [sortBtn, setSortBtn] = useState("latest"); //초깃값 최신순으로 정렬
   const [sortedCardList, setSortedCardList] = useState([]); //정렬한 값 담는 배열
+  const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
     const sortCompare = (a, b) => {
@@ -153,6 +691,16 @@ const ProjectListPageLayout = () => {
       updatedCards[index].scrap = !updatedCards[index].scrap;
       setCards(updatedCards);
     }
+  };
+
+  const itemsCountPerPage = 8;
+
+  // 현재 페이지에 보여줄 아이템들을 계산
+  const indexOfLastItem = activePage * itemsCountPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
+  const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = pageNumber => {
+    setActivePage(pageNumber);
   };
 
   return (
@@ -191,7 +739,7 @@ const ProjectListPageLayout = () => {
             </div>
             {/* 목록 페이지 그리드/카드 나열 부분 */}
             <div className="project-list-page-layout-grid">
-              {sortedCardList.map((data, index) => (
+              {currentItems.map((data, index) => (
                 <ListCard
                   key={index}
                   data={data}
@@ -201,15 +749,14 @@ const ProjectListPageLayout = () => {
                 />
               ))}
             </div>
-            {/* 페이지 버튼 컴포넌트화 할 예정입니다 */}
-            <div className="project-list-pagenation-btn-wrapper">
-              <button className="project-list-pagenation-btn">1</button>
-              <img
-                src={rightArrow}
-                alt=""
-                className="project-list-pagenation-arrow"
-              />
-            </div>
+            {/* 페이지네이션 부분 */}
+            <Pagination
+              totalItemsCount={sortedCardList.length}
+              activePage={activePage}
+              itemsCountPerPage={itemsCountPerPage}
+              pageRangeDisplayed={5}
+              handlePageChange={handlePageChange}
+            />
           </div>
         </PageLayout>
       </BackGroundGrid>

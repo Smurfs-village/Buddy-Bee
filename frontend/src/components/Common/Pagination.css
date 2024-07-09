@@ -1,0 +1,41 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #000;
+  border: 2px solid black;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-right: 8px;
+  padding: 6px 10px;
+  background-color: #fadf0b;
+}
+
+.pagination li {
+  list-style: none;
+  text-decoration: none;
+}
+
+.pagination-right-arrow {
+  cursor: pointer;
+}
+
+/* 가장 앞과 가장 뒤 스타일 overwrite */
+.disabled a:nth-child(-n + 2) {
+  background-color: transparent;
+  border: none;
+}
+
+.disabled li:nth-child(-n + 2) {
+  background-color: transparent;
+  border: none;
+}
+
+.pagination li:nth-last-child(-n + 2) a {
+  background-color: transparent;
+  border: none;
+}

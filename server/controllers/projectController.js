@@ -122,6 +122,8 @@ exports.getProjects = (req, res) => {
 exports.getProjectHashtags = (req, res) => {
   const projectId = req.params.id;
 
+  console.log(`Fetching hashtags for project ID: ${projectId}`);
+
   const query = `
     SELECT h.name
     FROM hashtag h
@@ -137,6 +139,7 @@ exports.getProjectHashtags = (req, res) => {
     }
 
     const hashtags = results.map(row => row.name);
+    console.log(`Fetched hashtags: ${hashtags}`);
     res.status(200).json(hashtags);
   });
 };

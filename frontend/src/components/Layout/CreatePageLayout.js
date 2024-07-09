@@ -71,7 +71,7 @@ const CreatePageLayout = ({ children, type }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/projects",
+        "http://localhost:5001/api/projects",
         projectData
       );
       console.log("Project created:", response.data);

@@ -6,13 +6,15 @@ import LoginPageLayout from "../../components/Layout/LoginPageLayout";
 import loginIcon from "../../img/login_bee.svg";
 import { useRef, useState, useEffect } from "react";
 import { login } from "../../api/api";
+import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegisterDropDownOpen, setIsProfileDropDownOpen] = useState(false);
   const registerRef = useRef(null);
   const navigate = useNavigate();
+  const { setUser } = useAuth(); // setUser 함수 가져오기
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const LoginPage = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       localStorage.setItem("nickname", nickname);
+      setUser({ id: userId, nickname }); // setUser 호출
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);

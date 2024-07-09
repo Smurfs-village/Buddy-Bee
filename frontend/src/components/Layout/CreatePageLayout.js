@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import 추가
+import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
-import "./CreatePageLayout.css"; // CSS 파일 import
+import "./CreatePageLayout.css";
 import PageLayout from "./PageLayout";
 import BackGroundGrid from "./BackGroundGrid";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import Editor from "../Common/Editor"; // Editor 컴포넌트 import
-import moment from "moment"; // moment import
+import Editor from "../Common/Editor";
+import moment from "moment";
+import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 
-// 전역 에러 핸들러를 설정하여 ResizeObserver 오류 무시
-const handleGlobalError = (event) => {
+const handleGlobalError = event => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -33,18 +33,18 @@ const CreatePageLayout = ({ children, type }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [maxParticipants, setMaxParticipants] = useState("");
-  const [targetAmount, setTargetAmount] = useState(""); // 목표 금액 상태 추가
+  const [targetAmount, setTargetAmount] = useState("");
   const [options, setOptions] = useState([]);
   const [optionName, setOptionName] = useState("");
   const [optionPrice, setOptionPrice] = useState("");
-  const [mainImage, setMainImage] = useState(""); // 메인 이미지 상태 추가
-  const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456"); // 초기 계좌 정보
-  const [isEditingAccount, setIsEditingAccount] = useState(false); // 수정 모드 상태
+  const [mainImage, setMainImage] = useState("");
+  const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456");
+  const [isEditingAccount, setIsEditingAccount] = useState(false);
 
-  const createdBy = 1; // 목업 유저 ID (테스트용)
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
+  const { user } = useAuth(); // 현재 사용자 정보 가져오기
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const formattedStartDate = startDate
@@ -57,16 +57,16 @@ const CreatePageLayout = ({ children, type }) => {
     const projectData = {
       title,
       content,
-      type, // type 추가
+      type,
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       maxParticipants,
-      targetAmount: targetAmount === "" ? null : targetAmount, // 빈 문자열인 경우 null로 변환
+      targetAmount: targetAmount === "" ? null : targetAmount,
       options,
-      mainImage, // 메인 이미지 추가
-      createdBy, // 목업 유저 추가
-      hashtags, // 해시태그 추가
-      accountInfo, // 계좌 정보 추가
+      mainImage,
+      createdBy: user ? user.id : null, // 현재 사용자의 ID 사용
+      hashtags,
+      accountInfo,
     };
 
     try {
@@ -75,8 +75,8 @@ const CreatePageLayout = ({ children, type }) => {
         projectData
       );
       console.log("Project created:", response.data);
-      const projectId = response.data.projectId; // projectId 가져오기
-      navigate(`/projects/${projectId}`); // 프로젝트 상세 페이지로 이동
+      const projectId = response.data.projectId;
+      navigate(`/projects/${projectId}`);
     } catch (error) {
       console.error("Error creating project:", error);
     }
@@ -94,8 +94,8 @@ const CreatePageLayout = ({ children, type }) => {
     }
   };
 
-  const removeHashtag = (tag) => {
-    setHashtags(hashtags.filter((t) => t !== tag));
+  const removeHashtag = tag => {
+    setHashtags(hashtags.filter(t => t !== tag));
   };
 
   const addOption = () => {
@@ -106,7 +106,7 @@ const CreatePageLayout = ({ children, type }) => {
     }
   };
 
-  const removeOption = (index) => {
+  const removeOption = index => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -142,7 +142,7 @@ const CreatePageLayout = ({ children, type }) => {
                   className="createpage-title-input"
                   type="text"
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={e => setTitle(e.target.value)}
                   placeholder="제목을 작성해주세요"
                 />
               </div>
@@ -162,7 +162,7 @@ const CreatePageLayout = ({ children, type }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={(e) => setHashtag(e.target.value)}
+                    onChange={e => setHashtag(e.target.value)}
                     maxLength="15"
                   />
                   <div>
@@ -204,7 +204,7 @@ const CreatePageLayout = ({ children, type }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={(e) => setAccountInfo(e.target.value)}
+                      onChange={e => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
@@ -239,7 +239,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <input
                         type="text"
                         value={optionName}
-                        onChange={(e) => setOptionName(e.target.value)}
+                        onChange={e => setOptionName(e.target.value)}
                       />
                     </div>
                     <div className="input-wrapper">
@@ -247,7 +247,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <input
                         type="text"
                         value={optionPrice}
-                        onChange={(e) => setOptionPrice(e.target.value)}
+                        onChange={e => setOptionPrice(e.target.value)}
                       />
                     </div>
 
@@ -290,7 +290,7 @@ const CreatePageLayout = ({ children, type }) => {
                         <input
                           type="number"
                           value={maxParticipants}
-                          onChange={(e) => setMaxParticipants(e.target.value)}
+                          onChange={e => setMaxParticipants(e.target.value)}
                           placeholder="모집 인원"
                         />
                       </div>
@@ -305,7 +305,7 @@ const CreatePageLayout = ({ children, type }) => {
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={(e) => setTargetAmount(e.target.value)}
+                              onChange={e => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                             />
                           </div>
@@ -326,7 +326,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          onChange={date => setStartDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />
@@ -337,7 +337,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}
-                          onChange={(date) => setEndDate(date)}
+                          onChange={date => setEndDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />

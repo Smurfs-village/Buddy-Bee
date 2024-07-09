@@ -6,6 +6,7 @@ import loginIcon from "../../img/login_bee.svg";
 import LoginPageLayout from "../../components/Layout/LoginPageLayout";
 import "./RegisterPage.css";
 import { register, checkNicknameAvailability } from "../../api/api"; // checkNicknameAvailability 함수 추가
+import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 
 const RegisterPage = () => {
   const [nickname, setNickname] = useState("");
@@ -14,6 +15,7 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState({});
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(null); // 닉네임 중복 확인 상태
   const navigate = useNavigate();
+  const { setUser } = useAuth(); // setUser 함수 가져오기
 
   const handleRegister = async e => {
     e.preventDefault();
@@ -27,7 +29,8 @@ const RegisterPage = () => {
     }
 
     try {
-      await register(email, password, nickname);
+      const userData = await register(email, password, nickname);
+      setUser(userData); // setUser 호출
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);

@@ -1,9 +1,9 @@
 .Bookmarks_main_right_container_cards_wrapper {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 28px;
+    /* grid-template-columns: repeat(5, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding: 3% 0;
+    gap: 15px;
 }
 
 .Bookmarks_main_right_container_box {
@@ -11,8 +11,8 @@
     flex-direction: column;
     border: 2px solid black;
     border-radius: 10px;
-    height: 180px;
-    width: 100%;
+    box-sizing: border-box;
+    aspect-ratio: 137.04 / 171.3;
 }
 
 .Bookmarks_main_right_container_box_img_wrapper {
@@ -21,16 +21,15 @@
     border-top-left-radius: 5%;
     border-top-right-radius: 5%;
     border-bottom: 2px solid black;
-    height: 100%;
-    flex: 9;
-    box-sizing: border-box;
+    flex: 1;
+    position: relative;
 }
 
 .Bookmarks_main_right_container_box_text_wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    flex: 1;
+    flex: 0;
     padding: 5px 11px 10px;
 }
 
@@ -52,4 +51,14 @@
 
 .Bookmarks_finishedProject_text_wrapper {
     opacity: 0.8;
+}
+
+.Bookmarks_honeyPot_img_wrapper {
+    width: 100%;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.Bookmarks_honeyPot_img {
+    height: 30px;
 }

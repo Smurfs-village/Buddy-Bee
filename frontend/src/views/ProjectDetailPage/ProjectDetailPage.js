@@ -28,7 +28,18 @@ const ProjectDetailPage = () => {
       }
     };
 
+    const incrementViewCount = async () => {
+      try {
+        await axios.patch(
+          `http://localhost:5001/api/projects/${id}/increment-view`
+        );
+      } catch (err) {
+        console.error("Failed to increment view count", err);
+      }
+    };
+
     fetchProject();
+    incrementViewCount();
   }, [id]);
 
   if (loading) return <div>Loading...</div>;

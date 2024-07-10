@@ -8,11 +8,11 @@ import DetailContent from "./DetailContent";
 import DetailButton from "./DetailButton";
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
+import DetailFundingStatus from "./DetailFundingStatus";
 
-// CSS
-import "./ProjectDetailWithUser.css";
+import "./ProjectDetailPageFunding.css";
 
-const ProjectDetailPageWithUser = ({ project }) => {
+const ProjectDetailPageFunding = ({ project }) => {
   return (
     <BackGroundGrid>
       <Header />
@@ -63,13 +63,28 @@ const ProjectDetailPageWithUser = ({ project }) => {
                             <span>({option.price}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
-                            <input type="radio" name="optionCount" />
+                            <input type="number" name="optionCount" />
+                            <span>개</span>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
                 </div>
+                <div className="ProjectDetailPage-total">
+                  <div className="ProjectDetailPage-detail-title">
+                    총 결제금액
+                  </div>
+                  <div className="ProjectDetailPage-total-cash">
+                    0 <span>원</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DetailFundingStatus />
+            <div className="ProjectDetailPage-click">
+              <div className="ProjectDetailPage-click-btn">
+                <button>펀딩 참여하기</button>
               </div>
             </div>
           </div>
@@ -80,4 +95,4 @@ const ProjectDetailPageWithUser = ({ project }) => {
   );
 };
 
-export default ProjectDetailPageWithUser;
+export default ProjectDetailPageFunding;

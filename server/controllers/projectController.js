@@ -225,3 +225,28 @@ exports.removeProjectHoney = (req, res) => {
     res.status(200).send("Honeypot removed");
   });
 };
+exports.getProjectById = (req, res) => {
+  const projectId = req.params.id;
+
+  const query = `
+    SELECT p.*, u.username AS author
+    FROM project p
+    JOIN user u ON p.created_by = u.id
+    WHERE p.id = ?
+  `;
+
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error fetching project:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(404).send("Project not found");
+      return;
+    }
+
+    res.status(200).json(results[0]);
+  });
+};

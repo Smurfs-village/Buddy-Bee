@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import PageLayout from "../../components/Layout/PageLayout";
@@ -11,13 +10,12 @@ import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 
 // CSS
-import "./ProjectDetailPage.css";
+import "./ProjectDetailPageWith.css";
 
-const ProjectDetailPage = ({ projectType }) => {
-  const { id } = useParams();
+const ProjectDetailPageWith = ({ project }) => {
   return (
     <BackGroundGrid>
-      <Header></Header>
+      <Header />
       <div className="project-list-page-sub-nav">
         <button>#버디비_동행</button>
         <button>#버디비_펀딩</button>
@@ -27,18 +25,18 @@ const ProjectDetailPage = ({ projectType }) => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 수: {id}
+                참여자 수: {project.currentParticipants}
               </div>
               <div className="ProjectDetailPage-participate-btn">
                 <button className="ProjectDetailPage-modify">수정</button>
                 <button className="ProjectDetailPage-delete">삭제</button>
               </div>
             </div>
-            <DetailTitle />
-            <DetailContent />
+            <DetailTitle title={project.title} />
+            <DetailContent content={project.description} />
             <DetailButton />
-            <DetailProfile />
-            <DetailHashtag />
+            <DetailProfile profile={project.profile} />
+            <DetailHashtag hashtags={project.hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
                 <div className="ProjectDetailPage-day">
@@ -46,7 +44,7 @@ const ProjectDetailPage = ({ projectType }) => {
                     수요조사 기간
                   </div>
                   <div className="ProjectDetailPage-detail-day">
-                    2024-07-01~2024-07-07
+                    {project.startDate} ~ {project.endDate}
                   </div>
                 </div>
                 <div className="ProjectDetailPage-option">
@@ -55,23 +53,20 @@ const ProjectDetailPage = ({ projectType }) => {
                   </div>
                   <div className="ProjectDetailPage-option-goods">
                     <div className="ProjectDetailPage-goods-list">
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          1. GGYUCHIWA <span>(18,000원/1개)</span>
+                      {project.options.map((option, index) => (
+                        <div
+                          key={index}
+                          className="ProjectDetailPage-goods-wrap"
+                        >
+                          <div className="ProjectDetailPage-goods">
+                            {index + 1}. {option.name}{" "}
+                            <span>({option.price}원/1개)</span>
+                          </div>
+                          <div className="ProjectDetailPage-input">
+                            <input type="radio" name="optionCount" />
+                          </div>
                         </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="radio" name="optionCount"></input>
-                        </div>
-                      </div>
-
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          2. PUPPY VER <span>(17,000원/1개)</span>
-                        </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="radio" name="optionCount"></input>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -80,9 +75,9 @@ const ProjectDetailPage = ({ projectType }) => {
           </div>
         </div>
       </PageLayout>
-      <Footer></Footer>
+      <Footer />
     </BackGroundGrid>
   );
 };
 
-export default ProjectDetailPage;
+export default ProjectDetailPageWith;

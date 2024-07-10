@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import PageLayout from "../../components/Layout/PageLayout";
@@ -14,26 +13,24 @@ import DetailUserInfo from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
 
 // CSS
-import "./ProjectDetailPage.css";
+import "./ProjectDetailFundingUser.css";
 
-const ProjectDetailPage = ({ projectType }) => {
-  const { id } = useParams();
+const ProjectDetailPageFundingUser = ({ project }) => {
   return (
     <BackGroundGrid>
-      <Header></Header>
+      <Header />
       <div className="project-list-page-sub-nav">
         <button>#버디비_동행</button>
         <button>#버디비_펀딩</button>
       </div>
       <PageLayout>
-        {/* 추가적인 내용이 필요하면 여기에 작성 */}
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">
-            <DetailTitle />
-            <DetailContent />
+            <DetailTitle title={project.title} />
+            <DetailContent content={project.description} />
             <DetailButton />
-            <DetailProfile />
-            <DetailHashtag />
+            <DetailProfile profile={project.profile} />
+            <DetailHashtag hashtags={project.hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
                 <div className="ProjectDetailPage-day">
@@ -41,7 +38,7 @@ const ProjectDetailPage = ({ projectType }) => {
                     수요조사 기간
                   </div>
                   <div className="ProjectDetailPage-detail-day">
-                    2024-07-01~2024-07-07
+                    {project.startDate} ~ {project.endDate}
                   </div>
                 </div>
                 <div className="ProjectDetailPage-option">
@@ -50,25 +47,21 @@ const ProjectDetailPage = ({ projectType }) => {
                   </div>
                   <div className="ProjectDetailPage-option-goods">
                     <div className="ProjectDetailPage-goods-list">
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          1. GGYUCHIWA <span>(18,000원/1개)</span>
+                      {project.options.map((option, index) => (
+                        <div
+                          key={index}
+                          className="ProjectDetailPage-goods-wrap"
+                        >
+                          <div className="ProjectDetailPage-goods">
+                            {index + 1}. {option.name}{" "}
+                            <span>({option.price}원/1개)</span>
+                          </div>
+                          <div className="ProjectDetailPage-input">
+                            <input type="number" name="optionCount" />
+                            <span>개</span>
+                          </div>
                         </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
-                        </div>
-                      </div>
-
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          2. PUPPY VER <span>(17,000원/1개)</span>
-                        </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -93,9 +86,9 @@ const ProjectDetailPage = ({ projectType }) => {
           </div>
         </div>
       </PageLayout>
-      <Footer></Footer>
+      <Footer />
     </BackGroundGrid>
   );
 };
 
-export default ProjectDetailPage;
+export default ProjectDetailPageFundingUser;

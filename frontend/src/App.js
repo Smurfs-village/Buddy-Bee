@@ -20,10 +20,7 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile/*" element={<ProfilePage />} />
           <Route path="/projects" exact element={<ProjectListPage />} />
-          <Route
-            path="/projects/:id"
-            element={<ProjectDetailPage projectType="funding" />}
-          />
+          <Route path="/projects/:id" element={<ProjectDetailPage />} />
           <Route
             path="/create-funding-project"
             element={<CreateFundingProjectPage />}

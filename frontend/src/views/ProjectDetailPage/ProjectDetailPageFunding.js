@@ -12,7 +12,7 @@ import DetailFundingStatus from "./DetailFundingStatus";
 
 import "./ProjectDetailPageFunding.css";
 
-const ProjectDetailPageFunding = ({ project }) => {
+const ProjectDetailPageFunding = ({ project, hashtags }) => {
   return (
     <BackGroundGrid>
       <Header />
@@ -36,7 +36,7 @@ const ProjectDetailPageFunding = ({ project }) => {
             <DetailContent content={project.description} />
             <DetailButton />
             <DetailProfile profile={project.profile} />
-            <DetailHashtag hashtags={project.hashtags} />
+            <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
                 <div className="ProjectDetailPage-day">

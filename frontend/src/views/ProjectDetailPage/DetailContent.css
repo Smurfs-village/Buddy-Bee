@@ -1,7 +1,7 @@
-/* 게시글 내용 */
-.ProjectDetailPage-content {
-  background-color: #ccc;
-  margin-top: 19px;
-  height: 500px;
-  /* height: auto !important; */
+.ProjectDetailPage-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
 }

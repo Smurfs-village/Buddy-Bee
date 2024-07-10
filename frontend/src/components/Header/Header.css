@@ -165,3 +165,76 @@
 body {
   padding-top: 88px; /* 헤더의 높이와 동일하게 설정 */
 }
+
+/* 미디어쿼리_ media query */
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .headerpage-header-container {
+    padding: 10px 2vw;
+  }
+  .headerpage-header-logo {
+    display: none;
+  }
+}
+@media (max-width: 479px) {
+  .headerpage-header-right,
+  .headerpage-header-logo {
+    display: none;
+  }
+  .headerpage-header-container {
+    padding: 10px 2vw;
+  }
+}
+
+.icon-1,
+.icon-2,
+.icon-3 {
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  width: 32px;
+  height: 3px;
+  background-color: black;
+  transition: all 400ms cubic-bezier(0.84, 0.06, 0.52, 1.8);
+}
+
+.icon-1 {
+  transform: translateY(-8px);
+  animation-delay: 100ms;
+}
+
+.icon-3 {
+  transform: translateY(8px);
+  animation-delay: 250ms;
+}
+
+.hamburger-icon {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: 10%;
+  left: 3%;
+  z-index: 1000;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  background: rgba(255, 255, 255, 0.2);
+  background: green;
+  width: auto;
+  height: 50px;
+  overflow: hidden;
+}
+
+.icon-1.a {
+  transform: rotate(40deg);
+}
+.icon-3.b {
+  transform: rotate(-40deg);
+}
+.icon-2.c {
+  opacity: 0;
+}
+
+.clear {
+  clear: both;
+}

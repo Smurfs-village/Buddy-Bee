@@ -71,6 +71,14 @@ const Header = () => {
     navigate("/login");
   };
 
+  const clickHamburger = () => {
+    var icon1 = document.getElementById("a");
+    var icon2 = document.getElementById("b");
+    var icon3 = document.getElementById("c");
+    icon1.classList.toggle("a");
+    icon2.classList.toggle("c");
+    icon3.classList.toggle("b");
+  };
   return (
     <header className="headerpage-header">
       <div className="headerpage-header-container">
@@ -79,7 +87,7 @@ const Header = () => {
             <img src={icon} alt="Icon" />
           </Link>
           <Link to="/">
-            <img src={logo} alt="Logo" />
+            <img className="headerpage-header-logo" src={logo} alt="Logo" />
           </Link>
         </div>
         <div className="headerpage-header-right">
@@ -110,6 +118,7 @@ const Header = () => {
               <li>Option 3</li>
             </ul>
           </div>
+
           {isLoggedIn ? (
             <>
               <div
@@ -143,6 +152,17 @@ const Header = () => {
               Login
             </button>
           )}
+        </div>
+        {/* 미디어쿼리 ~479px 햄버거버튼 */}
+        <div
+          class="headerpage-hamburger-icon"
+          id="icon"
+          onClick={clickHamburger}
+        >
+          <div class="icon-1" id="a" />
+          <div class="icon-2" id="b" />
+          <div class="icon-3" id="c" />
+          <div class="clear" />
         </div>
       </div>
     </header>

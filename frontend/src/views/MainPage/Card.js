@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate import
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
@@ -7,6 +8,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);
   const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0);
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     const containerWidth = hashtagsRef.current.offsetWidth;
@@ -64,8 +66,12 @@ const Card = ({ data, index, type, toggleScrap }) => {
     return tempDiv.textContent || tempDiv.innerText || "";
   };
 
+  const handleCardClick = () => {
+    navigate(`/projects/${data.id}`); // 프로젝트 디테일 페이지로 이동
+  };
+
   return (
-    <div className="mainpage-card" key={index}>
+    <div className="mainpage-card" key={index} onClick={handleCardClick}>
       <div className="mainpage-card-image-wrapper">
         <img
           src={data.main_image}
@@ -79,7 +85,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
           src={data.scrap ? scrap_yes : scrap_none}
           alt="Scrap"
           className="mainpage-scrap-icon"
-          onClick={() => toggleScrap(index, type)}
+          onClick={e => {
+            e.stopPropagation();
+            toggleScrap(index, type);
+          }}
         />
       </div>
       <div className="mainpage-card-content">

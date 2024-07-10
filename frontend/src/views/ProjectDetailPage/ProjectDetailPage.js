@@ -1,109 +1,59 @@
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import BackGroundGrid from "../../components/Layout/BackGroundGrid";
-import PageLayout from "../../components/Layout/PageLayout";
-import Footer from "../../components/Footer/Footer";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
+import ProjectDetailPageFunding from "./ProjectDetailPageFunding";
+import ProjectDetailPageWith from "./ProjectDetailPageWith";
+import ProjectDetailFundingUser from "./ProjectDetailFundingUser";
+import ProjectDetailWithUser from "./ProjectDetailWithUser";
 
-import DetailTitle from "./DetailTitle";
-import DetailContent from "./DetailContent";
-import DetailButton from "./DetailButton";
-import DetailProfile from "./DetailProfile";
-import DetailHashtag from "./DetailHashtag";
-import DetailUserInfo from "./DetailUserInfo";
-import DetailAgree from "./DetailAgree";
-import DetailFundingStatus from "./DetailFundingStatus";
-// CSS
-import "./ProjectDetailPage.css";
-
-const ProjectDetailPage = ({ projectType }) => {
+const ProjectDetailPage = () => {
   const { id } = useParams();
-  return (
-    <BackGroundGrid>
-      <Header></Header>
-      <div className="project-list-page-sub-nav">
-        <button>#버디비_동행</button>
-        <button>#버디비_펀딩</button>
-      </div>
-      <PageLayout>
-        {/* 추가적인 내용이 필요하면 여기에 작성 */}
-        <div className="ProjectDetailPage-all">
-          <div className="ProjectDetailPage-container">
-            <div className="ProjectDetailPage-participate">
-              <div className="ProjectDetailPage-participate-txt">
-                참여자 수:{id}
-              </div>
-              <div className="ProjectDetailPage-participate-btn">
-                <button className="ProjectDetailPage-modify">수정</button>
-                <button className="ProjectDetailPage-delete">삭제</button>
-              </div>
-            </div>
-            <DetailTitle />
-            <DetailContent />
-            <DetailButton />
-            <DetailProfile />
-            <DetailHashtag />
-            <div className="ProjectDetailPage-detail-wrap">
-              <div className="ProjectDetailPage-detail">
-                <div className="ProjectDetailPage-day">
-                  <div className="ProjectDetailPage-detail-title">
-                    수요조사 기간
-                  </div>
-                  <div className="ProjectDetailPage-detail-day">
-                    2024-07-01~2024-07-07
-                  </div>
-                </div>
-                <div className="ProjectDetailPage-option">
-                  <div className="ProjectDetailPage-detail-title">
-                    옵션 선택 <span>*</span>
-                  </div>
-                  <div className="ProjectDetailPage-option-goods">
-                    <div className="ProjectDetailPage-goods-list">
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          1. GGYUCHIWA <span>(18,000원/1개)</span>
-                        </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
-                        </div>
-                      </div>
+  const { user } = useAuth();
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-                      <div className="ProjectDetailPage-goods-wrap">
-                        <div className="ProjectDetailPage-goods">
-                          2. PUPPY VER <span>(17,000원/1개)</span>
-                        </div>
-                        <div className="ProjectDetailPage-input">
-                          <input type="number" name="optionCount"></input>
-                          <span>개</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="ProjectDetailPage-total">
-                  <div className="ProjectDetailPage-detail-title">
-                    총 결제금액
-                  </div>
-                  <div className="ProjectDetailPage-total-cash">
-                    0 <span>원</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <DetailUserInfo />
-            <DetailAgree /> */}
-            <DetailFundingStatus />
-            <div className="ProjectDetailPage-click">
-              <div className="ProjectDetailPage-click-btn">
-                <button>펀딩 참여하기</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </PageLayout>
-      <Footer></Footer>
-    </BackGroundGrid>
-  );
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${id}`
+        );
+        setProject(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading project details</div>;
+  if (!project) return null;
+
+  const isOwner = user && user.id === project.created_by;
+  const isFunding = project.type === "funding";
+  const isWith = project.type === "with";
+
+  if (isFunding) {
+    return isOwner ? (
+      <ProjectDetailPageFunding project={project} />
+    ) : (
+      <ProjectDetailFundingUser project={project} />
+    );
+  } else if (isWith) {
+    return isOwner ? (
+      <ProjectDetailPageWith project={project} />
+    ) : (
+      <ProjectDetailWithUser project={project} />
+    );
+  }
+
+  return null;
 };
 
 export default ProjectDetailPage;

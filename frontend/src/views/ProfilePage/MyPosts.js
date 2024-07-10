@@ -1,11 +1,12 @@
 import "./Common.css";
+import "../../components/Common/Pagination.css";
 import { useState, useEffect } from "react";
 import shineeConcertImg from "../../img/shinee_concert.jpg";
 import kissOfLifeConcertImg from "../../img/kissOfLife_concert.jpg";
 import markLee from "../../img/marklee.jpg";
 import taemin from "../../img/taemin.jpg";
 import { FlowerImg } from "./Common";
-import { SelectPageItems } from "./Common";
+import Pagination from "../../components/Common/Pagination";
 
 const Card = ({
     imgSrc,
@@ -15,7 +16,7 @@ const Card = ({
     onDeleteActiveProject,
     id,
 }) => (
-    <div className="Main_right_container_box">
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box">
         <div
             className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper"
             style={{ backgroundImage: `url(${imgSrc})` }}
@@ -50,7 +51,7 @@ const FinishedProject = ({
     onDeleteFinishedProject,
     id,
 }) => (
-    <div className="Main_right_container_box">
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box">
         <div
             className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper MyPosts_ParticipatedProjects_finishedProjectImg"
             style={{ backgroundImage: `url(${imgSrc})` }}
@@ -166,7 +167,7 @@ const MainRightContainer = () => {
                 ))}
             </div>
             <FlowerImg />
-            <SelectPageItems />
+            <Pagination />
         </div>
     );
 };

@@ -77,9 +77,11 @@ const MainRightContainer = () => {
                         className="MyProfile_main_right_container_userInfo_input"
                         onChange={onChangeContactInfoValue}
                     />
-                    <button className="MyProfile_certification_Btn">
-                        인증하기
-                    </button>
+                    <span className="MyProfile_certification_Btn_wrapper">
+                        <button className="MyProfile_certification_Btn">
+                            인증하기
+                        </button>
+                    </span>
                 </label>
                 <label>
                     계좌정보

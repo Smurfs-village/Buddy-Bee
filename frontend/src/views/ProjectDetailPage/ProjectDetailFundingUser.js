@@ -15,7 +15,7 @@ import DetailAgree from "./DetailAgree";
 // CSS
 import "./ProjectDetailFundingUser.css";
 
-const ProjectDetailPageFundingUser = ({ project }) => {
+const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   return (
     <BackGroundGrid>
       <Header />
@@ -30,7 +30,7 @@ const ProjectDetailPageFundingUser = ({ project }) => {
             <DetailContent content={project.description} />
             <DetailButton />
             <DetailProfile profile={project.profile} />
-            <DetailHashtag hashtags={project.hashtags} />
+            <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
                 <div className="ProjectDetailPage-day">

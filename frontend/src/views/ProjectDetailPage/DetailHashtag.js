@@ -1,19 +1,20 @@
 import "./DetailHashtag.css";
 
-const DetailHashtag = () => {
+const DetailHashtag = ({ hashtags }) => {
   return (
     <div className="ProjectDetailPage-hash-wrap">
       <div className="ProjectDetailPage-hash">
         <div className="ProjectDetailPage-hash-list">
-          <div className="ProjectDetailPage-hash-tag yellow">#버디비_구함</div>
-          <div className="ProjectDetailPage-hash-tag purple">
-            #펀딩_동행은_버디비에서
-          </div>
-          <div className="ProjectDetailPage-hash-tag yellow">#버디버디버디</div>
-          <div className="ProjectDetailPage-hash-tag purple">
-            #펀딩_동행은_버디비에서
-          </div>
-          <div className="ProjectDetailPage-hash-tag yellow">#버디버디버디</div>
+          {hashtags.map((tag, index) => (
+            <div
+              key={index}
+              className={`ProjectDetailPage-hash-tag ${
+                index % 2 === 0 ? "yellow" : "purple"
+              }`}
+            >
+              #{tag}
+            </div>
+          ))}
         </div>
       </div>
     </div>

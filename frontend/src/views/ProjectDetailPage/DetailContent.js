@@ -1,7 +1,12 @@
 import "./DetailContent.css";
 
-const DetailContent = () => {
-  return <div className="ProjectDetailPage-content">여기 컨텐츠 박스</div>;
+const DetailContent = ({ content }) => {
+  return (
+    <div
+      className="ProjectDetailPage-content"
+      dangerouslySetInnerHTML={{ __html: content }}
+    ></div>
+  );
 };
 
 export default DetailContent;

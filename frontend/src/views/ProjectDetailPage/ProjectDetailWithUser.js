@@ -12,7 +12,7 @@ import DetailHashtag from "./DetailHashtag";
 // CSS
 import "./ProjectDetailWithUser.css";
 
-const ProjectDetailPageWithUser = ({ project }) => {
+const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   return (
     <BackGroundGrid>
       <Header />
@@ -36,7 +36,7 @@ const ProjectDetailPageWithUser = ({ project }) => {
             <DetailContent content={project.description} />
             <DetailButton />
             <DetailProfile profile={project.profile} />
-            <DetailHashtag hashtags={project.hashtags} />
+            <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
                 <div className="ProjectDetailPage-day">

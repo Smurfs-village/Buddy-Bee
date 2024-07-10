@@ -10,17 +10,17 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    padding: 35px 76px;
+    padding: 2% 6% 3% 6%;
     position: relative;
 }
 
 .Main_right_container_writtenPosts {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin: 2% 0;
 }
 
-.Main_right_container_box {
+.MyPosts_ParticipatedProjects_main_right_container_box {
     display: flex;
     border: 2px solid black;
     border-radius: 20px;
@@ -112,39 +112,4 @@
     height: 31px;
     width: 64.9px;
     opacity: 1;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_flowerImg {
-    width: 117px;
-    height: 117px;
-    position: absolute;
-    left: 45px;
-    bottom: 40px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_btn_arrow_wrapper {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_btn {
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 50%;
-    font-size: 12px;
-    margin-right: 8px;
-    padding: 6px 12px 6px 12px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_pageOneBtn {
-    background-color: #fadf0b;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_pageTwoBtn {
-    background-color: white;
-}
-
-.MyPosts_ParticipatedProjects_rightArrow {
-    cursor: pointer;
 }

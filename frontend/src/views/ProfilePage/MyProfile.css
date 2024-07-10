@@ -9,12 +9,16 @@
     margin-bottom: 10px;
     font-size: 15px;
 }
+.MyProfile_certification_Btn_wrapper {
+    text-align: right;
+    width: 100%;
+}
 
 .MyProfile_certification_Btn {
     background-color: black;
     color: white;
     border-radius: 20px;
-    padding: 2%;
+    padding: 8px;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper {

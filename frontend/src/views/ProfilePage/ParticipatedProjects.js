@@ -1,12 +1,12 @@
 import "./Common.css";
+import "../../components/Common/Pagination.css";
 import { useState, useEffect } from "react";
-import shineeConcertImg from "../../img/shinee_concert.jpg";
 import btsConcertImg from "../../img/bts_concert.jpg";
 import twiceConcertImg from "../../img/twice_concert.jpg";
 import accompanyImg from "../../img/accompany1.jpg";
 import bts from "../../img/bts.jpg";
 import { FlowerImg } from "./Common";
-import { SelectPageItems } from "./Common";
+import Pagination from "../../components/Common/Pagination";
 
 const Card = ({
     imgSrc,
@@ -16,7 +16,7 @@ const Card = ({
     id,
     onDeleteActiveProject,
 }) => (
-    <div className="Main_right_container_box">
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box">
         <div
             className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper"
             style={{ backgroundImage: `url(${imgSrc})` }}
@@ -53,7 +53,7 @@ const FinishedProject = ({
     id,
     onDeleteFinishedProject,
 }) => (
-    <div className="Main_right_container_box">
+    <div className="MyPosts_ParticipatedProjects_main_right_container_box">
         <div
             className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper MyPosts_ParticipatedProjects_finishedProjectImg"
             style={{ backgroundImage: `url(${imgSrc})` }}
@@ -87,13 +87,13 @@ const MainRightContainer = () => {
     const [finishedProjects, setFinishedProjects] = useState([]);
 
     const onDeleteActiveProject = targetId => {
-        setParticipatingProjects(myProjects =>
-            myProjects.filter(project => project.id !== targetId)
+        setParticipatingProjects(
+            participatingProjects.filter(project => project.id !== targetId)
         );
     };
 
     const onDeleteFinishedProject = targetId => {
-        setFinishedProjects(finishedProjects =>
+        setFinishedProjects(
             finishedProjects.filter(project => project.id !== targetId)
         );
     };
@@ -173,7 +173,7 @@ const MainRightContainer = () => {
                 ))}
             </div>
             <FlowerImg />
-            <SelectPageItems />
+            <Pagination />
         </div>
     );
 };

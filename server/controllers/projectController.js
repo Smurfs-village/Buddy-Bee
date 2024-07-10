@@ -225,6 +225,7 @@ exports.removeProjectHoney = (req, res) => {
     res.status(200).send("Honeypot removed");
   });
 };
+
 exports.getProjectById = (req, res) => {
   const projectId = req.params.id;
 
@@ -248,5 +249,25 @@ exports.getProjectById = (req, res) => {
     }
 
     res.status(200).json(results[0]);
+  });
+};
+
+exports.incrementViewCount = (req, res) => {
+  const projectId = req.params.id;
+
+  const query = `
+    UPDATE project
+    SET view_count = view_count + 1
+    WHERE id = ?
+  `;
+
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error incrementing view count:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    res.status(200).send("View count incremented");
   });
 };

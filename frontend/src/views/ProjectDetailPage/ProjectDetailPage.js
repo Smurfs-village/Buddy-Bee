@@ -11,6 +11,7 @@ const ProjectDetailPage = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const [project, setProject] = useState(null);
+  const [hashtags, setHashtags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -28,7 +29,30 @@ const ProjectDetailPage = () => {
       }
     };
 
+    const incrementViewCount = async () => {
+      try {
+        await axios.patch(
+          `http://localhost:5001/api/projects/${id}/increment-view`
+        );
+      } catch (err) {
+        console.error("Failed to increment view count", err);
+      }
+    };
+
+    const fetchHashtags = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${id}/hashtags`
+        );
+        setHashtags(response.data);
+      } catch (err) {
+        console.error("Failed to fetch hashtags", err);
+      }
+    };
+
     fetchProject();
+    incrementViewCount();
+    fetchHashtags();
   }, [id]);
 
   if (loading) return <div>Loading...</div>;
@@ -41,15 +65,15 @@ const ProjectDetailPage = () => {
 
   if (isFunding) {
     return isOwner ? (
-      <ProjectDetailPageFunding project={project} />
+      <ProjectDetailPageFunding project={project} hashtags={hashtags} />
     ) : (
-      <ProjectDetailFundingUser project={project} />
+      <ProjectDetailFundingUser project={project} hashtags={hashtags} />
     );
   } else if (isWith) {
     return isOwner ? (
-      <ProjectDetailPageWith project={project} />
+      <ProjectDetailPageWith project={project} hashtags={hashtags} />
     ) : (
-      <ProjectDetailWithUser project={project} />
+      <ProjectDetailWithUser project={project} hashtags={hashtags} />
     );
   }
 

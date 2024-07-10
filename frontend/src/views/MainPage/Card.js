@@ -96,7 +96,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
           <h3>{data.title}</h3>
           <span>작성자: {data.author}</span>
         </div>
-        <p>조회수: {data.views || 0}</p>
+        <p>조회수: {data.view_count || 0}</p>
         <p className="mainpage-card_desc">{stripHtmlTags(data.description)}</p>
         <div className="mainpage-hashtags" ref={hashtagsRef}>
           {hashtags.map((tag, idx) => (

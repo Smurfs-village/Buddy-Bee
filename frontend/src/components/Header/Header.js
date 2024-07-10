@@ -179,17 +179,17 @@ const Header = () => {
         >
           <ul>
             <li>
-              <div className="headerpage-search-container">
+              <div className="hamburger-search-container">
                 <input
                   type="text"
                   placeholder="Search..."
                   onKeyDown={handleSearch}
                 />
-                <img
+                {/* <img
                   src={searchIcon}
                   alt="Search"
-                  className="headerpage-search-icon"
-                />
+                  className="hamburger-search-icon"
+                /> */}
               </div>
             </li>
             <li>

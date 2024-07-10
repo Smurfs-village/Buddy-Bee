@@ -57,6 +57,7 @@
 
 .headerpage-search-container input {
   padding-right: 30px; /* 검색 아이콘 공간 확보 */
+  border: 2px solid rgb(54, 54, 54);
   border-radius: 15px;
   box-sizing: border-box;
   padding: 8px;
@@ -215,6 +216,47 @@ body {
   clear: both;
 }
 
+.headerpage-hamburger-dropdown {
+  position: absolute;
+  width: 100%;
+  top: 90px;
+  left: 0;
+  /* height: 50px; */
+  background-color: seagreen;
+  visibility: hidden;
+}
+
+.headerpage-hamburger-dropdown ul {
+  list-style: none;
+}
+
+.hamburger-search-container {
+  position: relative;
+  /* display: flex; */
+  /* align-items: center; */
+}
+
+.hamburger-search-container .hamburger-search-icon {
+  position: absolute;
+  /* right: 10px; */
+  width: 20px;
+  height: 20px;
+}
+
+.hamburger-search-container input {
+  padding-right: 30px; /* 검색 아이콘 공간 확보 */
+  border: 2px solid rgb(54, 54, 54);
+  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.headerpage-hamburger-dropdown button {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+}
 /* 미디어쿼리_ media query */
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -229,6 +271,9 @@ body {
   .headerpage-header-right,
   .headerpage-header-logo {
     display: none;
+  }
+  .headerpage-hamburger-dropdown {
+    visibility: visible;
   }
   .headerpage-header-container {
     padding: 10px 2vw;

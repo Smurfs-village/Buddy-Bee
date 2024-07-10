@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.post("/", projectController.createProject);
 router.get("/", projectController.getProjects);
+router.get("/:id", projectController.getProjectById);
 router.get("/:id/hashtags", projectController.getProjectHashtags);
 router.get("/:id/participants", projectController.getProjectParticipants);
 router.get("/:id/honey", projectController.getProjectHoney);

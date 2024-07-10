@@ -1,15 +1,18 @@
 import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
+import { useAuth } from "../../contexts/AuthContext"; // Import useAuth
 import "./ListCard.css";
 
 const ListCard = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);
   const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const [isHoney, setIsHoney] = useState(false);
+  const { user } = useAuth(); // Get current user from AuthContext
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (hashtagsRef.current) {
@@ -18,7 +21,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       const hashtagsElements = Array.from(hashtagsRef.current.children);
 
       hashtagsElements.forEach(tag => {
-        totalWidth += tag.offsetWidth + 10; // 10은 gap 크기
+        totalWidth += tag.offsetWidth + 10;
         if (totalWidth > containerWidth) {
           tag.style.display = "none";
         }
@@ -29,7 +32,6 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
   useEffect(() => {
     let isMounted = true;
 
-    // Fetch hashtags from the server
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
@@ -41,7 +43,6 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       }
     };
 
-    // Fetch current participants from the server
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(
@@ -54,15 +55,28 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       }
     };
 
-    fetchHashtags();
-    fetchParticipants();
+    const checkHoneyStatus = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${data.id}/honey/${user.id}`
+        );
+        if (isMounted) setIsHoney(response.data.isHoney);
+      } catch (error) {
+        console.error("Error checking honey status:", error);
+      }
+    };
+
+    if (user) {
+      fetchHashtags();
+      fetchParticipants();
+      checkHoneyStatus();
+    }
 
     return () => {
-      isMounted = false; // Cleanup function to prevent setting state on unmounted component
+      isMounted = false;
     };
-  }, [data.id]);
+  }, [data.id, user]);
 
-  // HTML 태그를 제거하는 함수
   const stripHtmlTags = html => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
@@ -70,7 +84,30 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/projects/${data.id}`); // 프로젝트 디테일 페이지로 이동
+    navigate(`/projects/${data.id}`);
+  };
+
+  const handleHoneyClick = async e => {
+    e.stopPropagation();
+    try {
+      if (isHoney) {
+        await axios.delete(
+          `http://localhost:5001/api/projects/${data.id}/honey`,
+          {
+            data: { userId: user.id },
+          }
+        );
+      } else {
+        await axios.post(
+          `http://localhost:5001/api/projects/${data.id}/honey`,
+          { userId: user.id }
+        );
+      }
+      setIsHoney(!isHoney);
+    } catch (error) {
+      console.error("Error toggling honey status:", error);
+    }
+    toggleScrap(index, type); // 스크랩 상태 업데이트
   };
 
   return (
@@ -83,19 +120,16 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
           {currentParticipants} / {data.max_participants}명
         </div>
         <img
-          src={data.scrap ? scrap_yes : scrap_none}
+          src={isHoney ? scrap_yes : scrap_none}
           alt="Scrap"
           className="common-scrap-icon"
-          onClick={e => {
-            e.stopPropagation();
-            toggleScrap(index, type);
-          }}
+          onClick={handleHoneyClick}
         />
       </div>
       <div className="common-card-content">
         <div className="common-card-line-1">
           <h3>{data.title}</h3>
-          <span>작성자: {data.author}</span>
+          <span>작성자 {data.author}</span>
         </div>
         <p>조회수 {data.view_count || 0}</p>
         <p className="common-card_desc">{stripHtmlTags(data.description)}</p>

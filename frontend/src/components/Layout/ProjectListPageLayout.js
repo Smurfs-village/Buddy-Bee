@@ -9,10 +9,10 @@ import SubNav from "./SubNav";
 
 const ProjectListPageLayout = () => {
   const [cards, setCards] = useState([]);
-  const [sortBtn, setSortBtn] = useState("latest"); //초깃값 최신순으로 정렬
-  const [sortedCardList, setSortedCardList] = useState([]); //정렬한 값 담는 배열
-  const [activePage, setActivePage] = useState(1); //초기 페이지 값 세팅
-  const [filterItem, setFilterItem] = useState(false); //초깃값 동행
+  const [sortBtn, setSortBtn] = useState("latest");
+  const [sortedCardList, setSortedCardList] = useState([]);
+  const [activePage, setActivePage] = useState(1);
+  const [filterItem, setFilterItem] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -32,7 +32,7 @@ const ProjectListPageLayout = () => {
       if (sortBtn === "latest") {
         return new Date(b.created_at) - new Date(a.created_at);
       } else if (sortBtn === "popularity") {
-        return b.views - a.views;
+        return b.view_count - a.view_count;
       }
     };
 
@@ -47,10 +47,7 @@ const ProjectListPageLayout = () => {
     setCards(updatedCards);
   };
 
-  //한 페이지당 보여줄 아이템 수
   const itemsCountPerPage = 25;
-
-  // 현재 페이지에 보여줄 아이템들을 계산
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
@@ -123,7 +120,6 @@ const ProjectListPageLayout = () => {
                     ))
                 : alert("error")}
             </div>
-            {/* 페이지네이션 부분 */}
             <Pagination
               totalItemsCount={sortedCardList.length}
               activePage={activePage}

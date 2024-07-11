@@ -10,7 +10,7 @@
 }
 
 .ProjectDetailPage-hash-list {
-  gap: 10px;
+  gap: 7px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -22,6 +22,9 @@
   border: 1px solid #000000;
   cursor: pointer;
   font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 14px;
+  /* font-weight: bold; */
 }
 
 .yellow {

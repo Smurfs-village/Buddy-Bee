@@ -1,3 +1,9 @@
+.ProjectDetailPage-content {
+  margin-top: 30px;
+  min-height: 200px;
+  padding-bottom: 40px;
+}
+
 .ProjectDetailPage-content img {
   max-width: 100%;
   height: auto;

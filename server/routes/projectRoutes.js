@@ -11,5 +11,6 @@ router.get("/:id/honey", projectController.getProjectHoney);
 router.post("/:id/honey", projectController.addProjectHoney);
 router.delete("/:id/honey", projectController.removeProjectHoney);
 router.patch("/:id/increment-view", projectController.incrementViewCount);
+router.get("/:id/honey/:userId", projectController.getUserHoneyStatus);
 
 module.exports = router;

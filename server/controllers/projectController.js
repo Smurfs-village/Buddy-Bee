@@ -186,6 +186,28 @@ exports.getProjectHoney = (req, res) => {
   });
 };
 
+exports.getUserHoneyStatus = (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.params.userId;
+
+  const query = `
+    SELECT COUNT(*) as isHoney
+    FROM honeypot
+    WHERE project_id = ? AND user_id = ?
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching user honey status:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const isHoney = results[0].isHoney > 0;
+    res.status(200).json({ isHoney });
+  });
+};
+
 exports.addProjectHoney = (req, res) => {
   const projectId = req.params.id;
   const { userId } = req.body;
@@ -269,5 +291,73 @@ exports.incrementViewCount = (req, res) => {
     }
 
     res.status(200).send("View count incremented");
+  });
+};
+
+// Add toggleHoney function
+exports.toggleHoney = (req, res) => {
+  const projectId = req.params.id;
+  const { userId } = req.body;
+
+  const checkQuery = `
+    SELECT * FROM honeypot WHERE project_id = ? AND user_id = ?
+  `;
+
+  connection.query(checkQuery, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error checking honeypot:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    if (results.length > 0) {
+      // Honey exists, so remove it
+      const deleteQuery = `
+        DELETE FROM honeypot WHERE project_id = ? AND user_id = ?
+      `;
+      connection.query(deleteQuery, [projectId, userId], deleteError => {
+        if (deleteError) {
+          console.error("Error removing honeypot:", deleteError);
+          res.status(500).send("Server error");
+          return;
+        }
+        res.status(200).send("Honeypot removed");
+      });
+    } else {
+      // Honey does not exist, so add it
+      const insertQuery = `
+        INSERT INTO honeypot (project_id, user_id) VALUES (?, ?)
+      `;
+      connection.query(insertQuery, [projectId, userId], insertError => {
+        if (insertError) {
+          console.error("Error adding honeypot:", insertError);
+          res.status(500).send("Server error");
+          return;
+        }
+        res.status(201).send("Honeypot added");
+      });
+    }
+  });
+};
+exports.checkProjectHoney = (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.params.userId;
+
+  const query = `
+    SELECT 1
+    FROM honeypot
+    WHERE project_id = ? AND user_id = ?
+    LIMIT 1
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error checking honeypot:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const isHoney = results.length > 0;
+    res.status(200).json({ isHoney });
   });
 };

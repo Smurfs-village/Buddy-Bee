@@ -1,7 +1,17 @@
+.ProjectDetailPage-content {
+  margin-top: 30px;
+  min-height: 200px;
+  padding-bottom: 40px;
+}
+
 .ProjectDetailPage-content img {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
   align-items: center;
   display: flex;
+}
+
+.ProjectDetailPage-content h2 {
+  text-align: center;
 }

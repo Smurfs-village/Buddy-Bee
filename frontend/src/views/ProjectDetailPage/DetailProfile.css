@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 90px;
+  margin-top: 50px;
 }
 
 /* 작성자 프로필사진 */
@@ -27,7 +27,7 @@
 
 /* 작성자 닉네임 */
 .ProjectDetailPage-profile-name {
-  padding-top: 21px;
+  padding-top: 1.4rem;
   font-weight: bold;
 }
 
@@ -37,9 +37,10 @@
 
 /* 작성자 자기소개글 */
 .ProjectDetailPage-profile-txt {
-  padding-top: 11px;
+  padding-top: 1rem;
 }
 
 .ProjectDetailPage-profile-txt span {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
 }

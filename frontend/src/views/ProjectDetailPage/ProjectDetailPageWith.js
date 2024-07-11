@@ -1,4 +1,5 @@
 import Header from "../../components/Header/Header";
+import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import PageLayout from "../../components/Layout/PageLayout";
 import Footer from "../../components/Footer/Footer";
@@ -16,10 +17,7 @@ const ProjectDetailPageWith = ({ project, hashtags }) => {
   return (
     <BackGroundGrid>
       <Header />
-      <div className="project-list-page-sub-nav">
-        <button>#버디비_동행</button>
-        <button>#버디비_펀딩</button>
-      </div>
+      <SubNav />
       <PageLayout>
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">

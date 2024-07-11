@@ -10,7 +10,7 @@
 }
 
 .ProjectDetailPage-hash-list {
-  gap: 25px;
+  gap: 7px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -19,9 +19,12 @@
 .ProjectDetailPage-hash-tag {
   border-radius: 50px;
   padding: 10px;
-  border: 2px solid #000;
+  border: 1px solid #000000;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 14px;
+  /* font-weight: bold; */
 }
 
 .yellow {

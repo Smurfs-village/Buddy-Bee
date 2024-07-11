@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .ProjectDetailPage-participate-txt {
@@ -19,22 +19,31 @@
 }
 
 .ProjectDetailPage-participate-btn button {
-  width: 66px;
-  height: 42px;
+  width: 60px;
+  height: 37px;
   border-radius: 20px;
+  border: 2px solid black;
   cursor: pointer;
 }
 .ProjectDetailPage-modify {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   background-color: #fff;
+  transition: 0.2s ease;
+  margin-right: 1px;
 }
 
 .ProjectDetailPage-delete {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   background-color: #000;
   color: #fff;
+  transition: 0.2s ease;
+}
+
+.ProjectDetailPage-modify:hover,
+.ProjectDetailPage-delete:hover {
+  transform: scale(1.04);
 }
 
 /* 옵션선택 */
@@ -47,14 +56,17 @@
   padding: 0 0 15px 0;
 }
 
-.ProjectDetailPage-input {
+/* .ProjectDetailPage-input {
   display: flex;
   align-items: center;
-}
-
+} */
+/* 
 .ProjectDetailPage-input input {
   width: 22px;
   height: 22px;
   border-radius: 5px;
   border: 2px solid #000;
+} */
+.ProjectDetailPage-input input[type="radio"] {
+  accent-color: black;
 }

@@ -47,6 +47,8 @@
   font-weight: 1000;
   font-size: 24px;
   display: inline-block;
+  padding-bottom: 1px;
+  margin-left: 5px;
 }
 .createpage-hashtag-label {
   margin-bottom: 0px !important;
@@ -78,6 +80,7 @@
   gap: 10px;
   margin-bottom: 25px;
 }
+
 .createpage-hashtag-limit {
   color: #d8d8d8;
   font-size: 18px;
@@ -123,7 +126,7 @@
 }
 
 .createpage-add-button {
-  padding: 12px 15px 12px 15px;
+  padding: 12px 16px;
   background-color: #000;
   color: #fff;
   border: none;
@@ -169,6 +172,7 @@
   white-space: nowrap;
   display: flex;
   align-items: center;
+  padding-right: 5px;
 }
 .createpage-hashtag button {
   background: none;
@@ -187,6 +191,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 35px;
 }
 
 .createpage-period-input-wrapper {
@@ -216,9 +221,6 @@
 }
 
 /* 프로젝트 설정 영역 CSS */
-.createpage-recruitment-group-wrap {
-  margin-top: 80px;
-}
 
 .createpage-recruitment-group {
   border: 1px dotted #000;
@@ -267,18 +269,21 @@
   flex: 1;
 }
 /* 옵션 추가 섹션 스타일 추가 */
-.createpate-option-form-group {
+.createpage-option-form-group {
   border: 1px dotted black;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
-  padding-bottom: 30px;
+  padding: 20px 10px 30px 20px;
   border-radius: 15px;
-  padding-top: 30px;
+  /* padding-top: 20px; */
 }
-.createpate-option-form-group input {
+.createpage-option-form-group input {
   border: none;
+}
+
+.createpage-form-group.createpage-option-form-group {
+  margin-bottom: 20px;
 }
 
 .createpage-option-input-wrapper {
@@ -313,6 +318,7 @@
 }
 .button-span-group button {
   margin-right: 20px;
+  margin-bottom: 3px;
 }
 .createpage-options-display {
   display: flex;

@@ -234,7 +234,7 @@ const CreatePageLayout = ({ children, type }) => {
               <div className="createpage-form-group">
                 <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
 
-                <div className="createpage-form-group createpate-option-form-group">
+                <div className="createpage-form-group createpage-option-form-group">
                   <div className="createpage-option-input-wrapper">
                     <div className="input-wrapper">
                       <span>옵션명</span>
@@ -267,6 +267,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div key={index} className="createpage-option">
                         <div className="button-span-group">
                           <button
+                            className="create-delete-btn"
                             type="button"
                             onClick={() => removeOption(index)}
                           >

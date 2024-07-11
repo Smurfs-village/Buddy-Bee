@@ -1,12 +1,11 @@
 import "./Common.css";
-import "../../components/Common/Pagination.css";
 import { useState, useEffect } from "react";
 import btsConcertImg from "../../img/bts_concert.jpg";
 import twiceConcertImg from "../../img/twice_concert.jpg";
 import accompanyImg from "../../img/accompany1.jpg";
 import bts from "../../img/bts.jpg";
 import { FlowerImg } from "./Common";
-import Pagination from "../../components/Common/Pagination";
+import Pagination from "./Common";
 
 const Card = ({
     imgSrc,
@@ -85,6 +84,7 @@ const FinishedProject = ({
 const MainRightContainer = () => {
     const [participatingProjects, setParticipatingProjects] = useState([]);
     const [finishedProjects, setFinishedProjects] = useState([]);
+    const [activePage, setActivePage] = useState(1);
 
     const onDeleteActiveProject = targetId => {
         setParticipatingProjects(
@@ -143,13 +143,25 @@ const MainRightContainer = () => {
         setFinishedProjects(finishedProjects);
     }, []);
 
+    const pageChangeHandler = pageNumber => setActivePage(pageNumber);
+    const totalItemsCount =
+        participatingProjects.length + finishedProjects.length;
+    const itemsCountPerPage = 4;
+
+    const indexOfLastItem = activePage * itemsCountPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
+    const currentItems = participatingProjects.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
+
     return (
         <div className="Main_right_container">
             <p className="Main_right_container_writtenPosts">
                 참여중인 프로젝트
             </p>
             <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-                {participatingProjects.map(project => (
+                {currentItems.map(project => (
                     <Card
                         key={project.id}
                         imgSrc={project.imgSrc}
@@ -173,7 +185,13 @@ const MainRightContainer = () => {
                 ))}
             </div>
             <FlowerImg />
-            <Pagination />
+            <Pagination
+                activePage={activePage}
+                itemsCountPerPage={itemsCountPerPage}
+                totalItemsCount={totalItemsCount}
+                pageRangeDisplayed={5}
+                handlePageChange={pageChangeHandler}
+            />
         </div>
     );
 };

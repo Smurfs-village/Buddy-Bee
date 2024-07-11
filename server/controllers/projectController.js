@@ -186,6 +186,28 @@ exports.getProjectHoney = (req, res) => {
   });
 };
 
+exports.getUserHoneyStatus = (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.params.userId;
+
+  const query = `
+    SELECT COUNT(*) as isHoney
+    FROM honeypot
+    WHERE project_id = ? AND user_id = ?
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching user honey status:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const isHoney = results[0].isHoney > 0;
+    res.status(200).json({ isHoney });
+  });
+};
+
 exports.addProjectHoney = (req, res) => {
   const projectId = req.params.id;
   const { userId } = req.body;

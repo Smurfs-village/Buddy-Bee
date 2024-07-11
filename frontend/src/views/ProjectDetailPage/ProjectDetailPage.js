@@ -63,21 +63,23 @@ const ProjectDetailPage = () => {
   const isFunding = project.type === "funding";
   const isWith = project.type === "with";
 
-  if (isFunding) {
-    return isOwner ? (
-      <ProjectDetailPageFunding project={project} hashtags={hashtags} />
-    ) : (
-      <ProjectDetailFundingUser project={project} hashtags={hashtags} />
-    );
-  } else if (isWith) {
-    return isOwner ? (
-      <ProjectDetailPageWith project={project} hashtags={hashtags} />
-    ) : (
-      <ProjectDetailWithUser project={project} hashtags={hashtags} />
-    );
-  }
-
-  return null;
+  return (
+    <div>
+      {isFunding ? (
+        isOwner ? (
+          <ProjectDetailPageFunding project={project} hashtags={hashtags} />
+        ) : (
+          <ProjectDetailFundingUser project={project} hashtags={hashtags} />
+        )
+      ) : isWith ? (
+        isOwner ? (
+          <ProjectDetailPageWith project={project} hashtags={hashtags} />
+        ) : (
+          <ProjectDetailWithUser project={project} hashtags={hashtags} />
+        )
+      ) : null}
+    </div>
+  );
 };
 
 export default ProjectDetailPage;

@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer";
 
 import DetailTitle from "./DetailTitle";
 import DetailContent from "./DetailContent";
-import DetailButton from "./DetailButton";
+import DetailButton from "./DetailButton"; // Import DetailButton
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import DetailFundingStatus from "./DetailFundingStatus";
@@ -28,7 +28,7 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
           <div className="ProjectDetailPage-container">
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />
-            <DetailButton />
+            <DetailButton projectId={project.id} /> {/* Pass projectId */}
             <DetailProfile profile={project.profile} />
             <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">

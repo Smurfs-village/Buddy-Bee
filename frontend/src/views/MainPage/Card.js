@@ -1,32 +1,37 @@
 import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 
 const Card = ({ data, index, type, toggleScrap }) => {
+  const { user } = useAuth(); // useAuth 훅 사용
   const hashtagsRef = useRef(null);
   const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0);
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const [isHoney, setIsHoney] = useState(false);
+  const [honeyCount, setHoneyCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const containerWidth = hashtagsRef.current.offsetWidth;
-    let totalWidth = 0;
-    const hashtagsElements = Array.from(hashtagsRef.current.children);
+    if (hashtagsRef.current) {
+      const containerWidth = hashtagsRef.current.offsetWidth;
+      let totalWidth = 0;
+      const hashtagsElements = Array.from(hashtagsRef.current.children);
 
-    hashtagsElements.forEach(tag => {
-      totalWidth += tag.offsetWidth + 5; // 5는 gap 크기
-      if (totalWidth > containerWidth) {
-        tag.style.display = "none";
-      }
-    });
+      hashtagsElements.forEach(tag => {
+        totalWidth += tag.offsetWidth + 5;
+        if (totalWidth > containerWidth) {
+          tag.style.display = "none";
+        }
+      });
+    }
   }, [hashtags]);
 
   useEffect(() => {
     let isMounted = true;
 
-    // Fetch hashtags from the server
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
@@ -38,7 +43,6 @@ const Card = ({ data, index, type, toggleScrap }) => {
       }
     };
 
-    // Fetch current participants from the server
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(
@@ -51,15 +55,40 @@ const Card = ({ data, index, type, toggleScrap }) => {
       }
     };
 
+    const fetchHoneyStatus = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${data.id}/honey/${user.id}`
+        );
+        if (isMounted) setIsHoney(response.data.isHoney);
+      } catch (error) {
+        console.error("Error fetching honey status:", error);
+      }
+    };
+
+    const fetchHoneyCount = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${data.id}/honey`
+        );
+        if (isMounted) setHoneyCount(response.data.honeyCount);
+      } catch (error) {
+        console.error("Error fetching honey count:", error);
+      }
+    };
+
     fetchHashtags();
     fetchParticipants();
+    if (user) {
+      fetchHoneyStatus();
+      fetchHoneyCount();
+    }
 
     return () => {
-      isMounted = false; // Cleanup function to prevent setting state on unmounted component
+      isMounted = false;
     };
-  }, [data.id]);
+  }, [data.id, user]);
 
-  // HTML 태그를 제거하는 함수
   const stripHtmlTags = html => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
@@ -67,7 +96,38 @@ const Card = ({ data, index, type, toggleScrap }) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/projects/${data.id}`); // 프로젝트 디테일 페이지로 이동
+    navigate(`/projects/${data.id}`);
+  };
+
+  const handleHoneyClick = async e => {
+    e.stopPropagation();
+    if (!user) {
+      console.error("User is not authenticated");
+      return;
+    }
+
+    try {
+      if (isHoney) {
+        await axios.delete(
+          `http://localhost:5001/api/projects/${data.id}/honey`,
+          {
+            data: { userId: user.id },
+          }
+        );
+        setHoneyCount(honeyCount - 1);
+      } else {
+        await axios.post(
+          `http://localhost:5001/api/projects/${data.id}/honey`,
+          {
+            userId: user.id,
+          }
+        );
+        setHoneyCount(honeyCount + 1);
+      }
+      setIsHoney(!isHoney);
+    } catch (error) {
+      console.error("Error toggling honey status:", error);
+    }
   };
 
   return (
@@ -82,13 +142,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
           {currentParticipants} / {data.max_participants}명
         </div>
         <img
-          src={data.scrap ? scrap_yes : scrap_none}
-          alt="Scrap"
+          src={isHoney ? scrap_yes : scrap_none}
+          alt={isHoney ? "scrap_yes" : "scrap_none"}
           className="mainpage-scrap-icon"
-          onClick={e => {
-            e.stopPropagation();
-            toggleScrap(index, type);
-          }}
+          onClick={handleHoneyClick}
         />
       </div>
       <div className="mainpage-card-content">

@@ -110,7 +110,6 @@
   font-size: 0.77em; /* 16px */
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
 }
 
 .common-hashtag.common-alternate-color {

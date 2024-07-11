@@ -6,10 +6,13 @@ import "./ProjectListPageLayout.css";
 import ListCard from "../Common/ListCard";
 import Pagination from "../Common/Pagination";
 import SubNav from "./SubNav";
+import { useSearchParams } from "react-router-dom"; //test
 
 const ProjectListPageLayout = () => {
+  const [searchParams] = useSearchParams(); // test
+  const sort = searchParams.get("sort"); // test
   const [cards, setCards] = useState([]);
-  const [sortBtn, setSortBtn] = useState("latest");
+  const [sortBtn, setSortBtn] = useState(sort); //test
   const [sortedCardList, setSortedCardList] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [filterItem, setFilterItem] = useState(false);
@@ -52,7 +55,7 @@ const ProjectListPageLayout = () => {
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = pageNumber => {
+  const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
 
@@ -96,7 +99,7 @@ const ProjectListPageLayout = () => {
                   ))
                 : filterItem === "with"
                 ? currentItems
-                    .filter(item => item.type === "with")
+                    .filter((item) => item.type === "with")
                     .map((data, index) => (
                       <ListCard
                         key={index}
@@ -108,7 +111,7 @@ const ProjectListPageLayout = () => {
                     ))
                 : filterItem === "funding"
                 ? currentItems
-                    .filter(item => item.type === "funding")
+                    .filter((item) => item.type === "funding")
                     .map((data, index) => (
                       <ListCard
                         key={index}

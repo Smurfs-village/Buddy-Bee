@@ -11,6 +11,7 @@ import section1_cloud from "../../img/section1_cloud.svg";
 import section1_flower from "../../img/section1_flower.svg";
 import Card from "./Card";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MainPage = () => {
   const settings = {
@@ -34,8 +35,12 @@ const MainPage = () => {
         const response = await axios.get("http://localhost:5001/api/projects");
         const projects = response.data;
 
-        const recruitment = projects.filter(project => project.type === "with");
-        const funding = projects.filter(project => project.type === "funding");
+        const recruitment = projects.filter(
+          (project) => project.type === "with"
+        );
+        const funding = projects.filter(
+          (project) => project.type === "funding"
+        );
 
         setRecruitmentCards(recruitment);
         setFundingCards(funding);
@@ -48,7 +53,7 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
-    const updateCards = cards => {
+    const updateCards = (cards) => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;
@@ -81,19 +86,23 @@ const MainPage = () => {
 
               <h2>Be My Buddy! </h2>
               <p className="mainpage-left_p">
-                욕망은 욕심보다 모호한 단어다. 마음 심을 쓰는 욕심과 달리 욕망의
-                '망'은 바랄 망을 쓴다. 희망의 '망'과도 같은 한자다. 그래서
-                욕망은 내가 무엇을 바라는지 알지 못하면 잘 모를 수밖에 없는
-                영역이다.
+                버디비(BuddyBee)는 같은 관심사를 가진 친구들과 함께 꿀벌처럼
+                협력하며 꿈을 이루어 나가는 곳이에요! 서로의 프로젝트를
+                소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
               </p>
             </div>
             <div className="mainpage-button-container">
-              <button className="mainpage-main-button">
-                Find Buddy <p>동행구하기</p>
-              </button>
-              <button className="mainpage-main-button">
-                Find Funding <p>펀딩구하기</p>
-              </button>
+              {/* Link to 추가 07.11 */}
+              <Link to="/projects?sort=popularity">
+                <button className="mainpage-main-button">
+                  Find Buddy <p>동행구하기</p>
+                </button>
+              </Link>
+              <Link to="/projects?sort=popularity">
+                <button className="mainpage-main-button">
+                  Find Funding <p>펀딩구하기</p>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="mainpage-right-section">

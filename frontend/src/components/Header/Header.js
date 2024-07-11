@@ -3,15 +3,18 @@ import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추�
 import icon from "../../img/nav_icon.svg";
 import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
-import searchIcon from "../../img/jam_search.png"; // 검색 아이콘 추가
+import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
+import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
+  const hamburgerRef = useRef(null);
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
@@ -71,6 +74,21 @@ const Header = () => {
     navigate("/login");
   };
 
+  const clickHamburger = () => {
+    //하단 표현 방식 리액트에 맞게 수정 예정입니다!
+    let icon1 = document.getElementById("a");
+    let icon2 = document.getElementById("b");
+    let icon3 = document.getElementById("c");
+    if (isHamburgerOpen === false) {
+      icon1.classList.toggle("a");
+      icon2.classList.toggle("c");
+      icon3.classList.toggle("b");
+      setIsHamburgerOpen(true);
+    }
+    if (isHamburgerOpen === true) {
+      setIsHamburgerOpen(false);
+    }
+  };
   return (
     <header className="headerpage-header">
       <div className="headerpage-header-container">
@@ -79,7 +97,7 @@ const Header = () => {
             <img src={icon} alt="Icon" />
           </Link>
           <Link to="/">
-            <img src={logo} alt="Logo" />
+            <img className="headerpage-header-logo" src={logo} alt="Logo" />
           </Link>
         </div>
         <div className="headerpage-header-right">
@@ -105,11 +123,11 @@ const Header = () => {
             ref={dropdownRef}
           >
             <ul>
-              <li>Option 1</li>
-              <li>Option 2</li>
-              <li>Option 3</li>
+              <li>동행 만들기</li>
+              <li>펀딩 만들기</li>
             </ul>
           </div>
+
           {isLoggedIn ? (
             <>
               <div
@@ -130,7 +148,6 @@ const Header = () => {
               >
                 <ul>
                   <li>Profile</li>
-                  <li>Settings</li>
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>
@@ -143,6 +160,95 @@ const Header = () => {
               Login
             </button>
           )}
+        </div>
+        {/* 미디어쿼리 ~479px 햄버거버튼_ hamburger btn */}
+        <div
+          className="headerpage-hamburger-icon"
+          id="icon"
+          onClick={clickHamburger}
+        >
+          <div className="icon-1" id="a" />
+          <div className="icon-2" id="b" />
+          <div className="icon-3" id="c" />
+          <div className="clear" />
+        </div>
+        {/* 햄버거버튼 드롭다운_hamburger drop down */}
+        <div
+          className={`headerpage-hamburger-dropdown ${
+            isHamburgerOpen ? "hamburger-open" : ""
+          }`}
+          ref={hamburgerRef}
+        >
+          <ul>
+            <li>
+              <div className="hamburger-search-container">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  onKeyDown={handleSearch}
+                />
+                <img
+                  src={searchIcon}
+                  alt="Search"
+                  className="hamburger-search-icon"
+                />
+              </div>
+            </li>
+            <li>
+              <button type="button" onClick={handleButtonClick}>
+                <img
+                  src={createIcon}
+                  alt="Create"
+                  className="hamburger-create-icon"
+                />
+              </button>
+              <div
+                className={`headerpage-dropdown-menu ${
+                  isDropdownOpen ? "headerpage-open" : ""
+                }`}
+                ref={dropdownRef}
+              >
+                <ul>
+                  <li>동행 만들기</li>
+                  <li>펀딩 만들기</li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              {isLoggedIn ? (
+                <>
+                  <div
+                    className="hamburger-profile-container"
+                    onClick={handleProfileClick}
+                  >
+                    <img
+                      src={myprofile}
+                      alt="My Profile"
+                      className="hamburger-profile-image"
+                    />
+                  </div>
+                  <div
+                    className={`hamburger-profile-dropdown-menu ${
+                      isProfileDropdownOpen ? "headerpage-open" : ""
+                    }`}
+                    ref={profileDropdownRef}
+                  >
+                    <ul>
+                      <li>Profile</li>
+                      <li onClick={handleLogout}>Logout</li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <button
+                  className="hamburger-login-button"
+                  onClick={handleLoginClick}
+                >
+                  Login
+                </button>
+              )}
+            </li>
+          </ul>
         </div>
       </div>
     </header>

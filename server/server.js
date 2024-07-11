@@ -17,10 +17,12 @@ app.use("/uploads", express.static(uploadDir));
 
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const userRoutes = require("./routes/userRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 
 app.use("/api", authRoutes);
 app.use("/api/projects", projectRoutes);
+app.use("/api", userRoutes);
 app.use("/api", uploadRoutes);
 
 const port = 5001;

@@ -68,7 +68,6 @@ exports.checkNickname = (req, res) => {
   });
 };
 
-// 현재 사용자 정보를 반환하는 함수 추가
 exports.getMe = (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   try {

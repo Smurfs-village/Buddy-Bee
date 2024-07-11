@@ -6,6 +6,7 @@ import "./ProjectListPageLayout.css";
 import ListCard from "../Common/ListCard";
 import Pagination from "../Common/Pagination";
 import SubNav from "./SubNav";
+import { useLocation } from "react-router-dom";
 
 const ProjectListPageLayout = () => {
   const [cards, setCards] = useState([]);
@@ -13,11 +14,17 @@ const ProjectListPageLayout = () => {
   const [sortedCardList, setSortedCardList] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [filterItem, setFilterItem] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/projects");
+        const query = new URLSearchParams(location.search).get("query");
+        const response = query
+          ? await axios.get(
+              `http://localhost:5001/api/projects/search?query=${query}`
+            )
+          : await axios.get("http://localhost:5001/api/projects");
         setCards(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -25,7 +32,7 @@ const ProjectListPageLayout = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     const sortCompare = (a, b) => {

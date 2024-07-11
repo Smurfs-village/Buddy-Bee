@@ -1,5 +1,4 @@
 import "./Bookmarks.css";
-import "../../components/Common/Pagination.css";
 import "./Common";
 import { useState, useEffect } from "react";
 import scrap_yes from "../../img/scrap_yes.svg";
@@ -15,36 +14,7 @@ import blackPinkConcertImg from "../../img/blackpink_concert.jpg";
 import heroConcertImg from "../../img/hero_concert.jpg";
 import Sheonoo from "../../img/sheonoo.jpg";
 import { FlowerImg } from "./Common";
-import Paging from "react-js-pagination";
-import rightArrow from "../../img/right_arrow.svg";
-
-const Pagination = ({
-    totalItemsCount,
-    pageChangeHandler,
-    activePage,
-    itemsCountPerPage,
-    pageRangeDisplayed,
-}) => {
-    return (
-        <Paging
-            activePage={activePage}
-            itemsCountPerPage={itemsCountPerPage}
-            totalItemsCount={totalItemsCount}
-            pageRangeDisplayed={pageRangeDisplayed}
-            prevPageText={null}
-            nextPageText={
-                <img
-                    className="pagination-right-arrow"
-                    src={rightArrow}
-                    alt="next"
-                />
-            }
-            onChange={pageChangeHandler}
-            firstPageText={null}
-            lastPageText={null}
-        />
-    );
-};
+import Pagination from "../../components/Common/Pagination";
 
 const Card = ({
     imgSrc,
@@ -117,8 +87,6 @@ const MainRightContainer = () => {
     const [finishedBookmarks, setFinishedBookmarks] = useState([]);
     const [activePage, setActivePage] = useState(1);
 
-    const pageChangeHandler = pageNumber => setActivePage(pageNumber);
-
     useEffect(() => {
         // 여기에 백엔드에서 데이터를 가져오는 로직 추가
         //
@@ -159,13 +127,6 @@ const MainRightContainer = () => {
             },
             {
                 id: 4,
-                imgSrc: Sheonoo,
-                projectName: "셔누 생파",
-                status: "진행중",
-                scrapState: true,
-            },
-            {
-                id: 5,
                 imgSrc: Sheonoo,
                 projectName: "셔누 생파",
                 status: "진행중",
@@ -227,22 +188,23 @@ const MainRightContainer = () => {
         }
     };
 
+    const pageChangeHandler = pageNumber => setActivePage(pageNumber);
+
     const totalItemsCount = bookmarks.length + finishedBookmarks.length;
 
     const itemsCountPerPage = 10;
 
-    // 현재 페이지에 보여줄 아이템들을 계산
-    const indexOfLastItem = activePage * itemsCountPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
+    const indexOfLastItem = activePage * bookmarks.length;
+    const indexOfFirstItem = indexOfLastItem - bookmarks.length;
     const currentItems = bookmarks.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <div className="Main_right_container">
             <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
             <div className="Bookmarks_main_right_container_cards_wrapper">
-                {bookmarks.map((project, index) => (
+                {currentItems.map((project, index) => (
                     <Card
-                        key={index}
+                        key={project.id}
                         imgSrc={project.imgSrc}
                         projectName={project.projectName}
                         status={project.status}
@@ -254,7 +216,7 @@ const MainRightContainer = () => {
                 ))}
                 {finishedBookmarks.map((project, index) => (
                     <FinishedProject
-                        key={index}
+                        key={project.id}
                         imgSrc={project.imgSrc}
                         projectName={project.projectName}
                         status={project.status}
@@ -270,7 +232,8 @@ const MainRightContainer = () => {
                 totalItemsCount={totalItemsCount}
                 activePage={activePage}
                 itemsCountPerPage={itemsCountPerPage}
-                pageChangeHandler={pageChangeHandler}
+                pageRangeDisplayed={5}
+                handlePageChange={pageChangeHandler}
             />
         </div>
     );

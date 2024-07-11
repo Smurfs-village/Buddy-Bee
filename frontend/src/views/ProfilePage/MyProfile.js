@@ -56,7 +56,7 @@ const MainRightContainer = () => {
                     <input
                         type="text"
                         value={nickname}
-                        className="MyProfile_main_right_container_userInfo_input"
+                        className="MyProfile_main_right_container_userInfo_input MyProfile_nickname_input"
                         onChange={onChangeNicknameValue}
                     />
                 </label>
@@ -69,19 +69,17 @@ const MainRightContainer = () => {
                         onChange={onChangePasswordValue}
                     />
                 </label>
-                <label>
+                <label className="MyProfile_contactInfo_label">
                     연락처
                     <input
                         type="text"
                         value={contactInfo}
-                        className="MyProfile_main_right_container_userInfo_input"
+                        className="MyProfile_main_right_container_userInfo_input MyProfile_nickname_input"
                         onChange={onChangeContactInfoValue}
                     />
-                    <span className="MyProfile_certification_Btn_wrapper">
-                        <button className="MyProfile_certification_Btn">
-                            인증하기
-                        </button>
-                    </span>
+                    <button className="MyProfile_certification_Btn">
+                        인증하기
+                    </button>
                 </label>
                 <label>
                     계좌정보

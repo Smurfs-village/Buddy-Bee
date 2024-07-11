@@ -12,6 +12,7 @@ const Header = () => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
   const hamburgerRef = useRef(null);
@@ -27,10 +28,15 @@ const Header = () => {
     }
   }, []);
 
-  const handleSearch = event => {
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/projects?query=${searchQuery.trim()}`);
+    }
+  };
+
+  const handleKeyPress = event => {
     if (event.key === "Enter") {
-      console.log("Search triggered: ", event.target.value);
-      // 검색 동작을 추가할 수 있습니다.
+      handleSearch();
     }
   };
 
@@ -89,6 +95,7 @@ const Header = () => {
       setIsHamburgerOpen(false);
     }
   };
+
   return (
     <header className="headerpage-header">
       <div className="headerpage-header-container">
@@ -105,12 +112,15 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search..."
-              onKeyDown={handleSearch}
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
             />
             <img
               src={searchIcon}
               alt="Search"
               className="headerpage-search-icon"
+              onClick={handleSearch}
             />
           </div>
           <button type="button" onClick={handleButtonClick}>
@@ -185,12 +195,15 @@ const Header = () => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  onKeyDown={handleSearch}
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
                 />
                 <img
                   src={searchIcon}
                   alt="Search"
                   className="hamburger-search-icon"
+                  onClick={handleSearch}
                 />
               </div>
             </li>

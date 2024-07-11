@@ -1,12 +1,11 @@
 import "./Common.css";
-import "../../components/Common/Pagination.css";
 import { useState, useEffect } from "react";
 import shineeConcertImg from "../../img/shinee_concert.jpg";
 import kissOfLifeConcertImg from "../../img/kissOfLife_concert.jpg";
 import markLee from "../../img/marklee.jpg";
 import taemin from "../../img/taemin.jpg";
 import { FlowerImg } from "./Common";
-import Pagination from "../../components/Common/Pagination";
+import Pagination from "./Common";
 
 const Card = ({
     imgSrc,
@@ -80,17 +79,18 @@ const FinishedProject = ({
 
 const MainRightContainer = () => {
     const [myProjects, setMyProjects] = useState([]);
-    const [finishedProjects, setFinishedProjects] = useState([]);
+    const [finishedMyProjects, setFinishedMyProjects] = useState([]);
+    const [activePage, setActivePage] = useState(1);
 
     const onDeleteActiveProject = targetId => {
-        setMyProjects(myProjects =>
+        setMyProjects(() =>
             myProjects.filter(project => project.id !== targetId)
         );
     };
 
     const onDeleteFinishedProject = targetId => {
-        setFinishedProjects(finishedProjects =>
-            finishedProjects.filter(project => project.id !== targetId)
+        setFinishedMyProjects(() =>
+            finishedMyProjects.filter(project => project.id !== targetId)
         );
     };
 
@@ -136,14 +136,23 @@ const MainRightContainer = () => {
             },
         ];
         setMyProjects(activeProjects);
-        setFinishedProjects(finishedProjects);
+        setFinishedMyProjects(finishedProjects);
     }, []);
+
+    const pageChangeHandler = pageNumber => setActivePage(pageNumber);
+
+    const totalItemsCount = myProjects.length + finishedMyProjects.length;
+    const itemsCountPerPage = 4;
+    const indexOfLastItem = myProjects.length - finishedMyProjects.length + 1;
+    const indexOfFirstItem = activePage - indexOfLastItem;
+
+    const currentMyPosts = myProjects.slice(indexOfFirstItem, indexOfLastItem);
 
     return (
         <div className="Main_right_container">
             <p className="Main_right_container_writtenPosts">작성한 글</p>
             <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-                {myProjects.map(project => (
+                {currentMyPosts.map(project => (
                     <Card
                         key={project.id}
                         imgSrc={project.imgSrc}
@@ -154,7 +163,7 @@ const MainRightContainer = () => {
                         id={project.id}
                     />
                 ))}
-                {finishedProjects.map(project => (
+                {finishedMyProjects.map(project => (
                     <FinishedProject
                         key={project.id}
                         imgSrc={project.imgSrc}
@@ -167,7 +176,13 @@ const MainRightContainer = () => {
                 ))}
             </div>
             <FlowerImg />
-            <Pagination />
+            <Pagination
+                activePage={activePage}
+                totalItemsCount={totalItemsCount}
+                itemsCountPerPage={itemsCountPerPage}
+                pageRangeDisplayed={5}
+                handlePageChange={pageChangeHandler}
+            />
         </div>
     );
 };

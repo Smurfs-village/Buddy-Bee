@@ -8,6 +8,7 @@ import "./DetailButton.css";
 const DetailButton = ({ projectId }) => {
   const { user } = useAuth();
   const [isHoney, setIsHoney] = useState(false);
+  const [honeyCount, setHoneyCount] = useState(0);
 
   useEffect(() => {
     const checkHoneyStatus = async () => {
@@ -21,12 +22,29 @@ const DetailButton = ({ projectId }) => {
       }
     };
 
+    const fetchHoneyCount = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/honey`
+        );
+        setHoneyCount(response.data.honeyCount);
+      } catch (error) {
+        console.error("Error fetching honey count:", error);
+      }
+    };
+
     if (user) {
       checkHoneyStatus();
+      fetchHoneyCount();
     }
   }, [projectId, user]);
 
   const handleHoneyClick = async () => {
+    if (!user) {
+      console.error("User is not authenticated");
+      return;
+    }
+
     try {
       if (isHoney) {
         await axios.delete(
@@ -35,6 +53,7 @@ const DetailButton = ({ projectId }) => {
             data: { userId: user.id },
           }
         );
+        setHoneyCount(honeyCount - 1); // Decrement honey count
       } else {
         await axios.post(
           `http://localhost:5001/api/projects/${projectId}/honey`,
@@ -42,6 +61,7 @@ const DetailButton = ({ projectId }) => {
             userId: user.id,
           }
         );
+        setHoneyCount(honeyCount + 1); // Increment honey count
       }
       setIsHoney(!isHoney);
     } catch (error) {
@@ -57,7 +77,7 @@ const DetailButton = ({ projectId }) => {
           alt={isHoney ? "scrap_yes" : "scrap_none"}
           className="ProjectDetailPage-icon"
         />
-        <span>{isHoney ? "Scrapped" : "Scrap"}</span>
+        <span>{honeyCount}개</span> {/* Display honey count */}
       </button>
       <button className="ProjectDetailPage-share">
         <span>공유하기</span>

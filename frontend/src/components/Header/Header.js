@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추�
 import icon from "../../img/nav_icon.svg";
 import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
-import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 추가
+import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
+import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
 
 const Header = () => {
@@ -74,10 +75,11 @@ const Header = () => {
   };
 
   const clickHamburger = () => {
+    //하단 표현 방식 리액트에 맞게 수정 예정입니다!
+    let icon1 = document.getElementById("a");
+    let icon2 = document.getElementById("b");
+    let icon3 = document.getElementById("c");
     if (isHamburgerOpen === false) {
-      var icon1 = document.getElementById("a");
-      var icon2 = document.getElementById("b");
-      var icon3 = document.getElementById("c");
       icon1.classList.toggle("a");
       icon2.classList.toggle("c");
       icon3.classList.toggle("b");
@@ -159,7 +161,7 @@ const Header = () => {
             </button>
           )}
         </div>
-        {/* 미디어쿼리 ~479px 햄버거버튼 */}
+        {/* 미디어쿼리 ~479px 햄버거버튼_ hamburger btn */}
         <div
           className="headerpage-hamburger-icon"
           id="icon"
@@ -170,7 +172,7 @@ const Header = () => {
           <div className="icon-3" id="c" />
           <div className="clear" />
         </div>
-        {/* 햄버거버튼 드롭다운 */}
+        {/* 햄버거버튼 드롭다운_hamburger drop down */}
         <div
           className={`headerpage-hamburger-dropdown ${
             isHamburgerOpen ? "hamburger-open" : ""
@@ -185,49 +187,20 @@ const Header = () => {
                   placeholder="Search..."
                   onKeyDown={handleSearch}
                 />
-                {/* <img
+                <img
                   src={searchIcon}
                   alt="Search"
                   className="hamburger-search-icon"
-                /> */}
+                />
               </div>
-            </li>
-
-            <li>
-              {isLoggedIn ? (
-                <>
-                  <div
-                    className="hamburger-profile-container"
-                    onClick={handleProfileClick}
-                  >
-                    마이페이지
-                  </div>
-
-                  <div
-                    className={`hamburger-profile-menu ${
-                      isProfileDropdownOpen ? "hamburger-profile-menu-open" : ""
-                    }`}
-                    ref={profileDropdownRef}
-                  >
-                    <ul>
-                      <li>Profile</li>
-                      <li>Settings</li>
-                      <li onClick={handleLogout}>Logout</li>
-                    </ul>
-                  </div>
-                </>
-              ) : (
-                <button
-                  className="hamburger-login-button"
-                  onClick={handleLoginClick}
-                >
-                  로그인하기
-                </button>
-              )}
             </li>
             <li>
               <button type="button" onClick={handleButtonClick}>
-                만들기
+                <img
+                  src={createIcon}
+                  alt="Create"
+                  className="hamburger-create-icon"
+                />
               </button>
               <div
                 className={`headerpage-dropdown-menu ${
@@ -240,6 +213,40 @@ const Header = () => {
                   <li>펀딩 만들기</li>
                 </ul>
               </div>
+            </li>
+            <li>
+              {isLoggedIn ? (
+                <>
+                  <div
+                    className="hamburger-profile-container"
+                    onClick={handleProfileClick}
+                  >
+                    <img
+                      src={myprofile}
+                      alt="My Profile"
+                      className="hamburger-profile-image"
+                    />
+                  </div>
+                  <div
+                    className={`hamburger-profile-dropdown-menu ${
+                      isProfileDropdownOpen ? "headerpage-open" : ""
+                    }`}
+                    ref={profileDropdownRef}
+                  >
+                    <ul>
+                      <li>Profile</li>
+                      <li onClick={handleLogout}>Logout</li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <button
+                  className="hamburger-login-button"
+                  onClick={handleLoginClick}
+                >
+                  Login
+                </button>
+              )}
             </li>
           </ul>
         </div>

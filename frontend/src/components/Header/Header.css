@@ -219,12 +219,20 @@ body {
 
 .headerpage-hamburger-dropdown {
   position: absolute;
-  width: 100%;
-  top: 90px;
-  left: 0;
+  /* width: 50vw; */
+  top: 100px;
+  right: 9vw;
   /* height: 50px; */
-  background-color: seagreen;
-  visibility: hidden;
+  /* background-color: seagreen; */
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+.headerpage-hamburger-dropdown.hamburger-open {
+  opacity: 1;
 }
 
 .headerpage-hamburger-dropdown ul {
@@ -233,31 +241,69 @@ body {
 
 .hamburger-search-container {
   position: relative;
-  /* display: flex; */
-  /* align-items: center; */
 }
-
-.hamburger-search-container .hamburger-search-icon {
-  position: absolute;
-  /* right: 10px; */
-  width: 20px;
-  height: 20px;
+.hamburger-search-container .search-open {
+  background-color: white;
+  border: 2px solid black;
+}
+.hamburger-search-icon {
+  /* position: absolute; */
+  background-color: white;
+  padding: 10px 9px 10px 11px;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+.hamburger-create-icon {
+  background-color: white;
+  padding: 11px;
+  border: 2px solid black;
+  border-radius: 50px;
 }
 
 .hamburger-search-container input {
   padding-right: 30px; /* 검색 아이콘 공간 확보 */
-  border: 2px solid rgb(54, 54, 54);
-  border-radius: 15px;
+  border: none;
+  border-bottom: 2px solid rgb(54, 54, 54);
   box-sizing: border-box;
   padding: 8px;
-  margin-right: 10px;
+  top: 10px;
+  right: 55px;
+  position: absolute;
+  transition: 0.3s ease;
+  /* display: none; */
 }
 
-.headerpage-hamburger-dropdown button {
+/* .headerpage-hamburger-dropdown button {
   border: none;
   background: transparent;
   font-size: 1rem;
+} */
+
+/* 햄버거 마이페이지 드롭다운 */
+.hamburger-profile-container {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
 }
+.hamburger-profile-image {
+  width: 100%;
+  height: auto;
+}
+
+.hamburger-login-button {
+  background-color: white;
+  padding: 11px;
+  border: 2px solid black;
+  border-radius: 50px;
+}
+
 /* 미디어쿼리_ media query */
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -272,9 +318,6 @@ body {
   .headerpage-header-right,
   .headerpage-header-logo {
     display: none;
-  }
-  .headerpage-hamburger-dropdown {
-    visibility: visible;
   }
   .headerpage-header-container {
     padding: 10px 2vw;

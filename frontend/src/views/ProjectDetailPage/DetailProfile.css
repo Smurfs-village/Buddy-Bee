@@ -37,9 +37,10 @@
 
 /* 작성자 자기소개글 */
 .ProjectDetailPage-profile-txt {
-  padding-top: 11px;
+  padding-top: 0.8rem;
 }
 
 .ProjectDetailPage-profile-txt span {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
 }

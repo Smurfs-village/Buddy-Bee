@@ -3,6 +3,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
+import shareIcon from "../../img/share-icon.svg";
 import "./DetailButton.css";
 
 const DetailButton = ({ projectId }) => {
@@ -80,6 +81,11 @@ const DetailButton = ({ projectId }) => {
         <span>{honeyCount}개</span> {/* Display honey count */}
       </button>
       <button className="ProjectDetailPage-share">
+        <img
+          src={shareIcon}
+          alt="shareIcon"
+          className="ProjectDetailPage-share-icon"
+        />
         <span>공유하기</span>
       </button>
     </div>

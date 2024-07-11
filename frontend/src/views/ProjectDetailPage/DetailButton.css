@@ -10,12 +10,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 7px;
 }
 
 .ProjectDetailPage-like img {
   width: 42px;
   height: 43px;
+}
+.ProjectDetailPage-like span {
+  margin-right: 2px;
+  /* margin-top: 1px; */
 }
 
 .ProjectDetailPage-btn button {
@@ -26,4 +30,21 @@
   font-size: 18px;
   border: 2px solid #000;
   cursor: pointer;
+}
+
+/* 공유하기 버튼 */
+
+.ProjectDetailPage-share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.ProjectDetailPage-share img {
+  width: 30px;
+  height: 30px;
+}
+
+.ProjectDetailPage-share span {
+  margin-right: 2px;
 }

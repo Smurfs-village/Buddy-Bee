@@ -277,6 +277,10 @@ exports.getProjectById = (req, res) => {
 exports.incrementViewCount = (req, res) => {
   const projectId = req.params.id;
 
+  if (isNaN(projectId)) {
+    return res.status(400).send("Invalid project ID");
+  }
+
   const query = `
     UPDATE project
     SET view_count = view_count + 1
@@ -359,5 +363,30 @@ exports.checkProjectHoney = (req, res) => {
 
     const isHoney = results.length > 0;
     res.status(200).json({ isHoney });
+  });
+};
+
+// projectController.js
+
+exports.searchProjects = (req, res) => {
+  const query = req.query.query;
+
+  const searchQuery = `
+    SELECT DISTINCT p.*, u.username AS author
+    FROM project p
+    JOIN user u ON p.created_by = u.id
+    JOIN projecthashtag ph ON p.id = ph.project_id
+    JOIN hashtag h ON ph.hashtag_id = h.id
+    WHERE h.name LIKE ?
+    ORDER BY p.created_at DESC
+  `;
+
+  connection.query(searchQuery, [`%${query}%`], (error, results) => {
+    if (error) {
+      console.error("Error searching projects:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+    res.status(200).json(results);
   });
 };

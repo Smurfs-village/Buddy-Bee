@@ -6,21 +6,25 @@ import "./ProjectListPageLayout.css";
 import ListCard from "../Common/ListCard";
 import Pagination from "../Common/Pagination";
 import SubNav from "./SubNav";
-import { useSearchParams } from "react-router-dom"; //test
+import { useLocation } from "react-router-dom";
 
 const ProjectListPageLayout = () => {
-  const [searchParams] = useSearchParams(); // test
-  const sort = searchParams.get("sort"); // test
   const [cards, setCards] = useState([]);
-  const [sortBtn, setSortBtn] = useState(sort); //test
+  const [sortBtn, setSortBtn] = useState("latest");
   const [sortedCardList, setSortedCardList] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [filterItem, setFilterItem] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/projects");
+        const query = new URLSearchParams(location.search).get("query");
+        const response = query
+          ? await axios.get(
+              `http://localhost:5001/api/projects/search?query=${query}`
+            )
+          : await axios.get("http://localhost:5001/api/projects");
         setCards(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -28,7 +32,7 @@ const ProjectListPageLayout = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     const sortCompare = (a, b) => {
@@ -55,7 +59,7 @@ const ProjectListPageLayout = () => {
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
 
@@ -99,7 +103,7 @@ const ProjectListPageLayout = () => {
                   ))
                 : filterItem === "with"
                 ? currentItems
-                    .filter((item) => item.type === "with")
+                    .filter(item => item.type === "with")
                     .map((data, index) => (
                       <ListCard
                         key={index}
@@ -111,7 +115,7 @@ const ProjectListPageLayout = () => {
                     ))
                 : filterItem === "funding"
                 ? currentItems
-                    .filter((item) => item.type === "funding")
+                    .filter(item => item.type === "funding")
                     .map((data, index) => (
                       <ListCard
                         key={index}

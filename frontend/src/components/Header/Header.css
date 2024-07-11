@@ -25,7 +25,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 30px;
+  padding: 10px 20px 10px 30px;
   text-align: center;
   margin: 0 20px;
 }
@@ -58,25 +58,26 @@
 .headerpage-search-container input {
   padding-right: 30px; /* 검색 아이콘 공간 확보 */
   border: 2px solid rgb(54, 54, 54);
-  border-radius: 15px;
+  border-radius: 16px;
   box-sizing: border-box;
-  padding: 8px;
-  margin-right: 10px;
+  padding: 9px 9px 9.5px 14px;
+  margin-right: 15px;
+  outline: none;
 }
 
 .headerpage-search-container .headerpage-search-icon {
   position: absolute;
-  right: 10px;
+  right: 21px;
   width: 20px;
   height: 20px;
 }
 
 .headerpage-header-right button {
-  margin-right: 10px;
+  margin-right: 16px;
   background-color: #ff8473;
   border-radius: 15px;
   box-sizing: border-box;
-  padding: 8px 13px;
+  padding: 9px 15px;
   font-weight: bold;
 }
 .headerpage-login-button {
@@ -170,7 +171,7 @@ body {
 /* 햄버거 버튼 */
 .headerpage-hamburger-icon {
   display: none;
-  width: 60px;
+  width: 70px;
   /* z-index: 1000; */
   cursor: pointer;
   border-radius: 50%;

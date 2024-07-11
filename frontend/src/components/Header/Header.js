@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추�
 import icon from "../../img/nav_icon.svg";
 import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
-import searchIcon from "../../img/jam_search.png"; // 검색 아이콘 추가
+import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 추가
 import "./Header.css";
 
 const Header = () => {
@@ -161,14 +161,14 @@ const Header = () => {
         </div>
         {/* 미디어쿼리 ~479px 햄버거버튼 */}
         <div
-          class="headerpage-hamburger-icon"
+          className="headerpage-hamburger-icon"
           id="icon"
           onClick={clickHamburger}
         >
-          <div class="icon-1" id="a" />
-          <div class="icon-2" id="b" />
-          <div class="icon-3" id="c" />
-          <div class="clear" />
+          <div className="icon-1" id="a" />
+          <div className="icon-2" id="b" />
+          <div className="icon-3" id="c" />
+          <div className="clear" />
         </div>
         {/* 햄버거버튼 드롭다운 */}
         <div
@@ -192,11 +192,7 @@ const Header = () => {
                 /> */}
               </div>
             </li>
-            <li>
-              <button type="button" onClick={handleButtonClick}>
-                만들기
-              </button>
-            </li>
+
             <li>
               {isLoggedIn ? (
                 <>
@@ -228,6 +224,22 @@ const Header = () => {
                   로그인하기
                 </button>
               )}
+            </li>
+            <li>
+              <button type="button" onClick={handleButtonClick}>
+                만들기
+              </button>
+              <div
+                className={`headerpage-dropdown-menu ${
+                  isDropdownOpen ? "headerpage-open" : ""
+                }`}
+                ref={dropdownRef}
+              >
+                <ul>
+                  <li>동행 만들기</li>
+                  <li>펀딩 만들기</li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>

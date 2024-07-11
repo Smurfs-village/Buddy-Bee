@@ -6,6 +6,9 @@
   font-style: normal;
 }
 
+.createpage-form-required-check {
+  color: #ff8473;
+}
 .createpage-sub-nav {
   position: fixed;
   width: 100%;
@@ -47,6 +50,9 @@
 }
 .createpage-hashtag-label {
   margin-bottom: 0px !important;
+}
+.createpage-hashtag-label span {
+  font-weight: 500;
 }
 .createpage-create-project-form {
   display: flex;
@@ -338,7 +344,7 @@
 
 .createpage-submit-button {
   background-color: #fadf0b;
-  border: 3px solid black;
+  border: 2px solid black;
   border-radius: 50px;
   cursor: pointer;
   text-align: center;

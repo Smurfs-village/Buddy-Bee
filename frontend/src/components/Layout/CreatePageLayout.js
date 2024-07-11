@@ -156,7 +156,9 @@ const CreatePageLayout = ({ children, type }) => {
               <div className="createpage-form-group">
                 <label className="createpage-hashtag-label">
                   해시태그 입력{" "}
-                  <span className="createpage-hashtag-limit">(최대 10개)</span>
+                  <span className="createpage-hashtag-limit">
+                    (최대 10개, 중복 제한)
+                  </span>
                 </label>
                 <div className="createpage-hashtag-input-wrapper">
                   <input
@@ -281,7 +283,10 @@ const CreatePageLayout = ({ children, type }) => {
               </div>
 
               <div className="createpage-form-group createpage-recruitment-group-wrap">
-                <label>프로젝트 설정</label>
+                <label>
+                  프로젝트 설정
+                  <span className="createpage-form-required-check"> *</span>
+                </label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
                     <span>모집 인원</span>
@@ -318,11 +323,14 @@ const CreatePageLayout = ({ children, type }) => {
               </div>
 
               <div className="createpage-form-group">
-                <label>기간 설정</label>
+                <label>
+                  기간 설정
+                  <span className="createpage-form-required-check"> *</span>
+                </label>
                 <div className="createpage-form-group createpage-period-group">
                   <div className="createpage-period-input-wrapper">
                     <div className="createpage-flex-row">
-                      <span>시작 날짜:</span>
+                      <span>시작 날짜 </span>
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
@@ -333,7 +341,7 @@ const CreatePageLayout = ({ children, type }) => {
                       </div>
                     </div>
                     <div className="createpage-flex-row">
-                      <span>종료 날짜:</span>
+                      <span>종료 날짜 </span>
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}

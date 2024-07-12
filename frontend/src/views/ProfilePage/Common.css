@@ -1,171 +1,190 @@
-.Main_right_container {
-    border-top-width: 2px;
-    border-bottom-width: 8px;
-    border-left-width: 2px;
-    border-right-width: 8px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 15px;
-    margin: 10px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 2% 6% 3% 6%;
-    position: relative;
+.status-btn {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 2px solid;
+  margin-right: 7px;
+  height: 31px;
+  width: 64.9px;
 }
 
-.Main_right_container_writtenPosts {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 2% 0;
+.status-btn.대기중 {
+  background-color: #c4a1ff; /* 대기중 색상 */
+  color: black;
 }
 
-.MyPosts_ParticipatedProjects_main_right_container_box {
-    display: flex;
-    border: 2px solid black;
-    border-radius: 20px;
-    margin-top: 18px;
-    height: 84px;
+.status-btn.진행중 {
+  background-color: #fadf0b; /* 진행중 색상 */
+  color: black;
 }
 
-.MyPosts_ParticipatedProjects_main_right_container_box_img {
-    border-right: 2px solid black;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_cards_wrapper {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    padding-left: 27.8px;
-}
-
-.MyPosts_ParticipatedProjects_finishedProject_text_wrapper {
-    opacity: 0.6;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_projectName {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants {
-    font-size: 12px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
-    width: 123px;
-    background-size: cover;
-    border-right: 2px solid black;
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 15px;
+.status-btn.종료 {
+  background-color: #bfbfbf; /* 종료 색상 */
+  color: white;
 }
 
 .MyPosts_ParticipatedProjects_finishedProjectImg {
-    filter: grayscale(25%);
-    opacity: 0.6;
+  position: relative;
+}
+
+.MyPosts_ParticipatedProjects_finishedProjectImg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* 진한 검정 오버레이 */
+  border-radius: inherit; /* 상위 요소와 같은 둥근 모서리 적용 */
+}
+
+.MyPosts_ParticipatedProjects_activePendingProjectImg {
+  position: relative;
+  opacity: 0.5; /* 대기중, 진행중 이미지의 투명도 설정 */
+}
+
+.Main_right_container {
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2% 6% 3% 6%;
+  position: relative;
+}
+
+.Main_right_container_writtenPosts {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 2% 0;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box {
+  display: flex;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-top: 18px;
+  height: 84px;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_img {
+  border-right: 2px solid black;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_cards_wrapper {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding-left: 27.8px;
+}
+
+.MyPosts_ParticipatedProjects_finishedProject_text_wrapper {
+  opacity: 0.6;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_projectName {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants {
+  font-size: 12px;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
+  width: 123px;
+  background-size: cover;
+  border-right: 2px solid black;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 15px;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper > button {
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 2px solid;
-    margin-right: 7px;
-    height: 31px;
-    width: 64.9px;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_progressingBtn {
-    background-color: #fadf0b;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 2px solid;
+  margin-right: 7px;
+  height: 31px;
+  width: 64.9px;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn {
-    background-color: white;
-}
-
-.MyPosts_ParticipatedProjects_main_right_container_box_endBtn {
-    color: white;
-    background-color: #bfbfbf;
-    border: none;
-}
-
-.MyPosts_ParticipatedProjects_finishedProject_container_deleteBtn {
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 20px;
-    border: 2px solid;
-    margin-right: 7px;
-    height: 31px;
-    width: 64.9px;
-    opacity: 1;
+  background-color: white;
 }
 
 /* Pagination */
 
 .pagination {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 50px;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+  align-items: center;
 }
 
 .pagination a {
-    text-decoration: none;
-    color: #000;
-    border: 2px solid black;
-    border-radius: 50%;
-    font-size: 13px;
-    margin-right: 8px;
-    padding: 6px 10.4px;
-    background-color: #ffffff;
+  text-decoration: none;
+  color: #000;
+  border: 2px solid black;
+  border-radius: 50%;
+  font-size: 13px;
+  margin-right: 8px;
+  padding: 6px 10.4px;
+  background-color: #ffffff;
 }
 
 .pagination li {
-    list-style: none;
-    text-decoration: none;
+  list-style: none;
+  text-decoration: none;
 }
 
 .pagination-right-arrow {
-    margin-top: 5px;
-    margin-right: 5px;
-    cursor: pointer;
+  margin-top: 5px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 /* 가장 앞과 가장 뒤 스타일 overwrite */
 .disabled a:nth-child(-n + 2) {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 }
 
 .pagination li:nth-child(-n + 2) a {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 }
 
 .pagination li:nth-last-child(-n + 2) a {
-    background-color: transparent;
-    border: none;
-    margin: 0;
-    padding: 0;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* 현재 확인 중인 페이지 스타일 */
 .active a {
-    font-weight: bold;
-    background-color: #fadf0b;
-    padding: 6px 10.4px;
+  font-weight: bold;
+  background-color: #fadf0b;
+  padding: 6px 10.4px;
 }

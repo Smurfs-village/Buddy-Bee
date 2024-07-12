@@ -1,9 +1,11 @@
 const express = require("express");
 const projectController = require("../controllers/projectController");
+const authMiddleware = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 router.post("/", projectController.createProject);
 router.get("/", projectController.getProjects);
+router.get("/user", authMiddleware, projectController.getUserProjects); // 여기에 라우트 추가
 router.get("/search", projectController.searchProjects);
 router.get("/:id", projectController.getProjectById);
 router.get("/:id/hashtags", projectController.getProjectHashtags);

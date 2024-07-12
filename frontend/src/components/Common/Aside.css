@@ -1,42 +1,42 @@
 .MyProfile_main_aside {
-    border-top-width: 2px;
-    border-bottom-width: 8px;
-    border-left-width: 2px;
-    border-right-width: 8px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 15px;
-    margin: 10px;
-    background-color: white;
-    display: flex;
-    flex: 1.7;
-    flex-direction: column;
-    padding: 2% 1% 0% 1%;
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  flex: 1.7;
+  flex-direction: column;
+  padding: 2% 2% 0% 2%;
 }
 
 .MyProfile_main_aside_category {
-    color: #505050;
-    font-size: 16px;
-    font-weight: bold;
-    border-bottom: 1px dashed gray;
-    padding-bottom: 10px;
+  color: #505050;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px dashed gray;
+  padding-bottom: 10px;
 }
 
 .MyProfile_main_aside_category_active {
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    border-bottom: 1px dashed gray;
-    padding-bottom: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px dashed gray;
+  padding-bottom: 10px;
 }
 
 .MyProfile_main_aside_deleteId_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    padding: 10px;
-    font-size: 15px;
-    color: #afafaf;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 10px;
+  font-size: 15px;
+  color: #afafaf;
+  cursor: pointer;
 }

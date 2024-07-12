@@ -68,7 +68,6 @@ exports.checkNickname = (req, res) => {
   });
 };
 
-// 현재 사용자 정보를 반환하는 함수 추가
 exports.getMe = (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   try {
@@ -88,4 +87,34 @@ exports.getMe = (req, res) => {
     console.error("Error verifying token:", error);
     res.status(401).send("Unauthorized");
   }
+};
+
+exports.changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.userId;
+
+  const query = `SELECT password FROM user WHERE id = ?`;
+  connection.query(query, [userId], async (error, results) => {
+    if (error) {
+      console.error("Error fetching user:", error);
+      return res.status(500).send("Server error");
+    }
+    if (results.length === 0) {
+      return res.status(404).send("User not found");
+    }
+    const user = results[0];
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) {
+      return res.status(401).send("Current password is incorrect");
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updateQuery = `UPDATE user SET password = ? WHERE id = ?`;
+    connection.query(updateQuery, [hashedPassword, userId], error => {
+      if (error) {
+        console.error("Error updating password:", error);
+        return res.status(500).send("Server error");
+      }
+      res.status(200).send("Password updated successfully");
+    });
+  });
 };

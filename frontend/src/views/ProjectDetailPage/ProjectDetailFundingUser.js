@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -17,10 +18,11 @@ import DetailAgree from "./DetailAgree";
 import "./ProjectDetailFundingUser.css";
 
 const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
+  const [filterItem, setFilterItem] = useState(false);
   return (
     <BackGroundGrid>
       <Header />
-      <SubNav />
+      <SubNav filterItem={filterItem} setFilterItem={setFilterItem} />
       <PageLayout>
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">

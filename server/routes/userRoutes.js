@@ -5,10 +5,5 @@ const router = express.Router();
 
 router.get("/user", authMiddleware, userController.getUserProfile);
 router.put("/user", authMiddleware, userController.updateUserProfile);
-router.put(
-  "/user/change-password",
-  authMiddleware,
-  userController.changePassword
-);
 
 module.exports = router;

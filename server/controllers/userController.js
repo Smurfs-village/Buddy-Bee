@@ -4,7 +4,7 @@ exports.getUserProfile = (req, res) => {
   const userId = req.user.userId;
 
   const query = `
-    SELECT username, phone_number, account_number, intro
+    SELECT username, phone_number, account_number, intro, profile_image
     FROM user
     WHERE id = ?
   `;
@@ -31,17 +31,18 @@ exports.getUserProfile = (req, res) => {
 
 exports.updateUserProfile = (req, res) => {
   const userId = req.user.userId;
-  const { username, phone_number, account_number, intro } = req.body;
+  const { username, phone_number, account_number, intro, profile_image } =
+    req.body;
 
   const query = `
     UPDATE user
-    SET username = ?, phone_number = ?, account_number = ?, intro = ?
+    SET username = ?, phone_number = ?, account_number = ?, intro = ?, profile_image = ?
     WHERE id = ?
   `;
 
   connection.query(
     query,
-    [username, phone_number, account_number, intro, userId],
+    [username, phone_number, account_number, intro, profile_image, userId],
     error => {
       if (error) {
         console.error("Error updating user profile:", error);

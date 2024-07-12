@@ -57,7 +57,7 @@ body {
 }
 
 .mainpage-left-section .mainpage-left_p {
-  margin: 30px 10px 20px 0px;
+  margin: 30px 10px 20px 10px;
   font-size: 1.2em;
   line-height: 1.7;
 }
@@ -77,6 +77,15 @@ body {
   width: 274px;
   height: 114px;
   text-align: left;
+  font-weight: bold;
+}
+
+.mainpage-main-button p {
+  font-weight: normal;
+}
+.mainpage-btn-arrow {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .mainpage-left_bee_icon {
@@ -117,10 +126,11 @@ body {
 .mainpage-text-section {
   text-align: center;
   padding: 20px;
+  padding-top: 30px;
   background-color: rgb(0, 0, 0);
   color: white;
-  width: 784px;
-  height: 482px;
+  width: 900px;
+  height: 500px;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -132,32 +142,37 @@ body {
 
 .mainpage-flower-icon {
   position: absolute;
-  left: 50px;
-  top: 50px;
+  left: 89px;
+  top: 42px;
   width: 120px;
 }
 
 .mainpage-cloud-icon {
   position: absolute;
-  left: -100px;
-  bottom: 120px;
+  left: -54px;
+  bottom: 184px;
   width: 150px;
 }
 
 .mainpage-bee-icon {
   position: absolute;
-  right: -160px;
-  top: 200px;
+  right: -86px;
+  top: 191px;
   width: 180px;
 }
 
 .mainpage-text-section h2 {
-  margin: 96px 0 0 0;
-  font-size: 2em;
+  margin: 0;
+  font-size: 1.5em;
+  line-height: 37px;
+}
+
+.mainpage-text-section h2:nth-child(2) {
+  padding-bottom: 25px;
 }
 
 .mainpage-text-section h1 {
-  margin: 50px 0 0 0;
+  margin: 0;
   font-size: 7em;
   font-family: "cooper-black-std", sans-serif;
   color: #ffffff;
@@ -166,9 +181,11 @@ body {
 }
 
 .mainpage-text-section p {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 44px 0 108px 0;
+  margin-top: 32px;
+  font-size: 1.2em;
+  font-weight: 100;
+  line-height: 37px;
+  width: 70%;
 }
 
 .mainpage-recruitment-section {
@@ -185,7 +202,9 @@ body {
 }
 
 .mainpage-recruitment-section h2 {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size: 2.3rem;
 }
 
 .mainpage-funding-section {
@@ -201,7 +220,9 @@ body {
 }
 
 .mainpage-funding-section h2 {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size: 2.3rem;
 }
 
 .mainpage-ranking-section {
@@ -219,9 +240,11 @@ body {
 
 .mainpage-ranking-section h2 {
   margin-bottom: 20px;
+  font-size: 2em;
 }
 
 .mainpage-ranking-keywords {
+  margin-top: 60px;
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
@@ -229,11 +252,13 @@ body {
 
 .mainpage-keyword {
   background-color: #feb92e;
+  border: 2px solid #000;
   color: #000;
-  padding: 10px 15px;
-  border-radius: 15px;
-  font-size: 1.2em;
+  padding: 18px 35px;
+  border-radius: 50px;
+  font-size: 1.4em;
   font-weight: bold;
+  cursor: pointer;
 }
 
 /* Carousel Styles */

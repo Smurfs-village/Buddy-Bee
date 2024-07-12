@@ -194,26 +194,23 @@ const Header = () => {
             <li>
               <div className="hamburger-search-container">
                 <div
-                  className={`hamburger-search-input ${
-                    isDropdownOpen ? "headerpage-open" : ""
+                  className={`hamburger-dropdown-search-container ${
+                    isSearchIconOpen ? "search-open" : ""
                   }`}
-                  ref={dropdownRef}
                 >
-                  <div className="hamburger-dropdown-search-container">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
-                    />
-                    <img
-                      src={searchIcon}
-                      alt="Search"
-                      className="hamburger-dropdown-search-icon"
-                      onClick={handleSearch}
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+                  />
+                  <img
+                    src={searchIcon}
+                    alt="Search"
+                    className="hamburger-dropdown-search-icon"
+                    onClick={handleSearch}
+                  />
                 </div>
                 <img
                   src={searchIcon}

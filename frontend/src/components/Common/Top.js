@@ -1,23 +1,45 @@
-import profileImg from "../../img/profile_img.svg";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import cloudImg from "../../img/cloud2.svg";
+import mockImg from "../../img/mock.svg"; // 기본 이미지 경로 추가
 import "./Top.css";
 
 const Top = () => {
+  const [profileImg, setProfileImg] = useState("");
+  const [username, setUsername] = useState("");
+  const [intro, setIntro] = useState();
+
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const response = await axios.get("http://localhost:5001/api/user", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setProfileImg(response.data.profile_image);
+        setUsername(response.data.username);
+        setIntro(response.data.intro);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
   return (
     <div className="MyProfile_main_top_container">
-      <img
-        src={profileImg}
-        alt=""
-        className="Myprofile_main_top_container_img"
-      />
-      <div className="MyProfile_main_top_container_title_desc_wrapper">
-        <p className="MyProfile_main_top_container_title">용감한 버디비</p>
-        <p className="MyProfile_main_top_container_desc">
-          안녕하세요! 용감한 버디비입니다. 저는 긍정적이고 활기찬 태도로 새로운
-          도전을 즐깁니다.
-        </p>
+      <div className="MyProfile_main_top_container_img_wrapper">
+        <img
+          src={profileImg || mockImg} // 프로필 이미지가 없으면 기본 이미지 사용
+          alt="Profile"
+          className="MyProfile_main_top_container_img"
+        />
       </div>
-      <img src={cloudImg} alt="" className="MyProfile_cloud_img" />
+      <div className="MyProfile_main_top_container_title_desc_wrapper">
+        <p className="MyProfile_main_top_container_title">{username}</p>
+        <p className="MyProfile_main_top_container_desc">{intro}</p>
+      </div>
+      <img src={cloudImg} alt="Cloud" className="MyProfile_cloud_img" />
     </div>
   );
 };

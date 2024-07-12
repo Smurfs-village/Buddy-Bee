@@ -9,6 +9,7 @@ import header_icon from "../../img/header_icon.svg";
 import section1_bee from "../../img/section1_bee.svg";
 import section1_cloud from "../../img/section1_cloud.svg";
 import section1_flower from "../../img/section1_flower.svg";
+import arrow_right from "../../img/arrow_right.svg";
 import Card from "./Card";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -96,11 +97,25 @@ const MainPage = () => {
               <Link to="/projects?sort=popularity">
                 <button className="mainpage-main-button">
                   Find Buddy <p>동행구하기</p>
+                  <div className="mainpage-btn-arrow">
+                    <img
+                      src={arrow_right}
+                      alt="arrow_right"
+                      className="mainpage-arrow-icon"
+                    />
+                  </div>
                 </button>
               </Link>
               <Link to="/projects?sort=popularity">
                 <button className="mainpage-main-button">
                   Find Funding <p>펀딩구하기</p>
+                  <div className="mainpage-btn-arrow">
+                    <img
+                      src={arrow_right}
+                      alt="arrow_right"
+                      className="mainpage-arrow-icon"
+                    />
+                  </div>
                 </button>
               </Link>
             </div>
@@ -113,8 +128,14 @@ const MainPage = () => {
           <div className="mainpage-text-up-section">
             <div className="mainpage-text-section">
               <h2>Be My Buddy!</h2>
+              <h2>우리...진실게임 하자. 친해지고 싶은 버디비 있어?</h2>
               <h1>BUDDY BEE</h1>
-              <p>우리...진실게임 하자. 친해지고 싶은 버디비 있어?</p>
+              <p>
+                Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
+                함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
+                있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요. Buddy Bee와
+                함께라면 모든 순간이 더 특별해질 거예요!
+              </p>
               <img
                 src={section1_flower}
                 alt="Flower"

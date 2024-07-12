@@ -15,7 +15,11 @@ const Card = ({
 }) => (
   <div className="MyPosts_ParticipatedProjects_main_right_container_box">
     <div
-      className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper"
+      className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
+        status === "종료"
+          ? "MyPosts_ParticipatedProjects_finishedProjectImg"
+          : "MyPosts_ParticipatedProjects_activePendingProjectImg"
+      }`}
       style={{ backgroundImage: `url(${imgSrc})` }}
     ></div>
     <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
@@ -27,9 +31,7 @@ const Card = ({
       </div>
     </div>
     <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
-      <button className="MyPosts_ParticipatedProjects_main_right_container_box_progressingBtn">
-        {status}
-      </button>
+      <button className={`status-btn ${status}`}>{status}</button>
       <button
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
         onClick={() => onDeleteActiveProject(id)}
@@ -40,56 +42,13 @@ const Card = ({
   </div>
 );
 
-const FinishedProject = ({
-  imgSrc,
-  projectName,
-  participants,
-  status,
-  onDeleteFinishedProject,
-  id,
-}) => (
-  <div className="MyPosts_ParticipatedProjects_main_right_container_box">
-    <div
-      className="MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper MyPosts_ParticipatedProjects_finishedProjectImg"
-      style={{ backgroundImage: `url(${imgSrc})` }}
-    ></div>
-    <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper MyPosts_ParticipatedProjects_finishedProject_text_wrapper">
-      <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
-        {projectName}
-      </div>
-      <div className="MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants">
-        {participants}
-      </div>
-    </div>
-    <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
-      <button className="MyPosts_ParticipatedProjects_main_right_container_box_endBtn">
-        {status}
-      </button>
-      <button
-        className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn MyPosts_ParticipatedProjects_finishedProject_container_deleteBtn"
-        onClick={() => onDeleteFinishedProject(id)}
-      >
-        삭제
-      </button>
-    </div>
-  </div>
-);
-
 const MainRightContainer = () => {
   const { user } = useAuth();
-  const [myProjects, setMyProjects] = useState([]);
-  const [finishedMyProjects, setFinishedMyProjects] = useState([]);
-  const [pendingProjects, setPendingProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
 
   const onDeleteActiveProject = targetId => {
-    setMyProjects(() => myProjects.filter(project => project.id !== targetId));
-  };
-
-  const onDeleteFinishedProject = targetId => {
-    setFinishedMyProjects(() =>
-      finishedMyProjects.filter(project => project.id !== targetId)
-    );
+    setProjects(() => projects.filter(project => project.id !== targetId));
   };
 
   useEffect(() => {
@@ -106,9 +65,12 @@ const MainRightContainer = () => {
         console.log("Fetched projects:", response.data);
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setMyProjects(activeProjects || []);
-        setFinishedMyProjects(finishedProjects || []);
-        setPendingProjects(pendingProjects || []);
+        const allProjects = [
+          ...pendingProjects.map(project => ({ ...project, status: "대기중" })),
+          ...activeProjects.map(project => ({ ...project, status: "진행중" })),
+          ...finishedProjects.map(project => ({ ...project, status: "종료" })),
+        ];
+        setProjects(allProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -121,69 +83,25 @@ const MainRightContainer = () => {
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const totalItemsCount =
-    myProjects.length + finishedMyProjects.length + pendingProjects.length;
+  const totalItemsCount = projects.length;
   const itemsCountPerPage = 4;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
 
-  const currentMyPosts = myProjects.slice(indexOfFirstItem, indexOfLastItem);
-  const currentFinishedPosts = finishedMyProjects.slice(
-    indexOfFirstItem - myProjects.length,
-    indexOfLastItem - myProjects.length
-  );
-  const currentPendingPosts = pendingProjects.slice(
-    indexOfFirstItem - myProjects.length - finishedMyProjects.length,
-    indexOfLastItem - myProjects.length - finishedMyProjects.length
-  );
-
-  const getStatusText = status => {
-    switch (status) {
-      case "pending":
-        return "대기중";
-      case "active":
-        return "진행중";
-      case "completed":
-        return "완료";
-      default:
-        return status;
-    }
-  };
+  const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="Main_right_container">
       <p className="Main_right_container_writtenPosts">작성한 글</p>
       <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-        {currentMyPosts.map(project => (
+        {currentProjects.map(project => (
           <Card
             key={project.id}
             imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
             projectName={project.title}
             participants={`${project.current_participants}/${project.max_participants}명`}
-            status={getStatusText(project.status)}
+            status={project.status}
             onDeleteActiveProject={onDeleteActiveProject}
-            id={project.id}
-          />
-        ))}
-        {currentFinishedPosts.map(project => (
-          <FinishedProject
-            key={project.id}
-            imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={getStatusText(project.status)}
-            onDeleteFinishedProject={onDeleteFinishedProject}
-            id={project.id}
-          />
-        ))}
-        {currentPendingPosts.map(project => (
-          <FinishedProject
-            key={project.id}
-            imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={getStatusText(project.status)}
-            onDeleteFinishedProject={onDeleteFinishedProject}
             id={project.id}
           />
         ))}

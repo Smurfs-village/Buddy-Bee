@@ -368,7 +368,7 @@ body {
 
 @media (min-width: 480px) and (max-width: 767px) {
   .headerpage-header-container {
-    padding: 10px 2vw;
+    padding: 10px 0 10px 5px;
   }
   .headerpage-header-logo,
   .headerpage-hamburger-dropdown.hamburger-open {

@@ -2,7 +2,8 @@ import "./MyProfile.css";
 import "./Common";
 import { useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
-import pen from "../../img/mingcute_quill-pen-line.png"; // pen 이미지 경로 수정
+import pen from "../../img/mingcute_quill-pen-line.png";
+import mockImg from "../../img/mock.svg"; // 기본 이미지 경로 추가
 import { FlowerImg } from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -175,7 +176,7 @@ const MainRightContainer = () => {
         <div className="MyProfile_main_right_container_profile_edit_img_wrapper">
           <div className="MyProfile_main_right_container_profile_edit_img_wrapper_inner">
             <img
-              src={profile_image}
+              src={profile_image || mockImg} // 프로필 이미지가 없으면 기본 이미지 사용
               alt="Profile"
               className="MyProfile_main_right_container_profile_edit_img"
               onClick={handleOverlayClick}

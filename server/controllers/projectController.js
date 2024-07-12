@@ -390,3 +390,38 @@ exports.searchProjects = (req, res) => {
     res.status(200).json(results);
   });
 };
+
+exports.getUserProjects = (req, res) => {
+  const userId = req.user.userId;
+
+  const query = `
+    SELECT *
+    FROM project
+    WHERE created_by = ?
+    ORDER BY created_at DESC
+  `;
+
+  connection.query(query, [userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching projects:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const activeProjects = results.filter(
+      project => project.status === "active"
+    );
+    const finishedProjects = results.filter(
+      project => project.status === "completed"
+    );
+    const pendingProjects = results.filter(
+      project => project.status === "pending"
+    );
+
+    res.status(200).json({
+      activeProjects,
+      finishedProjects,
+      pendingProjects,
+    });
+  });
+};

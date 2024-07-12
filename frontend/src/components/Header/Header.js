@@ -12,6 +12,7 @@ const Header = () => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const [isSearchIconOpen, setIsSearchIconOpen] = useState(false); //햄버거 버튼 검색창 추가
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
@@ -192,31 +193,46 @@ const Header = () => {
           <ul>
             <li>
               <div className="hamburger-search-container">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
-                />
+                <div
+                  className={`hamburger-dropdown-search-container ${
+                    isSearchIconOpen ? "search-open" : ""
+                  }`}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+                  />
+                  <img
+                    src={searchIcon}
+                    alt="Search"
+                    className="hamburger-dropdown-search-icon"
+                    onClick={handleSearch}
+                  />
+                </div>
                 <img
                   src={searchIcon}
                   alt="Search"
                   className="hamburger-search-icon"
-                  onClick={handleSearch}
+                  onClick={() => {
+                    setIsSearchIconOpen(!isSearchIconOpen);
+                  }}
                 />
               </div>
             </li>
             <li>
-              <button type="button" onClick={handleButtonClick}>
-                <img
-                  src={createIcon}
-                  alt="Create"
-                  className="hamburger-create-icon"
-                />
+              <button
+                type="button"
+                className="hamburger-create-icon"
+                onClick={handleButtonClick}
+              >
+                <img src={createIcon} alt="Create" />
               </button>
+
               <div
-                className={`headerpage-dropdown-menu ${
+                className={`hamburger-dropdown-menu ${
                   isDropdownOpen ? "headerpage-open" : ""
                 }`}
                 ref={dropdownRef}

@@ -19,7 +19,7 @@ const Editor = ({ setDesc, desc, setImage }) => {
               .then(res => {
                 if (!flag) {
                   setFlag(true);
-                  setImage(res.data.filename);
+                  setImage(res.data.url); // URL 저장
                 }
                 resolve({
                   default: `${res.data.url}`,

@@ -1,44 +1,43 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import cloudImg from "../../img/cloud2.svg";
+import mockImg from "../../img/mock.svg"; // 기본 이미지 경로 추가
 import "./Top.css";
 
 const Top = () => {
-  const [userInfo, setUserInfo] = useState({
-    profile_image: "",
-    username: "",
-    intro: "",
-  });
+  const [profileImg, setProfileImg] = useState("");
+  const [username, setUsername] = useState("");
+  const [intro, setIntro] = useState();
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
+    const fetchProfileImage = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/user", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-        setUserInfo(response.data);
+        setProfileImg(response.data.profile_image);
+        setUsername(response.data.username);
+        setIntro(response.data.intro);
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        console.error("Error fetching user data:", error);
       }
     };
 
-    fetchUserInfo();
+    fetchProfileImage();
   }, []);
 
   return (
     <div className="MyProfile_main_top_container">
       <div className="MyProfile_main_top_container_img_wrapper">
         <img
-          src={userInfo.profile_image}
+          src={profileImg || mockImg} // 프로필 이미지가 없으면 기본 이미지 사용
           alt="Profile"
           className="MyProfile_main_top_container_img"
         />
       </div>
       <div className="MyProfile_main_top_container_title_desc_wrapper">
-        <p className="MyProfile_main_top_container_title">
-          {userInfo.username}
-        </p>
-        <p className="MyProfile_main_top_container_desc">{userInfo.intro}</p>
+        <p className="MyProfile_main_top_container_title">{username}</p>
+        <p className="MyProfile_main_top_container_desc">{intro}</p>
       </div>
       <img src={cloudImg} alt="Cloud" className="MyProfile_cloud_img" />
     </div>

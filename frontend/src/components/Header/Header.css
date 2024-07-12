@@ -279,7 +279,7 @@ body {
   background-color: #f0f0f0;
 }
 
-/* 햄버거 드롭다운 검색창 */
+/* 햄버거 드롭다운 검색버튼 */
 .hamburger-search-container {
   position: relative;
 }
@@ -295,34 +295,46 @@ body {
   cursor: pointer;
 }
 
-.hamburger-search-container input {
-  padding-right: 30px; /* 검색 아이콘 공간 확보 */
-  border: none;
-  border-bottom: 2px solid rgb(54, 54, 54);
-  box-sizing: border-box;
-  padding: 8px;
-  top: 10px;
-  right: 55px;
+.hamburger-dropdown-search-container {
   position: absolute;
-  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  top: -1px;
+  display: none;
 }
-/* 햄버거 드롭다운 만들기 */
+
+.hamburger-dropdown-search-container input {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 40px;
+  box-sizing: border-box;
+  padding: 15px 15px 15px 16px;
+  outline: none;
+}
+
+.hamburger-dropdown-search-container .hamburger-dropdown-search-icon {
+  position: absolute;
+  right: 13px;
+}
+
+/* 햄버거 만들기 드롭다운*/
 
 .hamburger-dropdown-menu {
   top: 55px;
   right: 60px;
+  margin-bottom: 5px;
 }
 
-.headerpage-hamburger-dropdown button {
-  background-color: transparent;
-  border: none;
-}
 .hamburger-create-icon {
   background-color: white;
-  padding: 15px;
+  padding: 15px 17px;
   border: 2px solid black;
   border-radius: 50px;
 }
+
+.hamburger-create-icon img {
+  align-items: center;
+}
+
 /* 햄버거 드롭다운 마이페이지 */
 .hamburger-profile-container {
   margin: 2px 0 0 6px;
@@ -340,9 +352,9 @@ body {
 
 .hamburger-login-button {
   background-color: white;
-  padding: 11px;
+  padding: 15px 7px;
   border: 2px solid black;
-  border-radius: 50px;
+  border-radius: 60px;
 }
 
 .hamburger-profile-dropdown-menu {

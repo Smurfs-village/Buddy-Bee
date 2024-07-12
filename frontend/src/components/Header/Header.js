@@ -199,13 +199,21 @@ const Header = () => {
                   }`}
                   ref={dropdownRef}
                 >
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
-                  />
+                  <div className="hamburger-dropdown-search-container">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchQuery}
+                      onChange={e => setSearchQuery(e.target.value)}
+                      onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+                    />
+                    <img
+                      src={searchIcon}
+                      alt="Search"
+                      className="hamburger-dropdown-search-icon"
+                      onClick={handleSearch}
+                    />
+                  </div>
                 </div>
                 <img
                   src={searchIcon}
@@ -218,12 +226,12 @@ const Header = () => {
               </div>
             </li>
             <li>
-              <button type="button" onClick={handleButtonClick}>
-                <img
-                  src={createIcon}
-                  alt="Create"
-                  className="hamburger-create-icon"
-                />
+              <button
+                type="button"
+                className="hamburger-create-icon"
+                onClick={handleButtonClick}
+              >
+                <img src={createIcon} alt="Create" />
               </button>
 
               <div

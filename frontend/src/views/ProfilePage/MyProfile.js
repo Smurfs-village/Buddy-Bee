@@ -101,6 +101,12 @@ const MainRightContainer = () => {
     }
   };
 
+  const handleOverlayClick = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
+  };
+
   return (
     <div className="Main_right_container">
       <div className="MyProfile_main_right_container_userInfo_wrapper">
@@ -172,13 +178,12 @@ const MainRightContainer = () => {
               src={profile_image}
               alt="Profile"
               className="MyProfile_main_right_container_profile_edit_img"
-              onClick={() => {
-                if (inputFileRef.current) {
-                  inputFileRef.current.click();
-                }
-              }}
+              onClick={handleOverlayClick}
             />
-            <div className="overlay">
+            <div
+              className="overlay always-visible"
+              onClick={handleOverlayClick}
+            >
               <span className="overlay-text">프로필 이미지 변경</span>
             </div>
             <input

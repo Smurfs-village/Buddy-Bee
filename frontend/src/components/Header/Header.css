@@ -15,7 +15,7 @@
   top: 0;
   left: 0;
   background-color: white;
-  z-index: 9999;
+  z-index: 10000; /* 가장 앞에 오도록 z-index 조정 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -80,6 +80,7 @@
   padding: 9px 15px;
   font-weight: bold;
 }
+
 .headerpage-login-button {
   margin-right: 10px;
   background-color: #ff8473;
@@ -98,6 +99,7 @@
   background-color: #ff6f61; /* 호버 시 배경색 변경 */
   text-decoration: none; /* 호버 시 밑줄 제거 */
 }
+
 .headerpage-profile-container {
   width: 40px;
   height: 40px;
@@ -109,11 +111,6 @@
   background-color: white;
   border: 2px solid black;
   cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
-}
-
-.headerpage-profile-image {
-  width: 100%;
-  height: auto;
 }
 
 /* 드롭다운 메뉴 스타일 */
@@ -129,16 +126,19 @@
   opacity: 0;
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
+
 .headerpage-dropdown-menu {
   position: absolute;
   top: 65px;
   right: 50px;
 }
+
 .headerpage-profile-dropdown-menu {
   position: absolute;
   top: 65px;
   right: -49px;
 }
+
 .headerpage-dropdown-menu.headerpage-open,
 .headerpage-profile-dropdown-menu.headerpage-open {
   max-height: 200px; /* 실제 높이보다 충분히 큰 값 */
@@ -172,7 +172,6 @@ body {
 .headerpage-hamburger-icon {
   display: none;
   width: 70px;
-  /* z-index: 1000; */
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
@@ -214,6 +213,17 @@ body {
 .clear {
   clear: both;
 }
+/* 배경에 검정 */
+.headerpage-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  visibility: visible;
+}
 
 /* 햄버거 버튼 전체 드롭다운 */
 .headerpage-hamburger-dropdown {
@@ -222,12 +232,12 @@ body {
   right: 9vw;
   visibility: hidden;
   display: flex;
-  /* justify-content: center; */
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .headerpage-hamburger-dropdown.hamburger-open {
   visibility: visible;
+  z-index: 9999;
 }
 
 .headerpage-hamburger-dropdown ul,
@@ -282,6 +292,7 @@ body {
 .hamburger-search-container {
   position: relative;
 }
+
 .hamburger-search-icon {
   background-color: white;
   padding: 10px 9px 10px 11px;
@@ -291,32 +302,32 @@ body {
 }
 
 .hamburger-dropdown-search-container {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  top: -1px;
-  right: 20px;
-}
-
-.hamburger-dropdown-search-container {
-  border: 2px solid rgb(0, 0, 0);
-  border-radius: 40px;
-  box-sizing: border-box;
-  padding: 15px 15px 15px 16px;
-  outline: none;
   visibility: hidden;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: visibility 0.3s ease; /* 트랜지션 추가 */
 }
 
-.hamburger-dropdown-search-container .search-open {
+.hamburger-dropdown-search-container.search-open {
   visibility: visible;
+}
+
+.hamburger-dropdown-search-container input {
+  /* padding-right: 30px; */
+  border: 2px solid rgb(54, 54, 54);
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding: 9px 9px 9.5px 14px;
+  outline: none;
+  visibility: inherit;
 }
 .hamburger-dropdown-search-container .hamburger-dropdown-search-icon {
   position: absolute;
   right: 13px;
 }
 
-/* 햄버거 만들기 드롭다운*/
-
+/* 햄버거 만들기 드롭다운 */
 .hamburger-dropdown-menu {
   top: 55px;
   right: 60px;
@@ -365,7 +376,6 @@ body {
 }
 
 /* 미디어쿼리_ media query */
-
 @media (min-width: 480px) and (max-width: 767px) {
   .headerpage-header-container {
     padding: 10px 0 10px 5px;
@@ -375,13 +385,13 @@ body {
     display: none;
   }
 }
+
 @media (max-width: 479px) {
   .headerpage-header-logo,
   .headerpage-header-right,
   .headerpage-dropdown-menu,
   .headerpage-profile-dropdown-menu {
-    /*기존 요소 가리기*/
-    display: none;
+    display: none; /*기존 요소 가리기*/
   }
 
   .headerpage-header-container {

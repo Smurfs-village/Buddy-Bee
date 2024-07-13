@@ -183,6 +183,9 @@ const Header = () => {
           <div className="icon-3" id="c" />
           <div className="clear" />
         </div>
+        {isHamburgerOpen && (
+          <div className="headerpage-overlay" onClick={clickHamburger}></div>
+        )}
         {/* 햄버거버튼 드롭다운_hamburger drop down */}
         <div
           className={`headerpage-hamburger-dropdown ${

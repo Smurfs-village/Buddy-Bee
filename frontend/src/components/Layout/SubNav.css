@@ -9,7 +9,7 @@
   z-index: 1000; /* 헤더 위에 표시되도록 z-index 설정 */
 }
 
-.sub-nav-with-btn {
+.sub-nav-all-btn {
   margin-left: 18%;
   margin-right: 5px;
 }

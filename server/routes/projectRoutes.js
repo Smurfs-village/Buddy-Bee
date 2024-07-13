@@ -11,7 +11,12 @@ router.get(
   "/participated",
   authMiddleware,
   projectController.getParticipatedProjects
-); // 여기에 위치 확인
+);
+router.get(
+  "/bookmarked",
+  authMiddleware,
+  projectController.getBookmarkedProjects
+);
 router.get("/:id", projectController.getProjectById);
 router.get("/:id/hashtags", projectController.getProjectHashtags);
 router.get("/:id/participants", projectController.getProjectParticipants);

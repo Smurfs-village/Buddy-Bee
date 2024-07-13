@@ -57,21 +57,18 @@ const Header = () => {
   const handleClickOutside = event => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
-      setIsSearchIconOpen(false);
     }
     if (
       profileDropdownRef.current &&
       !profileDropdownRef.current.contains(event.target)
     ) {
       setIsProfileDropdownOpen(false);
-      setIsSearchIconOpen(false);
     }
     if (
       searchInputRef.current &&
       !searchInputRef.current.contains(event.target)
     ) {
-      setIsDropdownOpen(false);
-      setIsProfileDropdownOpen(false);
+      setIsSearchIconOpen(false);
     }
   };
 
@@ -218,6 +215,7 @@ const Header = () => {
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
+                    ref={searchInputRef}
                     onChange={e => setSearchQuery(e.target.value)}
                     onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
                   />

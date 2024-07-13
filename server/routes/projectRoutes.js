@@ -5,8 +5,13 @@ const router = express.Router();
 
 router.post("/", projectController.createProject);
 router.get("/", projectController.getProjects);
-router.get("/user", authMiddleware, projectController.getUserProjects); // 여기에 라우트 추가
+router.get("/user", authMiddleware, projectController.getUserProjects);
 router.get("/search", projectController.searchProjects);
+router.get(
+  "/participated",
+  authMiddleware,
+  projectController.getParticipatedProjects
+); // 여기에 위치 확인
 router.get("/:id", projectController.getProjectById);
 router.get("/:id/hashtags", projectController.getProjectHashtags);
 router.get("/:id/participants", projectController.getProjectParticipants);

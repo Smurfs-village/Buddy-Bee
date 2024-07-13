@@ -93,6 +93,7 @@
   display: inline-block; /* 링크가 블록처럼 동작하도록 */
   transition: background-color 0.3s ease; /* 호버 시 배경색 전환 */
   cursor: pointer; /* 버튼 커서 지정 */
+  transition: 0.2s ease;
 }
 
 .headerpage-login-button:hover {
@@ -221,9 +222,10 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  /* z-index: -1; */
+  z-index: -1;
   opacity: 1;
   transition: 1s ease;
+  margin-top: 92px;
 }
 
 /* 햄버거 버튼 전체 드롭다운 */
@@ -251,6 +253,16 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* 햄버거 버튼 hover시 스타일 */
+.hamburger-search-icon:hover,
+.hamburger-create-icon:hover,
+.hamburger-login-button:hover,
+.hamburger-profile-container:hover {
+  transform: scale(1.02);
+  margin: 3px 0;
+  background-color: #fd0;
 }
 
 /* 햄버거 세부 드롭다운 메뉴 스타일 */
@@ -305,6 +317,7 @@ body {
   border: 2px solid black;
   border-radius: 50px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .hamburger-dropdown-search-container {
@@ -347,6 +360,7 @@ body {
   border: 2px solid black;
   border-radius: 50px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .hamburger-create-icon img {
@@ -366,6 +380,7 @@ body {
   background-color: white;
   border: 2px solid black;
   cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
+  transition: 0.3s ease;
 }
 
 .hamburger-login-button {
@@ -375,6 +390,7 @@ body {
   border: 2px solid black;
   border-radius: 60px;
   cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .hamburger-profile-dropdown-menu {

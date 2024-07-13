@@ -462,3 +462,39 @@ exports.getParticipatedProjects = (req, res) => {
     });
   });
 };
+exports.getBookmarkedProjects = (req, res) => {
+  const userId = req.user.userId;
+
+  const query = `
+    SELECT p.*, u.username AS author, 1 as scrapState
+    FROM project p
+    JOIN honeypot h ON p.id = h.project_id
+    JOIN user u ON p.created_by = u.id
+    WHERE h.user_id = ?
+    ORDER BY p.created_at DESC
+  `;
+
+  connection.query(query, [userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching bookmarked projects:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const activeProjects = results.filter(
+      project => project.status === "active"
+    );
+    const finishedProjects = results.filter(
+      project => project.status === "completed"
+    );
+    const pendingProjects = results.filter(
+      project => project.status === "pending"
+    );
+
+    res.status(200).json({
+      activeProjects,
+      finishedProjects,
+      pendingProjects,
+    });
+  });
+};

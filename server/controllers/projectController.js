@@ -425,3 +425,40 @@ exports.getUserProjects = (req, res) => {
     });
   });
 };
+
+exports.getParticipatedProjects = (req, res) => {
+  const userId = req.user.userId;
+
+  const query = `
+    SELECT p.*, u.username AS author
+    FROM project p
+    JOIN participant pa ON p.id = pa.project_id
+    JOIN user u ON p.created_by = u.id
+    WHERE pa.user_id = ?
+    ORDER BY p.created_at DESC
+  `;
+
+  connection.query(query, [userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching participated projects:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const activeProjects = results.filter(
+      project => project.status === "active"
+    );
+    const finishedProjects = results.filter(
+      project => project.status === "completed"
+    );
+    const pendingProjects = results.filter(
+      project => project.status === "pending"
+    );
+
+    res.status(200).json({
+      activeProjects,
+      finishedProjects,
+      pendingProjects,
+    });
+  });
+};

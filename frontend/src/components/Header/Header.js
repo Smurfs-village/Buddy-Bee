@@ -17,6 +17,7 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
   const hamburgerRef = useRef(null);
+  const searchInputRef = useRef(null); //햄버거 버튼 검색창 전용
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
@@ -44,21 +45,32 @@ const Header = () => {
   const handleButtonClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
     setIsProfileDropdownOpen(false); // 다른 드롭다운 닫기
+    setIsSearchIconOpen(false);
   };
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
     setIsDropdownOpen(false); // 다른 드롭다운 닫기
+    setIsSearchIconOpen(false);
   };
 
   const handleClickOutside = event => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
+      setIsSearchIconOpen(false);
     }
     if (
       profileDropdownRef.current &&
       !profileDropdownRef.current.contains(event.target)
     ) {
+      setIsProfileDropdownOpen(false);
+      setIsSearchIconOpen(false);
+    }
+    if (
+      searchInputRef.current &&
+      !searchInputRef.current.contains(event.target)
+    ) {
+      setIsDropdownOpen(false);
       setIsProfileDropdownOpen(false);
     }
   };
@@ -200,6 +212,7 @@ const Header = () => {
                   className={`hamburger-dropdown-search-container ${
                     isSearchIconOpen ? "search-open" : ""
                   }`}
+                  ref={searchInputRef}
                 >
                   <input
                     type="text"

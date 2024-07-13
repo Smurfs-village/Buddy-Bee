@@ -213,7 +213,7 @@ body {
 .clear {
   clear: both;
 }
-/* 배경에 검정 */
+/* 햄버거 버튼 사용 시 배경에 검정 */
 .headerpage-overlay {
   position: fixed;
   top: 0;
@@ -221,8 +221,9 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9998;
-  visibility: visible;
+  /* z-index: -1; */
+  opacity: 1;
+  transition: 1s ease;
 }
 
 /* 햄버거 버튼 전체 드롭다운 */
@@ -233,10 +234,15 @@ body {
   visibility: hidden;
   display: flex;
   z-index: 9999;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .headerpage-hamburger-dropdown.hamburger-open {
   visibility: visible;
+  max-height: auto;
+  opacity: 1;
   z-index: 9999;
 }
 
@@ -302,28 +308,29 @@ body {
 }
 
 .hamburger-dropdown-search-container {
-  visibility: hidden;
+  opacity: 0;
   position: absolute;
-  top: 10px;
-  right: 10px;
-  transition: visibility 0.3s ease; /* 트랜지션 추가 */
+  top: 2px;
+  right: 60px;
+  max-height: 0px;
+  box-shadow: 2px 2px 0px rgb(0, 0, 0);
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .hamburger-dropdown-search-container.search-open {
-  visibility: visible;
+  opacity: 1;
+  max-height: 200px;
 }
 
 .hamburger-dropdown-search-container input {
-  /* padding-right: 30px; */
-  border: 2px solid rgb(54, 54, 54);
-  border-radius: 30px;
-  box-sizing: border-box;
-  padding: 9px 9px 9.5px 14px;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 14px 15px 14px 14px;
   outline: none;
   visibility: inherit;
 }
 .hamburger-dropdown-search-container .hamburger-dropdown-search-icon {
   position: absolute;
+  top: 11px;
   right: 13px;
 }
 
@@ -371,18 +378,30 @@ body {
 }
 
 .hamburger-profile-dropdown-menu {
-  top: 120px;
+  top: 110px;
   right: 60px;
 }
 
 /* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1920px) {
+  .headerpage-hamburger-dropdown.hamburger-open,
+  .headerpage-overlay {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 @media (min-width: 480px) and (max-width: 767px) {
   .headerpage-header-container {
     padding: 10px 0 10px 5px;
   }
   .headerpage-header-logo,
-  .headerpage-hamburger-dropdown.hamburger-open {
+  .headerpage-hamburger-dropdown.hamburger-open,
+  .headerpage-overlay {
     display: none;
+    opacity: 0;
+    visibility: hidden;
   }
 }
 

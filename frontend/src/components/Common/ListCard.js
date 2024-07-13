@@ -56,6 +56,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     };
 
     const checkHoneyStatus = async () => {
+      if (!user) return;
       try {
         const response = await axios.get(
           `http://localhost:5001/api/projects/${data.id}/honey/${user.id}`
@@ -66,11 +67,9 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       }
     };
 
-    if (user) {
-      fetchHashtags();
-      fetchParticipants();
-      checkHoneyStatus();
-    }
+    fetchHashtags();
+    fetchParticipants();
+    checkHoneyStatus();
 
     return () => {
       isMounted = false;
@@ -89,6 +88,10 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
 
   const handleHoneyClick = async e => {
     e.stopPropagation();
+    if (!user) {
+      console.error("User is not authenticated");
+      return;
+    }
     try {
       if (isHoney) {
         await axios.delete(

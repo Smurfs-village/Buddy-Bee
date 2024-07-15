@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -10,25 +10,78 @@ import DetailContent from "./DetailContent";
 import DetailButton from "./DetailButton"; // Import DetailButton
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
+import axios from "axios"; // axios import 추가
+import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 
 // CSS
 import "./ProjectDetailWithUser.css";
 
 const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
-  const [withState, setFundingState] = useState(false);
-
+  const [withState, setWithState] = useState(false);
   const buttonRef = useRef();
   const withComplete = "ProjectDetailPage-with-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
-  const item = [buttonRef];
+  const { user } = useAuth(); // Import useAuth to get user info
 
-  const withStateHandler = useCallback(() => {
-    // 유저 정보 등록(백엔드)
-    setFundingState(true);
-    buttonRef.current.innerText = "동행 참여완료";
-  }, [item]);
-  // 리렌더링 문제 해결 요망(백엔드)
+  useEffect(() => {
+    const checkParticipationStatus = async () => {
+      if (user && project) {
+        try {
+          const response = await axios.get(
+            `http://localhost:5001/api/projects/${project.id}/participation/${user.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          console.log("Participation check response:", response); // 응답 상태와 데이터 확인
+          if (response.data.isParticipating) {
+            setWithState(true);
+            if (buttonRef.current) {
+              buttonRef.current.innerText = "동행 참여완료";
+            }
+          }
+        } catch (error) {
+          console.error("Error checking participation status:", error);
+        }
+      }
+    };
+
+    checkParticipationStatus();
+  }, [project, user]);
+
+  const withStateHandler = useCallback(async () => {
+    if (!user || !project) {
+      console.error("User is not authenticated or project is not defined");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `http://localhost:5001/api/projects/${project.id}/participate`,
+        { userId: user.id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setWithState(true);
+        if (buttonRef.current) {
+          buttonRef.current.innerText = "동행 참여완료";
+          buttonRef.current.disabled = true; // 버튼 비활성화
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.error("Already participating in this project");
+      } else {
+        console.error("Error participating in project:", error);
+      }
+    }
+  }, [user, project]);
 
   return (
     <BackGroundGrid>
@@ -91,6 +144,7 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
                   className={withState ? withComplete : defaultButton}
                   onClick={withStateHandler}
                   ref={buttonRef}
+                  disabled={withState} // 참여 완료 상태면 버튼 비활성화
                 >
                   동행 참여하기
                 </button>

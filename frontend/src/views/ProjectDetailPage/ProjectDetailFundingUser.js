@@ -1,37 +1,89 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
 import PageLayout from "../../components/Layout/PageLayout";
 import Footer from "../../components/Footer/Footer";
-
 import DetailTitle from "./DetailTitle";
 import DetailContent from "./DetailContent";
-import DetailButton from "./DetailButton"; // Import DetailButton
+import DetailButton from "./DetailButton";
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import DetailFundingStatus from "./DetailFundingStatus";
 import DetailUserInfo from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
 
 // CSS
 import "./ProjectDetailFundingUser.css";
 
 const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
-  const [fundingState, setJoinState] = useState(false);
-
+  const [fundingState, setFundingState] = useState(false);
   const buttonRef = useRef();
-  const item = [buttonRef];
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
+  const { user } = useAuth();
 
-  const fundingStateHandler = useCallback(() => {
-    // 유저 정보 등록(백엔드)
-    setJoinState(true);
-    buttonRef.current.innerText = "펀딩 참여완료";
-  }, [item]);
-  // 리렌더링 문제 해결 요망(백엔드)
+  useEffect(() => {
+    const checkParticipationStatus = async () => {
+      if (user && project) {
+        try {
+          const response = await axios.get(
+            `http://localhost:5001/api/projects/${project.id}/participation/${user.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          console.log("Participation check response:", response); // 응답 상태와 데이터 확인
+          if (response.data.isParticipating) {
+            setFundingState(true);
+            if (buttonRef.current) {
+              buttonRef.current.innerText = "펀딩 참여완료";
+            }
+          }
+        } catch (error) {
+          console.error("Error checking participation status:", error);
+        }
+      }
+    };
+
+    checkParticipationStatus();
+  }, [project, user]);
+
+  const fundingStateHandler = useCallback(async () => {
+    if (!user || !project) {
+      console.error("User is not authenticated or project is not defined");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `http://localhost:5001/api/projects/${project.id}/participate`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log("Participation response:", response); // 응답 상태와 데이터 확인
+      if (response.status === 200) {
+        setFundingState(true);
+        if (buttonRef.current) {
+          buttonRef.current.innerText = "펀딩 참여완료";
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        console.error("Already participating in this project");
+      } else {
+        console.error("Error participating in project:", error);
+      }
+    }
+  }, [user, project]);
 
   return (
     <BackGroundGrid>
@@ -42,7 +94,7 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
           <div className="ProjectDetailPage-container">
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />
-            <DetailButton projectId={project.id} /> {/* Pass projectId */}
+            <DetailButton projectId={project.id} />
             <DetailProfile profile={project.profile} />
             <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
@@ -98,6 +150,7 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
                   className={fundingState ? fundingComplete : defaultButton}
                   onClick={fundingStateHandler}
                   ref={buttonRef}
+                  disabled={fundingState}
                 >
                   펀딩 참여하기
                 </button>

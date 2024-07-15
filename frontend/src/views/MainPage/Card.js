@@ -107,11 +107,18 @@ const Card = ({ data, index, type, toggleScrap }) => {
     }
 
     try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+
       if (isHoney) {
         await axios.delete(
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
             data: { userId: user.id },
+            headers: config.headers, // 인증 헤더 추가
           }
         );
         setHoneyCount(honeyCount - 1);
@@ -120,7 +127,8 @@ const Card = ({ data, index, type, toggleScrap }) => {
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
             userId: user.id,
-          }
+          },
+          config // 인증 헤더 추가
         );
         setHoneyCount(honeyCount + 1);
       }

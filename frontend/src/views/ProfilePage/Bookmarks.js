@@ -103,17 +103,38 @@ const MainRightContainer = () => {
     }
   }, [user]);
 
-  const scrapStateHandler = (index, status) => {
-    if (status === "진행중" || status === "대기중") {
-      const updatedBookmarks = [...bookmarks];
-      updatedBookmarks[index].scrapState = !updatedBookmarks[index].scrapState;
-      setBookmarks(updatedBookmarks);
-    } else if (status === "종료") {
-      const updatedFinishedBookmarks = [...finishedBookmarks];
-      updatedFinishedBookmarks[index].scrapState =
-        !updatedFinishedBookmarks[index].scrapState;
-      setFinishedBookmarks(updatedFinishedBookmarks);
+  const toggleBookmark = async (projectId, currentIndex, isFinished) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5001/api/projects/${projectId}/toggle-honey`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        if (isFinished) {
+          const updatedFinishedBookmarks = [...finishedBookmarks];
+          updatedFinishedBookmarks[currentIndex].scrapState =
+            !updatedFinishedBookmarks[currentIndex].scrapState;
+          setFinishedBookmarks(updatedFinishedBookmarks);
+        } else {
+          const updatedBookmarks = [...bookmarks];
+          updatedBookmarks[currentIndex].scrapState =
+            !updatedBookmarks[currentIndex].scrapState;
+          setBookmarks(updatedBookmarks);
+        }
+      }
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
     }
+  };
+
+  const scrapStateHandler = (index, status, projectId, isFinished) => {
+    toggleBookmark(projectId, index, isFinished);
   };
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
@@ -153,7 +174,9 @@ const MainRightContainer = () => {
             projectName={project.title}
             status={getStatusText(project.status)}
             scrapState={project.scrapState}
-            onClickScrapButton={() => scrapStateHandler(index, project.status)}
+            onClickScrapButton={() =>
+              scrapStateHandler(index, project.status, project.id, false)
+            }
           />
         ))}
         {currentFinishedItems.map((project, index) => (
@@ -163,7 +186,9 @@ const MainRightContainer = () => {
             projectName={project.title}
             status={getStatusText(project.status)}
             scrapState={project.scrapState}
-            onClickScrapButton={() => scrapStateHandler(index, project.status)}
+            onClickScrapButton={() =>
+              scrapStateHandler(index, project.status, project.id, true)
+            }
           />
         ))}
       </div>

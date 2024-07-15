@@ -300,8 +300,11 @@ exports.incrementViewCount = (req, res) => {
 
 // Add toggleHoney function
 exports.toggleHoney = (req, res) => {
+  console.log("User information from authMiddleware:", req.user); // 추가된 로그
   const projectId = req.params.id;
-  const { userId } = req.body;
+  const userId = req.user.userId; // 변경된 부분
+
+  console.log(`Toggling honey for project ${projectId} by user ${userId}`);
 
   const checkQuery = `
     SELECT * FROM honeypot WHERE project_id = ? AND user_id = ?
@@ -343,6 +346,7 @@ exports.toggleHoney = (req, res) => {
     }
   });
 };
+
 exports.checkProjectHoney = (req, res) => {
   const projectId = req.params.id;
   const userId = req.params.userId;
@@ -466,15 +470,16 @@ exports.getBookmarkedProjects = (req, res) => {
   const userId = req.user.userId;
 
   const query = `
-    SELECT p.*, u.username AS author, 1 as scrapState
+    SELECT p.*, u.username AS author, 
+           CASE WHEN h.user_id IS NOT NULL THEN TRUE ELSE FALSE END AS scrapState
     FROM project p
-    JOIN honeypot h ON p.id = h.project_id
+    LEFT JOIN honeypot h ON p.id = h.project_id AND h.user_id = ?
     JOIN user u ON p.created_by = u.id
     WHERE h.user_id = ?
     ORDER BY p.created_at DESC
   `;
 
-  connection.query(query, [userId], (error, results) => {
+  connection.query(query, [userId, userId], (error, results) => {
     if (error) {
       console.error("Error fetching bookmarked projects:", error);
       res.status(500).send("Server error");

@@ -152,8 +152,22 @@ const Header = () => {
             ref={dropdownRef}
           >
             <ul>
-              <li>동행 만들기</li>
-              <li>펀딩 만들기</li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateWithClick}
+                >
+                  동행 만들기
+                </button>
+              </li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateFundingClick}
+                >
+                  펀딩 만들기
+                </button>
+              </li>
             </ul>
           </div>
 

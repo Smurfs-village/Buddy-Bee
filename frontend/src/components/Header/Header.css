@@ -114,6 +114,11 @@
   cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
 }
 
+.headerpage-dropdown-menu button {
+  background-color: transparent;
+  border: none;
+}
+
 /* 드롭다운 메뉴 스타일 */
 .headerpage-dropdown-menu,
 .headerpage-profile-dropdown-menu {

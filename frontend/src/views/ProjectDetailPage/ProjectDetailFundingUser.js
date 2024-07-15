@@ -19,14 +19,14 @@ import "./ProjectDetailFundingUser.css";
 
 const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
-  const [joinState, setJoinState] = useState(false);
+  const [fundingState, setJoinState] = useState(false);
 
   const buttonRef = useRef();
   const item = [buttonRef];
-  const joinComplete = "ProjectDetailPage-join-complete";
+  const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
 
-  const joinStateHandler = useCallback(() => {
+  const fundingStateHandler = useCallback(() => {
     // 유저 정보 등록(백엔드)
     setJoinState(true);
     buttonRef.current.innerText = "펀딩 참여완료";
@@ -95,8 +95,8 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button
-                  className={joinState ? joinComplete : defaultButton}
-                  onClick={joinStateHandler}
+                  className={fundingState ? fundingComplete : defaultButton}
+                  onClick={fundingStateHandler}
                   ref={buttonRef}
                 >
                   펀딩 참여하기

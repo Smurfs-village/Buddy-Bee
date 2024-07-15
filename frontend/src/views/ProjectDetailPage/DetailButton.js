@@ -15,7 +15,12 @@ const DetailButton = ({ projectId }) => {
     const checkHoneyStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/honey/${user.id}`
+          `http://localhost:5001/api/projects/${projectId}/honey/${user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         setIsHoney(response.data.isHoney);
       } catch (error) {
@@ -51,6 +56,9 @@ const DetailButton = ({ projectId }) => {
         await axios.delete(
           `http://localhost:5001/api/projects/${projectId}/honey`,
           {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
             data: { userId: user.id },
           }
         );
@@ -60,6 +68,11 @@ const DetailButton = ({ projectId }) => {
           `http://localhost:5001/api/projects/${projectId}/honey`,
           {
             userId: user.id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
         );
         setHoneyCount(honeyCount + 1); // Increment honey count

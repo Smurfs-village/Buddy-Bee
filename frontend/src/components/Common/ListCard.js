@@ -97,20 +97,28 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
         await axios.delete(
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
             data: { userId: user.id },
           }
         );
       } else {
         await axios.post(
           `http://localhost:5001/api/projects/${data.id}/honey`,
-          { userId: user.id }
+          { userId: user.id },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
       }
       setIsHoney(!isHoney);
+      toggleScrap(index, type); // 스크랩 상태 업데이트
     } catch (error) {
       console.error("Error toggling honey status:", error);
     }
-    toggleScrap(index, type); // 스크랩 상태 업데이트
   };
 
   return (

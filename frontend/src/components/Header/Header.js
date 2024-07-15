@@ -127,7 +127,7 @@ const Header = () => {
             <img src={icon} alt="Icon" />
           </Link>
           <Link to="/">
-            <img className="headerpage-header-logo" src={logo} alt="Logo" />
+            <h1 className="headerpage-header-logo">BUDDY BEE</h1>
           </Link>
         </div>
         <div className="headerpage-header-right">

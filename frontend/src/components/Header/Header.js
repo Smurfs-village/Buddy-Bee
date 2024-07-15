@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가, useNavigate 훅 추가
 import icon from "../../img/nav_icon.svg";
-import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
@@ -90,6 +89,15 @@ const Header = () => {
     navigate("/login");
   };
 
+  //만들기 버튼
+  const handleCreateWithClick = () => {
+    navigate("/create-with-project");
+  };
+
+  const handleCreateFundingClick = () => {
+    navigate("/create-funding-project");
+  };
+
   const clickHamburger = () => {
     //하단 표현 방식 리액트에 맞게 수정 예정입니다!
     let icon1 = document.getElementById("a");
@@ -107,14 +115,18 @@ const Header = () => {
   };
 
   return (
-    <header className="headerpage-header">
+    <header
+      className={`headerpage-header ${
+        isDropdownOpen || isProfileDropdownOpen ? "headerpage-open" : ""
+      }`}
+    >
       <div className="headerpage-header-container">
         <div className="headerpage-header-left">
           <Link to="/">
             <img src={icon} alt="Icon" />
           </Link>
           <Link to="/">
-            <img className="headerpage-header-logo" src={logo} alt="Logo" />
+            <h1 className="headerpage-header-logo">BUDDY BEE</h1>
           </Link>
         </div>
         <div className="headerpage-header-right">
@@ -133,7 +145,11 @@ const Header = () => {
               onClick={handleSearch}
             />
           </div>
-          <button type="button" onClick={handleButtonClick}>
+          <button
+            type="button"
+            className="headerpage-create-btn"
+            onClick={handleButtonClick}
+          >
             만들기
           </button>
           <div
@@ -143,8 +159,22 @@ const Header = () => {
             ref={dropdownRef}
           >
             <ul>
-              <li>동행 만들기</li>
-              <li>펀딩 만들기</li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateWithClick}
+                >
+                  동행 만들기
+                </button>
+              </li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateFundingClick}
+                >
+                  펀딩 만들기
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -167,7 +197,10 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li>Profile</li>
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  {/* 위에 isLoggedIn으로 1차 제어해서 ink to로 처리했습니다 */}
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>
@@ -252,8 +285,22 @@ const Header = () => {
                 ref={dropdownRef}
               >
                 <ul>
-                  <li>동행 만들기</li>
-                  <li>펀딩 만들기</li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateWithClick}
+                    >
+                      동행 만들기
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateFundingClick}
+                    >
+                      펀딩 만들기
+                    </button>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -277,7 +324,9 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li>Profile</li>
+                      <li>
+                        <Link to="/profile">Profile</Link>
+                      </li>
                       <li onClick={handleLogout}>Logout</li>
                     </ul>
                   </div>

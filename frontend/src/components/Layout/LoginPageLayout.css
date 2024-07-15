@@ -77,9 +77,6 @@
 }
 
 /* 미디어쿼리_ media query */
-@media (min-width: 768px) and (max-width: 1920px) {
-}
-
 @media (min-width: 480px) and (max-width: 767px) {
   .login-page-layout {
     width: 92%;
@@ -108,7 +105,7 @@
 @media (max-width: 479px) {
   .login-page-layout {
     width: 100%;
-    padding: 150px 0 175px 0;
+    padding: 80px 0 120px 0;
   }
   .login-page-layout-wrapper {
     width: 90vw;

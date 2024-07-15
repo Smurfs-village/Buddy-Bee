@@ -6,6 +6,7 @@ import { FlowerImg } from "./Common";
 import Pagination from "../../components/Common/Pagination";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({
   imgSrc,
@@ -13,8 +14,11 @@ const Card = ({
   status,
   scrapState,
   onClickScrapButton,
+  onCardClick, // 추가
 }) => (
-  <div className="Bookmarks_main_right_container_box">
+  <div className="Bookmarks_main_right_container_box" onClick={onCardClick}>
+    {" "}
+    {/* 추가 */}
     <div
       className="Bookmarks_main_right_container_box_img_wrapper"
       style={{ backgroundImage: `url(${imgSrc})` }}
@@ -45,8 +49,14 @@ const FinishedProject = ({
   status,
   scrapState,
   onClickScrapButton,
+  onCardClick, // 추가
 }) => (
-  <div className="Bookmarks_main_right_container_box Bookmarks_finishedProject_container">
+  <div
+    className="Bookmarks_main_right_container_box Bookmarks_finishedProject_container"
+    onClick={onCardClick}
+  >
+    {" "}
+    {/* 추가 */}
     <div
       className="Bookmarks_main_right_container_box_img_wrapper Bookmarks_finishedProjectImg"
       style={{ backgroundImage: `url(${imgSrc})` }}
@@ -76,6 +86,7 @@ const MainRightContainer = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [finishedBookmarks, setFinishedBookmarks] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate(); // 추가
 
   useEffect(() => {
     const fetchBookmarkedProjects = async () => {
@@ -163,6 +174,10 @@ const MainRightContainer = () => {
     }
   };
 
+  const onCardClick = id => {
+    navigate(`/projects/${id}`);
+  };
+
   return (
     <div className="Main_right_container">
       <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
@@ -174,9 +189,11 @@ const MainRightContainer = () => {
             projectName={project.title}
             status={getStatusText(project.status)}
             scrapState={project.scrapState}
-            onClickScrapButton={() =>
-              scrapStateHandler(index, project.status, project.id, false)
-            }
+            onClickScrapButton={e => {
+              e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+              scrapStateHandler(index, project.status, project.id, false);
+            }}
+            onCardClick={() => onCardClick(project.id)} // 추가
           />
         ))}
         {currentFinishedItems.map((project, index) => (
@@ -186,9 +203,11 @@ const MainRightContainer = () => {
             projectName={project.title}
             status={getStatusText(project.status)}
             scrapState={project.scrapState}
-            onClickScrapButton={() =>
-              scrapStateHandler(index, project.status, project.id, true)
-            }
+            onClickScrapButton={e => {
+              e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+              scrapStateHandler(index, project.status, project.id, true);
+            }}
+            onCardClick={() => onCardClick(project.id)} // 추가
           />
         ))}
       </div>

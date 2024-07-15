@@ -4,6 +4,7 @@ import axios from "axios";
 import { FlowerImg } from "./Common";
 import Pagination from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({
   imgSrc,
@@ -12,8 +13,12 @@ const Card = ({
   status,
   id,
   onDeleteProject,
+  onCardClick, // 추가
 }) => (
-  <div className="MyPosts_ParticipatedProjects_main_right_container_box">
+  <div
+    className="MyPosts_ParticipatedProjects_main_right_container_box"
+    onClick={() => onCardClick(id)} // 추가
+  >
     <div
       className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
         status === "종료" ? "overlay" : ""
@@ -45,7 +50,8 @@ const Card = ({
       </button>
       <button
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
-        onClick={() => {
+        onClick={e => {
+          e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
           onDeleteProject(id);
         }}
       >
@@ -61,6 +67,7 @@ const MainRightContainer = () => {
   const [finishedProjects, setFinishedProjects] = useState([]);
   const [pendingProjects, setPendingProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate(); // 추가
 
   const onDeleteProject = targetId => {
     setActiveProjects(
@@ -72,6 +79,10 @@ const MainRightContainer = () => {
     setPendingProjects(
       pendingProjects.filter(project => project.id !== targetId)
     );
+  };
+
+  const onCardClick = id => {
+    navigate(`/projects/${id}`);
   };
 
   useEffect(() => {
@@ -147,6 +158,7 @@ const MainRightContainer = () => {
             status={getStatusText(project.status)}
             onDeleteProject={onDeleteProject}
             id={project.id}
+            onCardClick={onCardClick} // 추가
           />
         ))}
         {currentActivePosts.map(project => (
@@ -158,6 +170,7 @@ const MainRightContainer = () => {
             status={getStatusText(project.status)}
             onDeleteProject={onDeleteProject}
             id={project.id}
+            onCardClick={onCardClick} // 추가
           />
         ))}
         {currentFinishedPosts.map(project => (
@@ -169,6 +182,7 @@ const MainRightContainer = () => {
             status={getStatusText(project.status)}
             onDeleteProject={onDeleteProject}
             id={project.id}
+            onCardClick={onCardClick} // 추가
           />
         ))}
       </div>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { FlowerImg } from "./Common";
 import Pagination from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({
   imgSrc,
@@ -12,8 +13,12 @@ const Card = ({
   status,
   onDeleteActiveProject,
   id,
+  onCardClick, // 추가
 }) => (
-  <div className="MyPosts_ParticipatedProjects_main_right_container_box">
+  <div
+    className="MyPosts_ParticipatedProjects_main_right_container_box"
+    onClick={() => onCardClick(id)} // 추가
+  >
     <div
       className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
         status === "종료"
@@ -34,7 +39,10 @@ const Card = ({
       <button className={`status-btn ${status}`}>{status}</button>
       <button
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
-        onClick={() => onDeleteActiveProject(id)}
+        onClick={e => {
+          e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+          onDeleteActiveProject(id);
+        }}
       >
         삭제
       </button>
@@ -46,9 +54,14 @@ const MainRightContainer = () => {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate(); // 추가
 
   const onDeleteActiveProject = targetId => {
     setProjects(() => projects.filter(project => project.id !== targetId));
+  };
+
+  const onCardClick = id => {
+    navigate(`/projects/${id}`);
   };
 
   useEffect(() => {
@@ -103,6 +116,7 @@ const MainRightContainer = () => {
             status={project.status}
             onDeleteActiveProject={onDeleteActiveProject}
             id={project.id}
+            onCardClick={onCardClick} // 추가
           />
         ))}
       </div>

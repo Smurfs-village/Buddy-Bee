@@ -93,3 +93,20 @@
 .login-page-dropdown-list li:hover {
   font-weight: bold;
 }
+
+/* 미디어 쿼리 */
+@media (min-width: 480px) and (max-width: 767px) {
+  .login-page-register-dropdown {
+    top: 400px;
+    right: 28px;
+    width: 130px;
+  }
+}
+
+@media (max-width: 479px) {
+  .login-page-register-dropdown {
+    top: 77%;
+    right: 7.4vw;
+    width: 130px;
+  }
+}

@@ -33,7 +33,12 @@ router.get("/:id/honey/:userId", projectController.checkProjectHoney); // 인증
 router.post(
   "/:id/participate",
   authMiddleware,
-  projectController.participateProject
-); // 새로운 참여 엔드포인트 추가
+  projectController.participateInProject
+); // 참여 엔드포인트 추가
+router.get(
+  "/:projectId/participation/:userId",
+  authMiddleware,
+  projectController.checkParticipation
+); // 참여 상태 확인 엔드포인트 추가
 
 module.exports = router;

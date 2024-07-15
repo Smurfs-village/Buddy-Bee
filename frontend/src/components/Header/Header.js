@@ -90,6 +90,15 @@ const Header = () => {
     navigate("/login");
   };
 
+  //만들기 버튼
+  const handleCreateWithClick = () => {
+    navigate("/create-with-project");
+  };
+
+  const handleCreateFundingClick = () => {
+    navigate("/create-funding-project");
+  };
+
   const clickHamburger = () => {
     //하단 표현 방식 리액트에 맞게 수정 예정입니다!
     let icon1 = document.getElementById("a");
@@ -252,8 +261,22 @@ const Header = () => {
                 ref={dropdownRef}
               >
                 <ul>
-                  <li>동행 만들기</li>
-                  <li>펀딩 만들기</li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateWithClick}
+                    >
+                      동행 만들기
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateFundingClick}
+                    >
+                      펀딩 만들기
+                    </button>
+                  </li>
                 </ul>
               </div>
             </li>

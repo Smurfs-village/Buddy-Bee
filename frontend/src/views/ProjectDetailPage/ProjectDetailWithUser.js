@@ -16,14 +16,14 @@ import "./ProjectDetailWithUser.css";
 
 const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
-  const [fundingState, setFundingState] = useState(false);
+  const [withState, setFundingState] = useState(false);
 
   const buttonRef = useRef();
-  const fundingComplete = "ProjectDetailPage-funding-complete";
+  const withComplete = "ProjectDetailPage-with-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
   const item = [buttonRef];
 
-  const fundingStateHandler = useCallback(() => {
+  const withStateHandler = useCallback(() => {
     // 유저 정보 등록(백엔드)
     setFundingState(true);
     buttonRef.current.innerText = "동행 참여완료";
@@ -88,8 +88,8 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button
-                  className={fundingState ? fundingComplete : defaultButton}
-                  onClick={fundingStateHandler}
+                  className={withState ? withComplete : defaultButton}
+                  onClick={withStateHandler}
                   ref={buttonRef}
                 >
                   동행 참여하기

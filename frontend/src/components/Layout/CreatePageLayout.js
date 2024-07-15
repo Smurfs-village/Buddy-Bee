@@ -72,7 +72,12 @@ const CreatePageLayout = ({ children, type }) => {
     try {
       const response = await axios.post(
         "http://localhost:5001/api/projects",
-        projectData
+        projectData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // 인증 토큰 추가
+          },
+        }
       );
       console.log("Project created:", response.data);
       const projectId = response.data.projectId;

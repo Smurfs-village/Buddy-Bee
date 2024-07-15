@@ -503,3 +503,22 @@ exports.getBookmarkedProjects = (req, res) => {
     });
   });
 };
+
+exports.participateProject = (req, res) => {
+  const projectId = req.params.id;
+  const { userId } = req.user;
+
+  const query = `
+    INSERT INTO participant (project_id, user_id, joined_at)
+    VALUES (?, ?, NOW())
+  `;
+
+  connection.query(query, [projectId, userId], (error, results) => {
+    if (error) {
+      console.error("Error inserting participation:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+    res.status(201).send("Participation recorded");
+  });
+};

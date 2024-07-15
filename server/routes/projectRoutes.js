@@ -30,5 +30,10 @@ router.delete(
 router.patch("/:id/increment-view", projectController.incrementViewCount); // 인증 불필요
 router.post("/:id/toggle-honey", authMiddleware, projectController.toggleHoney); // 인증 필요
 router.get("/:id/honey/:userId", projectController.checkProjectHoney); // 인증 불필요
+router.post(
+  "/:id/participate",
+  authMiddleware,
+  projectController.participateProject
+); // 새로운 참여 엔드포인트 추가
 
 module.exports = router;

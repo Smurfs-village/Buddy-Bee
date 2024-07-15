@@ -98,8 +98,9 @@ const Header = () => {
     navigate("/create-funding-project");
   };
 
-  const clickHamburger = () => {
+  const clickHamburger = e => {
     //하단 표현 방식 리액트에 맞게 수정 예정입니다!
+    e.preventDefault();
     let icon1 = document.getElementById("a");
     let icon2 = document.getElementById("b");
     let icon3 = document.getElementById("c");
@@ -110,6 +111,9 @@ const Header = () => {
       setIsHamburgerOpen(true);
     }
     if (isHamburgerOpen === true) {
+      icon1.classList.remove("a");
+      icon2.classList.remove("c");
+      icon3.classList.remove("b");
       setIsHamburgerOpen(false);
     }
   };

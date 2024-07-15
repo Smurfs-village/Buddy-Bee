@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -19,6 +19,20 @@ import "./ProjectDetailFundingUser.css";
 
 const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
+  const [joinState, setJoinState] = useState(false);
+
+  const buttonRef = useRef();
+  const item = [buttonRef];
+  const joinComplete = "ProjectDetailPage-join-complete";
+  const defaultButton = "ProjectDetailPage-click-btn";
+
+  const joinStateHandler = useCallback(() => {
+    // 유저 정보 등록(백엔드)
+    setJoinState(true);
+    buttonRef.current.innerText = "펀딩 참여완료";
+  }, [item]);
+  // 리렌더링 문제 해결 요망(백엔드)
+
   return (
     <BackGroundGrid>
       <Header />
@@ -79,8 +93,14 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
             <DetailAgree />
             <DetailFundingStatus />
             <div className="ProjectDetailPage-click">
-              <div className="ProjectDetailPage-click-btn">
-                <button>펀딩 참여하기</button>
+              <div className="ProjectDetailPage-click-btn_wrapper">
+                <button
+                  className={joinState ? joinComplete : defaultButton}
+                  onClick={joinStateHandler}
+                  ref={buttonRef}
+                >
+                  펀딩 참여하기
+                </button>
               </div>
             </div>
           </div>

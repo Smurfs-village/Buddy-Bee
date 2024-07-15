@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가, useNavigate 훅 추가
 import icon from "../../img/nav_icon.svg";
-import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가

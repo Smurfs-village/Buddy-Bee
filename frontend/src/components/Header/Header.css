@@ -19,6 +19,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* headerpage 내 전체 a태그 스타일 제거 */
+.headerpage-header a {
+  text-decoration: none;
+  color: black;
+}
+
 .headerpage-header.headerpage-open {
   border-bottom: 1px solid black;
 }
@@ -327,7 +333,7 @@ body {
 
 .hamburger-dropdown-menu li,
 .hamburger-profile-dropdown-menu li {
-  padding: 12px 17px 11px 17px;
+  padding: 12px 17px 11px 18px;
   cursor: pointer;
   transition: 0.2s ease;
 }

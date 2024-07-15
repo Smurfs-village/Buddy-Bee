@@ -198,7 +198,10 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li>Profile</li>
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  {/* 위에 isLoggedIn으로 1차 제어해서 ink to로 처리했습니다 */}
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>
@@ -322,7 +325,9 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li>Profile</li>
+                      <li>
+                        <Link to="/profile">Profile</Link>
+                      </li>
                       <li onClick={handleLogout}>Logout</li>
                     </ul>
                   </div>

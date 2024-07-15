@@ -116,7 +116,11 @@ const Header = () => {
   };
 
   return (
-    <header className="headerpage-header">
+    <header
+      className={`headerpage-header ${
+        isDropdownOpen || isProfileDropdownOpen ? "headerpage-open" : ""
+      }`}
+    >
       <div className="headerpage-header-container">
         <div className="headerpage-header-left">
           <Link to="/">
@@ -142,7 +146,11 @@ const Header = () => {
               onClick={handleSearch}
             />
           </div>
-          <button type="button" onClick={handleButtonClick}>
+          <button
+            type="button"
+            className="headerpage-create-btn"
+            onClick={handleButtonClick}
+          >
             만들기
           </button>
           <div

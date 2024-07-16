@@ -1,4 +1,3 @@
-import React from "react";
 import "./DetailUserInfo.css";
 
 const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {

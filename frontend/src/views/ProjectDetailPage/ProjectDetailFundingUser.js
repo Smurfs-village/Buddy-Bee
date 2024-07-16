@@ -25,6 +25,11 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth();
+  const [options, setOptions] = useState([]);
+  const [applicantName, setApplicantName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [agreement, setAgreement] = useState(false);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -38,7 +43,7 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
               },
             }
           );
-          console.log("Participation check response:", response); // 응답 상태와 데이터 확인
+          console.log("Participation check response:", response);
           if (response.data.isParticipating) {
             setFundingState(true);
             if (buttonRef.current) {
@@ -59,21 +64,33 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
       console.error("User is not authenticated or project is not defined");
       return;
     }
+    if (!agreement) {
+      alert("개인정보 제 3자 제공 동의를 해야합니다.");
+      return;
+    }
     try {
       const response = await axios.post(
         `http://localhost:5001/api/projects/${project.id}/participate`,
-        {},
+        {
+          userId: user.id,
+          options,
+          applicantName,
+          email,
+          phone,
+          agreement,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      console.log("Participation response:", response); // 응답 상태와 데이터 확인
+      console.log("Participation response:", response);
       if (response.status === 200) {
         setFundingState(true);
         if (buttonRef.current) {
           buttonRef.current.innerText = "펀딩 참여완료";
+          buttonRef.current.disabled = true; // 버튼 비활성화
         }
       }
     } catch (error) {
@@ -83,7 +100,28 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project]);
+  }, [user, project, options, applicantName, email, phone, agreement]);
+
+  const handleOptionChange = (index, newQuantity) => {
+    const newOptions = [...options];
+    newOptions[index] = { ...newOptions[index], quantity: newQuantity };
+    setOptions(newOptions);
+  };
+
+  const initializeOptions = () => {
+    const initialOptions = project.options.map(option => ({
+      name: option.name,
+      price: option.price,
+      quantity: 0,
+    }));
+    setOptions(initialOptions);
+  };
+
+  useEffect(() => {
+    if (project) {
+      initializeOptions();
+    }
+  }, [project]);
 
   return (
     <BackGroundGrid>
@@ -123,7 +161,18 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
                             <span>({option.price}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
-                            <input type="number" name="optionCount" />
+                            <input
+                              type="number"
+                              name="optionCount"
+                              min="0"
+                              value={options[index]?.quantity || 0}
+                              onChange={e =>
+                                handleOptionChange(
+                                  index,
+                                  parseInt(e.target.value, 10)
+                                )
+                              }
+                            />
                             <span>개</span>
                           </div>
                         </div>
@@ -136,13 +185,21 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
                     총 결제금액
                   </div>
                   <div className="ProjectDetailPage-total-cash">
-                    0 <span>원</span>
+                    {options.reduce(
+                      (total, option) => total + option.price * option.quantity,
+                      0
+                    )}{" "}
+                    <span>원</span>
                   </div>
                 </div>
               </div>
             </div>
-            <DetailUserInfo />
-            <DetailAgree />
+            <DetailUserInfo
+              setApplicantName={setApplicantName}
+              setEmail={setEmail}
+              setPhone={setPhone}
+            />
+            <DetailAgree setAgreement={setAgreement} />
             <DetailFundingStatus />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">

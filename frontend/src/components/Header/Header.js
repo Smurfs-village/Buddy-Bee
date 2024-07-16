@@ -78,6 +78,9 @@ const Header = () => {
     };
   }, []);
 
+  const handleToProfile = () => {
+    navigate("/profile");
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -201,10 +204,7 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li>
-                    <Link to="/profile">Profile</Link>
-                  </li>
-                  {/* 위에 isLoggedIn으로 1차 제어해서 ink to로 처리했습니다 */}
+                  <li onClick={handleToProfile}>Profile</li>
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>
@@ -328,9 +328,7 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li>
-                        <Link to="/profile">Profile</Link>
-                      </li>
+                      <li onClick={handleToProfile}>Profile</li>
                       <li onClick={handleLogout}>Logout</li>
                     </ul>
                   </div>

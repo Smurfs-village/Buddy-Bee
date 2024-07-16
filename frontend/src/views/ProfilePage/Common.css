@@ -194,4 +194,8 @@
     .ProfilePage_main_right_container_flowerImg {
         display: none;
     }
+    .Main_right_container {
+        padding: 0;
+        border: 3px solid black;
+    }
 }

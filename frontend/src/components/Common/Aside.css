@@ -12,6 +12,7 @@
     flex: 1.7;
     flex-direction: column;
     padding: 2% 2% 0% 2%;
+    white-space: nowrap;
 }
 
 .MyProfile_main_aside_category {

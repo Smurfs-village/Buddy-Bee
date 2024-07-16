@@ -5,7 +5,7 @@ import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
-
+import { useAuth } from "../../contexts/AuthContext";
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -18,7 +18,7 @@ const Header = () => {
   const hamburgerRef = useRef(null);
   const searchInputRef = useRef(null); //햄버거 버튼 검색창 전용
   const navigate = useNavigate(); // useNavigate 훅 사용
-
+  const { logout } = useAuth();
   useEffect(() => {
     // 로그인 상태 확인
     const token = localStorage.getItem("token");
@@ -82,10 +82,10 @@ const Header = () => {
     navigate("/profile");
   };
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("nickname");
-    setIsLoggedIn(false);
+    logout(); // AuthContext의 logout 함수 호출
+    setIsProfileDropdownOpen(false); // 프로필 드롭다운 닫기
+    navigate("/");
+    window.location.reload(); // 페이지 새로고침하여 상태 반영
   };
 
   const handleLoginClick = () => {

@@ -35,11 +35,22 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("nickname");
     }
   }, [user]);
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("nickname");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

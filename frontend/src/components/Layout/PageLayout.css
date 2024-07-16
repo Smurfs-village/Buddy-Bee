@@ -36,3 +36,25 @@
 .three-red {
   background-color: #ff8473;
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .page-layout {
+    width: 90%;
+    margin-right: 17.5%;
+    margin-bottom: 150px;
+    margin-top: 77px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+  }
+}
+
+@media (max-width: 479px) {
+  .page-layout {
+    width: 92%;
+    margin-right: 17.5%;
+    margin-bottom: 150px;
+    margin-top: 50px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+    box-shadow: none;
+  }
+}

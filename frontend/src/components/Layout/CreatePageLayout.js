@@ -129,10 +129,10 @@ const CreatePageLayout = ({ children, type }) => {
         <div className="createpage-sub-nav">
           <div className="createpage-button-group">
             <button onClick={() => navigate("/create-with-project")}>
-              #버디비_동행
+              #동행 만들기
             </button>
             <button onClick={() => navigate("/create-funding-project")}>
-              #버디비_펀딩
+              #펀딩 만들기
             </button>
           </div>
         </div>
@@ -300,6 +300,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-number-input">
                         <input
                           type="number"
+                          min={1}
                           value={maxParticipants}
                           onChange={e => setMaxParticipants(e.target.value)}
                           placeholder="모집 인원"

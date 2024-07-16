@@ -68,6 +68,10 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
       alert("개인정보 제 3자 제공 동의를 해야합니다.");
       return;
     }
+    if (!applicantName || !email || !phone) {
+      alert("신청자 정보를 모두 입력해야 합니다.");
+      return;
+    }
     try {
       const response = await axios.post(
         `http://localhost:5001/api/projects/${project.id}/participate`,

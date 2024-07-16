@@ -1,3 +1,4 @@
+import React from "react";
 import "./DetailUserInfo.css";
 
 const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
@@ -13,20 +14,23 @@ const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
               type="text"
               placeholder="신청자명"
               onChange={e => setApplicantName(e.target.value)}
+              required
             />
           </div>
           <div className="ProjectDetailPage-user-email">
             <input
-              type="text"
+              type="email"
               placeholder="이메일 주소"
               onChange={e => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="ProjectDetailPage-user-tel">
             <input
-              type="text"
+              type="tel"
               placeholder="전화번호"
               onChange={e => setPhone(e.target.value)}
+              required
             />
           </div>
         </div>

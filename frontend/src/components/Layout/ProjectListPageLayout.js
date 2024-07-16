@@ -15,11 +15,14 @@ const ProjectListPageLayout = () => {
   const [activePage, setActivePage] = useState(1);
   const [filterItem, setFilterItem] = useState(false);
   const location = useLocation();
+  const [title, setTitle] = useState("전체");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const query = new URLSearchParams(location.search).get("query");
+        // 검색어 입력했을 때 결과를 보여줍니다.
+        setTitle(`${query} 검색결과`);
         const response = query
           ? await axios.get(
               `http://localhost:5001/api/projects/search?query=${query}`
@@ -48,6 +51,23 @@ const ProjectListPageLayout = () => {
     setSortedCardList(copyCardList);
   }, [sortBtn, cards, filterItem]);
 
+  useEffect(() => {
+    switch (filterItem) {
+      case "with": {
+        setTitle("버디비_동행");
+        break;
+      }
+      case "funding": {
+        setTitle("버디비_펀딩");
+        break;
+      }
+      default: {
+        setTitle("전체");
+        break;
+      }
+    }
+  }, [filterItem]);
+
   const toggleScrap = (index, type) => {
     const updatedCards = [...sortedCardList];
     updatedCards[index].scrap = !updatedCards[index].scrap;
@@ -59,7 +79,7 @@ const ProjectListPageLayout = () => {
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = pageNumber => {
+  const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
   };
 
@@ -70,7 +90,7 @@ const ProjectListPageLayout = () => {
         <PageLayout>
           <div className="project-list-page-layout-wrapper">
             <div className="project-list-page-layout-line1">
-              <h1>#동행 모집</h1>
+              <h1>#{title}</h1>
               <div className="project-list-btn-wrapper">
                 <button
                   className={`sort-latest ${
@@ -103,7 +123,7 @@ const ProjectListPageLayout = () => {
                   ))
                 : filterItem === "with"
                 ? currentItems
-                    .filter(item => item.type === "with")
+                    .filter((item) => item.type === "with")
                     .map((data, index) => (
                       <ListCard
                         key={index}
@@ -115,7 +135,7 @@ const ProjectListPageLayout = () => {
                     ))
                 : filterItem === "funding"
                 ? currentItems
-                    .filter(item => item.type === "funding")
+                    .filter((item) => item.type === "funding")
                     .map((data, index) => (
                       <ListCard
                         key={index}

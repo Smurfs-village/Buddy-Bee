@@ -19,20 +19,21 @@ const App = () => {
           <Route path="/" exact element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/profile/*"
-            element={<ProtectedRoute element={ProfilePage} />}
-          />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile/*" element={<ProfilePage />} />
+            <Route
+              path="/create-funding-project"
+              element={<CreateFundingProjectPage />}
+            />
+            <Route
+              path="/create-with-project"
+              element={<CreateWithProjectPage />}
+            />
+          </Route>
+
           <Route path="/projects" exact element={<ProjectListPage />} />
           <Route path="/projects/:id" element={<ProjectDetailPage />} />
-          <Route
-            path="/create-funding-project"
-            element={<ProtectedRoute element={CreateFundingProjectPage} />}
-          />
-          <Route
-            path="/create-with-project"
-            element={<ProtectedRoute element={CreateWithProjectPage} />}
-          />
         </Routes>
       </Router>
     </AuthProvider>

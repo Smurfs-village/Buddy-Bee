@@ -112,20 +112,20 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
     setOptions(newOptions);
   };
 
-  const initializeOptions = () => {
+  const initializeOptions = useCallback(() => {
     const initialOptions = project.options.map(option => ({
       name: option.name,
       price: option.price,
       quantity: 0,
     }));
     setOptions(initialOptions);
-  };
+  }, [project]);
 
   useEffect(() => {
     if (project) {
       initializeOptions();
     }
-  }, [project]);
+  }, [project, initializeOptions]);
 
   return (
     <BackGroundGrid>

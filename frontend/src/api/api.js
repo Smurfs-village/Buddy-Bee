@@ -20,6 +20,10 @@ export const login = async (email, password) => {
 };
 
 export const checkNicknameAvailability = async nickname => {
+  if (!nickname) {
+    //닉네임이 공란인 경우
+    throw new Error("cannot be empty");
+  }
   try {
     const response = await axios.get(`${API_BASE_URL}/check-nickname`, {
       params: { nickname },

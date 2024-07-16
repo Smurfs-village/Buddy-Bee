@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -24,6 +25,7 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   const withComplete = "ProjectDetailPage-with-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth(); // Import useAuth to get user info
+  const navigate = useNavigate(); // useNavigate 훅 추가
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -64,8 +66,13 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   };
 
   const withStateHandler = useCallback(async () => {
-    if (!user || !project) {
-      console.error("User is not authenticated or project is not defined");
+    if (!user) {
+      console.error("User is not authenticated");
+      navigate("/login"); // 로그인 페이지로 리다이렉트
+      return;
+    }
+    if (!project) {
+      console.error("Project is not defined");
       return;
     }
     try {
@@ -92,7 +99,7 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project, selectedOptions]);
+  }, [user, project, selectedOptions, navigate]);
 
   return (
     <BackGroundGrid>

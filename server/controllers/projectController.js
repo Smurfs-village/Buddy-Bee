@@ -21,9 +21,22 @@ exports.createProject = (req, res) => {
   } = req.body;
   const mainImage = extractFirstImage(content);
 
+  // 현재 날짜를 'YYYY-MM-DD' 형식으로 가져오기
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // 상태를 결정
+  let status;
+  if (startDate > currentDate) {
+    status = "pending";
+  } else if (startDate <= currentDate && endDate >= currentDate) {
+    status = "active";
+  } else if (endDate < currentDate) {
+    status = "completed";
+  }
+
   const createProjectQuery = `
-    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image, account_info)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image, account_info, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const projectValues = [
     title,
@@ -37,6 +50,7 @@ exports.createProject = (req, res) => {
     JSON.stringify(options),
     mainImage,
     accountInfo,
+    status,
   ];
 
   connection.query(createProjectQuery, projectValues, (error, results) => {
@@ -201,13 +215,6 @@ exports.participateInProject = (req, res) => {
   const { selectedOptions, options, applicantName, email, phone, agreement } =
     req.body;
 
-  if (
-    (!selectedOptions || selectedOptions.length === 0) &&
-    (!options || Object.keys(options).length === 0)
-  ) {
-    return res.status(400).send("No options selected");
-  }
-
   const checkQuery = `
     SELECT COUNT(*) as count
     FROM participant
@@ -251,70 +258,78 @@ exports.participateInProject = (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
           `;
 
-          let insertDetailsTasks = [];
+          const insertDetailsTasks = [];
 
-          if (selectedOptions) {
-            insertDetailsTasks = selectedOptions.map(option => {
-              return new Promise((resolve, reject) => {
-                connection.query(
-                  insertDetailsQuery,
-                  [
-                    participantId,
-                    userId,
-                    option,
-                    null,
-                    applicantName,
-                    email,
-                    phone,
-                    agreement,
-                  ],
-                  (detailsError, detailsResults) => {
-                    if (detailsError) {
-                      reject(detailsError);
-                    } else {
-                      resolve(detailsResults);
+          if (selectedOptions && selectedOptions.length > 0) {
+            selectedOptions.forEach(option => {
+              insertDetailsTasks.push(
+                new Promise((resolve, reject) => {
+                  connection.query(
+                    insertDetailsQuery,
+                    [
+                      participantId,
+                      userId,
+                      option,
+                      null,
+                      applicantName,
+                      email,
+                      phone,
+                      agreement,
+                    ],
+                    (detailsError, detailsResults) => {
+                      if (detailsError) {
+                        reject(detailsError);
+                      } else {
+                        resolve(detailsResults);
+                      }
                     }
-                  }
-                );
-              });
+                  );
+                })
+              );
             });
           }
 
-          if (options) {
-            insertDetailsTasks = options.map(option => {
-              return new Promise((resolve, reject) => {
-                connection.query(
-                  insertDetailsQuery,
-                  [
-                    participantId,
-                    userId,
-                    option.name,
-                    option.quantity,
-                    applicantName,
-                    email,
-                    phone,
-                    agreement,
-                  ],
-                  (detailsError, detailsResults) => {
-                    if (detailsError) {
-                      reject(detailsError);
-                    } else {
-                      resolve(detailsResults);
+          if (options && options.length > 0) {
+            options.forEach(option => {
+              insertDetailsTasks.push(
+                new Promise((resolve, reject) => {
+                  connection.query(
+                    insertDetailsQuery,
+                    [
+                      participantId,
+                      userId,
+                      option.name,
+                      option.quantity,
+                      applicantName,
+                      email,
+                      phone,
+                      agreement,
+                    ],
+                    (detailsError, detailsResults) => {
+                      if (detailsError) {
+                        reject(detailsError);
+                      } else {
+                        resolve(detailsResults);
+                      }
                     }
-                  }
-                );
-              });
+                  );
+                })
+              );
             });
           }
 
-          Promise.all(insertDetailsTasks)
-            .then(() => {
-              res.status(200).send("Participation successful");
-            })
-            .catch(error => {
-              console.error("Error inserting participant details:", error);
-              res.status(500).send("Server error");
-            });
+          if (insertDetailsTasks.length > 0) {
+            Promise.all(insertDetailsTasks)
+              .then(() => {
+                res.status(200).send("Participation successful");
+              })
+              .catch(error => {
+                console.error("Error inserting participant details:", error);
+                res.status(500).send("Server error");
+              });
+          } else {
+            res.status(200).send("Participation successful");
+          }
         }
       );
     }

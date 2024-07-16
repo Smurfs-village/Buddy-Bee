@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -25,6 +26,7 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [options, setOptions] = useState([]);
   const [applicantName, setApplicantName] = useState("");
   const [email, setEmail] = useState("");
@@ -60,12 +62,21 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
   }, [project, user]);
 
   const fundingStateHandler = useCallback(async () => {
-    if (!user || !project) {
-      console.error("User is not authenticated or project is not defined");
+    if (!user) {
+      console.error("User is not authenticated");
+      navigate("/login"); // 로그인 페이지로 리다이렉트
+      return;
+    }
+    if (!project) {
+      console.error("Project is not defined");
       return;
     }
     if (!agreement) {
       alert("개인정보 제 3자 제공 동의를 해야합니다.");
+      return;
+    }
+    if (!applicantName || !email || !phone) {
+      alert("신청자 정보를 모두 입력해야 합니다.");
       return;
     }
     try {
@@ -100,7 +111,16 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project, options, applicantName, email, phone, agreement]);
+  }, [
+    user,
+    project,
+    options,
+    applicantName,
+    email,
+    phone,
+    agreement,
+    navigate,
+  ]);
 
   const handleOptionChange = (index, newQuantity) => {
     const newOptions = [...options];
@@ -108,20 +128,20 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
     setOptions(newOptions);
   };
 
-  const initializeOptions = () => {
+  const initializeOptions = useCallback(() => {
     const initialOptions = project.options.map(option => ({
       name: option.name,
       price: option.price,
       quantity: 0,
     }));
     setOptions(initialOptions);
-  };
+  }, [project]);
 
   useEffect(() => {
     if (project) {
       initializeOptions();
     }
-  }, [project]);
+  }, [project, initializeOptions]);
 
   return (
     <BackGroundGrid>

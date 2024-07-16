@@ -28,7 +28,7 @@
   z-index: 1;
   box-shadow: 7px 8px 0 0 rgb(0, 0, 0);
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 70px;
   flex: 1;
 }
 
@@ -39,7 +39,7 @@
 
 .login-page-layout-cloud-img img {
   position: absolute;
-  bottom: -59px;
+  bottom: -60px;
   right: -67px;
 }
 
@@ -98,14 +98,14 @@
     width: 140px;
     height: 130px;
     right: -45px;
-    bottom: -75px;
+    bottom: -68px;
   }
 }
 
 @media (max-width: 479px) {
   .login-page-layout {
     width: 100%;
-    padding: 80px 0 120px 0;
+    padding: 60px 0 120px 0;
   }
   .login-page-layout-wrapper {
     width: 90vw;

@@ -62,8 +62,13 @@ const RegisterPage = () => {
         alert("이미 사용 중인 닉네임입니다.");
       }
     } catch (error) {
-      console.error("Error checking nickname availability:", error);
-      alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+      if (error.message === "cannot be empty") {
+        console.error("Error checking nickname availability:", error);
+        alert("닉네임을 입력해주세요.");
+      } else {
+        console.error("Error checking nickname availability:", error);
+        alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+      }
     }
   };
 

@@ -8,7 +8,8 @@
 .MyProfile_input_box {
     display: flex;
     flex-direction: column;
-    width: 60%; /* 너비를 조정하여 이미지와 균형 맞추기 */
+    width: 60%;
+    /* 너비를 조정하여 이미지와 균형 맞추기 */
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label {
@@ -150,8 +151,17 @@
     cursor: pointer;
 }
 
-@media (max-width: 550px) {
+.MyProfile_label_with_pen,
+.pen-icon,
+.MyProfile_main_right_container_saveBtn {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
     .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
         display: none;
     }
 }
+
+@media (min-width: 320px) and (max-width: );

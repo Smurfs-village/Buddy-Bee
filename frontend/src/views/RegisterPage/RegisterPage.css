@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  /* margin-top: 20px; */
 }
 
 .register-page-icon-wrapper {
@@ -77,7 +76,42 @@
   justify-content: space-between;
 }
 .error-message {
-  color: red;
+  color: #ff1e00;
   font-size: 14px;
-  margin-top: 5px;
+  margin: 0 0 8px 10px;
+}
+
+/* 미디어 쿼리 */
+@media (min-width: 480px) and (max-width: 767px) {
+  .check-nickname-btn {
+    margin-left: 5px;
+    font-size: 14px;
+    width: 84px;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 479px) {
+  .register-page-icon-wrapper img {
+    width: 5.5rem;
+  }
+
+  .register-page-icon-wrapper h2 {
+    font-size: 1.9rem;
+    margin: 20px 0 36px 0;
+  }
+
+  .register-page-input-wrapper input {
+    padding: 12px 16px;
+    margin-bottom: 7px;
+    border-radius: 40px;
+    border: 1px solid black;
+  }
+
+  .check-nickname-btn {
+    width: 25%;
+    height: 42px;
+    font-size: 12px;
+    margin-left: 4px;
+    padding: 0px;
+  }
 }

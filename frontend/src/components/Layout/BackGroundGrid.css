@@ -1,8 +1,10 @@
 .background-grid {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   width: 100%;
   background-color: #c4a1ff;
   background-image: url("../../img/grid_temp2-18.svg");
+  background-size: cover;
 }

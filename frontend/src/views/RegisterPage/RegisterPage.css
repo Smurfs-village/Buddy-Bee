@@ -76,9 +76,9 @@
   justify-content: space-between;
 }
 .error-message {
-  color: red;
+  color: #ff1e00;
   font-size: 14px;
-  margin-top: 5px;
+  margin: 0 0 8px 10px;
 }
 
 /* 미디어 쿼리 */

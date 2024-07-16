@@ -19,6 +19,7 @@ import "./ProjectDetailWithUser.css";
 const ProjectDetailPageWithUser = ({ project, hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [withState, setWithState] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const buttonRef = useRef();
   const withComplete = "ProjectDetailPage-with-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
@@ -52,6 +53,16 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
     checkParticipationStatus();
   }, [project, user]);
 
+  const handleOptionChange = optionName => {
+    setSelectedOptions(prevOptions => {
+      if (prevOptions.includes(optionName)) {
+        return prevOptions.filter(option => option !== optionName);
+      } else {
+        return [...prevOptions, optionName];
+      }
+    });
+  };
+
   const withStateHandler = useCallback(async () => {
     if (!user || !project) {
       console.error("User is not authenticated or project is not defined");
@@ -60,7 +71,7 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
     try {
       const response = await axios.post(
         `http://localhost:5001/api/projects/${project.id}/participate`,
-        { userId: user.id },
+        { userId: user.id, selectedOptions },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,7 +92,7 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project]);
+  }, [user, project, selectedOptions]);
 
   return (
     <BackGroundGrid>
@@ -123,13 +134,15 @@ const ProjectDetailPageWithUser = ({ project, hashtags }) => {
                         >
                           <div className="ProjectDetailPage-goods">
                             {index + 1}. {option.name}{" "}
-                            <span>
-                              ({option.price}
-                              원/1개)
-                            </span>
+                            <span>({option.price}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
-                            <input type="radio" name="optionCount" />
+                            <input
+                              type="checkbox"
+                              name="optionCount"
+                              checked={selectedOptions.includes(option.name)}
+                              onChange={() => handleOptionChange(option.name)}
+                            />
                           </div>
                         </div>
                       ))}

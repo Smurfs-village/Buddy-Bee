@@ -1,6 +1,6 @@
 import "./DetailUserInfo.css";
 
-const DetailUserInfo = () => {
+const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
   return (
     <div className="ProjectDetailPage-user-wrap">
       <div className="ProjectDetailPage-user">
@@ -9,13 +9,25 @@ const DetailUserInfo = () => {
         </div>
         <div className="ProjectDetailPage-user-info">
           <div className="ProjectDetailPage-user-name">
-            <input type="text" placeholder="신청자명"></input>
+            <input
+              type="text"
+              placeholder="신청자명"
+              onChange={e => setApplicantName(e.target.value)}
+            />
           </div>
           <div className="ProjectDetailPage-user-email">
-            <input type="text" placeholder="이메일 주소"></input>
+            <input
+              type="text"
+              placeholder="이메일 주소"
+              onChange={e => setEmail(e.target.value)}
+            />
           </div>
           <div className="ProjectDetailPage-user-tel">
-            <input type="text" placeholder="전화번호"></input>
+            <input
+              type="text"
+              placeholder="전화번호"
+              onChange={e => setPhone(e.target.value)}
+            />
           </div>
         </div>
       </div>

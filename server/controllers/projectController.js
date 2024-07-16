@@ -198,6 +198,15 @@ exports.checkParticipation = (req, res) => {
 exports.participateInProject = (req, res) => {
   const projectId = req.params.id;
   const userId = req.user.userId;
+  const { selectedOptions, options, applicantName, email, phone, agreement } =
+    req.body;
+
+  if (
+    (!selectedOptions || selectedOptions.length === 0) &&
+    (!options || Object.keys(options).length === 0)
+  ) {
+    return res.status(400).send("No options selected");
+  }
 
   const checkQuery = `
     SELECT COUNT(*) as count
@@ -220,13 +229,13 @@ exports.participateInProject = (req, res) => {
         return;
       }
 
-      const insertQuery = `
+      const insertParticipantQuery = `
       INSERT INTO participant (project_id, user_id)
       VALUES (?, ?)
     `;
 
       connection.query(
-        insertQuery,
+        insertParticipantQuery,
         [projectId, userId],
         (insertError, insertResults) => {
           if (insertError) {
@@ -235,7 +244,77 @@ exports.participateInProject = (req, res) => {
             return;
           }
 
-          res.status(200).send("Participation successful");
+          const participantId = insertResults.insertId;
+
+          const insertDetailsQuery = `
+            INSERT INTO participant_details (participant_id, user_id, option_selected, quantity, applicant_name, email, phone, agreement)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          `;
+
+          let insertDetailsTasks = [];
+
+          if (selectedOptions) {
+            insertDetailsTasks = selectedOptions.map(option => {
+              return new Promise((resolve, reject) => {
+                connection.query(
+                  insertDetailsQuery,
+                  [
+                    participantId,
+                    userId,
+                    option,
+                    null,
+                    applicantName,
+                    email,
+                    phone,
+                    agreement,
+                  ],
+                  (detailsError, detailsResults) => {
+                    if (detailsError) {
+                      reject(detailsError);
+                    } else {
+                      resolve(detailsResults);
+                    }
+                  }
+                );
+              });
+            });
+          }
+
+          if (options) {
+            insertDetailsTasks = options.map(option => {
+              return new Promise((resolve, reject) => {
+                connection.query(
+                  insertDetailsQuery,
+                  [
+                    participantId,
+                    userId,
+                    option.name,
+                    option.quantity,
+                    applicantName,
+                    email,
+                    phone,
+                    agreement,
+                  ],
+                  (detailsError, detailsResults) => {
+                    if (detailsError) {
+                      reject(detailsError);
+                    } else {
+                      resolve(detailsResults);
+                    }
+                  }
+                );
+              });
+            });
+          }
+
+          Promise.all(insertDetailsTasks)
+            .then(() => {
+              res.status(200).send("Participation successful");
+            })
+            .catch(error => {
+              console.error("Error inserting participant details:", error);
+              res.status(500).send("Server error");
+            });
         }
       );
     }

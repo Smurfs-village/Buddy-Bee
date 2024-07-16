@@ -21,9 +21,22 @@ exports.createProject = (req, res) => {
   } = req.body;
   const mainImage = extractFirstImage(content);
 
+  // 현재 날짜를 'YYYY-MM-DD' 형식으로 가져오기
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // 상태를 결정
+  let status;
+  if (startDate > currentDate) {
+    status = "pending";
+  } else if (startDate <= currentDate && endDate >= currentDate) {
+    status = "active";
+  } else if (endDate < currentDate) {
+    status = "completed";
+  }
+
   const createProjectQuery = `
-    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image, account_info)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO project (title, description, type, target_amount, start_date, end_date, created_by, max_participants, options, main_image, account_info, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   const projectValues = [
     title,
@@ -37,6 +50,7 @@ exports.createProject = (req, res) => {
     JSON.stringify(options),
     mainImage,
     accountInfo,
+    status,
   ];
 
   connection.query(createProjectQuery, projectValues, (error, results) => {

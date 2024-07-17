@@ -110,6 +110,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
       }
     }
   }, [user, project, selectedOptions]);
+
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -117,6 +118,10 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
       day: "2-digit",
     });
   };
+
+  if (!project) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BackGroundGrid>
@@ -130,64 +135,58 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
                 참여자 수: {project ? project.currentParticipants : 0}
               </div>
             </div>
-            {project && (
-              <>
-                <DetailTitle title={project.title} />
-                <DetailContent content={project.description} />
-                <DetailButton projectId={project.id} />
-                <DetailProfile
-                  username={project.username}
-                  profileImage={project.profile_image}
-                  intro={project.intro}
-                />
-                <DetailHashtag hashtags={hashtags} />
-                <div className="ProjectDetailPage-detail-wrap">
-                  <div className="ProjectDetailPage-detail">
-                    <div className="ProjectDetailPage-day">
-                      <div className="ProjectDetailPage-detail-title">
-                        수요조사 기간
-                      </div>
-                      <div className="ProjectDetailPage-detail-day">
-                        {formatDate(project.start_date)} ~{" "}
-                        {formatDate(project.end_date)}
-                      </div>
-                    </div>
-                    <div className="ProjectDetailPage-option">
-                      <div className="ProjectDetailPage-detail-title">
-                        옵션 선택 <span>*</span>
-                      </div>
-                      <div className="ProjectDetailPage-option-goods">
-                        <div className="ProjectDetailPage-goods-list">
-                          {project.options.map((option, index) => (
-                            <div
-                              key={index}
-                              className="ProjectDetailPage-goods-wrap"
-                            >
-                              <div className="ProjectDetailPage-goods">
-                                {index + 1}. {option.name}{" "}
-                                <span>({option.price}원/1개)</span>
-                              </div>
-                              <div className="ProjectDetailPage-input">
-                                <input
-                                  type="checkbox"
-                                  name="optionCount"
-                                  checked={selectedOptions.includes(
-                                    option.name
-                                  )}
-                                  onChange={() =>
-                                    handleOptionChange(option.name)
-                                  }
-                                />
-                              </div>
-                            </div>
-                          ))}
+            <DetailTitle title={project.title} />
+            <DetailContent content={project.description} />
+            <DetailButton projectId={project.id} />
+            <DetailProfile
+              username={project.username || "Unknown"}
+              profileImage={
+                project.profile_image || "/path/to/default/profile/image.png"
+              }
+              intro={project.intro || "안녕하세요! 기본 소개입니다."}
+            />
+            <DetailHashtag hashtags={hashtags} />
+            <div className="ProjectDetailPage-detail-wrap">
+              <div className="ProjectDetailPage-detail">
+                <div className="ProjectDetailPage-day">
+                  <div className="ProjectDetailPage-detail-title">
+                    수요조사 기간
+                  </div>
+                  <div className="ProjectDetailPage-detail-day">
+                    {formatDate(project.start_date)} ~{" "}
+                    {formatDate(project.end_date)}
+                  </div>
+                </div>
+                <div className="ProjectDetailPage-option">
+                  <div className="ProjectDetailPage-detail-title">
+                    옵션 선택 <span>*</span>
+                  </div>
+                  <div className="ProjectDetailPage-option-goods">
+                    <div className="ProjectDetailPage-goods-list">
+                      {project.options.map((option, index) => (
+                        <div
+                          key={index}
+                          className="ProjectDetailPage-goods-wrap"
+                        >
+                          <div className="ProjectDetailPage-goods">
+                            {index + 1}. {option.name}{" "}
+                            <span>({option.price}원/1개)</span>
+                          </div>
+                          <div className="ProjectDetailPage-input">
+                            <input
+                              type="checkbox"
+                              name="optionCount"
+                              checked={selectedOptions.includes(option.name)}
+                              onChange={() => handleOptionChange(option.name)}
+                            />
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button

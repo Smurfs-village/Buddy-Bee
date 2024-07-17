@@ -682,7 +682,7 @@ exports.getProjectWithAuthor = (req, res) => {
   const projectQuery = `
     SELECT p.*, u.username, u.profile_image, u.intro
     FROM project p
-    JOIN user u ON p.created_by = u.id
+    LEFT JOIN user u ON p.created_by = u.id
     WHERE p.id = ?
   `;
 
@@ -699,7 +699,17 @@ exports.getProjectWithAuthor = (req, res) => {
       return;
     }
 
-    console.log("Project with author fetched successfully:", results[0]); // 디버깅 로그 추가
-    res.status(200).json(results[0]);
+    const projectData = results[0];
+
+    // 디버깅 로그로 결과 출력
+    console.log("Raw project data:", projectData);
+
+    // 사용자 정보가 없는 경우 기본값 설정
+    projectData.username = projectData.username || "Unknown";
+    projectData.profile_image = projectData.profile_image || "";
+    projectData.intro = projectData.intro || "No introduction provided.";
+
+    console.log("Project with author fetched successfully:", projectData); // 디버깅 로그 추가
+    res.status(200).json(projectData);
   });
 };

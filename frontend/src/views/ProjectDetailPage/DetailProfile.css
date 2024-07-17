@@ -19,6 +19,16 @@
   border-radius: 100%;
   background-color: #ccc;
   border: 2px solid #000;
+  overflow: hidden; /* 이미지가 컨테이너를 넘어서지 않도록 합니다 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.ProjectDetailPage-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 컨테이너에 맞게 조정되도록 합니다 */
 }
 
 .ProjectDetailPage-profile-detail {

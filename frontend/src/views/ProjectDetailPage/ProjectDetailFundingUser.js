@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -15,23 +15,59 @@ import DetailUserInfo from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
-
-// CSS
 import "./ProjectDetailFundingUser.css";
 
-const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
+const ProjectDetailPageFundingUser = () => {
+  const [project, setProject] = useState(null);
+  const [hashtags, setHashtags] = useState([]);
   const [filterItem, setFilterItem] = useState(false);
   const [fundingState, setFundingState] = useState(false);
+  const [currentParticipants, setCurrentParticipants] = useState(0);
   const buttonRef = useRef();
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth();
+  const { id: projectId } = useParams();
   const navigate = useNavigate();
   const [options, setOptions] = useState([]);
   const [applicantName, setApplicantName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [agreement, setAgreement] = useState(false);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/with-author`
+        );
+        setProject(response.data);
+        setHashtags(response.data.hashtags || []);
+        console.log("Project data:", response.data); // 디버깅 로그 추가
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
+
+    fetchProject();
+  }, [projectId]);
+
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/participants`
+        );
+        setCurrentParticipants(response.data.currentParticipants);
+      } catch (error) {
+        console.error("Error fetching participants:", error);
+      }
+    };
+
+    fetchParticipants();
+  }, [projectId]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -143,6 +179,18 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
     }
   }, [project, initializeOptions]);
 
+  const formatDate = date => {
+    return new Date(date).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  };
+
+  if (!project) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <BackGroundGrid>
       <Header />
@@ -150,10 +198,19 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
       <PageLayout>
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">
+            <div className="ProjectDetailPage-participate">
+              <div className="ProjectDetailPage-participate-txt">
+                참여자 수: {currentParticipants}
+              </div>
+            </div>
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />
             <DetailButton projectId={project.id} />
-            <DetailProfile profile={project.profile} />
+            <DetailProfile
+              username={project.username}
+              profileImage={project.profile_image}
+              intro={project.intro}
+            />
             <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">
               <div className="ProjectDetailPage-detail">
@@ -162,7 +219,8 @@ const ProjectDetailPageFundingUser = ({ project, hashtags }) => {
                     수요조사 기간
                   </div>
                   <div className="ProjectDetailPage-detail-day">
-                    {project.startDate} ~ {project.endDate}
+                    {formatDate(project.start_date)} ~{" "}
+                    {formatDate(project.end_date)}
                   </div>
                 </div>
                 <div className="ProjectDetailPage-option">

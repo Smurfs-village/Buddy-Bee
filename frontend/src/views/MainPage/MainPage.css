@@ -479,4 +479,21 @@ body {
   .mainpage-bee-icon {
     display: none;
   }
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .mainpage-ranking-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .mainpage-ranking-keywords {
+    margin-top: 60px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

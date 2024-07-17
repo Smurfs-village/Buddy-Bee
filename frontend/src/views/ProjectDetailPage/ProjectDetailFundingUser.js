@@ -22,6 +22,7 @@ const ProjectDetailPageFundingUser = () => {
   const [hashtags, setHashtags] = useState([]);
   const [filterItem, setFilterItem] = useState(false);
   const [fundingState, setFundingState] = useState(false);
+  const [currentParticipants, setCurrentParticipants] = useState(0);
   const buttonRef = useRef();
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
@@ -50,6 +51,22 @@ const ProjectDetailPageFundingUser = () => {
     };
 
     fetchProject();
+  }, [projectId]);
+
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/participants`
+        );
+        setCurrentParticipants(response.data.currentParticipants);
+      } catch (error) {
+        console.error("Error fetching participants:", error);
+      }
+    };
+
+    fetchParticipants();
   }, [projectId]);
 
   useEffect(() => {
@@ -181,6 +198,11 @@ const ProjectDetailPageFundingUser = () => {
       <PageLayout>
         <div className="ProjectDetailPage-all">
           <div className="ProjectDetailPage-container">
+            <div className="ProjectDetailPage-participate">
+              <div className="ProjectDetailPage-participate-txt">
+                참여자 수: {currentParticipants}
+              </div>
+            </div>
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />
             <DetailButton projectId={project.id} />

@@ -10,6 +10,7 @@ import axios from "axios";
 import Editor from "../Common/Editor";
 import moment from "moment";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import
+import addIcon from "../../img/create_icon.svg";
 
 const handleGlobalError = event => {
   if (
@@ -129,10 +130,10 @@ const CreatePageLayout = ({ children, type }) => {
         <div className="createpage-sub-nav">
           <div className="createpage-button-group">
             <button onClick={() => navigate("/create-with-project")}>
-              #버디비_동행
+              #동행 만들기
             </button>
             <button onClick={() => navigate("/create-funding-project")}>
-              #버디비_펀딩
+              #펀딩 만들기
             </button>
           </div>
         </div>
@@ -172,7 +173,7 @@ const CreatePageLayout = ({ children, type }) => {
                     onChange={e => setHashtag(e.target.value)}
                     maxLength="15"
                   />
-                  <div>
+                  <div className="createpage-char-wrapper">
                     <span className="createpage-char-count">
                       {hashtag.length}/15
                     </span>
@@ -182,6 +183,14 @@ const CreatePageLayout = ({ children, type }) => {
                       className="createpage-add-button"
                     >
                       추가하기
+                    </button>
+                    {/* 모바일뷰 용 버튼 */}
+                    <button
+                      type="button"
+                      onClick={addHashtag}
+                      className="mobile-createpage-add-button"
+                    >
+                      <img src={addIcon} alt="addIcon" />
                     </button>
                   </div>
                 </div>
@@ -237,7 +246,7 @@ const CreatePageLayout = ({ children, type }) => {
               )}
 
               <div className="createpage-form-group">
-                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
+                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가 </label>
 
                 <div className="createpage-form-group createpage-option-form-group">
                   <div className="createpage-option-input-wrapper">
@@ -265,6 +274,15 @@ const CreatePageLayout = ({ children, type }) => {
                       id="option-add"
                     >
                       추가하기
+                    </button>
+                    {/* 모바일뷰 용 버튼 */}
+                    <button
+                      type="button"
+                      onClick={addOption}
+                      className="mobile-createpage-add-button"
+                      id="option-add"
+                    >
+                      <img src={addIcon} alt="addIcon" />
                     </button>
                   </div>
                   <div className="createpage-options-display">
@@ -300,6 +318,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-number-input">
                         <input
                           type="number"
+                          min={1}
                           value={maxParticipants}
                           onChange={e => setMaxParticipants(e.target.value)}
                           placeholder="모집 인원"

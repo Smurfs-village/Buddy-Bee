@@ -75,6 +75,7 @@
   font-size: 18px;
   margin-top: 50px;
 }
+
 .createpage-create-project-form h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -219,7 +220,7 @@
   width: 100%;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cccccc;
   outline: none;
   text-align: center;
   transition: width 0.3s ease;
@@ -230,7 +231,7 @@
 
 .createpage-recruitment-group {
   border: 1px dotted #000;
-  padding: 20px;
+  padding: 20px 30px 20px 20px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -253,14 +254,14 @@
 }
 
 .createpage-number-input input {
-  width: 80%;
+  width: 85%;
   padding: 10px;
   border: none;
-
   border-radius: 0;
   justify-content: center;
   outline: none;
   text-align: center;
+  border-bottom: 1px solid #cccccc;
 }
 
 .whitespace-nowrap {
@@ -271,7 +272,6 @@
   display: flex;
   white-space: nowrap;
   align-items: center;
-  border-bottom: 1px solid #000;
   flex: 1;
 }
 /* 옵션 추가 섹션 스타일 추가 */
@@ -314,7 +314,7 @@
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #cccccc;
 }
 .button-span-group {
   display: flex;
@@ -338,9 +338,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  width: 100%;
+  width: 85%;
   margin-left: 10px;
-  padding-right: 60px;
+  /* padding-right: 80px; */
   box-sizing: border-box;
 }
 
@@ -409,7 +409,6 @@
   outline: none;
   padding: 10px;
   font-size: 16px;
-
   color: #8b8b8b;
   cursor: not-allowed; /* 읽기 전용일 때 커서를 not-allowed로 변경 */
 }
@@ -434,7 +433,15 @@
   height: 600px;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 925px) {
+  .createpage-button-group {
+    margin-left: 6.5%;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 20px 90px;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -459,13 +466,38 @@
     transition: 0.3s ease;
     margin-right: 5px;
   }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 20px 90px;
+  }
 }
 
 @media (max-width: 479px) {
+  .createpage-create-project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .createpage-create-main-section {
+    padding: 0 5% 120px 5%;
+    border-top: 2px solid black;
+  }
+  .createpage-create-main-section label {
+    font-size: 18px;
+    display: inline-block;
+    padding-bottom: 1px;
+    margin-left: 5px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 1rem;
+  }
+
   .createpage-sub-nav {
+    position: relative;
     height: 20px;
-    background-color: #000;
-    color: #fff;
+    /* display: none; */
   }
   .createpage-button-group {
     margin-left: 5%;
@@ -473,5 +505,53 @@
   .createpage-button-group button {
     padding-top: 2px;
     font-size: 0.93rem;
+  }
+  .createpage-form-group {
+    margin-bottom: 5px;
+  }
+  .createpage-title-input {
+    padding: 10px 2px;
+    border-bottom: 1px solid black;
+    font-size: 1rem;
+    margin-top: 40px;
+  }
+  createpage-form-group .createpage-title-input::placeholder {
+    font-size: 1rem;
+  }
+
+  /* ck editor 스타일 조절 */
+  .ck.ck-editor__editable_inline {
+    height: 300px;
+  }
+  .ck.ck-toolbar.ck-toolbar_grouping {
+    height: 25px;
+    opacity: 0.9;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 20px 80px;
+  }
+}
+@media (max-width: 404px) {
+  .createpage-period-input-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .createpage-hashtag-limit {
+    word-break: keep-all;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 20px 80px;
+  }
+}
+
+@media (max-width: 295px) {
+  /*editor 에러 방지 용으로 블락 처리*/
+  .ck.ck-button.ck-button_with-text,
+  a.ck.ck-button.ck-button_with-text {
+    display: none;
   }
 }

@@ -37,7 +37,12 @@
   background-color: #ff8473;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 925px) {
+  .page-layout {
+    width: 86%;
+
+    margin-right: 17.5%;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -51,10 +56,13 @@
 
 @media (max-width: 479px) {
   .page-layout {
-    width: 92%;
-    margin-right: 17.5%;
-    margin-bottom: 150px;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 100px;
     margin-top: 50px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
     box-shadow: none;
+  }
+  .three-color {
+    display: none;
   }
 }

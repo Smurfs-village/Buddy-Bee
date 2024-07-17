@@ -674,3 +674,32 @@ exports.getBookmarkedProjects = (req, res) => {
     });
   });
 };
+
+exports.getProjectWithAuthor = (req, res) => {
+  const projectId = req.params.id;
+  console.log("Fetching project with author for project ID:", projectId); // 디버깅 로그 추가
+
+  const projectQuery = `
+    SELECT p.*, u.username, u.profile_image, u.intro
+    FROM project p
+    JOIN user u ON p.created_by = u.id
+    WHERE p.id = ?
+  `;
+
+  connection.query(projectQuery, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error fetching project with author:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    if (results.length === 0) {
+      console.log("Project not found for ID:", projectId); // 디버깅 로그 추가
+      res.status(404).send("Project not found");
+      return;
+    }
+
+    console.log("Project with author fetched successfully:", results[0]); // 디버깅 로그 추가
+    res.status(200).json(results[0]);
+  });
+};

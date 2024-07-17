@@ -162,6 +162,14 @@ const ProjectDetailPageFundingUser = () => {
     }
   }, [project, initializeOptions]);
 
+  const formatDate = date => {
+    return new Date(date).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  };
+
   if (!project) {
     return <div>Loading...</div>;
   }
@@ -189,7 +197,8 @@ const ProjectDetailPageFundingUser = () => {
                     수요조사 기간
                   </div>
                   <div className="ProjectDetailPage-detail-day">
-                    {project.start_date} ~ {project.end_date}
+                    {formatDate(project.start_date)} ~{" "}
+                    {formatDate(project.end_date)}
                   </div>
                 </div>
                 <div className="ProjectDetailPage-option">

@@ -110,6 +110,13 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
       }
     }
   }, [user, project, selectedOptions]);
+  const formatDate = date => {
+    return new Date(date).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  };
 
   return (
     <BackGroundGrid>
@@ -141,7 +148,8 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
                         수요조사 기간
                       </div>
                       <div className="ProjectDetailPage-detail-day">
-                        {project.start_date} ~ {project.end_date}
+                        {formatDate(project.start_date)} ~{" "}
+                        {formatDate(project.end_date)}
                       </div>
                     </div>
                     <div className="ProjectDetailPage-option">

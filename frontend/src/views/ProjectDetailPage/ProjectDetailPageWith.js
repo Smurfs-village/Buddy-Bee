@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // useNavigate 추가
 import axios from "axios";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
@@ -19,6 +19,7 @@ const ProjectDetailPageWith = () => {
   const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0); // 참여자 수 상태 추가
   const { id: projectId } = useParams();
+  const navigate = useNavigate(); // navigate 추가
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -53,6 +54,19 @@ const ProjectDetailPageWith = () => {
     fetchParticipants();
   }, [projectId]);
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5001/api/projects/${projectId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      navigate(-1); // 이전 페이지로 리다이렉트
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -78,7 +92,12 @@ const ProjectDetailPageWith = () => {
               </div>
               <div className="ProjectDetailPage-participate-btn">
                 <button className="ProjectDetailPage-modify">수정</button>
-                <button className="ProjectDetailPage-delete">삭제</button>
+                <button
+                  className="ProjectDetailPage-delete"
+                  onClick={handleDelete}
+                >
+                  삭제
+                </button>
               </div>
             </div>
             <DetailTitle title={project.title} />

@@ -42,5 +42,6 @@ router.get(
 ); // 참여 상태 확인 엔드포인트 추가
 
 router.get("/:id/with-author", projectController.getProjectWithAuthor); // 작성자 정보 포함한 프로젝트 가져오기 추가
+router.delete("/:id", authMiddleware, projectController.deleteProjectById); // 프로젝트 삭제 엔드포인트 추가
 
 module.exports = router;

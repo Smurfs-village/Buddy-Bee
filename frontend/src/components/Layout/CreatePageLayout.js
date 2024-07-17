@@ -332,22 +332,24 @@ const CreatePageLayout = ({ children, type }) => {
                 </label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
-                    <span>모집 인원</span>
-                    <div className="createpage-project-setting-group">
-                      <div className="createpage-number-input">
-                        <input
-                          type="number"
-                          min={1}
-                          value={maxParticipants}
-                          onChange={e => setMaxParticipants(e.target.value)}
-                          placeholder="모집 인원"
-                        />
+                    <div className="createpage-recruitment-people-input">
+                      <span>모집 인원</span>
+                      <div className="createpage-project-setting-group">
+                        <div className="createpage-number-input">
+                          <input
+                            type="number"
+                            min={1}
+                            value={maxParticipants}
+                            onChange={e => setMaxParticipants(e.target.value)}
+                            placeholder="모집 인원"
+                          />
+                        </div>
+                        <span>명</span>
                       </div>
-                      <span>명</span>
                     </div>
 
                     {type === "funding" && (
-                      <>
+                      <div className="createpage-recruitment-amount-input">
                         <span className="whitespace-nowrap">목표 금액</span>
                         <div className="createpage-project-setting-group">
                           <div className="createpage-number-input">
@@ -360,7 +362,7 @@ const CreatePageLayout = ({ children, type }) => {
                           </div>
                           <span>원</span>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>

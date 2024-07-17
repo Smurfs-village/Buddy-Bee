@@ -249,18 +249,28 @@
   padding: 20px 30px 20px 20px;
   border-radius: 15px;
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 .createpage-recruitment-group span {
   white-space: nowrap;
 }
+/*요기*/
 .createpage-recruitment-input-wrapper {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
+.createpage-recruitment-people-input,
+.createpage-recruitment-amount-input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+.createpage-recruitment-people-input {
+  margin-right: 20px;
+}
 .createpage-number-input {
   flex: 1;
   display: flex;
@@ -524,12 +534,14 @@
   .mobile-createpage-add-button {
     margin-right: 10px;
   }
-
   .createpage-create-project-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
+  }
+  .whitespace-nowrap {
+    margin: 0px;
   }
   .createpage-create-main-section {
     padding: 0 5.5% 120px 5.5%;
@@ -608,8 +620,16 @@
     padding: 10px 16px 12px 12px;
   }
   .createpage-recruitment-input-wrapper {
+    flex-direction: column;
     gap: 5px;
   }
+
+  .createpage-option {
+    padding: 5px;
+    width: 87%;
+    margin-left: 0px;
+  }
+
   /* ck editor 스타일 조절 */
   .ck.ck-editor__editable_inline {
     height: 300px;

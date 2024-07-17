@@ -237,7 +237,7 @@ const CreatePageLayout = ({ children, type }) => {
               )}
 
               <div className="createpage-form-group">
-                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
+                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가 </label>
 
                 <div className="createpage-form-group createpage-option-form-group">
                   <div className="createpage-option-input-wrapper">

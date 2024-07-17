@@ -481,17 +481,18 @@
     width: 100%;
   }
   .createpage-create-main-section {
-    padding: 0 5% 120px 5%;
-    border-top: 2px solid black;
+    padding: 0 5.5% 120px 5.5%;
+    border-width: 1px 0 1px 0;
+    border-top: 1px solid black;
   }
   .createpage-create-main-section label {
     font-size: 18px;
     display: inline-block;
-    padding-bottom: 1px;
-    margin-left: 5px;
+    padding-bottom: 0px;
+    margin-left: 3px;
   }
   .createpage-hashtag-limit {
-    font-size: 1rem;
+    font-size: 13px;
   }
 
   .createpage-sub-nav {
@@ -515,8 +516,32 @@
     font-size: 1rem;
     margin-top: 40px;
   }
-  createpage-form-group .createpage-title-input::placeholder {
-    font-size: 1rem;
+  .createpage-title-input::placeholder {
+    font-size: 14px;
+  }
+  .createpage-hashtag-input-wrapper input {
+    padding: 10px 15px;
+    min-height: 50px;
+    font-size: 14px;
+  }
+  .createpage-hashtags-display {
+    gap: 5px;
+    padding: 10px 12px;
+    min-height: 50px;
+  }
+
+  .createpage-hashtag-input-wrapper .createpage-char-count {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .createpage-option-form-group {
+    border: 1px dotted black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 15px;
   }
 
   /* ck editor 스타일 조절 */
@@ -527,6 +552,57 @@
     height: 25px;
     opacity: 0.9;
   }
+
+  /* 프로젝트 설정 버튼들 */
+  .createpage-add-button {
+    padding: 10px 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0 5px 0 5px;
+  }
+  .createpage-hashtag button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 1px 4px 1px 8px;
+  }
+  .button-span-group {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .button-span-group button {
+    margin-right: 20px;
+    margin-bottom: 3px;
+  }
+
+  .createpage-option button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    /* padding: 0 5px; */
+    /* font-weight: 600; */
+    /* white-space: nowrap; */
+  }
+
+  .createpage-edit-button {
+    padding: 12px 15px 12px 15px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 15px;
+  }
+
+  /*등록하기 버튼 스타일*/
   .createpage-submit-button {
     font-weight: 500;
     font-size: 1rem;

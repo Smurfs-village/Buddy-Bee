@@ -22,20 +22,17 @@ const Aside = () => {
 
     return (
         <div className="MyProfile_main_aside">
-            <Link to="/profile" style={{ textDecoration: "none" }}>
+            <Link to="/profile">
                 <p className={isProfile ? activateColor : defaultColor}>
                     프로필 설정
                 </p>
             </Link>
-            <Link to="/profile/posts" style={{ textDecoration: "none" }}>
+            <Link to="/profile/posts">
                 <p className={isPost ? activateColor : defaultColor} id="posts">
                     작성한 글
                 </p>
             </Link>
-            <Link
-                to="/profile/participated-projects"
-                style={{ textDecoration: "none" }}
-            >
+            <Link to="/profile/participated-projects">
                 <p
                     className={
                         isParticipatedProject ? activateColor : defaultColor
@@ -44,7 +41,7 @@ const Aside = () => {
                     참여중인 프로젝트
                 </p>
             </Link>
-            <Link to="/profile/bookmarks" style={{ textDecoration: "none" }}>
+            <Link to="/profile/bookmarks">
                 <p className={isBookmarks ? activateColor : defaultColor}>
                     나의 꿀단지
                 </p>

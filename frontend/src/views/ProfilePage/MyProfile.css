@@ -1,8 +1,6 @@
 .MyProfile_main_right_container_userInfo_wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px;
 }
 
 .MyProfile_input_box {
@@ -21,7 +19,7 @@
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label input {
-    margin: 0 0 10px 15px;
+    margin: 0 0 10px 0;
     font-size: 15px;
 }
 
@@ -30,7 +28,7 @@
 }
 
 .MyProfile_nickname_input {
-    padding-left: 3.6%;
+    padding-left: 6px;
 }
 
 .MyProfile_certification_Btn {
@@ -48,6 +46,7 @@
     outline: none;
     padding-top: 10px;
     position: relative;
+    text-align: center;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper {
@@ -159,6 +158,28 @@
     overflow: hidden;
 }
 
+@media (max-width: 550px) {
+    .MyProfile_main_right_container_userInfo_input {
+        font-size: 10px;
+    }
+    .MyProfile_main_right_container_userInfo_wrapper label,
+    .MyProfile_main_right_container_userInfo_wrapper label input,
+    .MyProfile_main_right_container_introductionLetterBox::placeholder {
+        font-size: 12px;
+    }
+    .MyProfile_main_right_container_introductionLetterBox {
+        padding: 15px;
+        font-size: 12px;
+    }
+    .MyProfile_certification_Btn,
+    .MyProfile_main_right_container_btn {
+        font-size: 12px;
+    }
+    .MyProfile_main_right_container_saveBtn {
+        margin: 0% 5% 1% 0%;
+    }
+}
+
 @media (max-width: 768px) {
     .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
         display: none;
@@ -169,41 +190,5 @@
     }
     .MyProfile_input_box {
         width: 100%;
-    }
-}
-
-@media (max-width: 550px) {
-    .MyProfile_main_right_container_userInfo_wrapper {
-        padding: 7px;
-    }
-    .MyProfile_main_right_container_userInfo_input {
-        font-size: 10px;
-    }
-    .MyProfile_main_right_container_userInfo_wrapper label {
-        font-size: 12px;
-    }
-
-    .MyProfile_main_right_container_introductionLetterBox {
-        height: 100%;
-        margin: 0px 7px;
-        padding: 10px;
-        border: 1px solid black;
-        border-radius: 0;
-        font-size: 10px;
-    }
-    .MyProfile_main_right_container_introductionLetterBox::placeholder {
-        font-size: 10px;
-    }
-
-    .MyProfile_main_right_container_btn {
-        font-weight: normal;
-        padding: 2%;
-        font-size: 12px;
-    }
-    .MyProfile_main_right_container_saveBtn {
-        margin: 0% 5% 1% 0%;
-    }
-    .MyProfile_textarea_label {
-        display: block;
     }
 }

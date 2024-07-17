@@ -191,7 +191,14 @@
 
 /* 모바일 */
 
-@media (min-width: 320px) and (max-width: 950px) {
+@media (min-width: 320px) and (max-width: 479px) {
+    .Main_right_container_writtenPosts,
+    .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 950px) {
     .Main_right_container_writtenPosts,
     .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
         display: none;
@@ -216,13 +223,13 @@
     }
     .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper {
         margin: 0;
-        flex: 1;
+        /* flex: 1; */
     }
     .MyPosts_ParticipatedProjects_main_right_container_box_projectName {
         font-size: 12px;
     }
     .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper > button,
     .status-btn {
-        width: 100%;
+        width: 64.9px;
     }
 }

@@ -65,7 +65,7 @@
     }
     .MyProfile_main_top_container_img_wrapper {
         flex: 1;
-        width: max(100%, 120px);
+        max-width: 100px;
     }
     .MyProfile_main_top_container_title {
         padding-top: 10px;

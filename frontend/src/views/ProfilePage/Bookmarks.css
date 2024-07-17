@@ -41,6 +41,9 @@
 
 .Bookmarks_main_right_container_projectName_wrapper {
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .Bookmarks_finishedProjectImg {

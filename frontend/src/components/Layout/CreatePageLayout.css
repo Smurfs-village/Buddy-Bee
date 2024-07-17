@@ -481,6 +481,13 @@
     font-size: 1.2rem;
     padding: 20px 90px;
   }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 22px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
@@ -510,6 +517,13 @@
 
   .createpage-title-input {
     margin-top: 20px;
+  }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 20px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
   }
   .createpage-submit-button {
     font-weight: 500;

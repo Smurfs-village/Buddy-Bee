@@ -49,6 +49,7 @@
 @media (max-width: 767px) {
     .MyProfile_main_aside {
         flex-direction: row;
+        justify-content: space-evenly;
         margin: 0 10px;
         border: 2px solid black;
     }

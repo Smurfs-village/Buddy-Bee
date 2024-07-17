@@ -5,6 +5,7 @@ import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import { useAuth } from "../../contexts/AuthContext"; // Import useAuth
 import "./ListCard.css";
+import mockImage from "../../img/mock.svg";
 
 const ListCard = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);
@@ -125,7 +126,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     <div className="common-card" key={index} onClick={handleCardClick}>
       <div
         className="common-card-image-wrapper"
-        style={{ backgroundImage: `url(${data.main_image})` }}
+        style={{ backgroundImage: `url(${data.main_image || mockImage})` }}
       >
         <div className="common-participants-info">
           {currentParticipants} / {data.max_participants}명

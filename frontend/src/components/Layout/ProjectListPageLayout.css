@@ -50,3 +50,31 @@
   background-color: black;
   color: white;
 }
+
+/* 미디어쿼리_ media query */
+@media (max-width: 479px) {
+  .project-list-page-layout-wrapper {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100%;
+    background-color: white;
+    padding: 0px 20px 40px 20px;
+    /* margin-top: 20px; */
+  }
+  .project-list-page-layout-line1 {
+    padding: 50px 0 20px 3px;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-list-page-layout-wrapper h1 {
+    font-size: 25px;
+  }
+  .project-list-page-layout-line1 button {
+    background-color: white;
+    border: solid black 1px;
+    padding: 5px 8px;
+    font-size: 14px;
+    border-radius: 26px;
+    margin: 20px 4px 0 0;
+  }
+}

@@ -12,7 +12,12 @@
     flex: 1.7;
     flex-direction: column;
     padding: 2% 2% 0% 2%;
+    white-space: nowrap;
 }
+
+.MyProfile_main_aside > a {
+    text-decoration: none;
+} /* > Link가 아닌 a로 작성해야 적용됨 */
 
 .MyProfile_main_aside_category {
     color: #505050;
@@ -45,12 +50,12 @@
     .MyProfile_main_aside {
         flex-direction: row;
         margin: 0 10px;
-        border: 3px solid black;
+        border: 2px solid black;
     }
     .MyProfile_main_aside_category,
     .MyProfile_main_aside_category_active {
         font-size: 12px;
-        margin-left: 5px;
+        margin-left: 4px;
         border: none;
     }
     .MyProfile_main_aside_deleteId_wrapper {

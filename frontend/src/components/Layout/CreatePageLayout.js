@@ -225,21 +225,40 @@ const CreatePageLayout = ({ children, type }) => {
                       className={isEditingAccount ? "editable" : ""}
                     />
                     {isEditingAccount ? (
-                      <button
-                        type="button"
-                        onClick={handleAccountSave}
-                        className="createpage-edit-button"
-                      >
-                        저장하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="createpage-edit-button"
+                        >
+                          저장하기
+                        </button>
+                        {/* 모바일 전용 버튼 분리 */}
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="mobile-createpage-edit-button"
+                        >
+                          저장
+                        </button>
+                      </>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={handleAccountEdit}
-                        className="createpage-edit-button"
-                      >
-                        수정하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="createpage-edit-button"
+                        >
+                          수정하기
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="mobile-createpage-edit-button"
+                        >
+                          수정
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>

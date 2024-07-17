@@ -444,6 +444,20 @@
   white-space: nowrap;
   font-size: 15px;
 }
+/*모바일용*/
+.mobile-createpage-edit-button {
+  padding: 9px 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: 400;
+  white-space: nowrap;
+  font-size: 14px;
+
+  display: none;
+}
 .ck.ck-editor__editable_inline {
   height: 600px;
 }
@@ -496,15 +510,19 @@
 
 @media (max-width: 479px) {
   /* 기존 요소 중 블락 처리한 것들 */
-  .createpage-add-button {
+  .createpage-add-button,
+  .createpage-edit-button {
     display: none;
   }
   #option-add {
     margin-right: 10px;
   }
+  .mobile-createpage-add-button,
+  .mobile-createpage-edit-button {
+    display: inline-block;
+  }
   .mobile-createpage-add-button {
     margin-right: 10px;
-    display: inline-block;
   }
 
   .createpage-create-project-form {
@@ -573,7 +591,9 @@
     font-weight: 400;
     margin-right: 6px;
   }
-
+  .createpage-account-input-wrapper input {
+    padding: 0 0 0 8px;
+  }
   .createpage-option-form-group {
     border: 1px dotted black;
     display: flex;
@@ -631,9 +651,6 @@
     border: none;
     cursor: pointer;
     font-size: 12px;
-    /* padding: 0 5px; */
-    /* font-weight: 600; */
-    /* white-space: nowrap; */
   }
 
   .createpage-edit-button {
@@ -654,6 +671,11 @@
     font-size: 1rem;
     padding: 20px 80px;
     border: 1px solid black;
+  }
+
+  /*펀딩 전용 항목들*/
+  .createpage-account-input-wrapper input {
+    font-size: 14px;
   }
 }
 @media (max-width: 404px) {

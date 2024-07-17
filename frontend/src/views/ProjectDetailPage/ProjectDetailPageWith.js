@@ -17,6 +17,7 @@ const ProjectDetailPageWith = () => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
   const [hashtags, setHashtags] = useState([]);
+  const [currentParticipants, setCurrentParticipants] = useState(0); // 참여자 수 상태 추가
   const { id: projectId } = useParams();
 
   useEffect(() => {
@@ -34,6 +35,22 @@ const ProjectDetailPageWith = () => {
     };
 
     fetchProject();
+  }, [projectId]);
+
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/participants`
+        );
+        setCurrentParticipants(response.data.currentParticipants);
+      } catch (error) {
+        console.error("Error fetching participants:", error);
+      }
+    };
+
+    fetchParticipants();
   }, [projectId]);
 
   const formatDate = date => {
@@ -57,7 +74,7 @@ const ProjectDetailPageWith = () => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 수: {project.currentParticipants}
+                참여자 수: {currentParticipants}
               </div>
               <div className="ProjectDetailPage-participate-btn">
                 <button className="ProjectDetailPage-modify">수정</button>

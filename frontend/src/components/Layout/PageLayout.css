@@ -59,7 +59,7 @@
     width: 100%;
     margin: 0;
     margin-bottom: 100px;
-    margin-top: 50px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+    margin-top: 30px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
     box-shadow: none;
   }
   .three-color {

@@ -462,7 +462,7 @@
 @media (min-width: 480px) and (max-width: 767px) {
   .createpage-create-main-section {
     width: 100%;
-    padding: 20px 15% 120px 14%;
+    padding: 20px 8% 120px 8%;
     box-sizing: border-box;
     border: 2px black solid;
     border-top: none;
@@ -470,7 +470,9 @@
   .createpage-button-group {
     margin-left: 5%;
   }
-
+  .createpage-create-project-form {
+    gap: 15px;
+  }
   .createpage-button-group button {
     background: none;
     border: none;
@@ -480,6 +482,10 @@
     padding-top: 8px;
     transition: 0.3s ease;
     margin-right: 5px;
+  }
+
+  .createpage-title-input {
+    margin-top: 20px;
   }
   .createpage-submit-button {
     font-weight: 500;
@@ -541,7 +547,7 @@
     padding: 10px 2px;
     border-bottom: 1px solid black;
     font-size: 1rem;
-    margin-top: 40px;
+    margin-top: 30px;
   }
   .createpage-title-input::placeholder {
     font-size: 14px;
@@ -581,7 +587,9 @@
   .createpage-form-group.createpage-period-group {
     padding: 10px 16px 10px 12px;
   }
-
+  .createpage-recruitment-input-wrapper {
+    gap: 5px;
+  }
   /* ck editor 스타일 조절 */
   .ck.ck-editor__editable_inline {
     height: 300px;
@@ -645,6 +653,7 @@
     font-weight: 500;
     font-size: 1rem;
     padding: 20px 80px;
+    border: 1px solid black;
   }
 }
 @media (max-width: 404px) {

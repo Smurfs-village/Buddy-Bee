@@ -5,131 +5,143 @@ import { FlowerImg } from "./Common";
 import Pagination from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import mockImage from "../../img/mock.svg";
 
 const Card = ({
-  imgSrc,
-  projectName,
-  participants,
-  status,
-  onDeleteActiveProject,
-  id,
-  onCardClick, // 추가
+    imgSrc,
+    projectName,
+    participants,
+    status,
+    onDeleteActiveProject,
+    id,
+    onCardClick, // 추가
 }) => (
-  <div
-    className="MyPosts_ParticipatedProjects_main_right_container_box"
-    onClick={() => onCardClick(id)} // 추가
-  >
     <div
-      className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
-        status === "종료"
-          ? "MyPosts_ParticipatedProjects_finishedProjectImg"
-          : "MyPosts_ParticipatedProjects_activePendingProjectImg"
-      }`}
-      style={{ backgroundImage: `url(${imgSrc})` }}
-    ></div>
-    <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
-      <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
-        {projectName}
-      </div>
-      <div className="MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants">
-        {participants}
-      </div>
+        className="MyPosts_ParticipatedProjects_main_right_container_box"
+        onClick={() => onCardClick(id)} // 추가
+    >
+        <div
+            className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
+                status === "종료"
+                    ? "MyPosts_ParticipatedProjects_finishedProjectImg"
+                    : "MyPosts_ParticipatedProjects_activePendingProjectImg"
+            }`}
+            style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
+        ></div>
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
+                {projectName}
+            </div>
+            <div className="MyPosts_ParticipatedProjects_main_right_container_box_numbersOfParticipants">
+                {participants}
+            </div>
+        </div>
+        <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
+            <button className={`status-btn ${status}`}>{status}</button>
+            <button
+                className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
+                onClick={e => {
+                    e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+                    onDeleteActiveProject(id);
+                }}
+            >
+                삭제
+            </button>
+        </div>
     </div>
-    <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
-      <button className={`status-btn ${status}`}>{status}</button>
-      <button
-        className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
-        onClick={e => {
-          e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-          onDeleteActiveProject(id);
-        }}
-      >
-        삭제
-      </button>
-    </div>
-  </div>
 );
 
 const MainRightContainer = () => {
-  const { user } = useAuth();
-  const [projects, setProjects] = useState([]);
-  const [activePage, setActivePage] = useState(1);
-  const navigate = useNavigate(); // 추가
+    const { user } = useAuth();
+    const [projects, setProjects] = useState([]);
+    const [activePage, setActivePage] = useState(1);
+    const navigate = useNavigate(); // 추가
 
-  const onDeleteActiveProject = targetId => {
-    setProjects(() => projects.filter(project => project.id !== targetId));
-  };
-
-  const onCardClick = id => {
-    navigate(`/projects/${id}`);
-  };
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5001/api/projects/user",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        console.log("Fetched projects:", response.data);
-        const { activeProjects, finishedProjects, pendingProjects } =
-          response.data;
-        const allProjects = [
-          ...pendingProjects.map(project => ({ ...project, status: "대기중" })),
-          ...activeProjects.map(project => ({ ...project, status: "진행중" })),
-          ...finishedProjects.map(project => ({ ...project, status: "종료" })),
-        ];
-        setProjects(allProjects);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
+    const onDeleteActiveProject = targetId => {
+        setProjects(() => projects.filter(project => project.id !== targetId));
     };
 
-    if (user) {
-      fetchProjects();
-    }
-  }, [user]);
+    const onCardClick = id => {
+        navigate(`/projects/${id}`);
+    };
 
-  const pageChangeHandler = pageNumber => setActivePage(pageNumber);
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await axios.get(
+                    "http://localhost:5001/api/projects/user",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+                console.log("Fetched projects:", response.data);
+                const { activeProjects, finishedProjects, pendingProjects } =
+                    response.data;
+                const allProjects = [
+                    ...pendingProjects.map(project => ({
+                        ...project,
+                        status: "대기중",
+                    })),
+                    ...activeProjects.map(project => ({
+                        ...project,
+                        status: "진행중",
+                    })),
+                    ...finishedProjects.map(project => ({
+                        ...project,
+                        status: "종료",
+                    })),
+                ];
+                setProjects(allProjects);
+            } catch (error) {
+                console.error("Error fetching projects:", error);
+            }
+        };
 
-  const totalItemsCount = projects.length;
-  const itemsCountPerPage = 4;
-  const indexOfLastItem = activePage * itemsCountPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
+        if (user) {
+            fetchProjects();
+        }
+    }, [user]);
 
-  const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
+    const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  return (
-    <div className="Main_right_container">
-      <p className="Main_right_container_writtenPosts">작성한 글</p>
-      <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-        {currentProjects.map(project => (
-          <Card
-            key={project.id}
-            imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={project.status}
-            onDeleteActiveProject={onDeleteActiveProject}
-            id={project.id}
-            onCardClick={onCardClick} // 추가
-          />
-        ))}
-      </div>
-      <FlowerImg />
-      <Pagination
-        activePage={activePage}
-        totalItemsCount={totalItemsCount}
-        itemsCountPerPage={itemsCountPerPage}
-        pageRangeDisplayed={5}
-        handlePageChange={pageChangeHandler}
-      />
-    </div>
-  );
+    const totalItemsCount = projects.length;
+    const itemsCountPerPage = 4;
+    const indexOfLastItem = activePage * itemsCountPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
+
+    const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
+
+    return (
+        <div className="Main_right_container">
+            <p className="Main_right_container_writtenPosts">작성한 글</p>
+            <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
+                {currentProjects.map(project => (
+                    <Card
+                        key={project.id}
+                        imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
+                        projectName={project.title}
+                        participants={`${project.current_participants}/${project.max_participants}명`}
+                        status={project.status}
+                        onDeleteActiveProject={onDeleteActiveProject}
+                        id={project.id}
+                        onCardClick={onCardClick} // 추가
+                    />
+                ))}
+            </div>
+            <FlowerImg />
+            <Pagination
+                activePage={activePage}
+                totalItemsCount={totalItemsCount}
+                itemsCountPerPage={itemsCountPerPage}
+                pageRangeDisplayed={5}
+                handlePageChange={pageChangeHandler}
+            />
+        </div>
+    );
 };
 
 const MyPosts = () => <MainRightContainer />;

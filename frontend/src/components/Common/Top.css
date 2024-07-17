@@ -55,21 +55,17 @@
     width: 190px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .MyProfile_main_top_container {
+        padding: 0;
+        border: 2px solid black;
+    }
     .MyProfile_cloud_img {
         display: none;
     }
-    .MyProfile_main_top_container {
-        padding: 0;
-        border: 3px solid black;
-        margin: 10px;
-    }
-
     .MyProfile_main_top_container_img_wrapper {
         flex: 1;
-        max-width: 120px;
-    }
-    .MyProfile_main_top_container_img {
+        width: max(100%, 120px);
     }
     .MyProfile_main_top_container_title {
         padding-top: 10px;
@@ -83,5 +79,6 @@
     }
     .MyProfile_main_top_container_desc {
         width: 95%;
+        font-size: 12px;
     }
 }

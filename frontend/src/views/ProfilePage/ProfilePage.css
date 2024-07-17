@@ -28,9 +28,15 @@
 
 /* 모바일뷰 320px */
 
+@media (max-width: 425px) {
+    .profile-page {
+        padding: 1%;
+    }
+}
+
 @media (max-width: 767px) {
     .profile-page {
-        padding: 0;
+        justify-content: center;
     }
     .MyProfile_main_aside_rightContainer_wrapper {
         flex-direction: column;

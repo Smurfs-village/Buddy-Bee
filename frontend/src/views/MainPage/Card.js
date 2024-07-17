@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
+import mockImage from "../../img/mock.svg"; // 기본 이미지 import
 
 const Card = ({ data, index, type, toggleScrap }) => {
   const { user } = useAuth(); // useAuth 훅 사용
@@ -142,7 +143,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     <div className="mainpage-card" key={index} onClick={handleCardClick}>
       <div className="mainpage-card-image-wrapper">
         <img
-          src={data.main_image}
+          src={data.main_image || mockImage}
           alt="Sample"
           className="mainpage-card-image"
         />

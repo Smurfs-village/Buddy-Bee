@@ -191,10 +191,16 @@
 
 /* 모바일 */
 
-@media (min-width: 320px) and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 950px) {
     .Main_right_container_writtenPosts,
     .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
         display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .Main_right_container {
+        border: 2px solid black;
     }
 }
 
@@ -202,9 +208,7 @@
     .ProfilePage_main_right_container_flowerImg {
         display: none;
     }
-    .Main_right_container {
-        border: 2px solid black;
-    }
+
     .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
         padding: 0;
         overflow: hidden;

@@ -22,20 +22,15 @@
     width: 117px;
     height: 117px;
     position: absolute;
-    left: 10px;
-    bottom: 8%;
+    left: 0;
+    bottom: 0;
 }
 
 /* 모바일뷰 320px */
 
-@media (max-width: 425px) {
-    .profile-page {
-        padding: 1%;
-    }
-}
-
 @media (max-width: 767px) {
     .profile-page {
+        padding: 1%;
         justify-content: center;
     }
     .MyProfile_main_aside_rightContainer_wrapper {

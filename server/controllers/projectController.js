@@ -713,3 +713,118 @@ exports.getProjectWithAuthor = (req, res) => {
     res.status(200).json(projectData);
   });
 };
+
+exports.deleteProjectById = (req, res) => {
+  const projectId = req.params.id;
+  console.log("Deleting project with ID:", projectId); // 디버깅 로그 추가
+
+  const deleteParticipantDetailsQuery = `
+    DELETE FROM participant_details 
+    WHERE participant_id IN (SELECT id FROM participant WHERE project_id = ?);
+  `;
+
+  const deleteParticipantQuery = `
+    DELETE FROM participant WHERE project_id = ?;
+  `;
+
+  const deleteProjectHashtagQuery = `
+    DELETE FROM projecthashtag WHERE project_id = ?;
+  `;
+
+  const deleteFundingQuery = `
+    DELETE FROM funding WHERE project_id = ?;
+  `;
+
+  const deleteHoneypotQuery = `
+    DELETE FROM honeypot WHERE project_id = ?;
+  `;
+
+  const deleteAccompanimentQuery = `
+    DELETE FROM accompaniment WHERE project_id = ?;
+  `;
+
+  const deleteProjectQuery = `
+    DELETE FROM project WHERE id = ?;
+  `;
+
+  connection.beginTransaction(err => {
+    if (err) {
+      console.error("Error starting transaction:", err);
+      return res.status(500).send("Transaction error");
+    }
+
+    connection.query(deleteParticipantDetailsQuery, [projectId], err => {
+      if (err) {
+        console.error("Error deleting participant details:", err);
+        return connection.rollback(() => {
+          res.status(500).send("Server error");
+        });
+      }
+
+      connection.query(deleteParticipantQuery, [projectId], err => {
+        if (err) {
+          console.error("Error deleting participants:", err);
+          return connection.rollback(() => {
+            res.status(500).send("Server error");
+          });
+        }
+
+        connection.query(deleteProjectHashtagQuery, [projectId], err => {
+          if (err) {
+            console.error("Error deleting project hashtags:", err);
+            return connection.rollback(() => {
+              res.status(500).send("Server error");
+            });
+          }
+
+          connection.query(deleteFundingQuery, [projectId], err => {
+            if (err) {
+              console.error("Error deleting fundings:", err);
+              return connection.rollback(() => {
+                res.status(500).send("Server error");
+              });
+            }
+
+            connection.query(deleteHoneypotQuery, [projectId], err => {
+              if (err) {
+                console.error("Error deleting honeypot:", err);
+                return connection.rollback(() => {
+                  res.status(500).send("Server error");
+                });
+              }
+
+              connection.query(deleteAccompanimentQuery, [projectId], err => {
+                if (err) {
+                  console.error("Error deleting accompaniment:", err);
+                  return connection.rollback(() => {
+                    res.status(500).send("Server error");
+                  });
+                }
+
+                connection.query(deleteProjectQuery, [projectId], err => {
+                  if (err) {
+                    console.error("Error deleting project:", err);
+                    return connection.rollback(() => {
+                      res.status(500).send("Server error");
+                    });
+                  }
+
+                  connection.commit(err => {
+                    if (err) {
+                      console.error("Error committing transaction:", err);
+                      return connection.rollback(() => {
+                        res.status(500).send("Transaction commit error");
+                      });
+                    }
+                    console.log("Project deleted successfully");
+                    res.status(200).send("Project deleted successfully");
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+};

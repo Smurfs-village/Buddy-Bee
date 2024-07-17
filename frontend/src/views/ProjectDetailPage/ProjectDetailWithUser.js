@@ -156,11 +156,9 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
             <DetailContent content={project.description} />
             <DetailButton projectId={project.id} />
             <DetailProfile
-              username={project.username || "Unknown"}
-              profileImage={
-                project.profile_image || "/path/to/default/profile/image.png"
-              }
-              intro={project.intro || "안녕하세요! 기본 소개입니다."}
+              username={project.username}
+              profileImage={project.profile_image}
+              intro={project.intro}
             />
             <DetailHashtag hashtags={hashtags} />
             <div className="ProjectDetailPage-detail-wrap">

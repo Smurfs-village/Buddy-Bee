@@ -225,21 +225,40 @@ const CreatePageLayout = ({ children, type }) => {
                       className={isEditingAccount ? "editable" : ""}
                     />
                     {isEditingAccount ? (
-                      <button
-                        type="button"
-                        onClick={handleAccountSave}
-                        className="createpage-edit-button"
-                      >
-                        저장하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="createpage-edit-button"
+                        >
+                          저장하기
+                        </button>
+                        {/* 모바일 전용 버튼 분리 */}
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="mobile-createpage-edit-button"
+                        >
+                          저장
+                        </button>
+                      </>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={handleAccountEdit}
-                        className="createpage-edit-button"
-                      >
-                        수정하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="createpage-edit-button"
+                        >
+                          수정하기
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="mobile-createpage-edit-button"
+                        >
+                          수정
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
@@ -313,22 +332,24 @@ const CreatePageLayout = ({ children, type }) => {
                 </label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
-                    <span>모집 인원</span>
-                    <div className="createpage-project-setting-group">
-                      <div className="createpage-number-input">
-                        <input
-                          type="number"
-                          min={1}
-                          value={maxParticipants}
-                          onChange={e => setMaxParticipants(e.target.value)}
-                          placeholder="모집 인원"
-                        />
+                    <div className="createpage-recruitment-people-input">
+                      <span>모집 인원</span>
+                      <div className="createpage-project-setting-group">
+                        <div className="createpage-number-input">
+                          <input
+                            type="number"
+                            min={1}
+                            value={maxParticipants}
+                            onChange={e => setMaxParticipants(e.target.value)}
+                            placeholder="모집 인원"
+                          />
+                        </div>
+                        <span>명</span>
                       </div>
-                      <span>명</span>
                     </div>
 
                     {type === "funding" && (
-                      <>
+                      <div className="createpage-recruitment-amount-input">
                         <span className="whitespace-nowrap">목표 금액</span>
                         <div className="createpage-project-setting-group">
                           <div className="createpage-number-input">
@@ -341,7 +362,7 @@ const CreatePageLayout = ({ children, type }) => {
                           </div>
                           <span>원</span>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>

@@ -249,18 +249,28 @@
   padding: 20px 30px 20px 20px;
   border-radius: 15px;
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 .createpage-recruitment-group span {
   white-space: nowrap;
 }
+/*요기*/
 .createpage-recruitment-input-wrapper {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
+.createpage-recruitment-people-input,
+.createpage-recruitment-amount-input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+.createpage-recruitment-people-input {
+  margin-right: 20px;
+}
 .createpage-number-input {
   flex: 1;
   display: flex;
@@ -444,6 +454,20 @@
   white-space: nowrap;
   font-size: 15px;
 }
+/*모바일용*/
+.mobile-createpage-edit-button {
+  padding: 9px 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: 400;
+  white-space: nowrap;
+  font-size: 14px;
+
+  display: none;
+}
 .ck.ck-editor__editable_inline {
   height: 600px;
 }
@@ -456,6 +480,13 @@
     font-weight: 500;
     font-size: 1.2rem;
     padding: 20px 90px;
+  }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 22px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
   }
 }
 
@@ -487,6 +518,13 @@
   .createpage-title-input {
     margin-top: 20px;
   }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 20px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
+  }
   .createpage-submit-button {
     font-weight: 500;
     font-size: 1.2rem;
@@ -496,22 +534,28 @@
 
 @media (max-width: 479px) {
   /* 기존 요소 중 블락 처리한 것들 */
-  .createpage-add-button {
+  .createpage-add-button,
+  .createpage-edit-button {
     display: none;
   }
   #option-add {
     margin-right: 10px;
   }
-  .mobile-createpage-add-button {
-    margin-right: 10px;
+  .mobile-createpage-add-button,
+  .mobile-createpage-edit-button {
     display: inline-block;
   }
-
+  .mobile-createpage-add-button {
+    margin-right: 10px;
+  }
   .createpage-create-project-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
+  }
+  .whitespace-nowrap {
+    margin: 0px;
   }
   .createpage-create-main-section {
     padding: 0 5.5% 120px 5.5%;
@@ -573,7 +617,9 @@
     font-weight: 400;
     margin-right: 6px;
   }
-
+  .createpage-account-input-wrapper input {
+    padding: 0 0 0 8px;
+  }
   .createpage-option-form-group {
     border: 1px dotted black;
     display: flex;
@@ -588,8 +634,16 @@
     padding: 10px 16px 12px 12px;
   }
   .createpage-recruitment-input-wrapper {
+    flex-direction: column;
     gap: 5px;
   }
+
+  .createpage-option {
+    padding: 5px;
+    width: 87%;
+    margin-left: 0px;
+  }
+
   /* ck editor 스타일 조절 */
   .ck.ck-editor__editable_inline {
     height: 300px;
@@ -631,9 +685,6 @@
     border: none;
     cursor: pointer;
     font-size: 12px;
-    /* padding: 0 5px; */
-    /* font-weight: 600; */
-    /* white-space: nowrap; */
   }
 
   .createpage-edit-button {
@@ -654,6 +705,11 @@
     font-size: 1rem;
     padding: 20px 80px;
     border: 1px solid black;
+  }
+
+  /*펀딩 전용 항목들*/
+  .createpage-account-input-wrapper input {
+    font-size: 14px;
   }
 }
 @media (max-width: 404px) {

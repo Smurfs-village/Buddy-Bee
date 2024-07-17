@@ -6,6 +6,7 @@ import Pagination from "../../components/Common/Pagination";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import mockImage from "../../img/mock.svg";
 
 const Card = ({
     imgSrc,
@@ -20,7 +21,7 @@ const Card = ({
         {/* 추가 */}
         <div
             className="Bookmarks_main_right_container_box_img_wrapper"
-            style={{ backgroundImage: `url(${imgSrc})` }}
+            style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
         >
             <div className="Bookmarks_honeyPot_img_wrapper">
                 <img
@@ -58,7 +59,7 @@ const FinishedProject = ({
         {/* 추가 */}
         <div
             className="Bookmarks_main_right_container_box_img_wrapper Bookmarks_finishedProjectImg"
-            style={{ backgroundImage: `url(${imgSrc})` }}
+            style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
         >
             <div className="Bookmarks_honeyPot_img_wrapper">
                 <img

@@ -147,6 +147,21 @@
   white-space: nowrap;
 }
 
+.mobile-createpage-add-button {
+  /*모바일 전용 만들기 버튼*/
+  cursor: pointer;
+  border-radius: 100%;
+  border: 1px solid black;
+  padding: 4px 6px 3px 6px;
+  background-color: black;
+
+  display: none;
+}
+.mobile-createpage-add-button img {
+  width: 11px;
+  margin-top: 2px;
+  filter: invert();
+}
 .createpage-hashtag-input-wrapper .createpage-char-count {
   color: #d8d8d8;
   font-size: 18px;
@@ -474,6 +489,18 @@
 }
 
 @media (max-width: 479px) {
+  /* 기존 요소 중 블락 처리한 것들 */
+  .createpage-add-button {
+    display: none;
+  }
+  #option-add {
+    margin-right: 10px;
+  }
+  .mobile-createpage-add-button {
+    margin-right: 10px;
+    display: inline-block;
+  }
+
   .createpage-create-project-form {
     display: flex;
     flex-direction: column;
@@ -529,10 +556,16 @@
     padding: 10px 12px;
     min-height: 50px;
   }
-
+  .input-wrapper span,
+  .createpage-recruitment-input-wrapper span,
+  .createpage-period-input-wrapper span {
+    padding-right: 2px;
+    font-size: 14px;
+  }
   .createpage-hashtag-input-wrapper .createpage-char-count {
     font-size: 16px;
     font-weight: 400;
+    margin-right: 6px;
   }
 
   .createpage-option-form-group {
@@ -542,6 +575,11 @@
     justify-content: center;
     padding: 10px;
     border-radius: 15px;
+  }
+
+  .createpage-recruitment-group,
+  .createpage-form-group.createpage-period-group {
+    padding: 10px 16px 10px 12px;
   }
 
   /* ck editor 스타일 조절 */

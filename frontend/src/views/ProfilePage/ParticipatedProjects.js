@@ -17,12 +17,18 @@ const Card = ({
   onCardClick, // 추가
 }) => (
   <div
-    className="MyPosts_ParticipatedProjects_main_right_container_box"
+    className={`${
+      status === "종료"
+        ? "MyPosts_ParticipatedProjects_main_right_finishedProject_box"
+        : "MyPosts_ParticipatedProjects_main_right_container_box"
+    }`}
     onClick={() => onCardClick(id)} // 추가
   >
     <div
       className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
-        status === "종료" ? "overlay" : ""
+        status === "종료"
+          ? "MyPosts_ParticipatedProjects_finishedProjectImg"
+          : "MyPosts_ParticipatedProjects_activePendingProjectImg"
       }`}
       style={{
         backgroundImage: `url(${imgSrc || mockImage})`,
@@ -38,17 +44,7 @@ const Card = ({
       </div>
     </div>
     <div className="MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper">
-      <button
-        className={`MyPosts_ParticipatedProjects_main_right_container_box_${
-          status === "대기중"
-            ? "pendingBtn"
-            : status === "진행중"
-            ? "activeBtn"
-            : "completedBtn"
-        }`}
-      >
-        {status}
-      </button>
+      <button className={`status-btn ${status}`}>{status}</button>
       <button
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
         onClick={e => {

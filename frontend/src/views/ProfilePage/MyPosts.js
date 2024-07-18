@@ -17,7 +17,11 @@ const Card = ({
   onCardClick, // 추가
 }) => (
   <div
-    className="MyPosts_ParticipatedProjects_main_right_container_box"
+    className={`${
+      status === "종료"
+        ? "MyPosts_ParticipatedProjects_main_right_finishedProject_box"
+        : "MyPosts_ParticipatedProjects_main_right_container_box"
+    }`}
     onClick={() => onCardClick(id)} // 추가
   >
     <div

@@ -37,6 +37,13 @@
   background-color: #ff8473;
 }
 
+@media (min-width: 926px) and (max-width: 1920px) {
+  .page-layout {
+    width: 86%;
+    margin-right: 17.5%;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 925px) {
   .page-layout {
     width: 86%;
@@ -46,10 +53,16 @@
 
 @media (min-width: 480px) and (max-width: 767px) {
   .page-layout {
-    width: 90%;
+    /* width: 86%;
     margin-right: 17.5%;
     margin-bottom: 150px;
-    margin-top: 77px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+    margin-top: 77px;  */
+    /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+    width: 86%;
+    margin: 0;
+    margin-bottom: 100px;
+    margin-top: 70px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
+    box-shadow: none;
   }
 }
 
@@ -61,6 +74,20 @@
     margin-top: 70px; /* 서브 네비게이션 바 아래에 위치하도록 설정 */
     box-shadow: none;
   }
+  .three-color {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .page-layout {
+    width: 86%;
+    margin: 0;
+    margin-bottom: 100px;
+    margin-top: 70px;
+    box-shadow: none;
+  }
+
   .three-color {
     display: none;
   }

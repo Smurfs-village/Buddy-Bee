@@ -17,9 +17,8 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import "./ProjectDetailFundingUser.css";
 
-const ProjectDetailPageFundingUser = () => {
+const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [project, setProject] = useState(null);
-  const [hashtags, setHashtags] = useState([]);
   const [filterItem, setFilterItem] = useState(false);
   const [fundingState, setFundingState] = useState(false);
   const [currentParticipants, setCurrentParticipants] = useState(0);
@@ -43,7 +42,6 @@ const ProjectDetailPageFundingUser = () => {
           `http://localhost:5001/api/projects/${projectId}/with-author`
         );
         setProject(response.data);
-        setHashtags(response.data.hashtags || []);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);

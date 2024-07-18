@@ -14,9 +14,8 @@ import DetailHashtag from "./DetailHashtag";
 import DetailFundingStatus from "./DetailFundingStatus";
 import "./ProjectDetailPageFunding.css";
 
-const ProjectDetailPageFunding = () => {
+const ProjectDetailPageFunding = ({ hashtags }) => {
   const [project, setProject] = useState(null);
-  const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0); // 참여자 수 상태 추가
   const [filterItem, setFilterItem] = useState(false);
   const { id: projectId } = useParams();
@@ -30,7 +29,6 @@ const ProjectDetailPageFunding = () => {
           `http://localhost:5001/api/projects/${projectId}/with-author`
         );
         setProject(response.data);
-        setHashtags(response.data.hashtags || []);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);

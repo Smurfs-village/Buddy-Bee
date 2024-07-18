@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth(); // setUser 함수 가져오기
 
-  const handleRegister = async e => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0 || !isNicknameAvailable) {
@@ -40,8 +40,15 @@ const RegisterPage = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (nickname.length > 8) {
-      errors.nickname = "닉네임은 8글자 이하로 입력해주세요.";
+    // 닉네임은 영문, 숫자, 한글만 허용
+    const nicknamePattern = /^[a-zA-Z0-9가-힣]*$/;
+
+    if (!nickname.length === 0 || nickname.trim().length === 0) {
+      errors.nickname = "닉네임을 입력바랍니다.";
+    } else if (!nicknamePattern.test(nickname)) {
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+    } else if (nickname.length > 8) {
+      errors.nickname = "닉네임은 1~8 글자 사이로 입력해주세요.";
     }
     if (!email.includes("@")) {
       errors.email = "유효한 이메일 주소를 입력해주세요.";
@@ -53,6 +60,22 @@ const RegisterPage = () => {
   };
 
   const handleCheckNickname = async () => {
+    const errors = {};
+    const nicknamePattern = /^[a-zA-Z0-9가-힣]*$/;
+
+    if (nickname.length === 0 || nickname.trim().length === 0) {
+      errors.nickname = "닉네임을 입력해주세요.";
+    } else if (!nicknamePattern.test(nickname)) {
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+    } else if (nickname.length > 8) {
+      errors.nickname = "닉네임은 1~8글자 사이로 입력해주세요.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     try {
       const isAvailable = await checkNicknameAvailability(nickname);
       setIsNicknameAvailable(isAvailable);
@@ -90,7 +113,7 @@ const RegisterPage = () => {
                   placeholder="닉네임"
                   value={nickname}
                   required
-                  onChange={e => {
+                  onChange={(e) => {
                     setNickname(e.target.value);
                     setIsNicknameAvailable(null); // 닉네임이 변경되면 중복 확인 상태 초기화
                   }}
@@ -112,7 +135,7 @@ const RegisterPage = () => {
                 placeholder="이메일 주소"
                 value={email}
                 required
-                onChange={e => {
+                onChange={(e) => {
                   setEmail(e.target.value);
                 }}
               />
@@ -123,7 +146,7 @@ const RegisterPage = () => {
                 placeholder="비밀번호"
                 value={password}
                 required
-                onChange={e => {
+                onChange={(e) => {
                   setPassword(e.target.value);
                 }}
               />

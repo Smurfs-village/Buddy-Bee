@@ -34,9 +34,9 @@
 }
 
 .ProjectDetailPage-detail-title {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 /* 수요조사 */
@@ -45,7 +45,7 @@
 }
 
 .ProjectDetailPage-detail-day {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .ProjectDetailPage-detail-title span {
@@ -58,18 +58,26 @@
   justify-content: space-between;
 }
 .ProjectDetailPage-goods {
-  font-size: 1.2rem;
-  padding: 0 0 15px 0;
+  font-size: 1.1rem;
+  padding: 0 0 5px 0;
 }
 
 .ProjectDetailPage-input input {
-  width: 60px;
-  height: 28px;
   border-radius: 5px;
-  border: 2px solid #000;
+  border: 2px solid #757575;
 }
 .ProjectDetailPage-input input[type="checkbox"] {
   accent-color: black;
+  width: 20px;
+  height: 20px;
+}
+.ProjectDetailPage-input input[type="number"] {
+  accent-color: black;
+  border-radius: none;
+  width: 30px;
+  /* height: 20px; */
+  margin-bottom: 3px;
+  padding: 1px 0 0 5px;
 }
 .ProjectDetailPage-input span {
   padding-left: 12px;

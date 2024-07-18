@@ -36,11 +36,15 @@ const MainPage = () => {
         const response = await axios.get("http://localhost:5001/api/projects");
         const projects = response.data;
 
-        const recruitment = projects.filter(
-          (project) => project.type === "with"
+        const activeProjects = projects.filter(
+          project => project.status === "active"
         );
-        const funding = projects.filter(
-          (project) => project.type === "funding"
+
+        const recruitment = activeProjects.filter(
+          project => project.type === "with"
+        );
+        const funding = activeProjects.filter(
+          project => project.type === "funding"
         );
 
         setRecruitmentCards(recruitment);
@@ -54,7 +58,7 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
-    const updateCards = (cards) => {
+    const updateCards = cards => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;

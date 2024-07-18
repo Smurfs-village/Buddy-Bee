@@ -28,7 +28,12 @@ const ProjectListPageLayout = () => {
               `http://localhost:5001/api/projects/search?query=${query}`
             )
           : await axios.get("http://localhost:5001/api/projects");
-        setCards(response.data);
+
+        const activeProjects = response.data.filter(
+          project => project.status === "active"
+        );
+
+        setCards(activeProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -79,7 +84,7 @@ const ProjectListPageLayout = () => {
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = pageNumber => {
     setActivePage(pageNumber);
   };
 
@@ -123,7 +128,7 @@ const ProjectListPageLayout = () => {
                   ))
                 : filterItem === "with"
                 ? currentItems
-                    .filter((item) => item.type === "with")
+                    .filter(item => item.type === "with")
                     .map((data, index) => (
                       <ListCard
                         key={index}
@@ -135,7 +140,7 @@ const ProjectListPageLayout = () => {
                     ))
                 : filterItem === "funding"
                 ? currentItems
-                    .filter((item) => item.type === "funding")
+                    .filter(item => item.type === "funding")
                     .map((data, index) => (
                       <ListCard
                         key={index}

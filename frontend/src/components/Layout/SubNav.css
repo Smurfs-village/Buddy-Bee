@@ -29,3 +29,25 @@
 .sub-nav-wrapper a:hover {
   color: #ffe83a;
 }
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 925px) {
+  .sub-nav-all-btn {
+    margin-left: 7%;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .sub-nav-all-btn {
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 479px) {
+  .sub-nav-wrapper {
+    height: 20px;
+  }
+  .sub-nav-all-btn {
+    margin-left: 5%;
+  }
+}

@@ -141,7 +141,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       <div className="common-card-content">
         <div className="common-card-line-1">
           <h3>{data.title}</h3>
-          <span>작성자 {data.author}</span>
+          <span>{data.author}</span>
         </div>
         <p>조회수 {data.view_count || 0}</p>
         <p className="common-card_desc">{stripHtmlTags(data.description)}</p>

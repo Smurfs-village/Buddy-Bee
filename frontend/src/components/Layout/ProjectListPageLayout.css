@@ -50,3 +50,41 @@
   background-color: black;
   color: white;
 }
+
+/* 미디어쿼리_ media query */
+@media (min-width: 762px) and (max-width: 767px) {
+  /*중간에 글리치 제거용*/
+  .project-list-page-layout-wrapper {
+    padding: 0px 27px 40px 35px;
+  }
+}
+
+@media (max-width: 479px) {
+  .project-list-page-layout-grid {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  } /*글리치 방지용*/
+  .project-list-page-layout-wrapper {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100%;
+    background-color: white;
+    padding: 0px 20px 40px 20px;
+    /* margin-top: 20px; */
+  }
+  .project-list-page-layout-line1 {
+    padding: 32px 0 12px 3px;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-list-page-layout-wrapper h1 {
+    font-size: 23px;
+  }
+  .project-list-page-layout-line1 button {
+    background-color: white;
+    border: solid black 1px;
+    padding: 5px 7px;
+    font-size: 14px;
+    border-radius: 26px;
+    margin: 24px 4px 0 0;
+  }
+}

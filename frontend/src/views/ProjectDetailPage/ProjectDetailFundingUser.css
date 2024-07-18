@@ -97,3 +97,13 @@
   font-weight: 600;
   opacity: 0.5;
 }
+
+/*미디어 쿼리*/
+@media (min-width: 768px) and (max-width: 925px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+}
+
+@media (max-width: 479px) {
+}

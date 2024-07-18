@@ -17,45 +17,6 @@
   padding-bottom: 136px;
 }
 
-/* 관리자 전용 조회수 */
-.ProjectDetailPage-participate {
-  height: 42px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.ProjectDetailPage-participate-txt {
-  display: flex;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.ProjectDetailPage-participate-btn {
-  display: flex;
-  gap: 3px;
-}
-
-.ProjectDetailPage-participate-btn button {
-  width: 66px;
-  height: 42px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-.ProjectDetailPage-modify {
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #fff;
-}
-
-.ProjectDetailPage-delete {
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #000;
-  color: #fff;
-}
-
 /* 게시글 수요조사 옵션 합계금액 */
 .ProjectDetailPage-detail-wrap {
   display: flex;
@@ -143,4 +104,26 @@
   font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+/*미디어 쿼리*/
+@media (min-width: 768px) and (max-width: 925px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-container {
+    box-sizing: border-box;
+    width: 82%;
+    padding-bottom: 136px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-all {
+    border: 1px solid #000;
+  }
+
+  .ProjectDetailPage-container {
+    width: 81%;
+  }
 }

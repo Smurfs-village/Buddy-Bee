@@ -18,6 +18,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
   const [currentParticipants, setCurrentParticipants] = useState(0);
+  // const [maxParticipants, setMaxParticipants] = useState(0);
   const [withState, setWithState] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const buttonRef = useRef();
@@ -51,6 +52,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           `http://localhost:5001/api/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
+        // setMaxParticipants(response.data.maxParticipants);
       } catch (error) {
         console.error("Error fetching participants:", error);
       }
@@ -149,7 +151,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 수: {currentParticipants}
+                참여자 : {currentParticipants} /{/* {maxParticipants} 명 */}
               </div>
             </div>
             <DetailTitle title={project.title} />

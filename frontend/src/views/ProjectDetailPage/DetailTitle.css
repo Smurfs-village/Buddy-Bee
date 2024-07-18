@@ -6,3 +6,23 @@
   border-bottom: 1px solid #000;
   margin-top: 10px;
 }
+
+/*미디어 쿼리*/
+@media (min-width: 768px) and (max-width: 925px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-title {
+    font-size: 1.8rem;
+    margin-top: 0px;
+    padding: 19px 0 10px 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-title {
+    font-size: 1.4rem;
+    margin-top: 0px;
+    padding: 20px 0 10px 0;
+  }
+}

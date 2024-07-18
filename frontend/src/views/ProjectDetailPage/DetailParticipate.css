@@ -1,0 +1,103 @@
+/*글 작성자 페이지 - 조회수*/
+.ProjectDetailPage-participate {
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ProjectDetailPage-participate-txt {
+  display: flex;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/*글 작성자 페이지 - 수정/삭제 버튼*/
+.ProjectDetailPage-participate-btn {
+  display: flex;
+  gap: 3px;
+}
+
+.ProjectDetailPage-participate-btn button {
+  width: 60px;
+  height: 37px;
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.ProjectDetailPage-modify {
+  background-color: #fff;
+
+  margin-right: 1px;
+}
+
+.ProjectDetailPage-delete {
+  background-color: #000;
+  color: #fff;
+}
+
+.ProjectDetailPage-participate-btn button:hover {
+  transform: scale(1.04);
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-participate {
+    height: 42px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .ProjectDetailPage-participate {
+    height: 42px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .ProjectDetailPage-participate-txt {
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-participate-txt {
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .ProjectDetailPage-participate-btn {
+    display: flex;
+    gap: 2px;
+  }
+
+  .ProjectDetailPage-participate-btn button {
+    width: 46px;
+    height: 30px;
+    border-radius: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .ProjectDetailPage-delete {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #000;
+    color: #fff;
+    transition: 0.2s ease;
+  }
+}

@@ -364,7 +364,9 @@ body {
   display: flex !important;
   justify-content: center;
 }
-
+.slick-slider {
+  padding-right: 20px;
+}
 .slick-list {
   height: 500px;
 }
@@ -391,7 +393,7 @@ body {
 }
 
 .slick-next {
-  right: -40px;
+  right: -20px;
 }
 
 .mainpage-card-image-wrapper {

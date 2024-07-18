@@ -52,6 +52,13 @@
 }
 
 /* 미디어쿼리_ media query */
+@media (min-width: 762px) and (max-width: 767px) {
+  /*중간에 글리치 제거용*/
+  .project-list-page-layout-wrapper {
+    padding: 0px 27px 40px 35px;
+  }
+}
+
 @media (max-width: 479px) {
   .project-list-page-layout-wrapper {
     box-sizing: border-box;

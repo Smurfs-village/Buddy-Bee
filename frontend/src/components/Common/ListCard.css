@@ -137,6 +137,12 @@
 
 /*미디어 쿼리*/
 
+@media (min-width: 480px) and (max-width: 767px) {
+  .common-card_desc {
+    padding-top: 3%;
+  }
+}
+
 @media (max-width: 479px) {
   .project-list-page-layout-grid {
     grid-gap: 25px 5px;

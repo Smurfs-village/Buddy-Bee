@@ -49,7 +49,7 @@
 .common-card-content {
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 9px 10px 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,7 +84,7 @@
 }
 
 .common-card_desc {
-  padding-top: 8%;
+  padding-top: 5%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -109,10 +109,12 @@
   font-size: 0.8em; /* 16px */
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
+  border: 1px solid #000;
 }
 
 .common-hashtag.common-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+  border: 1px solid #000;
 }
 
 .common-participants-info {

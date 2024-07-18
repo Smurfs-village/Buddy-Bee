@@ -71,6 +71,10 @@ const ProjectDetailPageFunding = () => {
     }
   };
 
+  const handleModify = () => {
+    navigate(`/projects/${projectId}/edit`);
+  };
+
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -95,7 +99,12 @@ const ProjectDetailPageFunding = () => {
                 참여자 수: {currentParticipants}
               </div>
               <div className="ProjectDetailPage-participate-btn">
-                <button className="ProjectDetailPage-modify">수정</button>
+                <button
+                  className="ProjectDetailPage-modify"
+                  onClick={handleModify}
+                >
+                  수정
+                </button>
                 <button
                   className="ProjectDetailPage-delete"
                   onClick={handleDelete}

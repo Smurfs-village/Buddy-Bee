@@ -7,6 +7,7 @@ import ProjectListPage from "./views/ProjectListPage/ProjectListPage";
 import ProjectDetailPage from "./views/ProjectDetailPage/ProjectDetailPage";
 import CreateFundingProjectPage from "./views/CreateProjectPage/CreateFundingProjectPage";
 import CreateWithProjectPage from "./views/CreateProjectPage/CreateWithProjectPage";
+import CreatePageLayout from "./components/Layout/CreatePageLayout"; // 경로 수정
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/Routing/ProtectedRoute";
 import "./styles/global.css";
@@ -29,6 +30,10 @@ const App = () => {
             <Route
               path="/create-with-project"
               element={<CreateWithProjectPage />}
+            />
+            <Route
+              path="/projects/:id/edit"
+              element={<CreatePageLayout />} // 수정 페이지 추가
             />
           </Route>
 

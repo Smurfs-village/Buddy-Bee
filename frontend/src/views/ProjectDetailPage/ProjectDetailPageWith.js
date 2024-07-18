@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
@@ -17,9 +17,9 @@ const ProjectDetailPageWith = () => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
   const [hashtags, setHashtags] = useState([]);
-  const [currentParticipants, setCurrentParticipants] = useState(0); // 참여자 수 상태 추가
+  const [currentParticipants, setCurrentParticipants] = useState(0);
   const { id: projectId } = useParams();
-  const navigate = useNavigate(); // navigate 추가
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -29,7 +29,7 @@ const ProjectDetailPageWith = () => {
         );
         setProject(response.data);
         setHashtags(response.data.hashtags || []);
-        console.log("Project data:", response.data); // 디버깅 로그 추가
+        console.log("Project data:", response.data);
       } catch (error) {
         console.error("Error fetching project:", error);
       }
@@ -61,10 +61,14 @@ const ProjectDetailPageWith = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      navigate(-1); // 이전 페이지로 리다이렉트
+      navigate(-1);
     } catch (error) {
       console.error("Error deleting project:", error);
     }
+  };
+
+  const handleModify = () => {
+    navigate(`/projects/${projectId}/edit`);
   };
 
   const formatDate = date => {
@@ -91,7 +95,12 @@ const ProjectDetailPageWith = () => {
                 참여자 수: {currentParticipants}
               </div>
               <div className="ProjectDetailPage-participate-btn">
-                <button className="ProjectDetailPage-modify">수정</button>
+                <button
+                  className="ProjectDetailPage-modify"
+                  onClick={handleModify}
+                >
+                  수정
+                </button>
                 <button
                   className="ProjectDetailPage-delete"
                   onClick={handleDelete}

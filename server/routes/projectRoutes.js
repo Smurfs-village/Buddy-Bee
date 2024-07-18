@@ -44,4 +44,10 @@ router.get(
 router.get("/:id/with-author", projectController.getProjectWithAuthor); // 작성자 정보 포함한 프로젝트 가져오기 추가
 router.delete("/:id", authMiddleware, projectController.deleteProjectById); // 프로젝트 삭제 엔드포인트 추가
 router.put("/:id", authMiddleware, projectController.updateProject); // 프로젝트 업데이트 추가
+router.post(
+  "/:id/cancel-participation",
+  authMiddleware,
+  projectController.cancelParticipation
+);
+
 module.exports = router;

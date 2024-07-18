@@ -13,23 +13,22 @@ import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import "./ProjectDetailPageWith.css";
 
-const ProjectDetailPageWith = () => {
+const ProjectDetailPageWith = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
-  const [hashtags, setHashtags] = useState([]);
   const [currentParticipants, setCurrentParticipants] = useState(0);
   const { id: projectId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
+      if (!projectId) return;
       try {
         const response = await axios.get(
           `http://localhost:5001/api/projects/${projectId}/with-author`
         );
         setProject(response.data);
-        setHashtags(response.data.hashtags || []);
-        console.log("Project data:", response.data);
+        console.log("Fetched project data in Author Page:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
       }

@@ -185,11 +185,13 @@ const Card = ({ data, index, type, toggleScrap }) => {
           alt={isHoney ? "scrap_yes" : "scrap_none"}
           className="mainpage-scrap-icon"
           onClick={handleHoneyClick}
+          onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
         />
       </div>
       <div className="mainpage-card-content">
         <div className="mainpage-card-line-1">
-          <h3>{data.title}</h3>
+          <h3 className="mainpage-card-title">{data.title}</h3>
           <span>작성자: {data.author}</span>
         </div>
         <p>조회수: {data.view_count || 0}</p>

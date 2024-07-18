@@ -969,3 +969,57 @@ exports.updateProject = (req, res) => {
     }
   });
 };
+
+exports.cancelParticipation = (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.body.userId;
+
+  const deleteParticipantDetailsQuery = `
+    DELETE FROM participant_details 
+    WHERE participant_id IN (SELECT id FROM participant WHERE project_id = ? AND user_id = ?);
+  `;
+
+  const deleteParticipantQuery = `
+    DELETE FROM participant WHERE project_id = ? AND user_id = ?;
+  `;
+
+  connection.beginTransaction(err => {
+    if (err) {
+      console.error("Error starting transaction:", err);
+      return res.status(500).send("Transaction error");
+    }
+
+    connection.query(
+      deleteParticipantDetailsQuery,
+      [projectId, userId],
+      err => {
+        if (err) {
+          console.error("Error deleting participant details:", err);
+          return connection.rollback(() => {
+            res.status(500).send("Server error");
+          });
+        }
+
+        connection.query(deleteParticipantQuery, [projectId, userId], err => {
+          if (err) {
+            console.error("Error deleting participant:", err);
+            return connection.rollback(() => {
+              res.status(500).send("Server error");
+            });
+          }
+
+          connection.commit(err => {
+            if (err) {
+              console.error("Error committing transaction:", err);
+              return connection.rollback(() => {
+                res.status(500).send("Transaction commit error");
+              });
+            }
+            console.log("Participation cancelled successfully");
+            res.status(200).send("Participation cancelled successfully");
+          });
+        });
+      }
+    );
+  });
+};

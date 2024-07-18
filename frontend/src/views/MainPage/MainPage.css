@@ -364,7 +364,9 @@ body {
   display: flex !important;
   justify-content: center;
 }
-
+.slick-slider {
+  padding-right: 20px;
+}
 .slick-list {
   height: 500px;
 }
@@ -391,7 +393,7 @@ body {
 }
 
 .slick-next {
-  right: -40px;
+  right: -20px;
 }
 
 .mainpage-card-image-wrapper {
@@ -417,9 +419,14 @@ body {
   height: 55px;
   cursor: pointer;
 }
-
-/* 모바일 뷰 */
-@media (max-width: 479px) and (max-width: 1920px) {
+.mainpage-card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%; /* 필요한 너비에 맞게 조정 */
+}
+/* 479px 이하 버전 */
+@media (max-width: 479px) {
   .mainpage-left-section {
     width: 100%;
     background-color: #c4a1ff;
@@ -495,5 +502,158 @@ body {
     gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .mainpage-card {
+    width: 250px !important; /* 카드 너비 조정 */
+    height: 350px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 250px; /* 이미지 너비 조정 */
+    height: 200px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 150px; /* 컨텐츠 높이 조정 */
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+}
+
+/* 480px ~ 768px 버전 */
+@media (min-width: 480px) and (max-width: 768px) {
+  .mainpage-left-section {
+    width: 100%;
+    background-color: #c4a1ff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 40px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
+  .mainpage-left-section h1 {
+    font-size: 5rem;
+  }
+
+  .mainpage-left_bee_icon img {
+    display: none;
+  }
+
+  .mainpage-button-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .mainpage-right-section {
+    display: none;
+  }
+
+  /* 텍스트 컨테이너 */
+  .mainpage-text-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .mainpage-text-section {
+    width: 100%;
+    height: 600px;
+  }
+
+  .mainpage-text-up-section {
+    width: 100%;
+  }
+
+  .mainpage-text-section h1 {
+    font-size: 4rem;
+  }
+
+  .mainpage-flower-icon {
+    display: none;
+  }
+
+  .mainpage-cloud-icon {
+    display: none;
+  }
+
+  .mainpage-bee-icon {
+    display: none;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .mainpage-ranking-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .mainpage-ranking-keywords {
+    margin-top: 60px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mainpage-card {
+    width: 300px !important; /* 카드 너비 조정 */
+    height: 400px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 300px; /* 이미지 너비 조정 */
+    height: 250px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 150px; /* 컨텐츠 높이 조정 */
+  }
+
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 410px) {
+  .mainpage-card {
+    width: 220px !important; /* 카드 너비 조정 */
+    height: 320px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 220px; /* 이미지 너비 조정 */
+    height: 180px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 140px; /* 컨텐츠 높이 조정 */
+  }
+  .mainpage-funding-section {
+    padding: 50px;
+    padding-right: 10px;
+  }
+  .mainpage-recruitment-section {
+    padding: 50px;
+    padding-right: 10px;
+  }
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
   }
 }

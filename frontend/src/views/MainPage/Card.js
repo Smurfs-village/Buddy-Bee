@@ -15,6 +15,9 @@ const Card = ({ data, index, type, toggleScrap }) => {
   const [honeyCount, setHoneyCount] = useState(0);
   const navigate = useNavigate();
 
+  const startPos = useRef({ x: 0, y: 0 });
+  const isDragging = useRef(false);
+
   useEffect(() => {
     if (hashtagsRef.current) {
       const containerWidth = hashtagsRef.current.offsetWidth;
@@ -97,7 +100,29 @@ const Card = ({ data, index, type, toggleScrap }) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/projects/${data.id}`);
+    if (!isDragging.current) {
+      navigate(`/projects/${data.id}`);
+    }
+  };
+
+  const handleMouseDown = e => {
+    startPos.current = { x: e.clientX, y: e.clientY };
+    isDragging.current = false;
+  };
+
+  const handleMouseUp = e => {
+    const endPos = { x: e.clientX, y: e.clientY };
+    const distance = Math.sqrt(
+      Math.pow(endPos.x - startPos.current.x, 2) +
+        Math.pow(endPos.y - startPos.current.y, 2)
+    );
+
+    if (distance > 5) {
+      // 드래그로 간주하는 최소 거리
+      isDragging.current = true;
+    } else {
+      handleCardClick();
+    }
   };
 
   const handleHoneyClick = async e => {
@@ -140,7 +165,12 @@ const Card = ({ data, index, type, toggleScrap }) => {
   };
 
   return (
-    <div className="mainpage-card" key={index} onClick={handleCardClick}>
+    <div
+      className="mainpage-card"
+      key={index}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <div className="mainpage-card-image-wrapper">
         <img
           src={data.main_image || mockImage}

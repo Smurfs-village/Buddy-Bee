@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAuthToken } from "../utils/token";
 
 const API_BASE_URL = "http://localhost:5001/api";
 
@@ -16,6 +17,9 @@ export const login = async (email, password) => {
     email,
     password,
   });
+  const { token } = response.data;
+  localStorage.setItem("token", token);
+  setAuthToken(token);
   return response.data;
 };
 
@@ -35,4 +39,10 @@ export const checkNicknameAvailability = async nickname => {
     }
     throw new Error("Error checking nickname availability");
   }
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  setAuthToken(null);
+  window.location.href = "/login"; // 로그인 페이지로 리다이렉트
 };

@@ -40,7 +40,7 @@ exports.login = (req, res) => {
         return res.status(401).send("Invalid email or password");
       }
       const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "2h",
       });
       res.status(200).json({ token, userId: user.id, nickname: user.username });
     } catch (error) {

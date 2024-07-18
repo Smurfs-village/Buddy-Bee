@@ -60,6 +60,9 @@
 }
 
 @media (max-width: 479px) {
+  .project-list-page-layout-grid {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  } /*글리치 방지용*/
   .project-list-page-layout-wrapper {
     box-sizing: border-box;
     border: 1px solid black;

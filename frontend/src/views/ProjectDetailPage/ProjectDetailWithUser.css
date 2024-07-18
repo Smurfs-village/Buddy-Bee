@@ -1,24 +1,4 @@
-/* 옵션선택 */
-.ProjectDetailPage-goods-wrap {
-  display: flex;
-  justify-content: space-between;
-}
-.ProjectDetailPage-goods {
-  font-size: 1.2rem;
-  padding: 0 0 15px 0;
-}
-
-.ProjectDetailPage-input {
-  display: flex;
-  align-items: center;
-}
-
-.ProjectDetailPage-input input {
-  width: 22px;
-  height: 22px;
-  border-radius: 5px;
-  border: 2px solid #000;
-}
+/*세부 css projectDetail.css 파일 참고*/
 
 .ProjectDetailPage-with-complete {
   padding: 30px 79px 30px 79px;
@@ -28,14 +8,4 @@
   font-size: 2rem;
   font-weight: 600;
   opacity: 0.5;
-}
-
-/*미디어 쿼리*/
-@media (min-width: 768px) and (max-width: 925px) {
-}
-
-@media (min-width: 480px) and (max-width: 767px) {
-}
-
-@media (max-width: 479px) {
 }

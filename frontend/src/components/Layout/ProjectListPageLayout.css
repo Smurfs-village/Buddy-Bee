@@ -62,19 +62,19 @@
     /* margin-top: 20px; */
   }
   .project-list-page-layout-line1 {
-    padding: 50px 0 20px 3px;
+    padding: 32px 0 12px 3px;
     display: flex;
     flex-direction: column;
   }
   .project-list-page-layout-wrapper h1 {
-    font-size: 25px;
+    font-size: 23px;
   }
   .project-list-page-layout-line1 button {
     background-color: white;
     border: solid black 1px;
-    padding: 5px 8px;
+    padding: 5px 7px;
     font-size: 14px;
     border-radius: 26px;
-    margin: 20px 4px 0 0;
+    margin: 24px 4px 0 0;
   }
 }

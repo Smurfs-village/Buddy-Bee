@@ -1,6 +1,7 @@
 const connection = require("../models/db");
 
 const extractFirstImage = content => {
+  if (!content) return null; // content가 undefined인 경우 처리
   const imgTag = content.match(/<img[^>]+src="([^">]+)"/);
   return imgTag ? imgTag[1] : null;
 };
@@ -432,15 +433,14 @@ exports.getProjectById = (req, res) => {
   connection.query(query, [projectId], (error, results) => {
     if (error) {
       console.error("Error fetching project:", error);
-      res.status(500).send("Server error");
-      return;
+      return res.status(500).send("Server error");
     }
 
     if (results.length === 0) {
-      res.status(404).send("Project not found");
-      return;
+      return res.status(404).send("Project not found");
     }
 
+    console.log("Fetched project data:", results[0]); // 디버깅용 로그
     res.status(200).json(results[0]);
   });
 };
@@ -826,5 +826,146 @@ exports.deleteProjectById = (req, res) => {
         });
       });
     });
+  });
+};
+
+exports.updateProject = (req, res) => {
+  const {
+    title,
+    content,
+    type,
+    targetAmount,
+    startDate,
+    endDate,
+    createdBy,
+    hashtags,
+    maxParticipants,
+    options,
+    accountInfo,
+  } = req.body;
+  const projectId = req.params.id;
+  const mainImage = extractFirstImage(content);
+
+  // 현재 날짜를 'YYYY-MM-DD' 형식으로 가져오기
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // 상태를 결정
+  let status;
+  if (startDate > currentDate) {
+    status = "pending";
+  } else if (startDate <= currentDate && endDate >= currentDate) {
+    status = "active";
+  } else if (endDate < currentDate) {
+    status = "completed";
+  }
+
+  // type이 null일 경우 기본값 설정
+  const projectType = type || "defaultType";
+
+  console.log("Updating project with data:", {
+    title,
+    content,
+    projectType,
+    targetAmount,
+    startDate,
+    endDate,
+    createdBy,
+    maxParticipants,
+    options,
+    mainImage,
+    accountInfo,
+    status,
+  });
+
+  const updateProjectQuery = `
+    UPDATE project 
+    SET title = ?, description = ?, type = ?, target_amount = ?, start_date = ?, end_date = ?, created_by = ?, max_participants = ?, options = ?, main_image = ?, account_info = ?, status = ?
+    WHERE id = ?
+  `;
+  const projectValues = [
+    title,
+    content,
+    projectType, // projectType으로 변경
+    targetAmount || null,
+    startDate,
+    endDate,
+    createdBy,
+    maxParticipants,
+    JSON.stringify(options),
+    mainImage,
+    accountInfo,
+    status,
+    projectId,
+  ];
+
+  connection.query(updateProjectQuery, projectValues, (error, results) => {
+    if (error) {
+      console.error("Error updating project:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    if (hashtags && hashtags.length > 0) {
+      const deleteHashtagQuery = `
+        DELETE FROM projecthashtag WHERE project_id = ?
+      `;
+
+      connection.query(deleteHashtagQuery, [projectId], error => {
+        if (error) {
+          console.error("Error deleting project hashtags:", error);
+          res.status(500).send("Server error");
+          return;
+        }
+
+        const hashtagQueries = hashtags
+          .map(
+            tag => `
+          INSERT INTO hashtag (name)
+          VALUES (?)
+          ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id)
+        `
+          )
+          .join("; ");
+
+        const hashtagValues = hashtags.flatMap(tag => [tag]);
+
+        connection.query(hashtagQueries, hashtagValues, (error, results) => {
+          if (error) {
+            console.error("Error inserting hashtags:", error);
+            res.status(500).send("Server error");
+            return;
+          }
+
+          const hashtagIds = Array.isArray(results)
+            ? results.map(result => result.insertId)
+            : [results.insertId];
+          const projectHashtagQueries = hashtagIds.map(
+            hashtagId => `
+            INSERT INTO projecthashtag (project_id, hashtag_id)
+            VALUES (?, ?)
+          `
+          );
+          const projectHashtagValues = hashtagIds.map(hashtagId => [
+            projectId,
+            hashtagId,
+          ]);
+
+          connection.query(
+            projectHashtagQueries.join("; "),
+            [].concat(...projectHashtagValues),
+            error => {
+              if (error) {
+                console.error("Error inserting project hashtags:", error);
+                res.status(500).send("Server error");
+                return;
+              }
+              res.status(200).json({ message: "Project updated", projectId });
+            }
+          );
+        });
+      });
+    } else {
+      res.status(200).json({ message: "Project updated", projectId });
+    }
   });
 };

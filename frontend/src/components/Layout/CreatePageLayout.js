@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import "./CreatePageLayout.css";
 import PageLayout from "./PageLayout";
@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Editor from "../Common/Editor";
 import moment from "moment";
-import { useAuth } from "../../contexts/AuthContext"; // useAuth import
+import { useAuth } from "../../contexts/AuthContext";
 import addIcon from "../../img/create_icon.svg";
 
 const handleGlobalError = event => {
@@ -26,9 +26,9 @@ const handleGlobalError = event => {
 
 window.addEventListener("error", handleGlobalError);
 
-const CreatePageLayout = ({ children, type }) => {
+const CreatePageLayout = ({ children, type: initialType }) => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(""); // 빈 문자열로 초기화
   const [hashtag, setHashtag] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [startDate, setStartDate] = useState(null);
@@ -41,9 +41,39 @@ const CreatePageLayout = ({ children, type }) => {
   const [mainImage, setMainImage] = useState("");
   const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456");
   const [isEditingAccount, setIsEditingAccount] = useState(false);
+  const [type, setType] = useState(initialType || "defaultType"); // 수정된 부분
 
   const navigate = useNavigate();
-  const { user } = useAuth(); // 현재 사용자 정보 가져오기
+  const { user } = useAuth();
+  const { id: projectId } = useParams();
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/with-author`
+        );
+        const projectData = response.data;
+        setTitle(projectData.title);
+        setContent(projectData.description || ""); // null일 경우 빈 문자열로 설정
+        setStartDate(moment(projectData.start_date).toDate());
+        setEndDate(moment(projectData.end_date).toDate());
+        setMaxParticipants(projectData.max_participants);
+        setTargetAmount(projectData.target_amount);
+        setOptions(projectData.options ? projectData.options : []);
+        setMainImage(projectData.main_image);
+        setHashtags(projectData.hashtags ? projectData.hashtags : []);
+        setAccountInfo(projectData.account_info);
+        setType(projectData.type || "defaultType"); // type 필드 설정
+        console.log("Fetched project data:", projectData); // 디버깅용 로그
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
+
+    fetchProject();
+  }, [projectId]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -55,36 +85,53 @@ const CreatePageLayout = ({ children, type }) => {
       ? moment(endDate).format("YYYY-MM-DD")
       : null;
 
+    console.log("Submitting project data with type:", type); // 디버깅용 로그
+
     const projectData = {
       title,
       content,
-      type,
+      type, // Ensure type is included
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       maxParticipants,
       targetAmount: targetAmount === "" ? null : targetAmount,
       options,
       mainImage,
-      createdBy: user ? user.id : null, // 현재 사용자의 ID 사용
+      createdBy: user ? user.id : null,
       hashtags,
       accountInfo,
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/projects",
-        projectData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // 인증 토큰 추가
-          },
-        }
-      );
-      console.log("Project created:", response.data);
-      const projectId = response.data.projectId;
-      navigate(`/projects/${projectId}`);
+      if (projectId) {
+        // Update existing project
+        await axios.put(
+          `http://localhost:5001/api/projects/${projectId}`,
+          projectData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        navigate(`/projects/${projectId}`);
+      } else {
+        // Create new project
+        const response = await axios.post(
+          "http://localhost:5001/api/projects",
+          projectData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log("Project created:", response.data);
+        const newProjectId = response.data.projectId;
+        navigate(`/projects/${newProjectId}`);
+      }
     } catch (error) {
-      console.error("Error creating project:", error);
+      console.error("Error saving project:", error);
     }
   };
 
@@ -402,7 +449,9 @@ const CreatePageLayout = ({ children, type }) => {
               </div>
 
               <button type="submit" className="createpage-submit-button">
-                <span>프로젝트 등록하기</span>
+                <span>
+                  {projectId ? "프로젝트 수정하기" : "프로젝트 등록하기"}
+                </span>
               </button>
             </form>
             {children}

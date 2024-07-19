@@ -21,8 +21,11 @@ const ProjectListPageLayout = () => {
     const fetchProjects = async () => {
       try {
         const query = new URLSearchParams(location.search).get("query");
-        // 검색어 입력했을 때 결과를 보여줍니다.
-        setTitle(`${query} 검색결과`);
+        if (query) {
+          setTitle(`${query} 검색결과`);
+        } else {
+          setTitle("전체");
+        }
         const response = query
           ? await axios.get(
               `http://localhost:5001/api/projects/search?query=${query}`
@@ -58,18 +61,14 @@ const ProjectListPageLayout = () => {
 
   useEffect(() => {
     switch (filterItem) {
-      case "with": {
+      case "with":
         setTitle("버디비_동행");
         break;
-      }
-      case "funding": {
+      case "funding":
         setTitle("버디비_펀딩");
         break;
-      }
-      default: {
+      default:
         setTitle("전체");
-        break;
-      }
     }
   }, [filterItem]);
 
@@ -89,7 +88,11 @@ const ProjectListPageLayout = () => {
   };
 
   return (
-    <div className="project-list-page-layout">
+    <div
+      className={`project-list-page-layout ${
+        currentItems.length <= 2 ? "few-items" : ""
+      }`}
+    >
       <BackGroundGrid>
         <SubNav setFilterItem={setFilterItem} filterItem={filterItem} />
         <PageLayout>

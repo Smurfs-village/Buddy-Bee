@@ -13,6 +13,7 @@ import DetailHashtag from "./DetailHashtag";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import "./ProjectDetailWithUser.css";
+import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
 const ProjectDetailPageWithUser = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);

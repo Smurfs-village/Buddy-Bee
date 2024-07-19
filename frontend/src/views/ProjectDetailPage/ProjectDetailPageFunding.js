@@ -14,6 +14,7 @@ import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import DetailFundingStatus from "./DetailFundingStatus";
 import "./ProjectDetailPageFunding.css";
+import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
 const ProjectDetailPageFunding = ({ hashtags }) => {
   const [project, setProject] = useState(null);
@@ -134,7 +135,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
                             <span>({option.price}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
-                            <input type="number" name="optionCount" />
+                            <input type="number" name="optionCount" min="0" />
                             <span>개</span>
                           </div>
                         </div>

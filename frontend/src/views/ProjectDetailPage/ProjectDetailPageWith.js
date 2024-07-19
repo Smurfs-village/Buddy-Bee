@@ -12,8 +12,8 @@ import DetailContent from "./DetailContent";
 import DetailButton from "./DetailButton";
 import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
-
 import "./ProjectDetailPageWith.css";
+import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
 const ProjectDetailPageWith = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);

@@ -66,6 +66,18 @@
   border-radius: 5px;
   border: 2px solid #757575;
 }
+
+.ProjectDetailPage-input span {
+  padding-left: 12px;
+  font-size: 14pt;
+}
+
+.ProjectDetailPage-goods span {
+  color: #bbbbbb;
+  font-size: 16px;
+}
+
+/*옵션 선택 체크 박스*/
 .ProjectDetailPage-input input[type="checkbox"] {
   accent-color: black;
   width: 20px;
@@ -86,14 +98,7 @@
 .ProjectDetailPage-input input[type="number"]:hover {
   transform: scale(1.1);
 }
-.ProjectDetailPage-input span {
-  padding-left: 12px;
-  font-size: 14pt;
-}
 
-.ProjectDetailPage-goods span {
-  color: #a3a3a3;
-}
 /* 총 결제금액 */
 .ProjectDetailPage-total {
   margin-top: 80px;

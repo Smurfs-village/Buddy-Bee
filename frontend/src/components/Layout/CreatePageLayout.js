@@ -171,11 +171,19 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     setIsEditingAccount(false);
   };
 
+  //엔터 키를 눌렀을 때 해시태그 추가
   const handleHashtagKeyPress = (event) => {
-    //엔터 키를 눌렀을 때 해시태그 추가
     if (event.key === "Enter") {
       event.preventDefault(); //폼 제출 방지
       addHashtag();
+    }
+  };
+
+  //엔터 키를 눌렀을 때 옵션 추가
+  const handleOptionKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addOption();
     }
   };
 
@@ -226,7 +234,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                     type="text"
                     value={hashtag}
                     onChange={(e) => setHashtag(e.target.value)}
-                    onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
+                    onKeyDown={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
                   <div className="createpage-char-wrapper">
@@ -331,6 +339,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         type="text"
                         value={optionName}
                         onChange={(e) => setOptionName(e.target.value)}
+                        onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>
                     <div className="input-wrapper">
@@ -339,6 +348,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         type="text"
                         value={optionPrice}
                         onChange={(e) => setOptionPrice(e.target.value)}
+                        onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>
 

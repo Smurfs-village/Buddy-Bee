@@ -157,6 +157,9 @@
   height: 16px; /* 적절한 크기로 조정 */
   cursor: pointer;
 }
+.pen-icon:hover {
+  transform: scale(1.2);
+}
 
 .MyProfile_label_with_pen,
 .pen-icon,

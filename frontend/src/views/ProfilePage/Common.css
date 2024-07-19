@@ -67,6 +67,7 @@
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box {
+  cursor: pointer;
   display: flex;
   border: 2px solid black;
   border-radius: 20px;
@@ -75,6 +76,7 @@
 }
 
 .MyPosts_ParticipatedProjects_main_right_finishedProject_box {
+  cursor: pointer;
   display: flex;
   border: 2px solid black;
   border-radius: 20px;
@@ -145,7 +147,9 @@
 
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn {
   background-color: white;
-  opacity: 1;
+}
+.MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn:hover {
+  transform: scale(1.05);
 }
 
 /* Pagination */

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import "./DetailFundingStatus.css";
 import bee_yellow from "../../img/bee_yellow.svg";
@@ -6,6 +6,7 @@ import bee_yellow from "../../img/bee_yellow.svg";
 const DetailFundingStatus = ({ projectId }) => {
   const [targetAmount, setTargetAmount] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(0);
+  const barRef = useRef(null);
 
   useEffect(() => {
     const fetchFundingStatus = async () => {
@@ -25,6 +26,21 @@ const DetailFundingStatus = ({ projectId }) => {
 
   const achievementRate = ((currentAmount / targetAmount) * 100).toFixed(2);
 
+  // Get the width of the status bar
+  const [barWidth, setBarWidth] = useState(0);
+
+  useEffect(() => {
+    const updateBarWidth = () => {
+      if (barRef.current) {
+        setBarWidth(barRef.current.offsetWidth);
+      }
+    };
+
+    updateBarWidth();
+    window.addEventListener("resize", updateBarWidth);
+    return () => window.removeEventListener("resize", updateBarWidth);
+  }, []);
+
   return (
     <div className="ProjectDetailPage-funding-wrap">
       <div className="ProjectDetailPage-funding">
@@ -34,7 +50,7 @@ const DetailFundingStatus = ({ projectId }) => {
         </div>
         <div className="ProjectDetailPage-status">
           <div className="ProjectDetailPage-status-bar">
-            <div className="ProjectDetailPage-status-bar-bg">
+            <div className="ProjectDetailPage-status-bar-bg" ref={barRef}>
               <div
                 className="ProjectDetailPage-status-bar-bee"
                 style={{ width: `${achievementRate}%` }}
@@ -43,6 +59,11 @@ const DetailFundingStatus = ({ projectId }) => {
                   src={bee_yellow}
                   alt="bee_yellow"
                   className="ProjectDetailPage-status-icon"
+                  style={{
+                    transform: `translateX(${
+                      (barWidth * achievementRate) / 100 - 17
+                    }px)`,
+                  }}
                 />
               </div>
             </div>

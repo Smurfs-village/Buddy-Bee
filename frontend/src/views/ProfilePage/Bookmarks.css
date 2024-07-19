@@ -23,6 +23,7 @@
   border-bottom: 2px solid black;
   flex: 1;
   position: relative;
+  opacity: 0.8;
 }
 
 .Bookmarks_main_right_container_box_text_wrapper {

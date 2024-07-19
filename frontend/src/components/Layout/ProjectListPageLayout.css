@@ -50,7 +50,32 @@
   background-color: black;
   color: white;
 }
+.project-list-page-layout.few-items .common-card {
+  width: 301px;
+}
 
+.project-list-page-layout.few-items .project-list-page-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(301px, 301px));
+  justify-content: start; /* 왼쪽 정렬 */
+  gap: 30px; /* 카드 사이의 간격 조정 */
+}
+.project-list-page-layout.single-item .project-list-page-layout-grid {
+  display: grid;
+  grid-template-columns: 301px;
+  justify-content: start;
+  gap: 30px;
+}
+@media (max-width: 821px) {
+  .project-list-page-layout.few-items .common-card {
+    width: 100%;
+  }
+  .project-list-page-layout.few-items .project-list-page-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 30px 5px;
+  }
+}
 /* 미디어쿼리_ media query */
 @media (min-width: 762px) and (max-width: 767px) {
   /*중간에 글리치 제거용*/

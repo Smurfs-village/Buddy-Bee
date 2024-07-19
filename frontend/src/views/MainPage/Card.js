@@ -24,7 +24,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
       let totalWidth = 0;
       const hashtagsElements = Array.from(hashtagsRef.current.children);
 
-      hashtagsElements.forEach(tag => {
+      hashtagsElements.forEach((tag) => {
         totalWidth += tag.offsetWidth + 5;
         if (totalWidth > containerWidth) {
           tag.style.display = "none";
@@ -93,7 +93,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     };
   }, [data.id, user]);
 
-  const stripHtmlTags = html => {
+  const stripHtmlTags = (html) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
     return tempDiv.textContent || tempDiv.innerText || "";
@@ -105,12 +105,12 @@ const Card = ({ data, index, type, toggleScrap }) => {
     }
   };
 
-  const handleMouseDown = e => {
+  const handleMouseDown = (e) => {
     startPos.current = { x: e.clientX, y: e.clientY };
     isDragging.current = false;
   };
 
-  const handleMouseUp = e => {
+  const handleMouseUp = (e) => {
     const endPos = { x: e.clientX, y: e.clientY };
     const distance = Math.sqrt(
       Math.pow(endPos.x - startPos.current.x, 2) +
@@ -125,7 +125,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     }
   };
 
-  const handleHoneyClick = async e => {
+  const handleHoneyClick = async (e) => {
     e.stopPropagation();
     if (!user) {
       console.error("User is not authenticated");
@@ -185,8 +185,8 @@ const Card = ({ data, index, type, toggleScrap }) => {
           alt={isHoney ? "scrap_yes" : "scrap_none"}
           className="mainpage-scrap-icon"
           onClick={handleHoneyClick}
-          onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
-          onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          onMouseDown={(e) => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          onMouseUp={(e) => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
         />
       </div>
       <div className="mainpage-card-content">

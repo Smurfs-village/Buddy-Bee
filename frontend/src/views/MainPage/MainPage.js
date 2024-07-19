@@ -94,14 +94,22 @@ const MainPage = () => {
     }
   };
 
-  // Intersection Observer를 설정하여 요소가 화면에 들어올 때 애니메이션 추가
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate");
+          if (
+            entry.target.classList.contains("fade-in-left") ||
+            entry.target.classList.contains("fade-in-right")
+          ) {
+            setTimeout(() => {
+              entry.target.classList.add("delay-animate");
+            }, 1000); // 딜레이 시간을 1초로 설정
+          }
         } else {
           entry.target.classList.remove("animate");
+          entry.target.classList.remove("delay-animate");
         }
       });
     });
@@ -123,10 +131,10 @@ const MainPage = () => {
   return (
     <Layout>
       <div className="mainpage-main-page">
-        <div className="mainpage-main-section fade-in-up">
-          <div className="mainpage-left-section fade-in-up">
+        <div className="mainpage-main-section">
+          <div className="mainpage-left-section">
             <div>
-              <div className="mainpage-left_bee_icon fade-in-up">
+              <div className="mainpage-left_bee_icon">
                 <div>
                   <h1 className="mainpage-h1_buddy fade-in-up">BUDDY </h1>
                   <h1 className="mainpage-h1_bee fade-in-up">BEE</h1>
@@ -134,7 +142,7 @@ const MainPage = () => {
                 <img
                   src={header_icon}
                   alt="Header Icon"
-                  className="mainpage-header-icon fade-in-right" // 오른쪽에서 왼쪽으로 등장
+                  className="mainpage-header-icon fade-in-right icon"
                 />
               </div>
 
@@ -145,9 +153,9 @@ const MainPage = () => {
                 소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
               </p>
             </div>
-            <div className="mainpage-button-container fade-in-up">
+            <div className="mainpage-button-container">
               <Link to="/projects?sort=popularity">
-                <button className="mainpage-main-button">
+                <button className="mainpage-main-button fade-in-up">
                   Find Buddy <p>동행구하기</p>
                   <div className="mainpage-btn-arrow">
                     <img
@@ -159,7 +167,7 @@ const MainPage = () => {
                 </button>
               </Link>
               <Link to="/projects?sort=popularity">
-                <button className="mainpage-main-button">
+                <button className="mainpage-main-button fade-in-up">
                   Find Funding <p>펀딩구하기</p>
                   <div className="mainpage-btn-arrow">
                     <img
@@ -172,13 +180,13 @@ const MainPage = () => {
               </Link>
             </div>
           </div>
-          <div className="mainpage-right-section fade-in-up">
+          <div className="mainpage-right-section">
             <MatterComponent />
           </div>
         </div>
-        <div className="mainpage-text-container fade-in-up">
+        <div className="mainpage-text-container">
           <div className="mainpage-text-up-section">
-            <div className="mainpage-text-section fade-in-up">
+            <div className="mainpage-text-section">
               <h2 className="fade-in-up">Be My Buddy!</h2>
               <h2 className="fade-in-up">
                 우리...진실게임 하자. 친해지고 싶은 버디비 있어?
@@ -193,24 +201,24 @@ const MainPage = () => {
               <img
                 src={section1_flower}
                 alt="Flower"
-                className="mainpage-flower-icon fade-in-left" // 왼쪽에서 오른쪽으로 등장
+                className="mainpage-flower-icon fade-in-left icon"
               />
               <img
                 src={section1_cloud}
                 alt="Cloud"
-                className="mainpage-cloud-icon fade-in-left" // 왼쪽에서 오른쪽으로 등장
+                className="mainpage-cloud-icon fade-in-left icon"
               />
               <img
                 src={section1_bee}
                 alt="Bee"
-                className="mainpage-bee-icon fade-in-right" // 오른쪽에서 왼쪽으로 등장
+                className="mainpage-bee-icon fade-in-right icon"
               />
             </div>
           </div>
         </div>
-        <div className="mainpage-recruitment-section fade-in-up">
+        <div className="mainpage-recruitment-section">
           <h2 className="fade-in-up">#동행 모집</h2>
-          <Slider {...settings}>
+          <Slider {...settings} className="fade-in-up">
             {recruitmentCards.map((data, index) => (
               <Card
                 key={index}
@@ -223,9 +231,9 @@ const MainPage = () => {
             ))}
           </Slider>
         </div>
-        <div className="mainpage-funding-section fade-in-up">
+        <div className="mainpage-funding-section">
           <h2 className="fade-in-up">#펀딩 모집</h2>
-          <Slider {...settings}>
+          <Slider {...settings} className="fade-in-up">
             {fundingCards.map((data, index) => (
               <Card
                 key={index}

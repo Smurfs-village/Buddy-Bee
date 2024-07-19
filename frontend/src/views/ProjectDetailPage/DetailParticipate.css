@@ -20,20 +20,17 @@
 }
 
 .ProjectDetailPage-participate-btn button {
-  width: 60px;
-  height: 37px;
-  border-radius: 20px;
+  padding: 5px 12px;
+  border-radius: 26px;
   border: 2px solid black;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 0.9rem;
   font-weight: bold;
   transition: 0.2s ease;
 }
 
 .ProjectDetailPage-modify {
   background-color: #fff;
-
-  margin-right: 1px;
 }
 
 .ProjectDetailPage-delete {

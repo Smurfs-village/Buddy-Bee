@@ -10,15 +10,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
 }
 
 .ProjectDetailPage-like img {
   width: 42px;
   height: 43px;
+  margin-bottom: 2px;
+  transition: 0.2s ease;
 }
 .ProjectDetailPage-like span {
-  margin-right: 2px;
+  margin-right: 10px;
   /* margin-top: 1px; */
 }
 
@@ -43,12 +45,17 @@
 .ProjectDetailPage-share img {
   width: 30px;
   height: 30px;
+  transition: 0.2s ease;
 }
 
 .ProjectDetailPage-share span {
   margin-right: 2px;
 }
 
+.ProjectDetailPage-like img:hover,
+.ProjectDetailPage-share img:hover {
+  transform: scale(1.15);
+}
 /* 미디어쿼리_ media query */
 @media (min-width: 768px) and (max-width: 1024px) {
 }

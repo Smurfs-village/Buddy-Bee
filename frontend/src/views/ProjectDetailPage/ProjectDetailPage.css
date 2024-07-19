@@ -70,6 +70,7 @@
   accent-color: black;
   width: 20px;
   height: 20px;
+  transition: 0.2s ease;
 }
 .ProjectDetailPage-input input[type="number"] {
   accent-color: black;
@@ -78,6 +79,12 @@
   /* height: 20px; */
   margin-bottom: 3px;
   padding: 1px 0 0 5px;
+  transition: 0.1s ease;
+}
+
+.ProjectDetailPage-input input[type="checkbox"]:hover,
+.ProjectDetailPage-input input[type="number"]:hover {
+  transform: scale(1.1);
 }
 .ProjectDetailPage-input span {
   padding-left: 12px;
@@ -114,6 +121,11 @@
   font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.ProjectDetailPage-click-btn:hover {
+  transform: scale(1.05);
 }
 
 /*미디어 쿼리*/

@@ -14,11 +14,9 @@ const Card = ({
   status,
   scrapState,
   onClickScrapButton,
-  onCardClick, // 추가
+  onCardClick,
 }) => (
   <div className="Bookmarks_main_right_container_box" onClick={onCardClick}>
-    {" "}
-    {/* 추가 */}
     <div
       className="Bookmarks_main_right_container_box_img_wrapper"
       style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
@@ -49,19 +47,20 @@ const FinishedProject = ({
   status,
   scrapState,
   onClickScrapButton,
-  onCardClick, // 추가
+  onCardClick,
 }) => (
   <div
     className="Bookmarks_main_right_container_box Bookmarks_finishedProject_container"
     onClick={onCardClick}
   >
-    {" "}
-    {/* 추가 */}
     <div
       className="Bookmarks_main_right_container_box_img_wrapper Bookmarks_finishedProjectImg"
       style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
     >
-      <div className="Bookmarks_honeyPot_img_wrapper">
+      <div
+        className="Bookmarks_honeyPot_img_wrapper"
+        onClick={e => e.stopPropagation()}
+      >
         <img
           alt="scrap"
           src={scrapState ? scrap_yes : scrap_none}
@@ -86,7 +85,7 @@ const MainRightContainer = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [finishedBookmarks, setFinishedBookmarks] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const navigate = useNavigate(); // 추가
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookmarkedProjects = async () => {
@@ -99,11 +98,10 @@ const MainRightContainer = () => {
             },
           }
         );
-        console.log("Fetched bookmarked projects:", response.data);
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setBookmarks(activeProjects.concat(pendingProjects) || []);
-        setFinishedBookmarks(finishedProjects || []);
+        setBookmarks([...activeProjects, ...pendingProjects]);
+        setFinishedBookmarks(finishedProjects);
       } catch (error) {
         console.error("Error fetching bookmarked projects:", error);
       }
@@ -114,7 +112,7 @@ const MainRightContainer = () => {
     }
   }, [user]);
 
-  const toggleBookmark = async (projectId, currentIndex, isFinished) => {
+  const toggleBookmark = async (projectId, globalIndex, isFinished) => {
     try {
       const response = await axios.post(
         `http://localhost:5001/api/projects/${projectId}/toggle-honey`,
@@ -129,13 +127,13 @@ const MainRightContainer = () => {
       if (response.status === 200 || response.status === 201) {
         if (isFinished) {
           const updatedFinishedBookmarks = [...finishedBookmarks];
-          updatedFinishedBookmarks[currentIndex].scrapState =
-            !updatedFinishedBookmarks[currentIndex].scrapState;
+          updatedFinishedBookmarks[globalIndex].scrapState =
+            !updatedFinishedBookmarks[globalIndex].scrapState;
           setFinishedBookmarks(updatedFinishedBookmarks);
         } else {
           const updatedBookmarks = [...bookmarks];
-          updatedBookmarks[currentIndex].scrapState =
-            !updatedBookmarks[currentIndex].scrapState;
+          updatedBookmarks[globalIndex].scrapState =
+            !updatedBookmarks[globalIndex].scrapState;
           setBookmarks(updatedBookmarks);
         }
       }
@@ -144,8 +142,8 @@ const MainRightContainer = () => {
     }
   };
 
-  const scrapStateHandler = (index, status, projectId, isFinished) => {
-    toggleBookmark(projectId, index, isFinished);
+  const scrapStateHandler = (globalIndex, status, projectId, isFinished) => {
+    toggleBookmark(projectId, globalIndex, isFinished);
   };
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
@@ -180,6 +178,7 @@ const MainRightContainer = () => {
       <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
       <div className="Bookmarks_main_right_container_cards_wrapper">
         {currentItems.map((project, index) => {
+          const globalIndex = indexOfFirstItem + index; // 전체 목록에서의 인덱스 계산
           const isFinished = project.status === "completed";
           return isFinished ? (
             <FinishedProject
@@ -190,9 +189,14 @@ const MainRightContainer = () => {
               scrapState={project.scrapState}
               onClickScrapButton={e => {
                 e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-                scrapStateHandler(index, project.status, project.id, true);
+                scrapStateHandler(
+                  globalIndex,
+                  project.status,
+                  project.id,
+                  true
+                );
               }}
-              onCardClick={() => onCardClick(project.id)} // 추가
+              onCardClick={() => onCardClick(project.id)}
             />
           ) : (
             <Card
@@ -203,9 +207,14 @@ const MainRightContainer = () => {
               scrapState={project.scrapState}
               onClickScrapButton={e => {
                 e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-                scrapStateHandler(index, project.status, project.id, false);
+                scrapStateHandler(
+                  globalIndex,
+                  project.status,
+                  project.id,
+                  false
+                );
               }}
-              onCardClick={() => onCardClick(project.id)} // 추가
+              onCardClick={() => onCardClick(project.id)}
             />
           );
         })}

@@ -150,16 +150,13 @@ const MainRightContainer = () => {
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const totalItemsCount = bookmarks.length + finishedBookmarks.length;
+  const allBookmarks = bookmarks.concat(finishedBookmarks);
+  const totalItemsCount = allBookmarks.length;
   const itemsCountPerPage = 10;
 
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-  const currentItems = bookmarks.slice(indexOfFirstItem, indexOfLastItem);
-  const currentFinishedItems = finishedBookmarks.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = allBookmarks.slice(indexOfFirstItem, indexOfLastItem);
 
   const getStatusText = status => {
     switch (status) {
@@ -182,34 +179,36 @@ const MainRightContainer = () => {
     <div className="Main_right_container">
       <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
       <div className="Bookmarks_main_right_container_cards_wrapper">
-        {currentItems.map((project, index) => (
-          <Card
-            key={project.id}
-            imgSrc={project.main_image}
-            projectName={project.title}
-            status={getStatusText(project.status)}
-            scrapState={project.scrapState}
-            onClickScrapButton={e => {
-              e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-              scrapStateHandler(index, project.status, project.id, false);
-            }}
-            onCardClick={() => onCardClick(project.id)} // 추가
-          />
-        ))}
-        {currentFinishedItems.map((project, index) => (
-          <FinishedProject
-            key={project.id}
-            imgSrc={project.main_image}
-            projectName={project.title}
-            status={getStatusText(project.status)}
-            scrapState={project.scrapState}
-            onClickScrapButton={e => {
-              e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-              scrapStateHandler(index, project.status, project.id, true);
-            }}
-            onCardClick={() => onCardClick(project.id)} // 추가
-          />
-        ))}
+        {currentItems.map((project, index) => {
+          const isFinished = project.status === "completed";
+          return isFinished ? (
+            <FinishedProject
+              key={project.id}
+              imgSrc={project.main_image}
+              projectName={project.title}
+              status={getStatusText(project.status)}
+              scrapState={project.scrapState}
+              onClickScrapButton={e => {
+                e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+                scrapStateHandler(index, project.status, project.id, true);
+              }}
+              onCardClick={() => onCardClick(project.id)} // 추가
+            />
+          ) : (
+            <Card
+              key={project.id}
+              imgSrc={project.main_image}
+              projectName={project.title}
+              status={getStatusText(project.status)}
+              scrapState={project.scrapState}
+              onClickScrapButton={e => {
+                e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+                scrapStateHandler(index, project.status, project.id, false);
+              }}
+              onCardClick={() => onCardClick(project.id)} // 추가
+            />
+          );
+        })}
       </div>
       <Pagination
         totalItemsCount={totalItemsCount}

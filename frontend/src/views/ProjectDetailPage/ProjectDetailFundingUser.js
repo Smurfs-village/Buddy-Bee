@@ -285,7 +285,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
               setPhone={setPhone}
             />
             <DetailAgree setAgreement={setAgreement} />
-            <DetailFundingStatus />
+            <DetailFundingStatus projectId={project.id} />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button

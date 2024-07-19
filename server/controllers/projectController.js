@@ -209,12 +209,46 @@ exports.checkParticipation = (req, res) => {
     res.status(200).json({ isParticipating });
   });
 };
+const updateProjectCurrentAmount = projectId => {
+  const query = `
+    SELECT SUM(total_price) AS totalAmount
+    FROM participant_details
+    WHERE participant_id IN (SELECT id FROM participant WHERE project_id = ?)
+  `;
 
+  connection.query(query, [projectId], (error, results) => {
+    if (error) {
+      console.error("Error calculating total amount:", error);
+      return;
+    }
+
+    const totalAmount = results[0].totalAmount || 0;
+
+    const updateQuery = `
+      UPDATE project
+      SET current_amount = ?
+      WHERE id = ?
+    `;
+
+    connection.query(updateQuery, [totalAmount, projectId], updateError => {
+      if (updateError) {
+        console.error("Error updating current amount:", updateError);
+      }
+    });
+  });
+};
 exports.participateInProject = (req, res) => {
   const projectId = req.params.id;
   const userId = req.user.userId;
-  const { selectedOptions, options, applicantName, email, phone, agreement } =
-    req.body;
+  const {
+    selectedOptions,
+    options,
+    applicantName,
+    email,
+    phone,
+    agreement,
+    totalPrice,
+  } = req.body;
 
   const checkQuery = `
     SELECT COUNT(*) as count
@@ -260,12 +294,9 @@ exports.participateInProject = (req, res) => {
           `;
 
           const insertDetailsTasks = [];
-          let totalPrice = 0;
 
           if (selectedOptions && selectedOptions.length > 0) {
             selectedOptions.forEach(option => {
-              const optionPrice = option.price * option.quantity;
-              totalPrice += optionPrice;
               insertDetailsTasks.push(
                 new Promise((resolve, reject) => {
                   connection.query(
@@ -273,8 +304,8 @@ exports.participateInProject = (req, res) => {
                     [
                       participantId,
                       userId,
-                      option.name,
-                      option.quantity,
+                      option,
+                      null,
                       applicantName,
                       email,
                       phone,
@@ -296,8 +327,6 @@ exports.participateInProject = (req, res) => {
 
           if (options && options.length > 0) {
             options.forEach(option => {
-              const optionPrice = option.price * option.quantity;
-              totalPrice += optionPrice;
               insertDetailsTasks.push(
                 new Promise((resolve, reject) => {
                   connection.query(
@@ -329,6 +358,7 @@ exports.participateInProject = (req, res) => {
           if (insertDetailsTasks.length > 0) {
             Promise.all(insertDetailsTasks)
               .then(() => {
+                updateProjectCurrentAmount(projectId); // 참가 시 current_amount 업데이트
                 res.status(200).send("Participation successful");
               })
               .catch(error => {
@@ -1022,6 +1052,8 @@ exports.cancelParticipation = (req, res) => {
                 res.status(500).send("Transaction commit error");
               });
             }
+            // 참가 취소 후 current_amount 업데이트
+            updateProjectCurrentAmount(projectId);
             console.log("Participation cancelled successfully");
             res.status(200).send("Participation cancelled successfully");
           });

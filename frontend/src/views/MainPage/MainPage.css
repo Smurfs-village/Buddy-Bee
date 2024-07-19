@@ -425,13 +425,11 @@ body {
   text-overflow: ellipsis;
   width: 80%; /* 필요한 너비에 맞게 조정 */
 }
-/* MainPage.css */
-
 /* 공통 애니메이션 설정 */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px); /* 이동 거리 증가 */
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -442,7 +440,7 @@ body {
 @keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateX(-150px); /* 이동 거리 증가 */
+    transform: translateX(-150px);
   }
   to {
     opacity: 1;
@@ -453,7 +451,7 @@ body {
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(150px); /* 이동 거리 증가 */
+    transform: translateX(150px);
   }
   to {
     opacity: 1;
@@ -465,41 +463,51 @@ body {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
-  transform: translateY(30px); /* 초기 위치 설정 */
+  transform: translateY(30px);
 }
 
 .fade-in-left {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
-  transform: translateX(-150px); /* 초기 위치 설정 */
+  transform: translateX(-150px);
 }
 
 .fade-in-right {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
-  transform: translateX(150px); /* 초기 위치 설정 */
+  transform: translateX(150px);
 }
 
 .animate.fade-in-up {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .animate.fade-in-left {
   visibility: visible;
   opacity: 1;
   transform: translateX(0);
+  animation: fadeInLeft 0.6s ease-out forwards;
 }
+
+/* .animate.delay-animate.fade-in-left {
+  animation-delay: 1s;
+} */
 
 .animate.fade-in-right {
   visibility: visible;
   opacity: 1;
   transform: translateX(0);
+  animation: fadeInRight 0.6s ease-out forwards;
 }
 
+/* .animate.delay-animate.fade-in-right {
+  animation-delay: 1s;
+} */
 /* 호버 효과 */
 .mainpage-main-button {
   transition: transform 0.3s ease; /* 호버 전환 효과 */

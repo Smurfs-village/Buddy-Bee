@@ -25,7 +25,7 @@ const DetailFundingStatus = () => {
             70 <span>% 달성중</span>
           </div>
           <div className="ProjectDetailPage-status-money">
-            9,999,999 <span>원</span>
+            목표 금액 9,999,999 <span>원</span>
           </div>
         </div>
       </div>

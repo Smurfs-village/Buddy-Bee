@@ -1,57 +1,103 @@
 /* 달성도 */
 .ProjectDetailPage-funding-wrap {
-    width: 100%;
-    margin-top: 95px;
+  width: 100%;
+  margin-top: 95px;
 }
 
 .ProjectDetailPage-funding {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .ProjectDetailPage-funding-title {
-    font-size: 1.4rem;
-    font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .ProjectDetailPage-money {
-    padding-top: 18px;
-    font-size: 3rem;
-    letter-spacing: 0.1rem;
-    padding-bottom: 12px;
+  padding-top: 12px;
+  font-size: 3rem;
+  letter-spacing: 0.1rem;
+  padding-bottom: 12px;
 }
 
 .ProjectDetailPage-status {
-    padding-top: 37px;
+  padding-top: 37px;
 }
 
 .ProjectDetailPage-status-bar {
-    width: 100%;
+  width: 100%;
 }
 
 .ProjectDetailPage-status-bar-bg {
-    height: 28px;
-    border: 2px solid #000;
-    border-radius: 5px;
-    background-color: #fff;
-    position: relative;
+  height: 28px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  position: relative;
 }
 
 .ProjectDetailPage-status-bar-bee {
-    position: absolute;
-    top: -7px;
-    left: -9px;
+  position: absolute;
+  top: -7px;
+  left: -9px;
 }
 
 .ProjectDetailPage-status-rate {
-    margin-top: 12px;
-    text-align: right;
-    font-weight: bold;
+  margin-top: 12px;
+  margin-right: 5px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .ProjectDetailPage-status-money {
-    margin-top: 7px;
-    text-align: right;
+  margin-top: 7px;
+  margin-right: 4px;
+  text-align: right;
+  /* font-weight: bold; */
+  color: #9b9b9b;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+}
+
+@media (max-width: 479px) {
+  /* 달성도 */
+  .ProjectDetailPage-funding-wrap {
+    width: 100%;
+    margin-top: 80px;
+  }
+
+  .ProjectDetailPage-funding {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ProjectDetailPage-funding-title {
+    font-size: 1rem;
     font-weight: bold;
-    color: #9b9b9b;
+  }
+
+  .ProjectDetailPage-agree-check div {
+    font-size: 0.9rem;
+  }
+
+  .ProjectDetailPage-money {
+    padding-top: 8px;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .ProjectDetailPage-status-rate {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  .ProjectDetailPage-status-money {
+    font-size: 14px;
+  }
 }

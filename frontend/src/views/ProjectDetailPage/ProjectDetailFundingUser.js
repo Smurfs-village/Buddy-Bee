@@ -16,6 +16,7 @@ import DetailAgree from "./DetailAgree";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import "./ProjectDetailFundingUser.css";
+import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
 const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [project, setProject] = useState(null);

@@ -21,7 +21,6 @@ const ProjectListPageLayout = () => {
     const fetchProjects = async () => {
       try {
         const query = new URLSearchParams(location.search).get("query");
-        // 검색어 입력했을 때 결과를 보여줍니다.
         setTitle(`${query} 검색결과`);
         const response = query
           ? await axios.get(
@@ -79,7 +78,7 @@ const ProjectListPageLayout = () => {
     setCards(updatedCards);
   };
 
-  const itemsCountPerPage = 25;
+  const itemsCountPerPage = 11;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
@@ -88,8 +87,15 @@ const ProjectListPageLayout = () => {
     setActivePage(pageNumber);
   };
 
+  const containerClassName = () => {
+    if (currentItems.length === 1)
+      return "project-list-page-layout single-item";
+    if (currentItems.length <= 2) return "project-list-page-layout few-items";
+    return "project-list-page-layout";
+  };
+
   return (
-    <div className="project-list-page-layout">
+    <div className={containerClassName()}>
       <BackGroundGrid>
         <SubNav setFilterItem={setFilterItem} filterItem={filterItem} />
         <PageLayout>

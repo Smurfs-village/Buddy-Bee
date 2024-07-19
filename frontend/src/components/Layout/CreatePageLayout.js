@@ -12,7 +12,7 @@ import moment from "moment";
 import { useAuth } from "../../contexts/AuthContext";
 import addIcon from "../../img/create_icon.svg";
 
-const handleGlobalError = event => {
+const handleGlobalError = (event) => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -75,7 +75,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     fetchProject();
   }, [projectId]);
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formattedStartDate = startDate
@@ -147,8 +147,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const removeHashtag = tag => {
-    setHashtags(hashtags.filter(t => t !== tag));
+  const removeHashtag = (tag) => {
+    setHashtags(hashtags.filter((t) => t !== tag));
   };
 
   const addOption = () => {
@@ -159,7 +159,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const removeOption = index => {
+  const removeOption = (index) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -169,6 +169,14 @@ const CreatePageLayout = ({ children, type: initialType }) => {
 
   const handleAccountSave = () => {
     setIsEditingAccount(false);
+  };
+
+  const handleHashtagKeyPress = (event) => {
+    //엔터 키를 눌렀을 때 해시태그 추가
+    if (event.key === "Enter") {
+      event.preventDefault(); //폼 제출 방지
+      addHashtag();
+    }
   };
 
   return (
@@ -195,7 +203,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   className="createpage-title-input"
                   type="text"
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="제목을 작성해주세요"
                 />
               </div>
@@ -217,7 +225,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={e => setHashtag(e.target.value)}
+                    onChange={(e) => setHashtag(e.target.value)}
+                    onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
                   <div className="createpage-char-wrapper">
@@ -267,7 +276,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={e => setAccountInfo(e.target.value)}
+                      onChange={(e) => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
@@ -321,7 +330,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <input
                         type="text"
                         value={optionName}
-                        onChange={e => setOptionName(e.target.value)}
+                        onChange={(e) => setOptionName(e.target.value)}
                       />
                     </div>
                     <div className="input-wrapper">
@@ -329,7 +338,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <input
                         type="text"
                         value={optionPrice}
-                        onChange={e => setOptionPrice(e.target.value)}
+                        onChange={(e) => setOptionPrice(e.target.value)}
                       />
                     </div>
 
@@ -387,7 +396,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             type="number"
                             min={1}
                             value={maxParticipants}
-                            onChange={e => setMaxParticipants(e.target.value)}
+                            onChange={(e) => setMaxParticipants(e.target.value)}
                             placeholder="모집 인원"
                           />
                         </div>
@@ -403,7 +412,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={e => setTargetAmount(e.target.value)}
+                              onChange={(e) => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                             />
                           </div>
@@ -427,7 +436,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
-                          onChange={date => setStartDate(date)}
+                          onChange={(date) => setStartDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />
@@ -438,7 +447,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}
-                          onChange={date => setEndDate(date)}
+                          onChange={(date) => setEndDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />

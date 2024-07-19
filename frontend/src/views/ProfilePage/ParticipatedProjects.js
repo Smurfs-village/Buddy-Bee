@@ -32,7 +32,7 @@ const Card = ({
       }`}
       style={{
         backgroundImage: `url(${imgSrc || mockImage})`,
-        opacity: status === "대기중" || status === "진행중" ? 0.5 : 1,
+        opacity: status === "대기중" || status === "진행중" ? 0.8 : 1,
       }}
     ></div>
     <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">

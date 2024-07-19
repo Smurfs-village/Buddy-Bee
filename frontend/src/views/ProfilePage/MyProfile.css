@@ -76,6 +76,10 @@
   object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
 }
 
+.MyProfile_main_right_container_profile_edit_img:hover {
+  transition: 2s ease;
+}
+
 .MyProfile_overlay {
   position: absolute;
   top: 0;

@@ -7,6 +7,8 @@ const DetailFundingStatus = ({ projectId }) => {
   const [targetAmount, setTargetAmount] = useState(0);
   const [currentAmount, setCurrentAmount] = useState(0);
   const barRef = useRef(null);
+  const [barWidth, setBarWidth] = useState(0);
+  const beeRef = useRef(null);
 
   useEffect(() => {
     const fetchFundingStatus = async () => {
@@ -26,9 +28,6 @@ const DetailFundingStatus = ({ projectId }) => {
 
   const achievementRate = ((currentAmount / targetAmount) * 100).toFixed(2);
 
-  // Get the width of the status bar
-  const [barWidth, setBarWidth] = useState(0);
-
   useEffect(() => {
     const updateBarWidth = () => {
       if (barRef.current) {
@@ -41,6 +40,29 @@ const DetailFundingStatus = ({ projectId }) => {
     return () => window.removeEventListener("resize", updateBarWidth);
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (barRef.current) {
+      observer.observe(barRef.current);
+    }
+
+    return () => {
+      if (barRef.current) {
+        observer.unobserve(barRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="ProjectDetailPage-funding-wrap">
       <div className="ProjectDetailPage-funding">
@@ -50,7 +72,11 @@ const DetailFundingStatus = ({ projectId }) => {
         </div>
         <div className="ProjectDetailPage-status">
           <div className="ProjectDetailPage-status-bar">
-            <div className="ProjectDetailPage-status-bar-bg" ref={barRef}>
+            <div
+              className="ProjectDetailPage-status-bar-bg"
+              ref={barRef}
+              style={{ position: "relative" }}
+            >
               <div
                 className="ProjectDetailPage-status-bar-bee"
                 style={{ width: `${achievementRate}%` }}
@@ -59,10 +85,12 @@ const DetailFundingStatus = ({ projectId }) => {
                   src={bee_yellow}
                   alt="bee_yellow"
                   className="ProjectDetailPage-status-icon"
+                  ref={beeRef}
                   style={{
                     transform: `translateX(${
                       (barWidth * achievementRate) / 100 - 17
                     }px)`,
+                    transition: "transform 2s ease-out",
                   }}
                 />
               </div>

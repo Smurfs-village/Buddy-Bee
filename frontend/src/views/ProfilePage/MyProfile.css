@@ -1,197 +1,204 @@
 .MyProfile_main_right_container_userInfo_wrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .MyProfile_input_box {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    /* 너비를 조정하여 이미지와 균형 맞추기 */
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  /* 너비를 조정하여 이미지와 균형 맞추기 */
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label {
-    font-weight: bold;
-    padding: 12px 0 0 0;
-    border-bottom: 1px solid black;
-    width: 100%;
-    white-space: nowrap;
+  font-weight: bold;
+  padding: 12px 0 0 0;
+  border-bottom: 1px solid black;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label input {
-    margin: 0 0 10px 0;
-    font-size: 15px;
+  margin: 0 0 10px 0;
+  font-size: 15px;
 }
 
 .MyProfile_contactInfo_label {
-    position: relative;
+  position: relative;
 }
 
 .MyProfile_nickname_input {
-    padding-left: 6px;
+  padding-left: 6px;
 }
 
 .MyProfile_certification_Btn {
-    background-color: black;
-    color: white;
-    border-radius: 20px;
-    padding: 8px;
-    position: absolute;
-    white-space: nowrap;
-    right: 0;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+  position: absolute;
+  white-space: nowrap;
+  right: 0;
 }
 
 .MyProfile_main_right_container_userInfo_input {
-    border: none;
-    outline: none;
-    padding-top: 10px;
-    position: relative;
-    text-align: center;
+  border: none;
+  outline: none;
+  padding-top: 10px;
+  position: relative;
+  text-align: center;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px solid black;
-    overflow: hidden; /* 둥근 래퍼에 이미지가 채워지도록 하기 위해 사용 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-sizing: border-box;
-    position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid black;
+  overflow: hidden; /* 둥근 래퍼에 이미지가 채워지도록 하기 위해 사용 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .MyProfile_main_right_container_profile_edit_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
 }
 
 .MyProfile_overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1; /* 항상 보이도록 설정 */
-    transition: opacity 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1; /* 항상 보이도록 설정 */
+  transition: opacity 0.3s;
 }
 
 .overlay-text {
-    color: white;
-    font-size: 14px;
+  color: white;
+  font-size: 14px;
 }
 
 .always-visible {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 .MyProfile_main_right_container_introductionLetterBox {
-    border: 1px dashed black;
-    border-radius: 18px;
-    box-sizing: border-box;
-    outline: none;
-    margin-top: 35px;
-    height: 240px;
-    padding: 20px; /* 텍스트 시작 위치 조정 */
-    font-size: 15px;
-    resize: none;
+  border: 1px dashed black;
+  border-radius: 18px;
+  box-sizing: border-box;
+  outline: none;
+  margin-top: 35px;
+  height: 240px;
+  padding: 20px; /* 텍스트 시작 위치 조정 */
+  font-size: 15px;
+  resize: none;
 }
 
 .MyProfile_main_right_container_introductionLetterBox::placeholder {
-    color: #888;
+  color: #888;
 }
 
 .MyProfile_main_right_container_btn_wrapper {
-    text-align: right;
-    margin-top: 31px;
+  text-align: right;
+  margin-top: 31px;
 }
 
 .MyProfile_main_right_container_btn {
-    cursor: pointer;
-    border-radius: 20px;
-    font-weight: 900;
-    font-size: 18px;
-    padding: 7px 20px;
-    margin-right: 5px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: 900;
+  font-size: 18px;
+  padding: 7px 20px;
+  margin-right: 5px;
+}
+
+.MyProfile_main_right_container_profile_edit_img_wrapper_inner:hover,
+.MyProfile_main_right_container_btn:hover,
+.MyProfile_certification_Btn:hover {
+  transform: scale(1.05);
 }
 
 .MyProfile_main_right_container_cancelBtn {
-    background-color: white;
+  background-color: white;
 }
 
 .MyProfile_main_right_container_saveBtn {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .MyProfile_label_with_pen {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .pen-icon {
-    position: absolute;
-    right: 10px;
-    width: 16px; /* 적절한 크기로 조정 */
-    height: 16px; /* 적절한 크기로 조정 */
-    cursor: pointer;
+  position: absolute;
+  right: 10px;
+  width: 16px; /* 적절한 크기로 조정 */
+  height: 16px; /* 적절한 크기로 조정 */
+  cursor: pointer;
 }
 
 .MyProfile_label_with_pen,
 .pen-icon,
 .MyProfile_main_right_container_saveBtn {
-    white-space: nowrap;
-    overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 550px) {
-    .MyProfile_main_right_container_userInfo_input {
-        font-size: 10px;
-    }
-    .MyProfile_main_right_container_userInfo_wrapper label,
-    .MyProfile_main_right_container_userInfo_wrapper label input,
-    .MyProfile_main_right_container_introductionLetterBox::placeholder {
-        font-size: 12px;
-    }
-    .MyProfile_main_right_container_introductionLetterBox {
-        padding: 15px;
-        font-size: 12px;
-    }
-    .MyProfile_certification_Btn,
-    .MyProfile_main_right_container_btn {
-        font-size: 12px;
-    }
-    .MyProfile_main_right_container_saveBtn {
-        margin: 0% 5% 1% 0%;
-    }
+  .MyProfile_main_right_container_userInfo_input {
+    font-size: 10px;
+  }
+  .MyProfile_main_right_container_userInfo_wrapper label,
+  .MyProfile_main_right_container_userInfo_wrapper label input,
+  .MyProfile_main_right_container_introductionLetterBox::placeholder {
+    font-size: 12px;
+  }
+  .MyProfile_main_right_container_introductionLetterBox {
+    padding: 15px;
+    font-size: 12px;
+  }
+  .MyProfile_certification_Btn,
+  .MyProfile_main_right_container_btn {
+    font-size: 12px;
+  }
+  .MyProfile_main_right_container_saveBtn {
+    margin: 0% 5% 1% 0%;
+  }
 }
 
 @media (max-width: 768px) {
-    .Main_right_container {
-        margin: 0px 10px;
-        border: 3px solid black;
-    }
+  .Main_right_container {
+    margin: 0px 10px;
+    border: 3px solid black;
+  }
 }
 
 @media (max-width: 1023px) {
-    .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
-        display: none;
-    }
-    .MyProfile_input_box {
-        width: 100%;
-    }
+  .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
+    display: none;
+  }
+  .MyProfile_input_box {
+    width: 100%;
+  }
 }

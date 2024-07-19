@@ -21,11 +21,7 @@ const ProjectListPageLayout = () => {
     const fetchProjects = async () => {
       try {
         const query = new URLSearchParams(location.search).get("query");
-        if (query) {
-          setTitle(`${query} 검색결과`);
-        } else {
-          setTitle("전체");
-        }
+        setTitle(`${query} 검색결과`);
         const response = query
           ? await axios.get(
               `http://localhost:5001/api/projects/search?query=${query}`
@@ -61,14 +57,18 @@ const ProjectListPageLayout = () => {
 
   useEffect(() => {
     switch (filterItem) {
-      case "with":
+      case "with": {
         setTitle("버디비_동행");
         break;
-      case "funding":
+      }
+      case "funding": {
         setTitle("버디비_펀딩");
         break;
-      default:
+      }
+      default: {
         setTitle("전체");
+        break;
+      }
     }
   }, [filterItem]);
 
@@ -78,7 +78,7 @@ const ProjectListPageLayout = () => {
     setCards(updatedCards);
   };
 
-  const itemsCountPerPage = 25;
+  const itemsCountPerPage = 11;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
@@ -87,12 +87,15 @@ const ProjectListPageLayout = () => {
     setActivePage(pageNumber);
   };
 
+  const containerClassName = () => {
+    if (currentItems.length === 1)
+      return "project-list-page-layout single-item";
+    if (currentItems.length <= 2) return "project-list-page-layout few-items";
+    return "project-list-page-layout";
+  };
+
   return (
-    <div
-      className={`project-list-page-layout ${
-        currentItems.length <= 2 ? "few-items" : ""
-      }`}
-    >
+    <div className={containerClassName()}>
       <BackGroundGrid>
         <SubNav setFilterItem={setFilterItem} filterItem={filterItem} />
         <PageLayout>

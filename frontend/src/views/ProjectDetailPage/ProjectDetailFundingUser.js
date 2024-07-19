@@ -34,6 +34,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [agreement, setAgreement] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -124,6 +125,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           email,
           phone,
           agreement,
+          totalPrice,
         },
         {
           headers: {
@@ -154,6 +156,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     email,
     phone,
     agreement,
+    totalPrice,
     navigate,
   ]);
 
@@ -161,6 +164,15 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     const newOptions = [...options];
     newOptions[index] = { ...newOptions[index], quantity: newQuantity };
     setOptions(newOptions);
+    calculateTotalPrice(newOptions); // 옵션이 변경될 때마다 총합 가격을 계산
+  };
+
+  const calculateTotalPrice = options => {
+    const total = options.reduce(
+      (total, option) => total + option.price * option.quantity,
+      0
+    );
+    setTotalPrice(total);
   };
 
   const initializeOptions = useCallback(() => {
@@ -262,11 +274,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                     총 결제금액
                   </div>
                   <div className="ProjectDetailPage-total-cash">
-                    {options.reduce(
-                      (total, option) => total + option.price * option.quantity,
-                      0
-                    )}{" "}
-                    <span>원</span>
+                    {totalPrice} <span>원</span>
                   </div>
                 </div>
               </div>

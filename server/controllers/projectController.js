@@ -255,14 +255,17 @@ exports.participateInProject = (req, res) => {
           const participantId = insertResults.insertId;
 
           const insertDetailsQuery = `
-            INSERT INTO participant_details (participant_id, user_id, option_selected, quantity, applicant_name, email, phone, agreement)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO participant_details (participant_id, user_id, option_selected, quantity, applicant_name, email, phone, agreement, total_price)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
           `;
 
           const insertDetailsTasks = [];
+          let totalPrice = 0;
 
           if (selectedOptions && selectedOptions.length > 0) {
             selectedOptions.forEach(option => {
+              const optionPrice = option.price * option.quantity;
+              totalPrice += optionPrice;
               insertDetailsTasks.push(
                 new Promise((resolve, reject) => {
                   connection.query(
@@ -270,12 +273,13 @@ exports.participateInProject = (req, res) => {
                     [
                       participantId,
                       userId,
-                      option,
-                      null,
+                      option.name,
+                      option.quantity,
                       applicantName,
                       email,
                       phone,
                       agreement,
+                      totalPrice,
                     ],
                     (detailsError, detailsResults) => {
                       if (detailsError) {
@@ -292,6 +296,8 @@ exports.participateInProject = (req, res) => {
 
           if (options && options.length > 0) {
             options.forEach(option => {
+              const optionPrice = option.price * option.quantity;
+              totalPrice += optionPrice;
               insertDetailsTasks.push(
                 new Promise((resolve, reject) => {
                   connection.query(
@@ -305,6 +311,7 @@ exports.participateInProject = (req, res) => {
                       email,
                       phone,
                       agreement,
+                      totalPrice,
                     ],
                     (detailsError, detailsResults) => {
                       if (detailsError) {

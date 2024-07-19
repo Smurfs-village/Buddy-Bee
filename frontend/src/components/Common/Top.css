@@ -1,84 +1,97 @@
 .MyProfile_main_top_container {
-    border-top-width: 2px;
-    border-bottom-width: 8px;
-    border-left-width: 2px;
-    border-right-width: 8px;
-    border-style: solid;
-    border-color: black;
-    border-radius: 15px;
-    margin: 10px;
-    background-color: white;
-    display: flex;
-    padding: 0 0 0 30px;
-    position: relative;
+  border-top-width: 2px;
+  border-bottom-width: 8px;
+  border-left-width: 2px;
+  border-right-width: 8px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+  margin: 10px;
+  background-color: white;
+  display: flex;
+  padding: 0 0 0 30px;
+  position: relative;
 }
 
 .MyProfile_main_top_container_title_desc_wrapper {
-    margin-left: 22px;
+  margin-left: 22px;
 }
 
 .MyProfile_cloud_img {
-    position: absolute;
-    right: -100px;
-    bottom: -90px;
-    z-index: 1;
+  position: absolute;
+  right: -100px;
+  bottom: -90px;
+  z-index: 1;
+}
+.MyProfile_cloud_img:hover {
+  cursor: pointer;
+  animation: cloudTransform 7s ease-in-out infinite;
+}
+
+@keyframes cloudTransform {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
 }
 
 .MyProfile_main_top_container_img_wrapper {
-    width: 100px; /* 적절한 크기로 조정 */
-    height: 100px; /* 적절한 크기로 조정 */
-    border-radius: 50%;
-    border: 2px solid black;
-    overflow: hidden; /* 둥근 래퍼에 이미지가 채워지도록 하기 위해 사용 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-sizing: border-box;
-    margin: 20px; /* 이미지 주위 여백 */
+  width: 100px; /* 적절한 크기로 조정 */
+  height: 100px; /* 적절한 크기로 조정 */
+  border-radius: 50%;
+  border: 2px solid black;
+  overflow: hidden; /* 둥근 래퍼에 이미지가 채워지도록 하기 위해 사용 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 20px; /* 이미지 주위 여백 */
 }
 
 .MyProfile_main_top_container_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
 }
 
 .MyProfile_main_top_container_title {
-    font-size: 30px;
-    font-weight: bold;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .MyProfile_main_top_container_desc {
-    transform: translateY(-10px);
-    font-size: 12px;
-    width: 190px;
+  transform: translateY(-10px);
+  font-size: 12px;
+  width: 190px;
 }
 
 @media (max-width: 767px) {
-    .MyProfile_main_top_container {
-        padding: 0;
-        border: 2px solid black;
-    }
-    .MyProfile_cloud_img {
-        display: none;
-    }
-    .MyProfile_main_top_container_img_wrapper {
-        flex: 1;
-        max-width: 100px;
-    }
-    .MyProfile_main_top_container_title {
-        padding-top: 10px;
-        font-size: 16px;
-        padding-bottom: 3%;
-    }
-    .MyProfile_main_top_container_title_desc_wrapper {
-        margin-left: 0;
-        padding-left: 5%;
-        width: 50%;
-    }
-    .MyProfile_main_top_container_desc {
-        width: 95%;
-        font-size: 12px;
-    }
+  .MyProfile_main_top_container {
+    padding: 0;
+    border: 2px solid black;
+  }
+  .MyProfile_cloud_img {
+    display: none;
+  }
+  .MyProfile_main_top_container_img_wrapper {
+    flex: 1;
+    max-width: 100px;
+  }
+  .MyProfile_main_top_container_title {
+    padding-top: 10px;
+    font-size: 16px;
+    padding-bottom: 3%;
+  }
+  .MyProfile_main_top_container_title_desc_wrapper {
+    margin-left: 0;
+    padding-left: 5%;
+    width: 50%;
+  }
+  .MyProfile_main_top_container_desc {
+    width: 95%;
+    font-size: 12px;
+  }
 }

@@ -94,33 +94,58 @@ const MainPage = () => {
     }
   };
 
+  // Intersection Observer를 설정하여 요소가 화면에 들어올 때 애니메이션 추가
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    });
+
+    const elements = document.querySelectorAll(
+      ".fade-in-up, .fade-in-left, .fade-in-right"
+    );
+    elements.forEach(element => {
+      observer.observe(element);
+    });
+
+    return () => {
+      elements.forEach(element => {
+        observer.unobserve(element);
+      });
+    };
+  }, []);
+
   return (
     <Layout>
       <div className="mainpage-main-page">
-        <div className="mainpage-main-section">
-          <div className="mainpage-left-section">
+        <div className="mainpage-main-section fade-in-up">
+          <div className="mainpage-left-section fade-in-up">
             <div>
-              <div className="mainpage-left_bee_icon">
+              <div className="mainpage-left_bee_icon fade-in-up">
                 <div>
-                  <h1 className="mainpage-h1_buddy">BUDDY </h1>
-                  <h1 className="mainpage-h1_bee">BEE</h1>
+                  <h1 className="mainpage-h1_buddy fade-in-up">BUDDY </h1>
+                  <h1 className="mainpage-h1_bee fade-in-up">BEE</h1>
                 </div>
                 <img
                   src={header_icon}
                   alt="Header Icon"
-                  className="mainpage-header-icon"
+                  className="mainpage-header-icon fade-in-right" // 오른쪽에서 왼쪽으로 등장
                 />
               </div>
 
-              <h2>Be My Buddy! </h2>
-              <p className="mainpage-left_p">
+              <h2 className="fade-in-up">Be My Buddy! </h2>
+              <p className="mainpage-left_p fade-in-up">
                 버디비(BuddyBee)는 같은 관심사를 가진 친구들과 함께 꿀벌처럼
                 협력하며 꿈을 이루어 나가는 곳이에요! 서로의 프로젝트를
                 소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
               </p>
             </div>
-            <div className="mainpage-button-container">
-              {/* Link to 추가 07.11 */}
+            <div className="mainpage-button-container fade-in-up">
               <Link to="/projects?sort=popularity">
                 <button className="mainpage-main-button">
                   Find Buddy <p>동행구하기</p>
@@ -128,7 +153,7 @@ const MainPage = () => {
                     <img
                       src={arrow_right}
                       alt="arrow_right"
-                      className="mainpage-arrow-icon"
+                      className="mainpage-arrow-icon fade-in-up"
                     />
                   </div>
                 </button>
@@ -140,24 +165,26 @@ const MainPage = () => {
                     <img
                       src={arrow_right}
                       alt="arrow_right"
-                      className="mainpage-arrow-icon"
+                      className="mainpage-arrow-icon fade-in-up"
                     />
                   </div>
                 </button>
               </Link>
             </div>
           </div>
-          <div className="mainpage-right-section">
+          <div className="mainpage-right-section fade-in-up">
             <MatterComponent />
           </div>
         </div>
-        <div className="mainpage-text-container">
+        <div className="mainpage-text-container fade-in-up">
           <div className="mainpage-text-up-section">
-            <div className="mainpage-text-section">
-              <h2>Be My Buddy!</h2>
-              <h2>우리...진실게임 하자. 친해지고 싶은 버디비 있어?</h2>
-              <h1>BUDDY BEE</h1>
-              <p>
+            <div className="mainpage-text-section fade-in-up">
+              <h2 className="fade-in-up">Be My Buddy!</h2>
+              <h2 className="fade-in-up">
+                우리...진실게임 하자. 친해지고 싶은 버디비 있어?
+              </h2>
+              <h1 className="fade-in-up">BUDDY BEE</h1>
+              <p className="fade-in-up">
                 Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
                 함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
                 있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요. Buddy Bee와
@@ -166,19 +193,23 @@ const MainPage = () => {
               <img
                 src={section1_flower}
                 alt="Flower"
-                className="mainpage-flower-icon"
+                className="mainpage-flower-icon fade-in-left" // 왼쪽에서 오른쪽으로 등장
               />
               <img
                 src={section1_cloud}
                 alt="Cloud"
-                className="mainpage-cloud-icon"
+                className="mainpage-cloud-icon fade-in-left" // 왼쪽에서 오른쪽으로 등장
               />
-              <img src={section1_bee} alt="Bee" className="mainpage-bee-icon" />
+              <img
+                src={section1_bee}
+                alt="Bee"
+                className="mainpage-bee-icon fade-in-right" // 오른쪽에서 왼쪽으로 등장
+              />
             </div>
           </div>
         </div>
-        <div className="mainpage-recruitment-section">
-          <h2>#동행 모집</h2>
+        <div className="mainpage-recruitment-section fade-in-up">
+          <h2 className="fade-in-up">#동행 모집</h2>
           <Slider {...settings}>
             {recruitmentCards.map((data, index) => (
               <Card
@@ -187,12 +218,13 @@ const MainPage = () => {
                 index={index}
                 type="recruitment"
                 toggleScrap={toggleScrap}
+                className="fade-in-up"
               />
             ))}
           </Slider>
         </div>
-        <div className="mainpage-funding-section">
-          <h2>#펀딩 모집</h2>
+        <div className="mainpage-funding-section fade-in-up">
+          <h2 className="fade-in-up">#펀딩 모집</h2>
           <Slider {...settings}>
             {fundingCards.map((data, index) => (
               <Card
@@ -201,16 +233,17 @@ const MainPage = () => {
                 index={index}
                 type="funding"
                 toggleScrap={toggleScrap}
+                className="fade-in-up"
               />
             ))}
           </Slider>
         </div>
-        <div className="mainpage-ranking-section">
-          <h2>현재 많은 버디비들이 보고 있어요!</h2>
-          <div className="mainpage-ranking-keywords">
+        <div className="mainpage-ranking-section fade-in-up">
+          <h2 className="fade-in-up">현재 많은 버디비들이 보고 있어요!</h2>
+          <div className="mainpage-ranking-keywords fade-in-up">
             {["버디", "버디버디", "멈머", "슈머", "현머", "서머"].map(
               (keyword, index) => (
-                <div key={index} className="mainpage-keyword">
+                <div key={index} className="mainpage-keyword fade-in-up">
                   {keyword}
                 </div>
               )

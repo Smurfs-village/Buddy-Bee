@@ -425,6 +425,100 @@ body {
   text-overflow: ellipsis;
   width: 80%; /* 필요한 너비에 맞게 조정 */
 }
+/* MainPage.css */
+
+/* 공통 애니메이션 설정 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* 이동 거리 증가 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-150px); /* 이동 거리 증가 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(150px); /* 이동 거리 증가 */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-up {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(30px); /* 초기 위치 설정 */
+}
+
+.fade-in-left {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateX(-150px); /* 초기 위치 설정 */
+}
+
+.fade-in-right {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateX(150px); /* 초기 위치 설정 */
+}
+
+.animate.fade-in-up {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate.fade-in-left {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate.fade-in-right {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 호버 효과 */
+.mainpage-main-button {
+  transition: transform 0.3s ease; /* 호버 전환 효과 */
+}
+
+.mainpage-main-button:hover {
+  transform: scale(1.05); /* 크기 확대 */
+}
+
+.mainpage-arrow-icon {
+  transition: width 0.3s ease; /* 부드러운 전환 */
+  width: 20px; /* 기본 너비 */
+  height: 19px;
+}
+
+.mainpage-main-button:hover .mainpage-arrow-icon {
+  width: 60px; /* 호버 시 길어지는 너비 */
+}
+
 /* 479px 이하 버전 */
 @media (max-width: 479px) {
   .mainpage-left-section {

@@ -15,12 +15,22 @@ const Card = ({
   scrapState,
   onClickScrapButton,
   onCardClick,
+  isFinished,
 }) => (
-  <div className="Bookmarks_main_right_container_box" onClick={onCardClick}>
+  <div
+    className={`Bookmarks_main_right_container_box ${
+      isFinished ? "Bookmarks_finishedProject_container" : ""
+    }`}
+    onClick={onCardClick}
+  >
     <div
-      className="Bookmarks_main_right_container_box_img_wrapper"
+      className={`Bookmarks_main_right_container_box_img_wrapper ${
+        isFinished ? "Bookmarks_finishedProjectImg" : ""
+      }`}
       style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
+      onClick={onCardClick}
     >
+      {isFinished && <div className="Bookmarks_overlay" />}
       <div className="Bookmarks_honeyPot_img_wrapper">
         <img
           alt="scrap"
@@ -41,49 +51,9 @@ const Card = ({
   </div>
 );
 
-const FinishedProject = ({
-  imgSrc,
-  projectName,
-  status,
-  scrapState,
-  onClickScrapButton,
-  onCardClick,
-}) => (
-  <div
-    className="Bookmarks_main_right_container_box Bookmarks_finishedProject_container"
-    onClick={onCardClick}
-  >
-    <div
-      className="Bookmarks_main_right_container_box_img_wrapper Bookmarks_finishedProjectImg"
-      style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
-    >
-      <div
-        className="Bookmarks_honeyPot_img_wrapper"
-        onClick={e => e.stopPropagation()}
-      >
-        <img
-          alt="scrap"
-          src={scrapState ? scrap_yes : scrap_none}
-          onClick={onClickScrapButton}
-          className="Bookmarks_honeyPot_img"
-        />
-      </div>
-    </div>
-    <div className="Bookmarks_main_right_container_box_text_wrapper Bookmarks_finishedProject_text_wrapper">
-      <div className="Bookmarks_main_right_container_box_status_wrapper">
-        {status}
-      </div>
-      <div className="Bookmarks_main_right_container_box_projectName_wrapper">
-        {projectName}
-      </div>
-    </div>
-  </div>
-);
-
 const MainRightContainer = () => {
   const { user } = useAuth();
   const [bookmarks, setBookmarks] = useState([]);
-  const [finishedBookmarks, setFinishedBookmarks] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
 
@@ -100,8 +70,11 @@ const MainRightContainer = () => {
         );
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setBookmarks([...activeProjects, ...pendingProjects]);
-        setFinishedBookmarks(finishedProjects);
+        setBookmarks([
+          ...activeProjects,
+          ...pendingProjects,
+          ...finishedProjects,
+        ]);
       } catch (error) {
         console.error("Error fetching bookmarked projects:", error);
       }
@@ -112,7 +85,7 @@ const MainRightContainer = () => {
     }
   }, [user]);
 
-  const toggleBookmark = async (projectId, globalIndex, isFinished) => {
+  const toggleBookmark = async (projectId, index) => {
     try {
       const response = await axios.post(
         `http://localhost:5001/api/projects/${projectId}/toggle-honey`,
@@ -125,36 +98,28 @@ const MainRightContainer = () => {
       );
 
       if (response.status === 200 || response.status === 201) {
-        if (isFinished) {
-          const updatedFinishedBookmarks = [...finishedBookmarks];
-          updatedFinishedBookmarks[globalIndex].scrapState =
-            !updatedFinishedBookmarks[globalIndex].scrapState;
-          setFinishedBookmarks(updatedFinishedBookmarks);
-        } else {
-          const updatedBookmarks = [...bookmarks];
-          updatedBookmarks[globalIndex].scrapState =
-            !updatedBookmarks[globalIndex].scrapState;
-          setBookmarks(updatedBookmarks);
-        }
+        const updatedBookmarks = [...bookmarks];
+        updatedBookmarks[index].scrapState =
+          !updatedBookmarks[index].scrapState;
+        setBookmarks(updatedBookmarks);
       }
     } catch (error) {
       console.error("Error toggling bookmark:", error);
     }
   };
 
-  const scrapStateHandler = (globalIndex, status, projectId, isFinished) => {
-    toggleBookmark(projectId, globalIndex, isFinished);
+  const scrapStateHandler = (index, projectId) => {
+    toggleBookmark(projectId, index);
   };
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const allBookmarks = bookmarks.concat(finishedBookmarks);
-  const totalItemsCount = allBookmarks.length;
+  const totalItemsCount = bookmarks.length;
   const itemsCountPerPage = 10;
 
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-  const currentItems = allBookmarks.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = bookmarks.slice(indexOfFirstItem, indexOfLastItem);
 
   const getStatusText = status => {
     switch (status) {
@@ -178,27 +143,9 @@ const MainRightContainer = () => {
       <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
       <div className="Bookmarks_main_right_container_cards_wrapper">
         {currentItems.map((project, index) => {
-          const globalIndex = indexOfFirstItem + index; // 전체 목록에서의 인덱스 계산
+          const globalIndex = indexOfFirstItem + index;
           const isFinished = project.status === "completed";
-          return isFinished ? (
-            <FinishedProject
-              key={project.id}
-              imgSrc={project.main_image}
-              projectName={project.title}
-              status={getStatusText(project.status)}
-              scrapState={project.scrapState}
-              onClickScrapButton={e => {
-                e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-                scrapStateHandler(
-                  globalIndex,
-                  project.status,
-                  project.id,
-                  true
-                );
-              }}
-              onCardClick={() => onCardClick(project.id)}
-            />
-          ) : (
+          return (
             <Card
               key={project.id}
               imgSrc={project.main_image}
@@ -206,15 +153,11 @@ const MainRightContainer = () => {
               status={getStatusText(project.status)}
               scrapState={project.scrapState}
               onClickScrapButton={e => {
-                e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-                scrapStateHandler(
-                  globalIndex,
-                  project.status,
-                  project.id,
-                  false
-                );
+                e.stopPropagation();
+                scrapStateHandler(globalIndex, project.id);
               }}
               onCardClick={() => onCardClick(project.id)}
+              isFinished={isFinished}
             />
           );
         })}

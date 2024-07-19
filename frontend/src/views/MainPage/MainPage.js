@@ -211,12 +211,12 @@ const MainPage = () => {
               <img
                 src={section1_cloud}
                 alt="Cloud"
-                className="mainpage-cloud-icon from-bounce"
+                className="mainpage-cloud-icon from-left"
               />
               <img
                 src={section1_bee}
                 alt="Bee"
-                className="mainpage-bee-icon from-bounce"
+                className="mainpage-bee-icon from-right"
               />
             </div>
           </div>

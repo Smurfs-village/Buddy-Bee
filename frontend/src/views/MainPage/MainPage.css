@@ -439,11 +439,9 @@ body {
 
 @keyframes fadeInLeft {
   from {
-    opacity: 0;
     transform: translateX(-150px);
   }
   to {
-    opacity: 1;
     transform: translateX(0);
   }
 }
@@ -453,7 +451,6 @@ body {
     transform: translateX(150px);
   }
   to {
-    opacity: 1;
     transform: translateX(0);
   }
 }
@@ -477,12 +474,29 @@ body {
   }
 }
 
-.from-right,
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.from-right,/*애니메이션 요소 기본 상태*/
 .from-left,
 .from-down,
 .from-bounce {
   opacity: 0;
   transform: translateY(0);
+}
+.from-bounce.fade-in-bounce,/*애니메이션 실행 후 보이도록 설정*/
+.from-left.fade-in-left,
+.from-right.fade-in-right,
+.from-down.fade-in-bounce {
+  opacity: 1;
 }
 
 .fade-in-up {
@@ -490,15 +504,24 @@ body {
 }
 
 .fade-in-left {
-  animation: fadeInLeft 1s 1s ease forwards;
+  animation: fadeInLeft 1s ease;
+  transition: 0.2s ease;
 }
 
 .fade-in-right {
-  animation: fadeInRight 0.7s 0.4s ease forwards;
+  animation: fadeInRight 0.7s ease;
+  transition: 0.2s ease;
 }
 
 .fade-in-bounce {
-  animation: fadeInBounce 1.2s ease forwards;
+  animation: fadeInBounce 1.2s ease;
+  transition: 0.2s ease;
+}
+
+.fade-in-bounce:hover,
+.fade-in-left:hover,
+.fade-in-right:hover {
+  transform: translateY(-20px);
 }
 
 /* 호버 효과 */

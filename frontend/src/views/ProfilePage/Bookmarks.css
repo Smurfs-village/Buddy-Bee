@@ -6,6 +6,7 @@
 }
 
 .Bookmarks_main_right_container_box {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   border: 2px solid black;

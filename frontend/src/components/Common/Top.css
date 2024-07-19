@@ -24,7 +24,8 @@
   z-index: 1;
 }
 .MyProfile_cloud_img:hover {
-  animation: cloudTransform 7s ease-in-out, cloudScale 7s ease-in-out;
+  cursor: pointer;
+  animation: cloudTransform 7s ease-in-out infinite;
 }
 
 @keyframes cloudTransform {

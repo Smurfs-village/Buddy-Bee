@@ -286,6 +286,11 @@ body {
   overflow: hidden;
   border: black solid 2px;
   box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.mainpage-card:hover {
+  transform: translateY(-50px);
 }
 
 .mainpage-card-line-1 {
@@ -341,6 +346,7 @@ body {
   flex-wrap: nowrap; /* 한 줄로 정렬 */
   overflow: hidden;
   max-width: 100%;
+  margin: 0;
 }
 
 .mainpage-hashtag {
@@ -352,10 +358,12 @@ body {
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
+  border: 1px solid #000;
 }
 
 .mainpage-hashtag.mainpage-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+  border: 1px solid #000;
 }
 
 .slick-slide {
@@ -368,11 +376,12 @@ body {
   padding-right: 20px;
 }
 .slick-list {
-  height: 500px;
+  height: 550px;
 }
 
 .slick-track {
   height: 500px;
+  margin-top: 50px;
 }
 
 .slick-prev,

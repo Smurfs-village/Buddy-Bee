@@ -60,14 +60,14 @@ const MainPage = () => {
         const projects = response.data;
 
         const activeProjects = projects.filter(
-          project => project.status === "active"
+          (project) => project.status === "active"
         );
 
         const recruitment = activeProjects.filter(
-          project => project.type === "with"
+          (project) => project.type === "with"
         );
         const funding = activeProjects.filter(
-          project => project.type === "funding"
+          (project) => project.type === "funding"
         );
 
         setRecruitmentCards(recruitment);
@@ -81,7 +81,7 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
-    const updateCards = cards => {
+    const updateCards = (cards) => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;
@@ -95,8 +95,8 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate");
           if (
@@ -117,16 +117,33 @@ const MainPage = () => {
     const elements = document.querySelectorAll(
       ".fade-in-up, .fade-in-left, .fade-in-right"
     );
-    elements.forEach(element => {
+    elements.forEach((element) => {
       observer.observe(element);
     });
 
     return () => {
-      elements.forEach(element => {
+      elements.forEach((element) => {
         observer.unobserve(element);
       });
     };
   }, []);
+
+  //card:hover
+  const OverflowToggle = () => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+
+    const divStyle = {
+      overflow: isHovered ? "visible" : "hidden",
+    };
+  };
 
   return (
     <Layout>

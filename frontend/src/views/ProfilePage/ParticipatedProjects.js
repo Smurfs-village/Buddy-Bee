@@ -62,9 +62,7 @@ const Card = ({
 
 const MainRightContainer = () => {
   const { user } = useAuth();
-  const [activeProjects, setActiveProjects] = useState([]);
-  const [finishedProjects, setFinishedProjects] = useState([]);
-  const [pendingProjects, setPendingProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate(); // 추가
 
@@ -82,15 +80,7 @@ const MainRightContainer = () => {
       );
 
       // 취소 성공 시 프론트엔드에서도 해당 프로젝트 제거
-      setActiveProjects(
-        activeProjects.filter(project => project.id !== targetId)
-      );
-      setFinishedProjects(
-        finishedProjects.filter(project => project.id !== targetId)
-      );
-      setPendingProjects(
-        pendingProjects.filter(project => project.id !== targetId)
-      );
+      setProjects(projects.filter(project => project.id !== targetId));
     } catch (error) {
       console.error("Error cancelling participation:", error);
     }
@@ -113,9 +103,11 @@ const MainRightContainer = () => {
         );
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setActiveProjects(activeProjects || []);
-        setFinishedProjects(finishedProjects || []);
-        setPendingProjects(pendingProjects || []);
+        setProjects([
+          ...pendingProjects,
+          ...activeProjects,
+          ...finishedProjects,
+        ]);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -128,24 +120,10 @@ const MainRightContainer = () => {
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const totalItemsCount =
-    activeProjects.length + finishedProjects.length + pendingProjects.length;
   const itemsCountPerPage = 4;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-
-  const currentPendingPosts = pendingProjects.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-  const currentActivePosts = activeProjects.slice(
-    indexOfFirstItem - pendingProjects.length,
-    indexOfLastItem - pendingProjects.length
-  );
-  const currentFinishedPosts = finishedProjects.slice(
-    indexOfFirstItem - pendingProjects.length - activeProjects.length,
-    indexOfLastItem - pendingProjects.length - activeProjects.length
-  );
+  const currentItems = projects.slice(indexOfFirstItem, indexOfLastItem);
 
   const getStatusText = status => {
     switch (status) {
@@ -164,31 +142,7 @@ const MainRightContainer = () => {
     <div className="Main_right_container">
       <p className="Main_right_container_writtenPosts">참여중인 프로젝트</p>
       <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-        {currentPendingPosts.map(project => (
-          <Card
-            key={project.id}
-            imgSrc={project.main_image}
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={getStatusText(project.status)}
-            onCancelParticipation={onCancelParticipation}
-            id={project.id}
-            onCardClick={onCardClick} // 추가
-          />
-        ))}
-        {currentActivePosts.map(project => (
-          <Card
-            key={project.id}
-            imgSrc={project.main_image}
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={getStatusText(project.status)}
-            onCancelParticipation={onCancelParticipation}
-            id={project.id}
-            onCardClick={onCardClick} // 추가
-          />
-        ))}
-        {currentFinishedPosts.map(project => (
+        {currentItems.map(project => (
           <Card
             key={project.id}
             imgSrc={project.main_image}
@@ -204,7 +158,7 @@ const MainRightContainer = () => {
       <FlowerImg />
       <Pagination
         activePage={activePage}
-        totalItemsCount={totalItemsCount}
+        totalItemsCount={projects.length}
         itemsCountPerPage={itemsCountPerPage}
         pageRangeDisplayed={5}
         handlePageChange={pageChangeHandler}

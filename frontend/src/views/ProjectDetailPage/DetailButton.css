@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
 }
 .ProjectDetailPage-like {
   display: flex;
@@ -61,7 +61,60 @@
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-like img {
+    margin-left: 5px;
+  }
+  .ProjectDetailPage-btn button {
+    width: 124px;
+    height: 64px;
+    font-size: 1rem;
+  }
+
+  .ProjectDetailPage-btn {
+    gap: 12px;
+  }
+
+  .ProjectDetailPage-like img {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 2px;
+  }
+  .ProjectDetailPage-share img {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 @media (max-width: 479px) {
+  .ProjectDetailPage-btn {
+    margin-top: 109px;
+    gap: 8px;
+  }
+  .ProjectDetailPage-like {
+    gap: 4px;
+  }
+
+  .ProjectDetailPage-like img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 2px;
+  }
+  .ProjectDetailPage-share img {
+    width: 20px;
+    height: 20px;
+  }
+  .ProjectDetailPage-like span {
+    margin-right: 4px;
+  }
+
+  .ProjectDetailPage-btn button {
+    width: 106px;
+    height: 52px;
+    font-size: 16px;
+    border: 1px solid #000;
+    transition: 0.2s ease;
+  }
+  .ProjectDetailPage-btn button:hover {
+    transform: scale(1.05);
+  }
 }

@@ -4,6 +4,24 @@
   border-radius: 50px;
   background-color: gray;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: bold;
   opacity: 0.5;
+  color: rgba(2, 2, 2, 0.733);
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-funding-complete {
+    padding: 24px 60px;
+    border: 2px solid #000;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-funding-complete {
+    padding: 20px 40px;
+    border: 2px solid #000;
+    font-size: 1.2rem;
+  }
 }

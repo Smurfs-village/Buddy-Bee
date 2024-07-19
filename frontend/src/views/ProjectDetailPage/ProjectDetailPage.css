@@ -69,11 +69,11 @@
 
 .ProjectDetailPage-input span {
   padding-left: 12px;
-  font-size: 14pt;
+  font-size: 16px;
 }
 
 .ProjectDetailPage-goods span {
-  color: #bbbbbb;
+  color: #d1d1d1;
   font-size: 16px;
 }
 
@@ -138,10 +138,19 @@
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-detail {
+    padding: 30px 0;
+  }
   .ProjectDetailPage-container {
     box-sizing: border-box;
     width: 82%;
     padding-bottom: 136px;
+  }
+
+  .ProjectDetailPage-click-btn {
+    padding: 24px 60px;
+    border: 2px solid #000;
+    font-size: 1.4rem;
   }
 }
 
@@ -151,12 +160,60 @@
   }
 
   .ProjectDetailPage-container {
-    width: 81%;
+    width: 82%;
   }
 
+  .ProjectDetailPage-detail {
+    width: 85%;
+    padding: 24px 5px 20px 5px;
+  }
   .ProjectDetailPage-detail-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .ProjectDetailPage-detail-day {
     font-size: 14px;
+  }
+
+  .ProjectDetailPage-goods {
+    font-size: 14px;
+    padding: 0 0 8px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ProjectDetailPage-goods span {
+    font-size: 13px;
+    word-break: keep-all;
+    margin-top: 2px;
+  }
+  .ProjectDetailPage-input span {
+    padding-left: 4px;
+    font-size: 14px;
+  }
+
+  .ProjectDetailPage-input input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+  }
+
+  .ProjectDetailPage-input input[type="number"] {
+    padding: 1px 0 0 4px;
+  }
+
+  /* 총 결제금액 */
+  .ProjectDetailPage-total {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ProjectDetailPage-total-cash {
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 10px;
+  }
+
+  .ProjectDetailPage-click-btn {
+    padding: 20px 40px;
+    border: 2px solid #000;
+    font-size: 1.2rem;
   }
 }

@@ -9,3 +9,20 @@
   font-weight: 600;
   opacity: 0.5;
 }
+
+/* 미디어쿼리_ media query */
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-with-complete {
+    padding: 24px 60px;
+    border: 2px solid #000;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-with-complete {
+    padding: 20px 40px;
+    border: 2px solid #000;
+    font-size: 1.2rem;
+  }
+}

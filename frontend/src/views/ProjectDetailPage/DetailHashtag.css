@@ -2,7 +2,7 @@
 .ProjectDetailPage-hash-wrap {
   width: 100%;
   margin: 0 auto;
-  padding: 56px 0 32px 0;
+  padding: 60px 0 32px 0;
 }
 
 .ProjectDetailPage-hash {
@@ -33,4 +33,30 @@
 
 .purple {
   background-color: #c4a1ff;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-hash-wrap {
+    padding: 60px 0 36px 0;
+  }
+  .ProjectDetailPage-hash-tag {
+    padding: 8px;
+    margin-bottom: 3px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-hash-wrap {
+    padding: 48px 0 28px 0;
+  }
+  .ProjectDetailPage-hash-tag {
+    padding: 8px;
+    margin-bottom: 3px;
+    font-size: 13px;
+  }
 }

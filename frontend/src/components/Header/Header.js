@@ -93,11 +93,13 @@ const Header = () => {
   };
 
   //만들기 버튼
-  const handleCreateWithClick = () => {
+  const handleCreateWithClick = e => {
+    e.preventDefault();
     navigate("/create-with-project");
   };
 
-  const handleCreateFundingClick = () => {
+  const handleCreateFundingClick = e => {
+    e.preventDefault();
     navigate("/create-funding-project");
   };
 

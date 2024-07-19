@@ -62,8 +62,13 @@
   width: 100%;
   text-align: right;
   box-sizing: border-box;
+  position: relative;
+  z-index: 10; /* 아이콘이 항상 상위에 위치하도록 설정 */
 }
 
 .Bookmarks_honeyPot_img {
   height: 30px;
+  cursor: pointer;
+  z-index: 20; /* 아이콘이 항상 상위에 위치하도록 설정 */
+  position: relative;
 }

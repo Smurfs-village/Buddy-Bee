@@ -229,7 +229,7 @@
     display: none;
   }
   .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
-    padding: 20px;
+    padding-left: 20px;
     overflow: hidden;
   }
 }

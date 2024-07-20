@@ -24,7 +24,7 @@ body {
   color: #000;
   display: flex;
   flex-direction: column;
-  padding: 100px 74px;
+  padding: 80px 82px 80px 74px;
   box-sizing: border-box;
   justify-content: space-between;
 }
@@ -57,7 +57,7 @@ body {
 }
 
 .mainpage-left-section .mainpage-left_p {
-  margin: 30px 10px 20px 10px;
+  margin: 30px 10px 20px 0px;
   font-size: 1.2em;
   line-height: 1.7;
 }
@@ -549,13 +549,23 @@ body {
     color: #000;
     display: flex;
     flex-direction: column;
-    padding: 52px 27px;
+    padding: 44px 25px;
     box-sizing: border-box;
     justify-content: space-between;
   }
 
   .mainpage-left-section h1 {
     font-size: 3rem;
+  }
+
+  .mainpage-left-section h2 {
+    font-size: 1.6em;
+  }
+
+  .mainpage-left-section .mainpage-left_p {
+    margin: 30px 10px 20px 0px;
+    font-size: 1em;
+    line-height: 1.5;
   }
 
   .mainpage-left_bee_icon img {
@@ -573,6 +583,19 @@ body {
   }
 
   /* 텍스트 컨테이너 */
+
+  .mainpage-text-section {
+    border-top: #fadf0b 4px solid;
+    border-bottom: #c4a1ff 4px solid;
+  }
+
+  .mainpage-text-up-section {
+    padding: 5px 0;
+    border-top: #c4a1ff 4px solid;
+    border-bottom: #fadf0b 4px solid;
+    display: flex;
+  }
+
   .mainpage-text-container {
     width: 100%;
     padding: 0;
@@ -582,17 +605,41 @@ body {
     width: 100%;
     height: 600px;
   }
-
+  .mainpage-text-section p {
+    margin-top: 40px;
+    font-size: 1em;
+    font-weight: 100;
+    line-height: 33px;
+    word-break: keep-all;
+    width: 90%;
+  }
   .mainpage-text-up-section {
     width: 100%;
   }
 
   .mainpage-text-section h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+
+  .mainpage-text-section h2 {
+    margin: 0;
+    font-size: 1.35em;
+    line-height: 37px;
+  }
+  .mainpage-text-section h2:nth-child(1) {
+    padding-top: 16px;
+  }
+  .mainpage-text-section h2:nth-child(2) {
+    padding-bottom: 30px;
+    word-break: keep-all;
   }
 
   .mainpage-flower-icon {
-    display: none;
+    position: absolute;
+    left: 10vw;
+    top: 9vw;
+    width: 60px;
+    rotate: -8deg;
   }
 
   .mainpage-cloud-icon {
@@ -611,7 +658,6 @@ body {
   .mainpage-ranking-section h2 {
     font-size: 1.3rem;
   }
-
   .mainpage-ranking-keywords {
     margin-top: 60px;
     display: flex;

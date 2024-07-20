@@ -73,9 +73,6 @@
     padding: 0;
     border: 2px solid black;
   }
-  .MyProfile_cloud_img {
-    display: none;
-  }
   .MyProfile_main_top_container_img_wrapper {
     flex: 1;
     max-width: 100px;
@@ -93,5 +90,8 @@
   .MyProfile_main_top_container_desc {
     width: 95%;
     font-size: 12px;
+  }
+  .MyProfile_cloud_img {
+    display: none;
   }
 }

@@ -60,14 +60,14 @@ const MainPage = () => {
         const projects = response.data;
 
         const activeProjects = projects.filter(
-          (project) => project.status === "active"
+          project => project.status === "active"
         );
 
         const recruitment = activeProjects.filter(
-          (project) => project.type === "with"
+          project => project.type === "with"
         );
         const funding = activeProjects.filter(
-          (project) => project.type === "funding"
+          project => project.type === "funding"
         );
 
         setRecruitmentCards(recruitment);
@@ -81,7 +81,7 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
-    const updateCards = (cards) => {
+    const updateCards = cards => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;
@@ -99,8 +99,8 @@ const MainPage = () => {
       ".from-right, .from-left, .from-down, .from-bounce"
     );
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           if (entry.target.classList.contains("from-right")) {
             entry.target.classList.add("fade-in-right");
@@ -122,33 +122,16 @@ const MainPage = () => {
       });
     });
 
-    elements.forEach((element) => {
+    elements.forEach(element => {
       observer.observe(element);
     });
 
     return () => {
-      elements.forEach((element) => {
+      elements.forEach(element => {
         observer.unobserve(element);
       });
     };
   }, []);
-
-  //card:hover
-  const OverflowToggle = () => {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const handleMouseEnter = () => {
-      setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovered(false);
-    };
-
-    const divStyle = {
-      overflow: isHovered ? "visible" : "hidden",
-    };
-  };
 
   return (
     <Layout>
@@ -176,7 +159,7 @@ const MainPage = () => {
               </p>
             </div>
             <div className="mainpage-button-container">
-              <Link to="/projects?sort=popularity">
+              <Link to="/projects?query=동행">
                 <button className="mainpage-main-button from-down">
                   Find Buddy <p>동행구하기</p>
                   <div className="mainpage-btn-arrow">
@@ -188,7 +171,7 @@ const MainPage = () => {
                   </div>
                 </button>
               </Link>
-              <Link to="/projects?sort=popularity">
+              <Link to="/projects?query=펀딩">
                 <button className="mainpage-main-button from-down">
                   Find Funding <p>펀딩구하기</p>
                   <div className="mainpage-btn-arrow">

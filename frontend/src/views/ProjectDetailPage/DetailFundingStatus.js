@@ -68,7 +68,7 @@ const DetailFundingStatus = ({ projectId }) => {
       <div className="ProjectDetailPage-funding">
         <div className="ProjectDetailPage-funding-title">현재 달성 금액</div>
         <div className="ProjectDetailPage-money">
-          {currentAmount.toLocaleString()} <span>원</span>
+          {parseInt(currentAmount).toLocaleString()} <span>원</span>
         </div>
         <div className="ProjectDetailPage-status">
           <div className="ProjectDetailPage-status-bar">
@@ -100,7 +100,7 @@ const DetailFundingStatus = ({ projectId }) => {
             {achievementRate} <span>% 달성중</span>
           </div>
           <div className="ProjectDetailPage-status-money">
-            목표 금액 {targetAmount.toLocaleString()} <span>원</span>
+            목표 금액 {parseInt(targetAmount).toLocaleString()} <span>원</span>
           </div>
         </div>
       </div>

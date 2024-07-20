@@ -218,15 +218,8 @@
 }
 
 @media (min-width: 768px) and (max-width: 950px) {
-  .Main_right_container_writtenPosts,
   .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
     display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .Main_right_container {
-    border: 2px solid black;
   }
 }
 

@@ -333,7 +333,7 @@ body {
 }
 
 .mainpage-card_desc {
-  padding-top: 22px;
+  padding-top: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -350,10 +350,10 @@ body {
 }
 
 .mainpage-hashtag {
-  margin-top: 22px;
+  margin-top: 20px;
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
-  padding: 3px 6px;
+  padding: 4px 8px;
   font-size: 1em;
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
@@ -744,6 +744,26 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 410px) {
+  /*펀딩 부분*/
+  .mainpage-recruitment-section h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  /*랭킹 부분*/
+  .mainpage-ranking-keywords {
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mainpage-keyword {
+    padding: 18px 30px;
+    font-size: 1.2em;
+  }
+  /*카드 부분*/
   .mainpage-card {
     width: 220px !important; /* 카드 너비 조정 */
     height: 320px; /* 카드 높이 조정 */
@@ -756,9 +776,22 @@ body {
 
   .mainpage-card-content {
     height: 140px; /* 컨텐츠 높이 조정 */
+    padding: 10px 13px 15px 12px;
   }
   .mainpage-participants-info {
+    top: 13px;
+    left: 12px;
     font-size: 0.8em;
+  }
+
+  .mainpage-scrap-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.15s ease;
   }
 
   .mainpage-funding-section {
@@ -770,11 +803,12 @@ body {
     padding-right: 10px;
   }
   .mainpage-hashtag {
-    margin-top: 3px;
+    margin-top: 12px;
     margin-bottom: 3px;
+    font-size: 14px;
   }
   .mainpage-card_desc {
-    padding-top: 15px;
+    padding-top: 10px;
   }
   .mainpage-card-content h3 {
     font-size: 1rem;

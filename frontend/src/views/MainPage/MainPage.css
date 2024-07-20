@@ -296,7 +296,7 @@ body {
 .mainpage-card-line-1 {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .mainpage-card-image {
@@ -310,7 +310,7 @@ body {
   width: 100%;
   height: 172px; /* 컨텐츠 높이 고정 */
   box-sizing: border-box;
-  padding: 15px;
+  padding: 13px 15px 15px 15px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -323,7 +323,7 @@ body {
 }
 
 .mainpage-card-line-1 span {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .mainpage-card-content p {
@@ -333,7 +333,7 @@ body {
 }
 
 .mainpage-card_desc {
-  padding-top: 18px;
+  padding-top: 22px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -350,14 +350,13 @@ body {
 }
 
 .mainpage-hashtag {
-  margin-top: 17px;
+  margin-top: 18px;
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
   padding: 3px 6px;
   font-size: 1em;
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
   border: 1px solid #000;
 }
 
@@ -427,6 +426,10 @@ body {
   width: 55px;
   height: 55px;
   cursor: pointer;
+  transition: 0.15s ease;
+}
+.mainpage-scrap-icon:hover {
+  transform: scale(1.1);
 }
 .mainpage-card-title {
   white-space: nowrap;
@@ -754,6 +757,10 @@ body {
   .mainpage-card-content {
     height: 140px; /* 컨텐츠 높이 조정 */
   }
+  .mainpage-participants-info {
+    font-size: 0.8em;
+  }
+
   .mainpage-funding-section {
     padding: 50px;
     padding-right: 10px;
@@ -763,8 +770,11 @@ body {
     padding-right: 10px;
   }
   .mainpage-hashtag {
-    margin-top: 5px;
+    margin-top: 3px;
     margin-bottom: 3px;
+  }
+  .mainpage-card_desc {
+    padding-top: 15px;
   }
   .mainpage-card-content h3 {
     font-size: 1rem;

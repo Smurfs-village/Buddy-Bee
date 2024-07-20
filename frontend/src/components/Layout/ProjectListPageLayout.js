@@ -10,23 +10,23 @@ import { useLocation } from "react-router-dom";
 
 const ProjectListPageLayout = () => {
   const [cards, setCards] = useState([]);
-  const [sortBtn, setSortBtn] = useState("latest");
+  const [sortBtn, setSortBtn] = useState(
+    localStorage.getItem("sortBtn") || "latest"
+  );
   const [sortedCardList, setSortedCardList] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const [filterItem, setFilterItem] = useState(false);
   const location = useLocation();
   const [title, setTitle] = useState("전체");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = new URLSearchParams(location.search).get("query");
+        const query =
+          new URLSearchParams(location.search).get("query") || "전체";
         setTitle(`${query} 검색결과`);
-        const response = query
-          ? await axios.get(
-              `http://localhost:5001/api/projects/search?query=${query}`
-            )
-          : await axios.get("http://localhost:5001/api/projects");
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/search?query=${query}`
+        );
 
         const activeProjects = response.data.filter(
           project => project.status === "active"
@@ -53,24 +53,7 @@ const ProjectListPageLayout = () => {
     const copyCardList = [...cards];
     copyCardList.sort(sortCompare);
     setSortedCardList(copyCardList);
-  }, [sortBtn, cards, filterItem]);
-
-  useEffect(() => {
-    switch (filterItem) {
-      case "with": {
-        setTitle("버디비_동행");
-        break;
-      }
-      case "funding": {
-        setTitle("버디비_펀딩");
-        break;
-      }
-      default: {
-        setTitle("전체");
-        break;
-      }
-    }
-  }, [filterItem]);
+  }, [sortBtn, cards]);
 
   const toggleScrap = (index, type) => {
     const updatedCards = [...sortedCardList];
@@ -78,7 +61,7 @@ const ProjectListPageLayout = () => {
     setCards(updatedCards);
   };
 
-  const itemsCountPerPage = 11;
+  const itemsCountPerPage = 25;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
   const currentItems = sortedCardList.slice(indexOfFirstItem, indexOfLastItem);
@@ -94,10 +77,15 @@ const ProjectListPageLayout = () => {
     return "project-list-page-layout";
   };
 
+  const handleSortChange = sortType => {
+    setSortBtn(sortType);
+    localStorage.setItem("sortBtn", sortType);
+  };
+
   return (
     <div className={containerClassName()}>
       <BackGroundGrid>
-        <SubNav setFilterItem={setFilterItem} filterItem={filterItem} />
+        <SubNav />
         <PageLayout>
           <div className="project-list-page-layout-wrapper">
             <div className="project-list-page-layout-line1">
@@ -107,7 +95,7 @@ const ProjectListPageLayout = () => {
                   className={`sort-latest ${
                     sortBtn === "latest" ? "btn-sort-true" : ""
                   }`}
-                  onClick={() => setSortBtn("latest")}
+                  onClick={() => handleSortChange("latest")}
                 >
                   최신순
                 </button>
@@ -115,48 +103,22 @@ const ProjectListPageLayout = () => {
                   className={`sort-popularity ${
                     sortBtn === "popularity" ? "btn-sort-true" : ""
                   }`}
-                  onClick={() => setSortBtn("popularity")}
+                  onClick={() => handleSortChange("popularity")}
                 >
                   인기순
                 </button>
               </div>
             </div>
             <div className="project-list-page-layout-grid">
-              {!filterItem
-                ? currentItems.map((data, index) => (
-                    <ListCard
-                      key={index}
-                      data={data}
-                      index={index}
-                      type={data.type}
-                      toggleScrap={toggleScrap}
-                    />
-                  ))
-                : filterItem === "with"
-                ? currentItems
-                    .filter(item => item.type === "with")
-                    .map((data, index) => (
-                      <ListCard
-                        key={index}
-                        data={data}
-                        index={index}
-                        type={data.type}
-                        toggleScrap={toggleScrap}
-                      />
-                    ))
-                : filterItem === "funding"
-                ? currentItems
-                    .filter(item => item.type === "funding")
-                    .map((data, index) => (
-                      <ListCard
-                        key={index}
-                        data={data}
-                        index={index}
-                        type={data.type}
-                        toggleScrap={toggleScrap}
-                      />
-                    ))
-                : alert("error")}
+              {currentItems.map((data, index) => (
+                <ListCard
+                  key={index}
+                  data={data}
+                  index={index}
+                  type={data.type}
+                  toggleScrap={toggleScrap}
+                />
+              ))}
             </div>
             <Pagination
               totalItemsCount={sortedCardList.length}

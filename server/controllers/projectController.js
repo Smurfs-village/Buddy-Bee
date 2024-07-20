@@ -583,17 +583,49 @@ exports.checkProjectHoney = (req, res) => {
 exports.searchProjects = (req, res) => {
   const query = req.query.query;
 
-  const searchQuery = `
-    SELECT DISTINCT p.*, u.username AS author
-    FROM project p
-    JOIN user u ON p.created_by = u.id
-    JOIN projecthashtag ph ON p.id = ph.project_id
-    JOIN hashtag h ON ph.hashtag_id = h.id
-    WHERE h.name LIKE ?
-    ORDER BY p.created_at DESC
-  `;
+  let searchQuery;
+  let queryParams;
 
-  connection.query(searchQuery, [`%${query}%`], (error, results) => {
+  if (query === "동행") {
+    searchQuery = `
+      SELECT DISTINCT p.*, u.username AS author
+      FROM project p
+      JOIN user u ON p.created_by = u.id
+      WHERE p.type = 'with'
+      ORDER BY p.created_at DESC
+    `;
+    queryParams = [];
+  } else if (query === "펀딩") {
+    searchQuery = `
+      SELECT DISTINCT p.*, u.username AS author
+      FROM project p
+      JOIN user u ON p.created_by = u.id
+      WHERE p.type = 'funding'
+      ORDER BY p.created_at DESC
+    `;
+    queryParams = [];
+  } else if (query === "전체") {
+    searchQuery = `
+      SELECT DISTINCT p.*, u.username AS author
+      FROM project p
+      JOIN user u ON p.created_by = u.id
+      ORDER BY p.created_at DESC
+    `;
+    queryParams = [];
+  } else {
+    searchQuery = `
+      SELECT DISTINCT p.*, u.username AS author
+      FROM project p
+      JOIN user u ON p.created_by = u.id
+      JOIN projecthashtag ph ON p.id = ph.project_id
+      JOIN hashtag h ON ph.hashtag_id = h.id
+      WHERE h.name LIKE ?
+      ORDER BY p.created_at DESC
+    `;
+    queryParams = [`%${query}%`];
+  }
+
+  connection.query(searchQuery, queryParams, (error, results) => {
     if (error) {
       console.error("Error searching projects:", error);
       res.status(500).send("Server error");

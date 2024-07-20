@@ -234,7 +234,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                     type="text"
                     value={hashtag}
                     onChange={(e) => setHashtag(e.target.value)}
-                    onKeyDown={handleHashtagKeyPress} //해시태그 추가 핸들러
+                    onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
                   <div className="createpage-char-wrapper">

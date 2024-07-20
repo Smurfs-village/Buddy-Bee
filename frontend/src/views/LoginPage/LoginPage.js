@@ -7,6 +7,7 @@ import loginIcon from "../../img/login_bee.svg";
 import { useRef, useState, useEffect } from "react";
 import { login } from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,15 @@ const LoginPage = ({ onLogin }) => {
 
   const handleLogin = async e => {
     e.preventDefault();
+    if (!email || !password) {
+      Swal.fire({
+        title: "Error",
+        text: "이메일과 비밀번호를 입력해주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
     try {
       const { token, userId, nickname } = await login(email, password);
       localStorage.setItem("token", token);
@@ -27,7 +37,14 @@ const LoginPage = ({ onLogin }) => {
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Invalid email or password");
+      if (error.response && error.response.status === 401) {
+        Swal.fire({
+          title: "Error",
+          text: "Invalid email or password",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
+      }
     }
   };
 

@@ -20,6 +20,7 @@
   overflow: hidden;
   border: rgba(0, 0, 0, 0.836) solid 2px;
   box-sizing: border-box;
+  cursor: pointer;
   aspect-ratio: 225 / 301;
 }
 

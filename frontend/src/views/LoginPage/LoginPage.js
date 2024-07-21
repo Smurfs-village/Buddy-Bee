@@ -8,11 +8,15 @@ import { useRef, useState, useEffect } from "react";
 import { login } from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 import Swal from "sweetalert2"; // SweetAlert2 import 추가
+import googleLogo from "../../img/google.png";
+import kakaoLogo from "../../img/KakaoTalk_logo.png";
+import naverLogo from "../../img/naver.png";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegisterDropDownOpen, setIsProfileDropDownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
   const registerRef = useRef(null);
   const navigate = useNavigate();
   const { setUser } = useAuth(); // setUser 함수 가져오기
@@ -63,6 +67,14 @@ const LoginPage = ({ onLogin }) => {
     if (registerRef.current && !registerRef.current.contains(event.target)) {
       setIsProfileDropDownOpen(false);
     }
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -128,8 +140,33 @@ const LoginPage = ({ onLogin }) => {
                     이메일로 가입하기
                   </Link>
                 </li>
-                <li>SNS로 가입하기</li>
+                <li onClick={handleOpenModal}>SNS로 가입하기</li>
               </ul>
+            </div>
+          )}
+          {isModalOpen && (
+            <div className="overlay">
+              <div className="modal">
+                <button className="modal-close-btn" onClick={handleCloseModal}>
+                  &times;
+                </button>
+                <h2 className="modal-title">SNS로 가입하기</h2>{" "}
+                {/* 추가된 부분 */}
+                <div className="modal-content">
+                  <button className="sns-signup-btn naver">
+                    <img src={naverLogo} alt="Naver" />
+                    <span>네이버 가입하기</span>
+                  </button>
+                  <button className="sns-signup-btn kakao">
+                    <img src={kakaoLogo} alt="Kakao" />
+                    <span>카카오 가입하기</span>
+                  </button>
+                  <button className="sns-signup-btn google">
+                    <img src={googleLogo} alt="Google" />
+                    <span>구글 가입하기</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </LoginPageLayout>

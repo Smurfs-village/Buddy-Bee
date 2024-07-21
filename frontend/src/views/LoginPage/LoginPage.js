@@ -21,6 +21,13 @@ const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
   const { setUser } = useAuth(); // setUser 함수 가져오기
 
+  // 디버깅: 환경 변수 확인
+  console.log(
+    "Kakao JavaScript Key:",
+    process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY
+  );
+  console.log("Kakao Redirect URI:", process.env.REACT_APP_KAKAO_REDIRECT_URI);
+
   const handleLogin = async e => {
     e.preventDefault();
     if (!email || !password) {
@@ -75,6 +82,18 @@ const LoginPage = ({ onLogin }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleKakaoLogin = () => {
+    const REST_API_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY;
+    const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(REST_API_KEY);
+    }
+    window.Kakao.Auth.authorize({
+      redirectUri: REDIRECT_URI,
+    });
   };
 
   useEffect(() => {
@@ -151,13 +170,15 @@ const LoginPage = ({ onLogin }) => {
                   &times;
                 </button>
                 <h2 className="modal-title">SNS로 가입하기</h2>{" "}
-                {/* 추가된 부분 */}
                 <div className="modal-content">
                   <button className="sns-signup-btn naver">
                     <img src={naverLogo} alt="Naver" />
                     <span>네이버 가입하기</span>
                   </button>
-                  <button className="sns-signup-btn kakao">
+                  <button
+                    className="sns-signup-btn kakao"
+                    onClick={handleKakaoLogin}
+                  >
                     <img src={kakaoLogo} alt="Kakao" />
                     <span>카카오 가입하기</span>
                   </button>

@@ -10,6 +10,7 @@ import CreateWithProjectPage from "./views/CreateProjectPage/CreateWithProjectPa
 import CreatePageLayout from "./components/Layout/CreatePageLayout"; // 경로 수정
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/Routing/ProtectedRoute";
+import KakaoRedirectHandler from "./views/LoginPage/KakaoRedirectHandler"; // 추가
 import "./styles/global.css";
 
 const App = () => {
@@ -20,7 +21,11 @@ const App = () => {
           <Route path="/" exact element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-
+          <Route
+            path="/auth/kakao/callback"
+            element={<KakaoRedirectHandler />}
+          />{" "}
+          {/* 추가 */}
           <Route element={<ProtectedRoute />}>
             <Route path="/profile/*" element={<ProfilePage />} />
             <Route
@@ -36,7 +41,6 @@ const App = () => {
               element={<CreatePageLayout />} // 수정 페이지 추가
             />
           </Route>
-
           <Route path="/projects" exact element={<ProjectListPage />} />
           <Route path="/projects/:id" element={<ProjectDetailPage />} />
         </Routes>

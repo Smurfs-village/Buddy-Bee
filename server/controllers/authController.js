@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const connection = require("../models/db");
 const JWT_SECRET = process.env.JWT_SECRET;
+const axios = require("axios");
 
 exports.register = async (req, res) => {
   const { email, password, nickname } = req.body;
@@ -117,4 +118,93 @@ exports.changePassword = async (req, res) => {
       res.status(200).send("Password updated successfully");
     });
   });
+};
+
+exports.kakaoLogin = async (req, res) => {
+  const { code } = req.body;
+
+  try {
+    console.log("Kakao Client ID:", process.env.KAKAO_CLIENT_ID);
+    console.log("Kakao Redirect URI:", process.env.KAKAO_REDIRECT_URI);
+
+    const kakaoTokenResponse = await axios.post(
+      `https://kauth.kakao.com/oauth/token`,
+      null,
+      {
+        params: {
+          grant_type: "authorization_code",
+          client_id: process.env.KAKAO_CLIENT_ID,
+          redirect_uri: process.env.KAKAO_REDIRECT_URI,
+          code,
+        },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
+
+    const { access_token } = kakaoTokenResponse.data;
+    console.log("Kakao Access Token:", access_token);
+
+    const kakaoUserResponse = await axios.get(
+      `https://kapi.kakao.com/v2/user/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    const { kakao_account } = kakaoUserResponse.data;
+    const email = kakao_account.email;
+    const nickname = kakao_account.profile.nickname;
+
+    console.log("Kakao User Email:", email);
+    console.log("Kakao User Nickname:", nickname);
+
+    if (!email) {
+      return res.status(400).send("Email not provided by Kakao");
+    }
+
+    const query = `SELECT * FROM user WHERE email = ?`;
+    connection.query(query, [email], async (error, results) => {
+      if (error) {
+        console.error("Error fetching user:", error);
+        return res.status(500).send("Server error");
+      }
+      if (results.length === 0) {
+        const hashedPassword = await bcrypt.hash("kakao_default_password", 10);
+        const insertQuery = `INSERT INTO user (email, username, password) VALUES (?, ?, ?)`;
+        connection.query(
+          insertQuery,
+          [email, nickname, hashedPassword],
+          (error, results) => {
+            if (error) {
+              console.error("Error inserting user:", error);
+              return res.status(500).send("Server error");
+            }
+            const userId = results.insertId;
+            const token = jwt.sign({ userId }, JWT_SECRET, {
+              expiresIn: "2h",
+            });
+            res.status(200).json({ token, userId, nickname });
+          }
+        );
+      } else {
+        const user = results[0];
+        const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+          expiresIn: "2h",
+        });
+        res
+          .status(200)
+          .json({ token, userId: user.id, nickname: user.username });
+      }
+    });
+  } catch (error) {
+    console.error(
+      "Kakao login error:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).send("Kakao login error");
+  }
 };

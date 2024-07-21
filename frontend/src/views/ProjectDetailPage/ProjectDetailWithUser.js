@@ -12,6 +12,7 @@ import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import "./ProjectDetailWithUser.css";
 import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
@@ -121,6 +122,19 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           buttonRef.current.innerText = "동행 참여완료";
           buttonRef.current.disabled = true; // 버튼 비활성화
         }
+        Swal.fire({
+          toast: true,
+          position: "bottom", // 하단 오른쪽에 표시
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: "success",
+          title: "동행 참여에 성공하였습니다.",
+          didOpen: toast => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {

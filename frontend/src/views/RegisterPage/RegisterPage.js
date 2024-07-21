@@ -7,6 +7,7 @@ import LoginPageLayout from "../../components/Layout/LoginPageLayout";
 import "./RegisterPage.css";
 import { register, checkNicknameAvailability } from "../../api/api"; // checkNicknameAvailability 함수 추가
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const RegisterPage = () => {
   const [nickname, setNickname] = useState("");
@@ -17,7 +18,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth(); // setUser 함수 가져오기
 
-  const handleRegister = async (e) => {
+  const handleRegister = async e => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0 || !isNicknameAvailable) {
@@ -31,10 +32,21 @@ const RegisterPage = () => {
     try {
       const userData = await register(email, password, nickname);
       setUser(userData); // setUser 호출
+      Swal.fire({
+        icon: "success",
+        title: "회원가입에 성공했습니다!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      Swal.fire({
+        title: "Error",
+        text: "회원가입에 실패했습니다. 다시 시도해주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     }
   };
 
@@ -80,17 +92,37 @@ const RegisterPage = () => {
       const isAvailable = await checkNicknameAvailability(nickname);
       setIsNicknameAvailable(isAvailable);
       if (isAvailable) {
-        alert("사용 가능한 닉네임입니다.");
+        Swal.fire({
+          icon: "success",
+          title: "사용 가능한 닉네임입니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
-        alert("이미 사용 중인 닉네임입니다.");
+        Swal.fire({
+          title: "Error",
+          text: "이미 사용 중인 닉네임입니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       }
     } catch (error) {
       if (error.message === "cannot be empty") {
         console.error("Error checking nickname availability:", error);
-        alert("닉네임을 입력해주세요.");
+        Swal.fire({
+          title: "Error",
+          text: "닉네임을 입력해주세요.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       } else {
         console.error("Error checking nickname availability:", error);
-        alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+        Swal.fire({
+          title: "Error",
+          text: "닉네임 중복 확인 중 오류가 발생했습니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       }
     }
   };
@@ -113,7 +145,7 @@ const RegisterPage = () => {
                   placeholder="닉네임"
                   value={nickname}
                   required
-                  onChange={(e) => {
+                  onChange={e => {
                     setNickname(e.target.value);
                     setIsNicknameAvailable(null); // 닉네임이 변경되면 중복 확인 상태 초기화
                   }}
@@ -135,7 +167,7 @@ const RegisterPage = () => {
                 placeholder="이메일 주소"
                 value={email}
                 required
-                onChange={(e) => {
+                onChange={e => {
                   setEmail(e.target.value);
                 }}
               />
@@ -146,7 +178,7 @@ const RegisterPage = () => {
                 placeholder="비밀번호"
                 value={password}
                 required
-                onChange={(e) => {
+                onChange={e => {
                   setPassword(e.target.value);
                 }}
               />

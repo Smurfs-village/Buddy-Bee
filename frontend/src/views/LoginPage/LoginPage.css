@@ -94,6 +94,105 @@
   font-weight: bold;
 }
 
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 0 rgb(0, 0, 0);
+  max-width: 500px;
+  width: 350px;
+  z-index: 99999;
+  box-sizing: border-box;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sns-signup-btn {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 0 rgb(0, 0, 0);
+  transition: 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.sns-signup-btn span {
+  margin-bottom: 1px;
+}
+.sns-signup-btn:hover {
+  transform: scale(1.05);
+}
+
+.sns-signup-btn:focus {
+  box-shadow: none;
+  transform: translateX(2px);
+}
+
+.sns-signup-btn img {
+  width: 14px; /* 원하는 크기로 조절 */
+  height: 14px; /* 원하는 크기로 조절 */
+}
+.naver img {
+  width: 18px;
+  height: 18px;
+}
+.kakao img {
+  width: 22px;
+  height: 22px;
+}
+.naver {
+  background-color: #00bf18;
+  color: white;
+  padding: 9px;
+}
+
+.kakao {
+  background-color: #ffe90a;
+  color: black;
+  padding: 7px;
+}
+
+.google {
+  background-color: white;
+  color: black;
+}
+.modal-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
 /* 미디어 쿼리 */
 @media (min-width: 480px) and (max-width: 767px) {
   .login-page-register-dropdown {

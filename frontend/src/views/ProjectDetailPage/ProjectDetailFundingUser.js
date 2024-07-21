@@ -15,6 +15,7 @@ import DetailUserInfo from "./DetailUserInfo";
 import DetailAgree from "./DetailAgree";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import "./ProjectDetailFundingUser.css";
 import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 
@@ -108,11 +109,21 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
       return;
     }
     if (!agreement) {
-      alert("개인정보 제 3자 제공 동의를 해야합니다.");
+      Swal.fire({
+        title: "Error",
+        text: "개인정보 제 3자 제공 동의를 해야합니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
       return;
     }
     if (!applicantName || !email || !phone) {
-      alert("신청자 정보를 모두 입력해야 합니다.");
+      Swal.fire({
+        title: "Error",
+        text: "신청자 정보를 모두 입력해야 합니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
       return;
     }
     try {
@@ -140,12 +151,37 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           buttonRef.current.innerText = "펀딩 참여완료";
           buttonRef.current.disabled = true; // 버튼 비활성화
         }
+        Swal.fire({
+          toast: true,
+          position: "bottom",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: "success",
+          title: "펀딩 참여에 성공하였습니다.",
+          didOpen: toast => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
         console.error("Already participating in this project");
+        Swal.fire({
+          title: "Error",
+          text: "이미 이 프로젝트에 참여하고 있습니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       } else {
         console.error("Error participating in project:", error);
+        Swal.fire({
+          title: "Error",
+          text: "프로젝트 참여 중 오류가 발생했습니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       }
     }
   }, [

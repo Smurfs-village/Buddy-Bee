@@ -95,7 +95,10 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       endDate: formattedEndDate,
       maxParticipants,
       targetAmount: targetAmount === "" ? null : targetAmount,
-      options,
+      options: options.map((option) => ({
+        ...option,
+        price: option.price.replace(/,/g, ""), // 숫자 자릿수(콤마)
+      })),
       mainImage,
       createdBy: user ? user.id : null,
       hashtags,
@@ -153,7 +156,10 @@ const CreatePageLayout = ({ children, type: initialType }) => {
 
   const addOption = () => {
     if (optionName.trim() && optionPrice.trim()) {
-      setOptions([...options, { name: optionName, price: optionPrice }]);
+      setOptions([
+        ...options,
+        { name: optionName, price: formatPrice(optionPrice) },
+      ]);
       setOptionName("");
       setOptionPrice("");
     }
@@ -185,6 +191,16 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       event.preventDefault();
       addOption();
     }
+  };
+
+  //숫자 자릿수(콤마)
+  const formatPrice = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const handleOptionPriceChange = (e) => {
+    const unformattedValue = e.target.value.replace(/,/g, "");
+    setOptionPrice(unformattedValue);
   };
 
   return (
@@ -337,7 +353,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
-                        value={optionName}
+                        value={formatPrice(optionName)}
                         onChange={(e) => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
@@ -346,8 +362,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>가격</span>
                       <input
                         type="text"
-                        value={optionPrice}
-                        onChange={(e) => setOptionPrice(e.target.value)}
+                        value={formatPrice(optionPrice)}
+                        onChange={handleOptionPriceChange}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>

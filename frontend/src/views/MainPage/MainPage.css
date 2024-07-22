@@ -165,6 +165,7 @@ body {
   margin: 0;
   font-size: 1.5em;
   line-height: 37px;
+  word-break: keep-all;
 }
 
 .mainpage-text-section h2:nth-child(2) {
@@ -556,14 +557,38 @@ body {
     width: 150px;
   }
 }
+
+/*해당 구간부터 text-section 반응형으로*/
+@media (max-width: 956px) {
+  .mainpage-text-section {
+    width: 100%;
+  }
+}
+/*text-section 전용*/
 @media (min-width: 769px) and (max-width: 975px) {
   .mainpage-cloud-icon,
   .mainpage-bee-icon {
     display: none;
   }
-}
+  .mainpage-flower-icon {
+    width: 110px;
+    top: 30px;
+    left: 7vw;
+  }
 
-/* 480px ~ 768px 버전 */
+  .mainpage-text-section h1 {
+    font-size: 5em;
+  }
+  .mainpage-text-section p {
+    margin-top: 32px;
+    font-size: 1em;
+    font-weight: 100;
+    line-height: 28px;
+    width: 70%;
+    word-break: keep-all;
+  }
+}
+/* 메인 페이지 전체 480px ~ 768px 버전 */
 @media (min-width: 480px) and (max-width: 768px) {
   .mainpage-left-section {
     width: 100%;
@@ -610,6 +635,7 @@ body {
   .mainpage-left_bee_icon img {
     display: none;
   }
+
   /* 텍스트 컨테이너 */
   .mainpage-text-container {
     width: 100%;
@@ -626,15 +652,23 @@ body {
   }
 
   .mainpage-text-section h1 {
-    font-size: 4rem;
+    font-size: 3.9rem;
   }
-
+  .mainpage-text-section h2 {
+    font-size: 1.4em;
+    line-height: 37px;
+  }
+  .mainpage-text-section p {
+    margin-top: 32px;
+    font-size: 1em;
+    line-height: 27px;
+  }
   .mainpage-flower-icon {
     position: absolute;
-    left: 18%;
-    top: 5vw;
+    left: 19vw;
+    top: 50px;
     rotate: -8deg;
-    width: 15%;
+    width: 80px;
   }
 
   .mainpage-cloud-icon {
@@ -642,7 +676,9 @@ body {
   }
 
   .mainpage-bee-icon {
-    display: none;
+    right: 10vw;
+    top: 480px;
+    width: 110px;
   }
 
   .slick-prev:before,
@@ -690,7 +726,7 @@ body {
     color: #000;
     display: flex;
     flex-direction: column;
-    padding: 44px 25px 44px 27px;
+    padding: 44px 25px 60px 27px;
     box-sizing: border-box;
     justify-content: space-between;
   }
@@ -700,6 +736,7 @@ body {
   }
 
   .mainpage-left-section h2 {
+    margin-top: 0.5rem;
     font-size: 1.6em;
   }
 
@@ -711,7 +748,6 @@ body {
 
   .mainpage-main-button {
     padding: 10px 20px 10px 20px;
-
     font-size: 1em;
     width: 250px;
     height: 114px;
@@ -760,10 +796,10 @@ body {
     height: 600px;
   }
   .mainpage-text-section p {
-    margin-top: 40px;
-    font-size: 1em;
+    margin-top: 30px;
+    font-size: 0.9rem;
     font-weight: 100;
-    line-height: 33px;
+    line-height: 25px;
     width: 90%;
   }
   .mainpage-text-up-section {
@@ -771,13 +807,13 @@ body {
   }
 
   .mainpage-text-section h1 {
-    font-size: 2.2rem;
+    font-size: 3rem;
   }
 
   .mainpage-text-section h2 {
     margin: 0;
-    font-size: 1.35em;
-    line-height: 37px;
+    font-size: 1.2em;
+    line-height: 30px;
   }
 
   .mainpage-text-section h2:nth-child(1) {
@@ -791,16 +827,17 @@ body {
   .mainpage-flower-icon {
     position: absolute;
     left: 10vw;
-    top: 9vw;
-    width: 20%;
+    top: 75px;
+    width: 18%;
     rotate: -8deg;
+  }
+  .mainpage-bee-icon {
+    right: 5vw;
+    top: 522px;
+    width: 85px;
   }
 
   .mainpage-cloud-icon {
-    display: none;
-  }
-
-  .mainpage-bee-icon {
     display: none;
   }
 
@@ -857,8 +894,12 @@ body {
 }
 
 @media (min-width: 320px) and (max-width: 410px) {
-  /*펀딩 부분*/
+  /*텍스트 섹션*/
+  .mainpage-text-section h1 {
+    font-size: 2.5rem;
+  }
 
+  /*펀딩 부분*/
   .mainpage-funding-section {
     padding: 50px;
     padding-right: 10px;

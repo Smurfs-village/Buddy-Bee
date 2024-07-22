@@ -17,14 +17,6 @@
   flex-direction: column;
 }
 
-.ProfilePage_main_right_container_flowerImg {
-  width: 117px;
-  height: 117px;
-  position: absolute;
-  left: 0;
-  bottom: 55px;
-}
-
 /* 모바일뷰 320px */
 
 @media (max-width: 767px) {
@@ -34,11 +26,5 @@
   }
   .MyProfile_main_aside_rightContainer_wrapper {
     flex-direction: column;
-  }
-}
-
-@media (max-width: 1024px) {
-  .ProfilePage_main_right_container_flowerImg {
-    display: none;
   }
 }

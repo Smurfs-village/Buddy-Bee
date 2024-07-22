@@ -135,7 +135,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.63);
+  background: rgba(0, 0, 0, 0.671);
   z-index: 9999;
 }
 
@@ -230,6 +230,7 @@
   padding: 9px;
 }
 .google img {
+  margin-left: 4px;
   margin-right: 4px;
   scale: 1.1;
 }
@@ -240,7 +241,7 @@
 .modal-title {
   text-align: center;
   font-size: 1.5rem;
-  margin: 20px 0 30px 0;
+  margin: 20px 0 34px 10px;
 }
 
 /* 미디어 쿼리 */
@@ -249,6 +250,12 @@
     top: 400px;
     right: 28px;
     width: 130px;
+  }
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    max-width: 300px;
   }
 }
 
@@ -273,5 +280,19 @@
     margin-bottom: 7px;
     border-radius: 40px;
     border: 1px solid black;
+  }
+  .modal {
+    width: 80%;
+    box-shadow: none;
+    border-radius: 18px;
+  }
+  .modal-close-btn {
+    top: 4px;
+    right: 10px;
+  }
+  .modal-title {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 20px 0 30px 0;
   }
 }

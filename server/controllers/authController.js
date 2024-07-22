@@ -43,6 +43,7 @@ exports.login = (req, res) => {
       const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
         expiresIn: "2h",
       });
+      console.log("Generated JWT:", token);
       res.status(200).json({ token, userId: user.id, nickname: user.username });
     } catch (error) {
       console.error("Error comparing password:", error);
@@ -187,6 +188,7 @@ exports.kakaoLogin = async (req, res) => {
             const token = jwt.sign({ userId }, JWT_SECRET, {
               expiresIn: "2h",
             });
+            console.log("Generated JWT for new user:", token); // 디버깅 로그 추가
             res.status(200).json({ token, userId, nickname, isNewUser: true });
           }
         );
@@ -195,14 +197,13 @@ exports.kakaoLogin = async (req, res) => {
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
           expiresIn: "2h",
         });
-        res
-          .status(200)
-          .json({
-            token,
-            userId: user.id,
-            nickname: user.username,
-            isNewUser: false,
-          });
+        console.log("Generated JWT for existing user:", token); // 디버깅 로그 추가
+        res.status(200).json({
+          token,
+          userId: user.id,
+          nickname: user.username,
+          isNewUser: false,
+        });
       }
     });
   } catch (error) {

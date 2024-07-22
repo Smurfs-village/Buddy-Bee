@@ -32,8 +32,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
+      console.log("Setting user in localStorage:", user);
       localStorage.setItem("user", JSON.stringify(user));
     } else {
+      console.log("Removing user from localStorage");
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    console.log("Logging out and clearing localStorage");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("userId");

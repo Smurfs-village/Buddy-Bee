@@ -12,14 +12,14 @@
 
 .MyProfile_main_right_container_userInfo_wrapper label {
   font-weight: bold;
-  padding: 12px 0 0 0;
+  padding-top: 12px;
   border-bottom: 1px solid black;
   width: 100%;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label input {
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
   font-size: 15px;
 }
 
@@ -52,7 +52,6 @@
 
 .MyProfile_main_right_container_profile_edit_img_wrapper {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -76,10 +75,6 @@
   object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
 }
 
-.MyProfile_main_right_container_profile_edit_img:hover {
-  transition: 2s ease;
-}
-
 .MyProfile_overlay {
   position: absolute;
   top: 0;
@@ -90,17 +85,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1; /* 항상 보이도록 설정 */
-  transition: opacity 0.3s;
+  opacity: 1;
+  /* 항상 보이도록 설정 */
 }
 
 .overlay-text {
   color: white;
   font-size: 14px;
-}
-
-.always-visible {
-  opacity: 1 !important;
 }
 
 .MyProfile_main_right_container_introductionLetterBox_flowerImg_wrapper {
@@ -136,6 +127,11 @@
   font-size: 18px;
   padding: 7px 20px;
   margin-right: 5px;
+}
+
+.MyProfile_main_right_container_btn,
+.MyProfile_certification_Btn {
+  transition: 0.2s ease;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper_inner:hover,
@@ -182,6 +178,10 @@
   position: absolute;
   left: -35px;
   bottom: -50px;
+  cursor: pointer;
+}
+.MyProfile_flowerImg:hover {
+  transform: rotate(20deg);
 }
 
 @media (max-width: 550px) {

@@ -24,7 +24,7 @@ body {
   color: #000;
   display: flex;
   flex-direction: column;
-  padding: 80px 82px 80px 74px;
+  padding: 80px 82px 80px 68px;
   box-sizing: border-box;
   justify-content: space-between;
 }
@@ -627,6 +627,7 @@ body {
     font-size: 1.35em;
     line-height: 37px;
   }
+
   .mainpage-text-section h2:nth-child(1) {
     padding-top: 16px;
   }
@@ -639,7 +640,7 @@ body {
     position: absolute;
     left: 10vw;
     top: 9vw;
-    width: 60px;
+    width: 20%;
     rotate: -8deg;
   }
 
@@ -654,6 +655,20 @@ body {
   .slick-prev:before,
   .slick-next:before {
     display: none;
+  }
+  /*카드 캐러셀*/
+  .slick-prev,
+  .slick-next {
+    width: 0px;
+    height: 0px;
+    z-index: 1;
+  }
+
+  .mainpage-recruitment-section h2,
+  .mainpage-funding-section h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 2rem;
   }
 
   .mainpage-ranking-section h2 {
@@ -697,25 +712,37 @@ body {
     color: #000;
     display: flex;
     flex-direction: column;
-    padding: 70px 40px;
+    padding: 70px 50px;
     box-sizing: border-box;
     justify-content: space-between;
   }
   .mainpage-card-content h3 {
     font-size: 1rem;
   }
+
+  .mainpage-left-section .mainpage-left_p {
+    margin: 30px 10px 20px 0px;
+    font-size: 1.2em;
+    line-height: 1.7;
+    width: 85%;
+    word-break: keep-all;
+  }
   .mainpage-left-section h1 {
     font-size: 5rem;
   }
 
-  .mainpage-left_bee_icon img {
-    display: none;
+  .mainpage-button-container {
+    /* display: flex; */
+    gap: 10px;
+    padding-bottom: 40px;
   }
 
-  .mainpage-button-container {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
+  .mainpage-main-button {
+    box-sizing: border-box; /* padding과 border를 포함하여 계산 */
+    padding: 10px 0;
+    color: #fff;
+    font-size: 1em;
+    width: 100%;
   }
 
   .mainpage-right-section {
@@ -742,7 +769,11 @@ body {
   }
 
   .mainpage-flower-icon {
-    display: none;
+    position: absolute;
+    left: 18%;
+    top: 5vw;
+    rotate: -8deg;
+    width: 15%;
   }
 
   .mainpage-cloud-icon {
@@ -792,10 +823,16 @@ body {
 
 @media (min-width: 320px) and (max-width: 410px) {
   /*펀딩 부분*/
-  .mainpage-recruitment-section h2 {
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-size: 2rem;
+
+  .mainpage-funding-section {
+    padding: 50px;
+    padding-right: 10px;
+  }
+
+  /*동행 부분*/
+  .mainpage-recruitment-section {
+    padding: 50px;
+    padding-right: 10px;
   }
 
   /*랭킹 부분*/
@@ -841,14 +878,6 @@ body {
     transition: 0.15s ease;
   }
 
-  .mainpage-funding-section {
-    padding: 50px;
-    padding-right: 10px;
-  }
-  .mainpage-recruitment-section {
-    padding: 50px;
-    padding-right: 10px;
-  }
   .mainpage-hashtag {
     margin-top: 12px;
     margin-bottom: 3px;

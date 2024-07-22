@@ -40,3 +40,24 @@
   border-bottom: 1px dashed #888;
   border-width: 2px;
 }
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-user-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .ProjectDetailPage-user-info input {
+    height: 36px;
+  }
+  .ProjectDetailPage-user-info input::placeholder {
+    color: rgb(206, 206, 206);
+  }
+}

@@ -4,8 +4,12 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import axios from "axios";
 import pen from "../../img/mingcute_quill-pen-line.png";
 import mockImg from "../../img/mock.svg"; // 기본 이미지 경로 추가
-import { FlowerImg } from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
+import myProfileFlower from "../../img/myPage_flower.svg";
+
+const FlowerImg = () => {
+  return <img src={myProfileFlower} alt="" className="MyProfile_flowerImg" />;
+};
 
 const MainRightContainer = () => {
   const { user } = useAuth();
@@ -30,7 +34,9 @@ const MainRightContainer = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get("http://localhost:5001/api/user", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         setUserInfo(response.data);
       } catch (error) {
@@ -47,7 +53,9 @@ const MainRightContainer = () => {
     const { password, ...updatedUserInfo } = userInfo; // 비밀번호 필드를 제거
     try {
       await axios.put("http://localhost:5001/api/user", updatedUserInfo, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       alert("User profile updated successfully");
     } catch (error) {
@@ -60,7 +68,10 @@ const MainRightContainer = () => {
     setUserInfo(prev => ({ ...prev, username: event.target.value || "" }));
   };
   const onChangePhoneNumberValue = event => {
-    setUserInfo(prev => ({ ...prev, phone_number: event.target.value || "" }));
+    setUserInfo(prev => ({
+      ...prev,
+      phone_number: event.target.value || "",
+    }));
   };
   const onChangeAccountNumberValue = event => {
     setUserInfo(prev => ({
@@ -96,7 +107,10 @@ const MainRightContainer = () => {
           },
         }
       );
-      setUserInfo(prev => ({ ...prev, profile_image: response.data.url }));
+      setUserInfo(prev => ({
+        ...prev,
+        profile_image: response.data.url,
+      }));
     } catch (error) {
       console.error("Error uploading profile image:", error);
     }
@@ -181,10 +195,7 @@ const MainRightContainer = () => {
               className="MyProfile_main_right_container_profile_edit_img"
               onClick={handleOverlayClick}
             />
-            <div
-              className="overlay always-visible"
-              onClick={handleOverlayClick}
-            >
+            <div className="MyProfile_overlay" onClick={handleOverlayClick}>
               <span className="overlay-text">프로필 이미지 변경</span>
             </div>
             <input
@@ -197,13 +208,16 @@ const MainRightContainer = () => {
           </div>
         </div>
       </div>
-      <textarea
-        className="MyProfile_main_right_container_introductionLetterBox"
-        placeholder="최대 50자"
-        value={intro || ""}
-        onChange={onChangeIntroValue}
-      />
-      <FlowerImg />
+      <div className="MyProfile_main_right_container_introductionLetterBox_flowerImg_wrapper">
+        <textarea
+          className="MyProfile_main_right_container_introductionLetterBox"
+          placeholder="최대 50자"
+          value={intro || ""}
+          onChange={onChangeIntroValue}
+          maxLength={50}
+        />
+        <FlowerImg />
+      </div>
       <form className="MyProfile_main_right_container_btn_wrapper">
         <button className="MyProfile_main_right_container_btn MyProfile_main_right_container_cancelBtn">
           취소

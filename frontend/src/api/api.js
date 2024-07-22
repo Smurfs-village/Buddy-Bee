@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAuthToken } from "../utils/token";
 
 const API_BASE_URL = "http://localhost:5001/api";
 
@@ -16,10 +17,17 @@ export const login = async (email, password) => {
     email,
     password,
   });
+  const { token } = response.data;
+  localStorage.setItem("token", token);
+  setAuthToken(token);
   return response.data;
 };
 
 export const checkNicknameAvailability = async nickname => {
+  if (!nickname) {
+    //닉네임이 공란인 경우
+    throw new Error("cannot be empty");
+  }
   try {
     const response = await axios.get(`${API_BASE_URL}/check-nickname`, {
       params: { nickname },
@@ -31,4 +39,10 @@ export const checkNicknameAvailability = async nickname => {
     }
     throw new Error("Error checking nickname availability");
   }
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  setAuthToken(null);
+  window.location.href = "/login"; // 로그인 페이지로 리다이렉트
 };

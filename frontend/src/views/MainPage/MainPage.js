@@ -19,12 +19,35 @@ const MainPage = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     autoplaySpeed: 3000,
     arrows: true,
     draggable: true,
     pauseOnHover: true,
     variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 320,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const [recruitmentCards, setRecruitmentCards] = useState([]);
@@ -36,11 +59,15 @@ const MainPage = () => {
         const response = await axios.get("http://localhost:5001/api/projects");
         const projects = response.data;
 
-        const recruitment = projects.filter(
-          (project) => project.type === "with"
+        const activeProjects = projects.filter(
+          project => project.status === "active"
         );
-        const funding = projects.filter(
-          (project) => project.type === "funding"
+
+        const recruitment = activeProjects.filter(
+          project => project.type === "with"
+        );
+        const funding = activeProjects.filter(
+          project => project.type === "funding"
         );
 
         setRecruitmentCards(recruitment);
@@ -54,7 +81,7 @@ const MainPage = () => {
   }, []);
 
   const toggleScrap = (index, type) => {
-    const updateCards = (cards) => {
+    const updateCards = cards => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;
@@ -67,12 +94,51 @@ const MainPage = () => {
     }
   };
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      ".from-right, .from-left, .from-down, .from-bounce"
+    );
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains("from-right")) {
+            entry.target.classList.add("fade-in-right");
+          } else if (entry.target.classList.contains("from-left")) {
+            entry.target.classList.add("fade-in-left");
+          } else if (entry.target.classList.contains("from-down")) {
+            entry.target.classList.add("fade-in-up");
+          } else if (entry.target.classList.contains("from-bounce")) {
+            entry.target.classList.add("fade-in-bounce");
+          }
+        } else {
+          entry.target.classList.remove(
+            "fade-in-right",
+            "fade-in-up",
+            "fade-in-left",
+            "fade-in-bounce"
+          );
+        }
+      });
+    });
+
+    elements.forEach(element => {
+      observer.observe(element);
+    });
+
+    return () => {
+      elements.forEach(element => {
+        observer.unobserve(element);
+      });
+    };
+  }, []);
+
   return (
     <Layout>
       <div className="mainpage-main-page">
         <div className="mainpage-main-section">
           <div className="mainpage-left-section">
-            <div>
+            <div className="main-page-left_in">
               <div className="mainpage-left_bee_icon">
                 <div>
                   <h1 className="mainpage-h1_buddy">BUDDY </h1>
@@ -81,39 +147,38 @@ const MainPage = () => {
                 <img
                   src={header_icon}
                   alt="Header Icon"
-                  className="mainpage-header-icon"
+                  className="mainpage-header-icon from-right"
                 />
               </div>
 
-              <h2>Be My Buddy! </h2>
-              <p className="mainpage-left_p">
+              <h2 className="from-down">Be My Buddy! </h2>
+              <p className="mainpage-left_p from-down">
                 버디비(BuddyBee)는 같은 관심사를 가진 친구들과 함께 꿀벌처럼
                 협력하며 꿈을 이루어 나가는 곳이에요! 서로의 프로젝트를
                 소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
               </p>
             </div>
             <div className="mainpage-button-container">
-              {/* Link to 추가 07.11 */}
-              <Link to="/projects?sort=popularity">
-                <button className="mainpage-main-button">
+              <Link to="/projects?query=동행">
+                <button className="mainpage-main-button from-down">
                   Find Buddy <p>동행구하기</p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
                       alt="arrow_right"
-                      className="mainpage-arrow-icon"
+                      className="mainpage-arrow-icon from-down"
                     />
                   </div>
                 </button>
               </Link>
-              <Link to="/projects?sort=popularity">
-                <button className="mainpage-main-button">
+              <Link to="/projects?query=펀딩">
+                <button className="mainpage-main-button from-down">
                   Find Funding <p>펀딩구하기</p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
                       alt="arrow_right"
-                      className="mainpage-arrow-icon"
+                      className="mainpage-arrow-icon from-down"
                     />
                   </div>
                 </button>
@@ -127,10 +192,12 @@ const MainPage = () => {
         <div className="mainpage-text-container">
           <div className="mainpage-text-up-section">
             <div className="mainpage-text-section">
-              <h2>Be My Buddy!</h2>
-              <h2>우리...진실게임 하자. 친해지고 싶은 버디비 있어?</h2>
-              <h1>BUDDY BEE</h1>
-              <p>
+              <h2 className="from-down">Be My Buddy!</h2>
+              <h2 className="from-down">
+                우리...진실게임 하자. 친해지고 싶은 버디비 있어?
+              </h2>
+              <h1 className="from-down">BUDDY BEE</h1>
+              <p className="from-down">
                 Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
                 함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
                 있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요. Buddy Bee와
@@ -139,20 +206,24 @@ const MainPage = () => {
               <img
                 src={section1_flower}
                 alt="Flower"
-                className="mainpage-flower-icon"
+                className="mainpage-flower-icon from-bounce "
               />
               <img
                 src={section1_cloud}
                 alt="Cloud"
-                className="mainpage-cloud-icon"
+                className="mainpage-cloud-icon from-left"
               />
-              <img src={section1_bee} alt="Bee" className="mainpage-bee-icon" />
+              <img
+                src={section1_bee}
+                alt="Bee"
+                className="mainpage-bee-icon from-right"
+              />
             </div>
           </div>
         </div>
         <div className="mainpage-recruitment-section">
-          <h2>#동행 모집</h2>
-          <Slider {...settings}>
+          <h2 className="from-down">#동행 모집</h2>
+          <Slider {...settings} className="from-down">
             {recruitmentCards.map((data, index) => (
               <Card
                 key={index}
@@ -160,13 +231,14 @@ const MainPage = () => {
                 index={index}
                 type="recruitment"
                 toggleScrap={toggleScrap}
+                className="fade-in-up"
               />
             ))}
           </Slider>
         </div>
         <div className="mainpage-funding-section">
-          <h2>#펀딩 모집</h2>
-          <Slider {...settings}>
+          <h2 className="from-down">#펀딩 모집</h2>
+          <Slider {...settings} className="from-down">
             {fundingCards.map((data, index) => (
               <Card
                 key={index}
@@ -174,16 +246,17 @@ const MainPage = () => {
                 index={index}
                 type="funding"
                 toggleScrap={toggleScrap}
+                className="from-down"
               />
             ))}
           </Slider>
         </div>
-        <div className="mainpage-ranking-section">
-          <h2>현재 많은 버디비들이 보고 있어요!</h2>
-          <div className="mainpage-ranking-keywords">
+        <div className="mainpage-ranking-section from-down">
+          <h2 className="from-down">현재 많은 버디비들이 보고 있어요!</h2>
+          <div className="mainpage-ranking-keywords from-down">
             {["버디", "버디버디", "멈머", "슈머", "현머", "서머"].map(
               (keyword, index) => (
-                <div key={index} className="mainpage-keyword">
+                <div key={index} className="mainpage-keyword from-down">
                   {keyword}
                 </div>
               )

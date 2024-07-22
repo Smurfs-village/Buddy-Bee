@@ -5,6 +5,7 @@ import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import { useAuth } from "../../contexts/AuthContext"; // Import useAuth
 import "./ListCard.css";
+import mockImage from "../../img/mock.svg";
 
 const ListCard = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);
@@ -97,27 +98,35 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
         await axios.delete(
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
             data: { userId: user.id },
           }
         );
       } else {
         await axios.post(
           `http://localhost:5001/api/projects/${data.id}/honey`,
-          { userId: user.id }
+          { userId: user.id },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
       }
       setIsHoney(!isHoney);
+      toggleScrap(index, type); // 스크랩 상태 업데이트
     } catch (error) {
       console.error("Error toggling honey status:", error);
     }
-    toggleScrap(index, type); // 스크랩 상태 업데이트
   };
 
   return (
     <div className="common-card" key={index} onClick={handleCardClick}>
       <div
         className="common-card-image-wrapper"
-        style={{ backgroundImage: `url(${data.main_image})` }}
+        style={{ backgroundImage: `url(${data.main_image || mockImage})` }}
       >
         <div className="common-participants-info">
           {currentParticipants} / {data.max_participants}명
@@ -132,7 +141,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       <div className="common-card-content">
         <div className="common-card-line-1">
           <h3>{data.title}</h3>
-          <span>작성자 {data.author}</span>
+          <span>{data.author}</span>
         </div>
         <p>조회수 {data.view_count || 0}</p>
         <p className="common-card_desc">{stripHtmlTags(data.description)}</p>

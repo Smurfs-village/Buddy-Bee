@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가, useNavigate 훅 추가
 import icon from "../../img/nav_icon.svg";
-import logo from "../../img/nav_logo.svg";
 import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
-
+import { useAuth } from "../../contexts/AuthContext";
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -17,8 +16,9 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
   const hamburgerRef = useRef(null);
+  const searchInputRef = useRef(null); //햄버거 버튼 검색창 전용
   const navigate = useNavigate(); // useNavigate 훅 사용
-
+  const { logout } = useAuth();
   useEffect(() => {
     // 로그인 상태 확인
     const token = localStorage.getItem("token");
@@ -44,11 +44,13 @@ const Header = () => {
   const handleButtonClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
     setIsProfileDropdownOpen(false); // 다른 드롭다운 닫기
+    setIsSearchIconOpen(false);
   };
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
     setIsDropdownOpen(false); // 다른 드롭다운 닫기
+    setIsSearchIconOpen(false);
   };
 
   const handleClickOutside = event => {
@@ -61,6 +63,12 @@ const Header = () => {
     ) {
       setIsProfileDropdownOpen(false);
     }
+    if (
+      searchInputRef.current &&
+      !searchInputRef.current.contains(event.target)
+    ) {
+      setIsSearchIconOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -70,19 +78,34 @@ const Header = () => {
     };
   }, []);
 
+  const handleToProfile = () => {
+    navigate("/profile");
+  };
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("nickname");
-    setIsLoggedIn(false);
+    logout(); // AuthContext의 logout 함수 호출
+    setIsProfileDropdownOpen(false); // 프로필 드롭다운 닫기
+    navigate("/");
+    window.location.reload(); // 페이지 새로고침하여 상태 반영
   };
 
   const handleLoginClick = () => {
     navigate("/login");
   };
 
-  const clickHamburger = () => {
+  //만들기 버튼
+  const handleCreateWithClick = e => {
+    e.preventDefault();
+    navigate("/create-with-project");
+  };
+
+  const handleCreateFundingClick = e => {
+    e.preventDefault();
+    navigate("/create-funding-project");
+  };
+
+  const clickHamburger = e => {
     //하단 표현 방식 리액트에 맞게 수정 예정입니다!
+    e.preventDefault();
     let icon1 = document.getElementById("a");
     let icon2 = document.getElementById("b");
     let icon3 = document.getElementById("c");
@@ -93,19 +116,26 @@ const Header = () => {
       setIsHamburgerOpen(true);
     }
     if (isHamburgerOpen === true) {
+      icon1.classList.remove("a");
+      icon2.classList.remove("c");
+      icon3.classList.remove("b");
       setIsHamburgerOpen(false);
     }
   };
 
   return (
-    <header className="headerpage-header">
+    <header
+      className={`headerpage-header ${
+        isDropdownOpen || isProfileDropdownOpen ? "headerpage-open" : ""
+      }`}
+    >
       <div className="headerpage-header-container">
         <div className="headerpage-header-left">
           <Link to="/">
-            <img src={icon} alt="Icon" />
+            <img src={icon} className="headerpage-header-icon" alt="Icon" />
           </Link>
           <Link to="/">
-            <img className="headerpage-header-logo" src={logo} alt="Logo" />
+            <h1 className="headerpage-header-logo">BUDDY BEE</h1>
           </Link>
         </div>
         <div className="headerpage-header-right">
@@ -124,7 +154,11 @@ const Header = () => {
               onClick={handleSearch}
             />
           </div>
-          <button type="button" onClick={handleButtonClick}>
+          <button
+            type="button"
+            className="headerpage-create-btn"
+            onClick={handleButtonClick}
+          >
             만들기
           </button>
           <div
@@ -134,8 +168,22 @@ const Header = () => {
             ref={dropdownRef}
           >
             <ul>
-              <li>동행 만들기</li>
-              <li>펀딩 만들기</li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateWithClick}
+                >
+                  동행 만들기
+                </button>
+              </li>
+              <li>
+                <button
+                  className="headerpage-dropdown-withbtn"
+                  onClick={handleCreateFundingClick}
+                >
+                  펀딩 만들기
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -158,7 +206,7 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li>Profile</li>
+                  <li onClick={handleToProfile}>Profile</li>
                   <li onClick={handleLogout}>Logout</li>
                 </ul>
               </div>
@@ -183,6 +231,9 @@ const Header = () => {
           <div className="icon-3" id="c" />
           <div className="clear" />
         </div>
+        {isHamburgerOpen && (
+          <div className="headerpage-overlay" onClick={clickHamburger}></div>
+        )}
         {/* 햄버거버튼 드롭다운_hamburger drop down */}
         <div
           className={`headerpage-hamburger-dropdown ${
@@ -197,11 +248,13 @@ const Header = () => {
                   className={`hamburger-dropdown-search-container ${
                     isSearchIconOpen ? "search-open" : ""
                   }`}
+                  ref={searchInputRef}
                 >
                   <input
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
+                    ref={searchInputRef}
                     onChange={e => setSearchQuery(e.target.value)}
                     onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
                   />
@@ -238,8 +291,22 @@ const Header = () => {
                 ref={dropdownRef}
               >
                 <ul>
-                  <li>동행 만들기</li>
-                  <li>펀딩 만들기</li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateWithClick}
+                    >
+                      동행 만들기
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className="headerpage-create-withbtn"
+                      onClick={handleCreateFundingClick}
+                    >
+                      펀딩 만들기
+                    </button>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -263,7 +330,7 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li>Profile</li>
+                      <li onClick={handleToProfile}>Profile</li>
                       <li onClick={handleLogout}>Logout</li>
                     </ul>
                   </div>

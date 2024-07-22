@@ -12,5 +12,6 @@ router.put(
   authMiddleware,
   authController.changePassword // authController 사용
 );
+router.post("/auth/kakao", authController.kakaoLogin); // 카카오 로그인 라우트 추가
 
 module.exports = router;

@@ -23,6 +23,19 @@
   bottom: -90px;
   z-index: 1;
 }
+.MyProfile_cloud_img:hover {
+  cursor: pointer;
+  animation: cloudTransform 7s ease-in-out infinite;
+}
+
+@keyframes cloudTransform {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
 
 .MyProfile_main_top_container_img_wrapper {
   width: 100px; /* 적절한 크기로 조정 */
@@ -53,4 +66,32 @@
   transform: translateY(-10px);
   font-size: 12px;
   width: 190px;
+}
+
+@media (max-width: 767px) {
+  .MyProfile_main_top_container {
+    padding: 0;
+    border: 2px solid black;
+  }
+  .MyProfile_main_top_container_img_wrapper {
+    flex: 1;
+    max-width: 100px;
+  }
+  .MyProfile_main_top_container_title {
+    padding-top: 10px;
+    font-size: 16px;
+    padding-bottom: 3%;
+  }
+  .MyProfile_main_top_container_title_desc_wrapper {
+    margin-left: 0;
+    padding-left: 5%;
+    width: 50%;
+  }
+  .MyProfile_main_top_container_desc {
+    width: 95%;
+    font-size: 12px;
+  }
+  .MyProfile_cloud_img {
+    display: none;
+  }
 }

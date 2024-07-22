@@ -30,3 +30,23 @@
 .ProjectDetailPage-agree-check div {
   padding-right: 5px;
 }
+
+ProjectDetailPage-agree-check input[type="checkbox"] {
+  accent-color: black;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-agree-title {
+    font-size: 1rem;
+  }
+  .ProjectDetailPage-agree-content {
+    font-size: 12px;
+  }
+}

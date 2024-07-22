@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import "./CreatePageLayout.css";
 import PageLayout from "./PageLayout";
@@ -9,9 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import Editor from "../Common/Editor";
 import moment from "moment";
-import { useAuth } from "../../contexts/AuthContext"; // useAuth import
+import { useAuth } from "../../contexts/AuthContext";
+import addIcon from "../../img/create_icon.svg";
 
-const handleGlobalError = event => {
+const handleGlobalError = (event) => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -25,9 +26,9 @@ const handleGlobalError = event => {
 
 window.addEventListener("error", handleGlobalError);
 
-const CreatePageLayout = ({ children, type }) => {
+const CreatePageLayout = ({ children, type: initialType }) => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(""); // 빈 문자열로 초기화
   const [hashtag, setHashtag] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [startDate, setStartDate] = useState(null);
@@ -40,11 +41,41 @@ const CreatePageLayout = ({ children, type }) => {
   const [mainImage, setMainImage] = useState("");
   const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456");
   const [isEditingAccount, setIsEditingAccount] = useState(false);
+  const [type, setType] = useState(initialType || "defaultType"); // 수정된 부분
 
   const navigate = useNavigate();
-  const { user } = useAuth(); // 현재 사용자 정보 가져오기
+  const { user } = useAuth();
+  const { id: projectId } = useParams();
 
-  const handleSubmit = async event => {
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!projectId) return;
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/projects/${projectId}/with-author`
+        );
+        const projectData = response.data;
+        setTitle(projectData.title);
+        setContent(projectData.description || ""); // null일 경우 빈 문자열로 설정
+        setStartDate(moment(projectData.start_date).toDate());
+        setEndDate(moment(projectData.end_date).toDate());
+        setMaxParticipants(projectData.max_participants);
+        setTargetAmount(projectData.target_amount);
+        setOptions(projectData.options ? projectData.options : []);
+        setMainImage(projectData.main_image);
+        setHashtags(projectData.hashtags ? projectData.hashtags : []);
+        setAccountInfo(projectData.account_info);
+        setType(projectData.type || "defaultType"); // type 필드 설정
+        console.log("Fetched project data:", projectData); // 디버깅용 로그
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
+
+    fetchProject();
+  }, [projectId]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formattedStartDate = startDate
@@ -54,31 +85,56 @@ const CreatePageLayout = ({ children, type }) => {
       ? moment(endDate).format("YYYY-MM-DD")
       : null;
 
+    console.log("Submitting project data with type:", type); // 디버깅용 로그
+
     const projectData = {
       title,
       content,
-      type,
+      type, // Ensure type is included
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       maxParticipants,
       targetAmount: targetAmount === "" ? null : targetAmount,
-      options,
+      options: options.map((option) => ({
+        ...option,
+        price: option.price.replace(/,/g, ""), // 숫자 자릿수(콤마)
+      })),
       mainImage,
-      createdBy: user ? user.id : null, // 현재 사용자의 ID 사용
+      createdBy: user ? user.id : null,
       hashtags,
       accountInfo,
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/projects",
-        projectData
-      );
-      console.log("Project created:", response.data);
-      const projectId = response.data.projectId;
-      navigate(`/projects/${projectId}`);
+      if (projectId) {
+        // Update existing project
+        await axios.put(
+          `http://localhost:5001/api/projects/${projectId}`,
+          projectData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        navigate(`/projects/${projectId}`);
+      } else {
+        // Create new project
+        const response = await axios.post(
+          "http://localhost:5001/api/projects",
+          projectData,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log("Project created:", response.data);
+        const newProjectId = response.data.projectId;
+        navigate(`/projects/${newProjectId}`);
+      }
     } catch (error) {
-      console.error("Error creating project:", error);
+      console.error("Error saving project:", error);
     }
   };
 
@@ -94,19 +150,22 @@ const CreatePageLayout = ({ children, type }) => {
     }
   };
 
-  const removeHashtag = tag => {
-    setHashtags(hashtags.filter(t => t !== tag));
+  const removeHashtag = (tag) => {
+    setHashtags(hashtags.filter((t) => t !== tag));
   };
 
   const addOption = () => {
     if (optionName.trim() && optionPrice.trim()) {
-      setOptions([...options, { name: optionName, price: optionPrice }]);
+      setOptions([
+        ...options,
+        { name: optionName, price: formatPrice(optionPrice) },
+      ]);
       setOptionName("");
       setOptionPrice("");
     }
   };
 
-  const removeOption = index => {
+  const removeOption = (index) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -118,16 +177,42 @@ const CreatePageLayout = ({ children, type }) => {
     setIsEditingAccount(false);
   };
 
+  //엔터 키를 눌렀을 때 해시태그 추가
+  const handleHashtagKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); //폼 제출 방지
+      addHashtag();
+    }
+  };
+
+  //엔터 키를 눌렀을 때 옵션 추가
+  const handleOptionKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addOption();
+    }
+  };
+
+  //숫자 자릿수(콤마)
+  const formatPrice = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const handleOptionPriceChange = (e) => {
+    const unformattedValue = e.target.value.replace(/,/g, "");
+    setOptionPrice(unformattedValue);
+  };
+
   return (
     <Layout>
       <BackGroundGrid>
         <div className="createpage-sub-nav">
           <div className="createpage-button-group">
             <button onClick={() => navigate("/create-with-project")}>
-              #버디비_동행
+              #동행 만들기
             </button>
             <button onClick={() => navigate("/create-funding-project")}>
-              #버디비_펀딩
+              #펀딩 만들기
             </button>
           </div>
         </div>
@@ -142,7 +227,7 @@ const CreatePageLayout = ({ children, type }) => {
                   className="createpage-title-input"
                   type="text"
                   value={title}
-                  onChange={e => setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="제목을 작성해주세요"
                 />
               </div>
@@ -164,10 +249,11 @@ const CreatePageLayout = ({ children, type }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={e => setHashtag(e.target.value)}
+                    onChange={(e) => setHashtag(e.target.value)}
+                    onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
-                  <div>
+                  <div className="createpage-char-wrapper">
                     <span className="createpage-char-count">
                       {hashtag.length}/15
                     </span>
@@ -177,6 +263,14 @@ const CreatePageLayout = ({ children, type }) => {
                       className="createpage-add-button"
                     >
                       추가하기
+                    </button>
+                    {/* 모바일뷰 용 버튼 */}
+                    <button
+                      type="button"
+                      onClick={addHashtag}
+                      className="mobile-createpage-add-button"
+                    >
+                      <img src={addIcon} alt="addIcon" />
                     </button>
                   </div>
                 </div>
@@ -206,33 +300,52 @@ const CreatePageLayout = ({ children, type }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={e => setAccountInfo(e.target.value)}
+                      onChange={(e) => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
                     {isEditingAccount ? (
-                      <button
-                        type="button"
-                        onClick={handleAccountSave}
-                        className="createpage-edit-button"
-                      >
-                        저장하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="createpage-edit-button"
+                        >
+                          저장하기
+                        </button>
+                        {/* 모바일 전용 버튼 분리 */}
+                        <button
+                          type="button"
+                          onClick={handleAccountSave}
+                          className="mobile-createpage-edit-button"
+                        >
+                          저장
+                        </button>
+                      </>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={handleAccountEdit}
-                        className="createpage-edit-button"
-                      >
-                        수정하기
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="createpage-edit-button"
+                        >
+                          수정하기
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleAccountEdit}
+                          className="mobile-createpage-edit-button"
+                        >
+                          수정
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
               )}
 
               <div className="createpage-form-group">
-                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가</label>
+                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가 </label>
 
                 <div className="createpage-form-group createpage-option-form-group">
                   <div className="createpage-option-input-wrapper">
@@ -240,16 +353,18 @@ const CreatePageLayout = ({ children, type }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
-                        value={optionName}
-                        onChange={e => setOptionName(e.target.value)}
+                        value={formatPrice(optionName)}
+                        onChange={(e) => setOptionName(e.target.value)}
+                        onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>
                     <div className="input-wrapper">
                       <span>가격</span>
                       <input
                         type="text"
-                        value={optionPrice}
-                        onChange={e => setOptionPrice(e.target.value)}
+                        value={formatPrice(optionPrice)}
+                        onChange={handleOptionPriceChange}
+                        onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>
 
@@ -260,6 +375,15 @@ const CreatePageLayout = ({ children, type }) => {
                       id="option-add"
                     >
                       추가하기
+                    </button>
+                    {/* 모바일뷰 용 버튼 */}
+                    <button
+                      type="button"
+                      onClick={addOption}
+                      className="mobile-createpage-add-button"
+                      id="option-add"
+                    >
+                      <img src={addIcon} alt="addIcon" />
                     </button>
                   </div>
                   <div className="createpage-options-display">
@@ -290,34 +414,37 @@ const CreatePageLayout = ({ children, type }) => {
                 </label>
                 <div className="createpage-form-group createpage-recruitment-group">
                   <div className="createpage-recruitment-input-wrapper">
-                    <span>모집 인원</span>
-                    <div className="createpage-project-setting-group">
-                      <div className="createpage-number-input">
-                        <input
-                          type="number"
-                          value={maxParticipants}
-                          onChange={e => setMaxParticipants(e.target.value)}
-                          placeholder="모집 인원"
-                        />
+                    <div className="createpage-recruitment-people-input">
+                      <span>모집 인원</span>
+                      <div className="createpage-project-setting-group">
+                        <div className="createpage-number-input">
+                          <input
+                            type="number"
+                            min={1}
+                            value={maxParticipants}
+                            onChange={(e) => setMaxParticipants(e.target.value)}
+                            placeholder="모집 인원"
+                          />
+                        </div>
+                        <span>명</span>
                       </div>
-                      <span>명</span>
                     </div>
 
                     {type === "funding" && (
-                      <>
+                      <div className="createpage-recruitment-amount-input">
                         <span className="whitespace-nowrap">목표 금액</span>
                         <div className="createpage-project-setting-group">
                           <div className="createpage-number-input">
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={e => setTargetAmount(e.target.value)}
+                              onChange={(e) => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                             />
                           </div>
                           <span>원</span>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -335,7 +462,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
-                          onChange={date => setStartDate(date)}
+                          onChange={(date) => setStartDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />
@@ -346,7 +473,7 @@ const CreatePageLayout = ({ children, type }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}
-                          onChange={date => setEndDate(date)}
+                          onChange={(date) => setEndDate(date)}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />
@@ -357,7 +484,9 @@ const CreatePageLayout = ({ children, type }) => {
               </div>
 
               <button type="submit" className="createpage-submit-button">
-                <span>프로젝트 등록하기</span>
+                <span>
+                  {projectId ? "프로젝트 수정하기" : "프로젝트 등록하기"}
+                </span>
               </button>
             </form>
             {children}

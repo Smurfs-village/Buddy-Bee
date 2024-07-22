@@ -1,5 +1,5 @@
 .ProjectDetailPage-content {
-  margin-top: 30px;
+  margin-top: 40px;
   min-height: 200px;
   padding-bottom: 40px;
 }
@@ -11,7 +11,41 @@
   align-items: center;
   display: flex;
 }
+.ProjectDetailPage-content figure {
+  margin: 0;
+}
 
 .ProjectDetailPage-content h2 {
   text-align: center;
+}
+
+.ProjectDetailPage-content p {
+  font-size: 1rem;
+  line-height: 1.34rem;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-content {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-content {
+    margin-top: 28px;
+  }
+  .ProjectDetailPage-content h2 {
+    font-size: 1.3rem;
+  }
+  .ProjectDetailPage-content h3 {
+    font-size: 1rem;
+  }
+  .ProjectDetailPage-content p {
+    font-size: 14px;
+    line-height: 1.09rem;
+  }
 }

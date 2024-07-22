@@ -19,6 +19,16 @@
   border-radius: 100%;
   background-color: #ccc;
   border: 2px solid #000;
+  overflow: hidden; /* 이미지가 컨테이너를 넘어서지 않도록 합니다 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.ProjectDetailPage-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 컨테이너에 맞게 조정되도록 합니다 */
 }
 
 .ProjectDetailPage-profile-detail {
@@ -27,7 +37,7 @@
 
 /* 작성자 닉네임 */
 .ProjectDetailPage-profile-name {
-  padding-top: 1.4rem;
+  padding-top: 1.5rem;
   font-weight: bold;
 }
 
@@ -37,10 +47,56 @@
 
 /* 작성자 자기소개글 */
 .ProjectDetailPage-profile-txt {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 
 .ProjectDetailPage-profile-txt span {
   font-size: 0.9rem;
   line-height: 1.3rem;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-profile-img {
+    width: 132px;
+    height: 132px;
+    border-radius: 100%;
+    background-color: #ccc;
+    border: 2px solid #000;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-profile {
+    width: 80%;
+    margin-top: 42px;
+  }
+  .ProjectDetailPage-profile-img {
+    width: 124px;
+    height: 124px;
+    border-radius: 100%;
+    background-color: #ccc;
+    border: 1px solid #000;
+  }
+  /*작성자 이름*/
+  .ProjectDetailPage-profile-name {
+    padding-top: 1.1rem;
+  }
+
+  .ProjectDetailPage-profile-name span {
+    font-size: 1rem;
+  }
+
+  /* 작성자 자기소개글 */
+  .ProjectDetailPage-profile-txt {
+    padding-top: 0.5rem;
+  }
+
+  .ProjectDetailPage-profile-txt span {
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+  }
 }

@@ -1,6 +1,6 @@
 import "./DetailAgree.css";
 
-const DetailAgree = () => {
+const DetailAgree = ({ setAgreement }) => {
   return (
     <div className="ProjectDetailPage-agree-wrap">
       <div className="ProjectDetailPage-agree">
@@ -16,7 +16,10 @@ const DetailAgree = () => {
         </div>
         <div className="ProjectDetailPage-agree-check">
           <div className="ProjectDetailPage-agree-txt">동의합니다</div>
-          <input type="checkbox"></input>
+          <input
+            type="checkbox"
+            onChange={e => setAgreement(e.target.checked)}
+          />
         </div>
       </div>
     </div>

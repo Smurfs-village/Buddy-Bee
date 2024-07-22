@@ -4,5 +4,25 @@
   font-size: 2.2rem;
   font-weight: bold;
   border-bottom: 1px solid #000;
-  margin-top: 10px;
+  margin-top: 32px;
+}
+
+/*미디어 쿼리*/
+@media (min-width: 768px) and (max-width: 925px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-title {
+    font-size: 1.6rem;
+    margin-top: 20px;
+    padding: 19px 0 10px 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-title {
+    font-size: 1.4rem;
+    margin-top: 12px;
+    padding: 20px 0 8px 0;
+  }
 }

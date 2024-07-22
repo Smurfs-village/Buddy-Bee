@@ -8,7 +8,6 @@
 
 * {
   font-family: "Pretendard-Regular";
-  /* font-weight: ; */
 }
 
 .common-card {
@@ -21,7 +20,13 @@
   overflow: hidden;
   border: rgba(0, 0, 0, 0.836) solid 2px;
   box-sizing: border-box;
+  cursor: pointer;
   aspect-ratio: 225 / 301;
+  transition: all 0.2s ease;
+}
+
+.common-card:hover {
+  transform: translateY(-15px);
 }
 
 .common-card-line-1 {
@@ -32,10 +37,11 @@
 
 .common-card-image-wrapper {
   width: 100%;
-  aspect-ratio: 225 / 180; /* 이미지 비율 설정 */
+  aspect-ratio: 225 / 180;
   position: relative;
   background-size: cover;
   background-position: center;
+  transition: transform 0.3s ease;
   /* opacity: 0.6; */
 }
 
@@ -43,7 +49,6 @@
   content: "";
   position: absolute;
   background: white;
-
   inset: 0;
   opacity: 0.4;
 }
@@ -51,11 +56,12 @@
 .common-card-content {
   width: 100%;
   box-sizing: border-box;
-  padding: 7px 10px;
+  padding: 9px 10px 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-top: #000 solid 1px;
+  height: 40%;
   flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
 }
 
@@ -79,13 +85,13 @@
 
 .common-card-content p {
   margin: 0;
-  font-size: 0.5em; /* 12.8px */
-  color: #9b9b9b;
-  margin-top: 5px;
+  font-size: 0.7em; /* 12.8px */
+  color: #b6b6b6;
+  margin-top: 3px;
 }
 
 .common-card_desc {
-  padding-top: 15px;
+  padding-top: 3%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -106,14 +112,16 @@
   margin-top: 3px;
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
-  padding: 3px 7px;
-  font-size: 0.77em; /* 16px */
+  padding: 4px 7px;
+  font-size: 0.8em; /* 16px */
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
+  border: 1px solid #000;
 }
 
 .common-hashtag.common-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+  border: 1px solid #000;
 }
 
 .common-participants-info {
@@ -134,77 +142,123 @@
   max-width: 38px;
   max-height: 38px;
   cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.common-scrap-icon:hover {
+  transform: scale(1.1);
 }
 
 /*미디어 쿼리*/
-@media screen and (min-width: 504px) and (max-width: 730px) {
-  .common-card-content {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 11px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-top: #000 solid 1px;
-    flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
-  }
 
-  .common-card-content h3 {
-    margin: 0;
-    font-size: 1.5em; /* 20.8px */
-    font-weight: 600;
-  }
-
-  .common-card-line-1 span {
-    font-size: 1em; /* 12.8px */
-    font-weight: 600;
-  }
-
-  .common-card-content p {
-    margin: 0;
-    font-size: 0.9em; /* 12.8px */
-    color: #9b9b9b;
-    margin: 3px 0 0 3px;
-  }
-
+@media (min-width: 480px) and (max-width: 767px) {
   .common-card_desc {
-    padding-top: 18%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex-grow: 1; /* 설명 부분도 공간을 차지하도록 설정 */
+    padding-top: 3%;
   }
+}
 
-  .common-hashtags {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+@media (max-width: 479px) {
+  .project-list-page-layout-grid {
+    grid-gap: 25px 5px;
   }
+  .common-card {
+    border: rgba(0, 0, 0, 0.836) solid 1px;
+  }
+}
 
-  .common-hashtag {
-    background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
-    border-radius: 25px;
-    padding: 6px 10px;
-    font-size: 1em; /* 16px */
+/*카드 전용 쿼리 */
+
+@media (min-width: 387px) and (max-width: 557px) {
+  /*카드 한 줄로 출력될 때, 카드 전용*/
+  .common-scrap-icon {
+    top: 8px;
+    right: 9px;
+    max-width: 60px;
+    max-height: 60px;
   }
 
   .common-participants-info {
     position: absolute;
-    top: 15px;
+    top: 13px;
     left: 13px;
-    background: rgba(0, 0, 0);
-    color: #fff;
-    padding: 6px 9px;
-    border-radius: 50px;
-    font-size: 1em;
+    padding: 8px 10px 8px 12px;
+    font-size: 0.9em;
+  }
+  .common-card-content {
+    box-sizing: border-box;
+    padding: 13px 11px 13px 11px;
+    border-top: #000 solid 1px;
+    height: 40%;
   }
 
+  .common-card_desc {
+    padding-top: 10%;
+  }
+
+  .common-card-content h3 {
+    margin: 0;
+    font-size: 1.4em;
+  }
+
+  .common-card-line-1 span {
+    font-size: 1.1em;
+  }
+
+  .common-card-content p {
+    margin: 0;
+    font-size: 0.95em;
+    color: #b6b6b6;
+    margin-top: 5px;
+    margin-left: 2px;
+  }
+
+  .common-hashtag {
+    margin-top: 10px;
+    padding: 4px 9px;
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 386px) {
   .common-scrap-icon {
-    position: absolute;
-    top: 10px;
-    right: 12px;
+    top: 8px;
+    right: 9px;
     max-width: 50px;
     max-height: 50px;
-    cursor: pointer;
+  }
+
+  .common-participants-info {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    padding: 8px 10px 8px 12px;
+    font-size: 0.9em;
+  }
+  .common-card-content {
+    padding: 10px 10px 10px 12px;
+  }
+
+  .common-card_desc {
+    padding-top: 9%;
+  }
+
+  .common-card-content h3 {
+    font-size: 1.1em;
+  }
+
+  .common-card-line-1 span {
+    font-size: 0.85em;
+  }
+
+  .common-card-content p {
+    margin: 0;
+    font-size: 0.77em;
+    margin-top: 2px;
+  }
+
+  .common-hashtag {
+    margin-top: 10px;
+    padding: 4px 9px;
+    font-size: 0.9em;
   }
 }

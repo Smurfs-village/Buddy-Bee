@@ -34,14 +34,14 @@
   top: 0;
   left: 0;
   width: 100%;
+  background-color: rgb(0, 0, 0, 0.6);
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* 진한 검정 오버레이 */
   border-radius: inherit; /* 상위 요소와 같은 둥근 모서리 적용 */
 }
 
 .MyPosts_ParticipatedProjects_activePendingProjectImg {
   position: relative;
-  opacity: 0.5; /* 대기중, 진행중 이미지의 투명도 설정 */
+  opacity: 0.8; /* 대기중, 진행중 이미지의 투명도 설정 */
 }
 
 .Main_right_container {
@@ -67,11 +67,22 @@
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box {
+  cursor: pointer;
   display: flex;
   border: 2px solid black;
   border-radius: 20px;
   margin-top: 18px;
   height: 84px;
+}
+
+.MyPosts_ParticipatedProjects_main_right_finishedProject_box {
+  cursor: pointer;
+  display: flex;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-top: 18px;
+  height: 84px;
+  opacity: 0.6;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_img {
@@ -81,6 +92,14 @@
 .MyPosts_ParticipatedProjects_main_right_container_cards_wrapper {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
+  position: relative;
+}
+
+.ProfilePage_main_right_container_flowerImg {
+  height: 117px;
+  position: absolute;
+  bottom: -70px;
+  left: -50px;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
@@ -89,9 +108,15 @@
   justify-content: center;
   flex: 1;
   padding-left: 27.8px;
+  word-break: keep-all;
 }
 
 .MyPosts_ParticipatedProjects_finishedProject_text_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding-left: 27.8px;
   opacity: 0.6;
 }
 
@@ -131,6 +156,9 @@
 
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn {
   background-color: white;
+}
+.MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn:hover {
+  transform: scale(1.05);
 }
 
 /* Pagination */
@@ -187,4 +215,42 @@
   font-weight: bold;
   background-color: #fadf0b;
   padding: 6px 10.4px;
+}
+
+/* 모바일 */
+
+@media (max-width: 479px) {
+  .Main_right_container_writtenPosts,
+  .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
+    display: none;
+  }
+  .MyPosts_ParticipatedProjects_main_right_container_box_projectName {
+    font-size: 12px;
+  }
+  .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 950px) {
+  .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
+    display: none;
+  }
+  .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
+    padding-left: 20px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 950px) {
+  .ProfilePage_main_right_container_flowerImg {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper > button,
+  .status-btn {
+    width: 64.9px;
+  }
 }

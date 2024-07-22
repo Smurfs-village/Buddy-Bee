@@ -4,6 +4,8 @@ import axios from "axios";
 import { FlowerImg } from "./Common";
 import Pagination from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import mockImage from "../../img/mock.svg";
 
 const Card = ({
   imgSrc,
@@ -12,15 +14,23 @@ const Card = ({
   status,
   onDeleteActiveProject,
   id,
+  onCardClick, // 추가
 }) => (
-  <div className="MyPosts_ParticipatedProjects_main_right_container_box">
+  <div
+    className={`${
+      status === "종료"
+        ? "MyPosts_ParticipatedProjects_main_right_finishedProject_box"
+        : "MyPosts_ParticipatedProjects_main_right_container_box"
+    }`}
+    onClick={() => onCardClick(id)} // 추가
+  >
     <div
       className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
         status === "종료"
           ? "MyPosts_ParticipatedProjects_finishedProjectImg"
           : "MyPosts_ParticipatedProjects_activePendingProjectImg"
       }`}
-      style={{ backgroundImage: `url(${imgSrc})` }}
+      style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
     ></div>
     <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
       <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
@@ -34,7 +44,12 @@ const Card = ({
       <button className={`status-btn ${status}`}>{status}</button>
       <button
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
-        onClick={() => onDeleteActiveProject(id)}
+        onClick={e => {
+          e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
+          if (window.confirm("정말로 이 프로젝트를 삭제하시겠습니까?")) {
+            onDeleteActiveProject(id);
+          }
+        }}
       >
         삭제
       </button>
@@ -46,9 +61,26 @@ const MainRightContainer = () => {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate(); // 추가
 
-  const onDeleteActiveProject = targetId => {
-    setProjects(() => projects.filter(project => project.id !== targetId));
+  const onDeleteActiveProject = async targetId => {
+    try {
+      // 서버로 삭제 요청
+      await axios.delete(`http://localhost:5001/api/projects/${targetId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      // 삭제 성공 시 프론트엔드에서도 해당 프로젝트 제거
+      setProjects(() => projects.filter(project => project.id !== targetId));
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
+  const onCardClick = id => {
+    navigate(`/projects/${id}`);
   };
 
   useEffect(() => {
@@ -66,9 +98,18 @@ const MainRightContainer = () => {
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
         const allProjects = [
-          ...pendingProjects.map(project => ({ ...project, status: "대기중" })),
-          ...activeProjects.map(project => ({ ...project, status: "진행중" })),
-          ...finishedProjects.map(project => ({ ...project, status: "종료" })),
+          ...pendingProjects.map(project => ({
+            ...project,
+            status: "대기중",
+          })),
+          ...activeProjects.map(project => ({
+            ...project,
+            status: "진행중",
+          })),
+          ...finishedProjects.map(project => ({
+            ...project,
+            status: "종료",
+          })),
         ];
         setProjects(allProjects);
       } catch (error) {
@@ -103,10 +144,11 @@ const MainRightContainer = () => {
             status={project.status}
             onDeleteActiveProject={onDeleteActiveProject}
             id={project.id}
+            onCardClick={onCardClick} // 추가
           />
         ))}
+        <FlowerImg />
       </div>
-      <FlowerImg />
       <Pagination
         activePage={activePage}
         totalItemsCount={totalItemsCount}

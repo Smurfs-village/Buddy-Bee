@@ -24,7 +24,7 @@ body {
   color: #000;
   display: flex;
   flex-direction: column;
-  padding: 100px 74px;
+  padding: 80px 82px 80px 68px;
   box-sizing: border-box;
   justify-content: space-between;
 }
@@ -57,7 +57,7 @@ body {
 }
 
 .mainpage-left-section .mainpage-left_p {
-  margin: 30px 10px 20px 10px;
+  margin: 30px 10px 20px 0px;
   font-size: 1.2em;
   line-height: 1.7;
 }
@@ -286,12 +286,18 @@ body {
   overflow: hidden;
   border: black solid 2px;
   box-sizing: border-box;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.mainpage-card:hover {
+  transform: translateY(-50px);
 }
 
 .mainpage-card-line-1 {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .mainpage-card-image {
@@ -305,7 +311,7 @@ body {
   width: 100%;
   height: 172px; /* 컨텐츠 높이 고정 */
   box-sizing: border-box;
-  padding: 15px;
+  padding: 13px 15px 15px 15px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -318,7 +324,7 @@ body {
 }
 
 .mainpage-card-line-1 span {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .mainpage-card-content p {
@@ -328,7 +334,7 @@ body {
 }
 
 .mainpage-card_desc {
-  padding-top: 18px;
+  padding-top: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -341,21 +347,23 @@ body {
   flex-wrap: nowrap; /* 한 줄로 정렬 */
   overflow: hidden;
   max-width: 100%;
+  margin: 0;
 }
 
 .mainpage-hashtag {
-  margin-top: 17px;
+  margin-top: 20px;
   background-color: #c4a1ff; /* 기본 해시태그 배경 색상 */
   border-radius: 25px;
-  padding: 3px 6px;
+  padding: 4px 8px;
   font-size: 1em;
   color: #333;
   white-space: nowrap; /* 한 줄로 표시 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  border: 1px solid #000;
 }
 
 .mainpage-hashtag.mainpage-alternate-color {
   background-color: #fadf0b; /* 대체 해시태그 배경 색상 */
+  border: 1px solid #000;
 }
 
 .slick-slide {
@@ -364,13 +372,16 @@ body {
   display: flex !important;
   justify-content: center;
 }
-
+.slick-slider {
+  padding-right: 20px;
+}
 .slick-list {
-  height: 500px;
+  height: 550px;
 }
 
 .slick-track {
   height: 500px;
+  margin-top: 50px;
 }
 
 .slick-prev,
@@ -391,7 +402,7 @@ body {
 }
 
 .slick-next {
-  right: -40px;
+  right: -20px;
 }
 
 .mainpage-card-image-wrapper {
@@ -416,4 +427,469 @@ body {
   width: 55px;
   height: 55px;
   cursor: pointer;
+  transition: 0.15s ease;
+}
+.mainpage-scrap-icon:hover {
+  transform: scale(1.1);
+}
+.mainpage-card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%; /* 필요한 너비에 맞게 조정 */
+}
+/* 공통 애니메이션 설정 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-150px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(150px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInBounce {
+  0% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(40px);
+    transform: scaleX(1.3);
+    transform: scaleY(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+    transform: scale(1);
+  }
+}
+
+.from-right,/*애니메이션 요소 기본 상태*/
+.from-left,
+.from-down,
+.from-bounce {
+  opacity: 0;
+  transform: translateY(0);
+}
+.from-bounce.fade-in-bounce,/*애니메이션 실행 후 보이도록 설정*/
+.from-left.fade-in-left,
+.from-right.fade-in-right,
+.from-down.fade-in-bounce {
+  opacity: 1;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 1s ease;
+  transition: 0.2s ease;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.7s ease;
+  transition: 0.2s ease;
+}
+
+.fade-in-bounce {
+  animation: fadeInBounce 1.2s ease;
+  transition: 0.2s ease;
+}
+/*애니메이션 요소 호버 효과*/
+.fade-in-bounce:hover,
+.fade-in-left:hover,
+.fade-in-right:hover {
+  transform: translateY(-20px);
+}
+
+/* 호버 효과 */
+.mainpage-main-button {
+  transition: transform 0.3s ease; /* 호버 전환 효과 */
+}
+
+.mainpage-main-button:hover {
+  transform: scale(1.05); /* 크기 확대 */
+}
+
+.mainpage-arrow-icon {
+  transition: width 0.3s ease; /* 부드러운 전환 */
+  width: 20px; /* 기본 너비 */
+  height: 19px;
+}
+
+.mainpage-main-button:hover .mainpage-arrow-icon {
+  width: 60px; /* 호버 시 길어지는 너비 */
+}
+
+/* 479px 이하 버전 */
+@media (max-width: 479px) {
+  .mainpage-left-section {
+    width: 100%;
+    background-color: #c4a1ff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 44px 25px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+
+  .mainpage-left-section h1 {
+    font-size: 3rem;
+  }
+
+  .mainpage-left-section h2 {
+    font-size: 1.6em;
+  }
+
+  .mainpage-left-section .mainpage-left_p {
+    margin: 30px 10px 20px 0px;
+    font-size: 1em;
+    line-height: 1.5;
+  }
+
+  .mainpage-left_bee_icon img {
+    display: none;
+  }
+
+  .mainpage-button-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .mainpage-right-section {
+    display: none;
+  }
+
+  /* 텍스트 컨테이너 */
+
+  .mainpage-text-section {
+    border-top: #fadf0b 4px solid;
+    border-bottom: #c4a1ff 4px solid;
+  }
+
+  .mainpage-text-up-section {
+    padding: 5px 0;
+    border-top: #c4a1ff 4px solid;
+    border-bottom: #fadf0b 4px solid;
+    display: flex;
+  }
+
+  .mainpage-text-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .mainpage-text-section {
+    width: 100%;
+    height: 600px;
+  }
+  .mainpage-text-section p {
+    margin-top: 40px;
+    font-size: 1em;
+    font-weight: 100;
+    line-height: 33px;
+    word-break: keep-all;
+    width: 90%;
+  }
+  .mainpage-text-up-section {
+    width: 100%;
+  }
+
+  .mainpage-text-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .mainpage-text-section h2 {
+    margin: 0;
+    font-size: 1.35em;
+    line-height: 37px;
+  }
+
+  .mainpage-text-section h2:nth-child(1) {
+    padding-top: 16px;
+  }
+  .mainpage-text-section h2:nth-child(2) {
+    padding-bottom: 30px;
+    word-break: keep-all;
+  }
+
+  .mainpage-flower-icon {
+    position: absolute;
+    left: 10vw;
+    top: 9vw;
+    width: 20%;
+    rotate: -8deg;
+  }
+
+  .mainpage-cloud-icon {
+    display: none;
+  }
+
+  .mainpage-bee-icon {
+    display: none;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+  /*카드 캐러셀*/
+  .slick-prev,
+  .slick-next {
+    width: 0px;
+    height: 0px;
+    z-index: 1;
+  }
+
+  .mainpage-recruitment-section h2,
+  .mainpage-funding-section h2 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .mainpage-ranking-section h2 {
+    font-size: 1.3rem;
+  }
+  .mainpage-ranking-keywords {
+    margin-top: 60px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mainpage-card {
+    width: 250px !important; /* 카드 너비 조정 */
+    height: 350px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 250px; /* 이미지 너비 조정 */
+    height: 200px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 150px; /* 컨텐츠 높이 조정 */
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+}
+
+/* 480px ~ 768px 버전 */
+@media (min-width: 480px) and (max-width: 768px) {
+  .mainpage-left-section {
+    width: 100%;
+    background-color: #c4a1ff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 50px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
+
+  .mainpage-left-section .mainpage-left_p {
+    margin: 30px 10px 20px 0px;
+    font-size: 1.2em;
+    line-height: 1.7;
+    width: 85%;
+    word-break: keep-all;
+  }
+  .mainpage-left-section h1 {
+    font-size: 5rem;
+  }
+
+  .mainpage-button-container {
+    /* display: flex; */
+    gap: 10px;
+    padding-bottom: 40px;
+  }
+
+  .mainpage-main-button {
+    box-sizing: border-box; /* padding과 border를 포함하여 계산 */
+    padding: 10px 0;
+    color: #fff;
+    font-size: 1em;
+    width: 100%;
+  }
+
+  .mainpage-right-section {
+    display: none;
+  }
+
+  .mainpage-left_bee_icon img {
+    display: none;
+  }
+  /* 텍스트 컨테이너 */
+  .mainpage-text-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .mainpage-text-section {
+    width: 100%;
+    height: 600px;
+  }
+
+  .mainpage-text-up-section {
+    width: 100%;
+  }
+
+  .mainpage-text-section h1 {
+    font-size: 4rem;
+  }
+
+  .mainpage-flower-icon {
+    position: absolute;
+    left: 18%;
+    top: 5vw;
+    rotate: -8deg;
+    width: 15%;
+  }
+
+  .mainpage-cloud-icon {
+    display: none;
+  }
+
+  .mainpage-bee-icon {
+    display: none;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .mainpage-ranking-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .mainpage-ranking-keywords {
+    margin-top: 60px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mainpage-card {
+    width: 300px !important; /* 카드 너비 조정 */
+    height: 400px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 300px; /* 이미지 너비 조정 */
+    height: 250px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 150px; /* 컨텐츠 높이 조정 */
+  }
+
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 410px) {
+  /*펀딩 부분*/
+
+  .mainpage-funding-section {
+    padding: 50px;
+    padding-right: 10px;
+  }
+
+  /*동행 부분*/
+  .mainpage-recruitment-section {
+    padding: 50px;
+    padding-right: 10px;
+  }
+
+  /*랭킹 부분*/
+  .mainpage-ranking-keywords {
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mainpage-keyword {
+    padding: 18px 30px;
+    font-size: 1.2em;
+  }
+  /*카드 부분*/
+  .mainpage-card {
+    width: 220px !important; /* 카드 너비 조정 */
+    height: 320px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 220px; /* 이미지 너비 조정 */
+    height: 180px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 140px; /* 컨텐츠 높이 조정 */
+    padding: 10px 13px 15px 12px;
+  }
+  .mainpage-participants-info {
+    top: 13px;
+    left: 12px;
+    font-size: 0.8em;
+  }
+
+  .mainpage-scrap-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.15s ease;
+  }
+
+  .mainpage-hashtag {
+    margin-top: 12px;
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+  .mainpage-card_desc {
+    padding-top: 10px;
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
 }

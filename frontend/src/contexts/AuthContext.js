@@ -4,12 +4,15 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
-      if (token) {
+      if (token && !user) {
         try {
           const response = await axios.get(
             "http://localhost:5001/api/auth/me",
@@ -25,10 +28,32 @@ export const AuthProvider = ({ children }) => {
     };
 
     fetchUser();
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      console.log("Setting user in localStorage:", user);
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      console.log("Removing user from localStorage");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("nickname");
+    }
+  }, [user]);
+
+  const logout = () => {
+    setUser(null);
+    console.log("Logging out and clearing localStorage");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("nickname");
+  };
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

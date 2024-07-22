@@ -12,6 +12,7 @@
 .createpage-sub-nav {
   position: fixed;
   width: 100%;
+  height: 30px;
   background-color: #000;
   color: #fff;
   padding: 10px 0;
@@ -20,13 +21,18 @@
 .createpage-button-group {
   margin-left: 17.75%;
 }
-.createpage-sub-nav button {
+.createpage-button-group button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 0.93rem;
   cursor: pointer;
-  padding: 10px;
+  padding-top: 8px;
+  transition: 0.3s ease;
+  margin-right: 5px;
+}
+.createpage-button-group button:hover {
+  color: #fadf0b;
 }
 
 .createpage-create-main-section {
@@ -69,6 +75,7 @@
   font-size: 18px;
   margin-top: 50px;
 }
+
 .createpage-create-project-form h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -140,6 +147,21 @@
   white-space: nowrap;
 }
 
+.mobile-createpage-add-button {
+  /*모바일 전용 만들기 버튼*/
+  cursor: pointer;
+  border-radius: 100%;
+  border: 1px solid black;
+  padding: 4px 6px 3px 6px;
+  background-color: black;
+
+  display: none;
+}
+.mobile-createpage-add-button img {
+  width: 11px;
+  margin-top: 2px;
+  filter: invert();
+}
 .createpage-hashtag-input-wrapper .createpage-char-count {
   color: #d8d8d8;
   font-size: 18px;
@@ -213,7 +235,7 @@
   width: 100%;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #cccccc;
   outline: none;
   text-align: center;
   transition: width 0.3s ease;
@@ -224,21 +246,31 @@
 
 .createpage-recruitment-group {
   border: 1px dotted #000;
-  padding: 20px;
+  padding: 20px 30px 20px 20px;
   border-radius: 15px;
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 .createpage-recruitment-group span {
   white-space: nowrap;
 }
+/*요기*/
 .createpage-recruitment-input-wrapper {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
+.createpage-recruitment-people-input,
+.createpage-recruitment-amount-input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+.createpage-recruitment-people-input {
+  margin-right: 20px;
+}
 .createpage-number-input {
   flex: 1;
   display: flex;
@@ -247,14 +279,14 @@
 }
 
 .createpage-number-input input {
-  width: 80%;
+  width: 85%;
   padding: 10px;
   border: none;
-
   border-radius: 0;
   justify-content: center;
   outline: none;
   text-align: center;
+  border-bottom: 1px solid #cccccc;
 }
 
 .whitespace-nowrap {
@@ -265,7 +297,6 @@
   display: flex;
   white-space: nowrap;
   align-items: center;
-  border-bottom: 1px solid #000;
   flex: 1;
 }
 /* 옵션 추가 섹션 스타일 추가 */
@@ -308,7 +339,7 @@
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #cccccc;
 }
 .button-span-group {
   display: flex;
@@ -332,9 +363,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  width: 100%;
+  width: 85%;
   margin-left: 10px;
-  padding-right: 60px;
+  /* padding-right: 80px; */
   box-sizing: border-box;
 }
 
@@ -403,7 +434,6 @@
   outline: none;
   padding: 10px;
   font-size: 16px;
-
   color: #8b8b8b;
   cursor: not-allowed; /* 읽기 전용일 때 커서를 not-allowed로 변경 */
 }
@@ -424,6 +454,283 @@
   white-space: nowrap;
   font-size: 15px;
 }
+/*모바일용*/
+.mobile-createpage-edit-button {
+  padding: 9px 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: 400;
+  white-space: nowrap;
+  font-size: 14px;
+
+  display: none;
+}
 .ck.ck-editor__editable_inline {
   height: 600px;
+}
+
+@media (min-width: 768px) and (max-width: 925px) {
+  .createpage-button-group {
+    margin-left: 6.5%;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 20px 90px;
+  }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 22px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .createpage-create-main-section {
+    width: 100%;
+    padding: 20px 8% 120px 8%;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-top: none;
+  }
+  .createpage-button-group {
+    margin-left: 5%;
+  }
+  .createpage-create-project-form {
+    gap: 15px;
+  }
+  .createpage-button-group button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 0.93rem;
+    cursor: pointer;
+    padding-top: 8px;
+    transition: 0.3s ease;
+    margin-right: 5px;
+  }
+
+  .createpage-title-input {
+    margin-top: 20px;
+  }
+  .createpage-form-group label {
+    font-weight: 1000;
+    font-size: 20px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 15px;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 20px 90px;
+  }
+}
+
+@media (max-width: 479px) {
+  /* 기존 요소 중 블락 처리한 것들 */
+  .createpage-add-button,
+  .createpage-edit-button {
+    display: none;
+  }
+  #option-add {
+    margin-right: 10px;
+  }
+  .mobile-createpage-add-button,
+  .mobile-createpage-edit-button {
+    display: inline-block;
+  }
+  .mobile-createpage-add-button {
+    margin-right: 10px;
+  }
+  .createpage-create-project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .whitespace-nowrap {
+    margin: 0px;
+  }
+  .createpage-create-main-section {
+    padding: 0 5.5% 120px 5.5%;
+    border-width: 1px 0 1px 0;
+    border-top: 1px solid black;
+  }
+  .createpage-create-main-section label {
+    font-size: 18px;
+    display: inline-block;
+    padding-bottom: 0px;
+    margin-left: 3px;
+  }
+  .createpage-hashtag-limit {
+    font-size: 13px;
+  }
+
+  .createpage-sub-nav {
+    position: relative;
+    height: 20px;
+    /* display: none; */
+  }
+  .createpage-button-group {
+    margin-left: 5%;
+  }
+  .createpage-button-group button {
+    padding-top: 2px;
+    font-size: 0.93rem;
+  }
+  .createpage-form-group {
+    margin-bottom: 5px;
+  }
+  .createpage-title-input {
+    padding: 10px 2px;
+    border-bottom: 1px solid black;
+    font-size: 1rem;
+    margin-top: 30px;
+  }
+  .createpage-title-input::placeholder {
+    font-size: 14px;
+  }
+  .createpage-hashtag-input-wrapper input {
+    padding: 10px 15px;
+    min-height: 50px;
+    font-size: 14px;
+  }
+  .createpage-hashtags-display {
+    gap: 5px;
+    padding: 10px 12px;
+    min-height: 50px;
+  }
+  .input-wrapper span,
+  .createpage-recruitment-input-wrapper span,
+  .createpage-period-input-wrapper span {
+    padding-right: 2px;
+    font-size: 14px;
+  }
+  .createpage-hashtag-input-wrapper .createpage-char-count {
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 6px;
+  }
+  .createpage-account-input-wrapper input {
+    padding: 0 0 0 8px;
+  }
+  .createpage-option-form-group {
+    border: 1px dotted black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .createpage-recruitment-group,
+  .createpage-form-group.createpage-period-group {
+    padding: 10px 16px 12px 12px;
+  }
+  .createpage-recruitment-input-wrapper {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .createpage-option {
+    padding: 5px;
+    width: 87%;
+    margin-left: 0px;
+  }
+
+  /* ck editor 스타일 조절 */
+  .ck.ck-editor__editable_inline {
+    height: 300px;
+  }
+  .ck.ck-toolbar.ck-toolbar_grouping {
+    height: 25px;
+    opacity: 0.9;
+  }
+
+  /* 프로젝트 설정 버튼들 */
+  .createpage-add-button {
+    padding: 10px 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+    margin: 0 5px 0 5px;
+  }
+  .createpage-hashtag button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 1px 4px 1px 8px;
+  }
+  .button-span-group {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .button-span-group button {
+    margin-right: 20px;
+    margin-bottom: 3px;
+  }
+
+  .createpage-option button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .createpage-edit-button {
+    padding: 12px 15px 12px 15px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 15px;
+  }
+
+  /*등록하기 버튼 스타일*/
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 20px 80px;
+    border: 1px solid black;
+  }
+
+  /*펀딩 전용 항목들*/
+  .createpage-account-input-wrapper input {
+    font-size: 14px;
+  }
+}
+@media (max-width: 404px) {
+  .createpage-period-input-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .createpage-hashtag-limit {
+    word-break: keep-all;
+  }
+  .createpage-submit-button {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 20px 80px;
+  }
+}
+
+@media (max-width: 295px) {
+  /*editor 에러 방지 용으로 블락 처리*/
+  .ck.ck-button.ck-button_with-text,
+  a.ck.ck-button.ck-button_with-text {
+    display: none;
+  }
 }

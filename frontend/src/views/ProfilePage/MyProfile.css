@@ -1,14 +1,13 @@
 .MyProfile_main_right_container_userInfo_wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
 }
 
 .MyProfile_input_box {
   display: flex;
   flex-direction: column;
-  width: 60%; /* 너비를 조정하여 이미지와 균형 맞추기 */
+  width: 70%;
+  /* 너비를 조정하여 이미지와 균형 맞추기 */
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label {
@@ -16,10 +15,11 @@
   padding: 12px 0 0 0;
   border-bottom: 1px solid black;
   width: 100%;
+  white-space: nowrap;
 }
 
 .MyProfile_main_right_container_userInfo_wrapper label input {
-  margin: 0 0 10px 15px;
+  margin: 0 0 10px 0;
   font-size: 15px;
 }
 
@@ -28,10 +28,11 @@
 }
 
 .MyProfile_nickname_input {
-  padding-left: 3.6%;
+  padding-left: 6px;
 }
 
 .MyProfile_certification_Btn {
+  cursor: pointer;
   background-color: black;
   color: white;
   border-radius: 20px;
@@ -46,6 +47,7 @@
   outline: none;
   padding-top: 10px;
   position: relative;
+  text-align: center;
 }
 
 .MyProfile_main_right_container_profile_edit_img_wrapper {
@@ -74,7 +76,11 @@
   object-fit: cover; /* 이미지가 래퍼를 채우도록 설정 */
 }
 
-.overlay {
+.MyProfile_main_right_container_profile_edit_img:hover {
+  transition: 2s ease;
+}
+
+.MyProfile_overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -97,6 +103,10 @@
   opacity: 1 !important;
 }
 
+.MyProfile_main_right_container_introductionLetterBox_flowerImg_wrapper {
+  position: relative;
+}
+
 .MyProfile_main_right_container_introductionLetterBox {
   border: 1px dashed black;
   border-radius: 18px;
@@ -107,6 +117,7 @@
   padding: 20px; /* 텍스트 시작 위치 조정 */
   font-size: 15px;
   resize: none;
+  width: 100%;
 }
 
 .MyProfile_main_right_container_introductionLetterBox::placeholder {
@@ -125,6 +136,12 @@
   font-size: 18px;
   padding: 7px 20px;
   margin-right: 5px;
+}
+
+.MyProfile_main_right_container_profile_edit_img_wrapper_inner:hover,
+.MyProfile_main_right_container_btn:hover,
+.MyProfile_certification_Btn:hover {
+  transform: scale(1.05);
 }
 
 .MyProfile_main_right_container_cancelBtn {
@@ -148,4 +165,62 @@
   width: 16px; /* 적절한 크기로 조정 */
   height: 16px; /* 적절한 크기로 조정 */
   cursor: pointer;
+}
+.pen-icon:hover {
+  transform: scale(1.2);
+}
+
+.MyProfile_label_with_pen,
+.pen-icon,
+.MyProfile_main_right_container_saveBtn {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.MyProfile_flowerImg {
+  height: 117px;
+  position: absolute;
+  left: -35px;
+  bottom: -50px;
+}
+
+@media (max-width: 550px) {
+  .MyProfile_main_right_container_userInfo_input {
+    font-size: 10px;
+  }
+  .MyProfile_main_right_container_userInfo_wrapper label,
+  .MyProfile_main_right_container_userInfo_wrapper label input,
+  .MyProfile_main_right_container_introductionLetterBox::placeholder {
+    font-size: 12px;
+  }
+  .MyProfile_main_right_container_introductionLetterBox {
+    padding: 15px;
+    font-size: 12px;
+  }
+  .MyProfile_certification_Btn,
+  .MyProfile_main_right_container_btn {
+    font-size: 12px;
+  }
+  .MyProfile_main_right_container_saveBtn {
+    margin: 0% 5% 1% 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .Main_right_container {
+    margin: 0px 10px;
+    border: 3px solid black;
+  }
+  .MyProfile_flowerImg {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
+    display: none;
+  }
+  .MyProfile_input_box {
+    width: 100%;
+  }
 }

@@ -9,10 +9,15 @@
   margin: 10px;
   background-color: white;
   display: flex;
-  flex: 1.7;
+  flex: 1.5;
   flex-direction: column;
   padding: 2% 2% 0% 2%;
+  white-space: nowrap;
 }
+
+.MyProfile_main_aside > a {
+  text-decoration: none;
+} /* > Link가 아닌 a로 작성해야 적용됨 */
 
 .MyProfile_main_aside_category {
   color: #505050;
@@ -39,4 +44,22 @@
   font-size: 15px;
   color: #afafaf;
   cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .MyProfile_main_aside {
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border: 2px solid black;
+  }
+  .MyProfile_main_aside_category,
+  .MyProfile_main_aside_category_active {
+    font-size: 12px;
+    margin-left: 4px;
+    border: none;
+  }
+  .MyProfile_main_aside_deleteId_wrapper {
+    display: none;
+  }
 }

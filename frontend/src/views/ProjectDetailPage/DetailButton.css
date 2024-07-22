@@ -4,21 +4,23 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
 }
 .ProjectDetailPage-like {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
 }
 
 .ProjectDetailPage-like img {
   width: 42px;
   height: 43px;
+  margin-bottom: 2px;
+  transition: 0.2s ease;
 }
 .ProjectDetailPage-like span {
-  margin-right: 2px;
+  margin-right: 10px;
   /* margin-top: 1px; */
 }
 
@@ -43,8 +45,76 @@
 .ProjectDetailPage-share img {
   width: 30px;
   height: 30px;
+  transition: 0.2s ease;
 }
 
 .ProjectDetailPage-share span {
   margin-right: 2px;
+}
+
+.ProjectDetailPage-like img:hover,
+.ProjectDetailPage-share img:hover {
+  transform: scale(1.15);
+}
+/* 미디어쿼리_ media query */
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .ProjectDetailPage-like img {
+    margin-left: 5px;
+  }
+  .ProjectDetailPage-btn button {
+    width: 124px;
+    height: 64px;
+    font-size: 1rem;
+  }
+
+  .ProjectDetailPage-btn {
+    gap: 12px;
+  }
+
+  .ProjectDetailPage-like img {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 2px;
+  }
+  .ProjectDetailPage-share img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ProjectDetailPage-btn {
+    margin-top: 109px;
+    gap: 8px;
+  }
+  .ProjectDetailPage-like {
+    gap: 4px;
+  }
+
+  .ProjectDetailPage-like img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 2px;
+  }
+  .ProjectDetailPage-share img {
+    width: 20px;
+    height: 20px;
+  }
+  .ProjectDetailPage-like span {
+    margin-right: 4px;
+  }
+
+  .ProjectDetailPage-btn button {
+    width: 106px;
+    height: 52px;
+    font-size: 16px;
+    border: 1px solid #000;
+    transition: 0.2s ease;
+  }
+  .ProjectDetailPage-btn button:hover {
+    transform: scale(1.05);
+  }
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
+import mockImage from "../../img/mock.svg"; // 기본 이미지 import
 
 const Card = ({ data, index, type, toggleScrap }) => {
   const { user } = useAuth(); // useAuth 훅 사용
@@ -13,6 +14,9 @@ const Card = ({ data, index, type, toggleScrap }) => {
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
   const navigate = useNavigate();
+
+  const startPos = useRef({ x: 0, y: 0 });
+  const isDragging = useRef(false);
 
   useEffect(() => {
     if (hashtagsRef.current) {
@@ -96,7 +100,29 @@ const Card = ({ data, index, type, toggleScrap }) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/projects/${data.id}`);
+    if (!isDragging.current) {
+      navigate(`/projects/${data.id}`);
+    }
+  };
+
+  const handleMouseDown = e => {
+    startPos.current = { x: e.clientX, y: e.clientY };
+    isDragging.current = false;
+  };
+
+  const handleMouseUp = e => {
+    const endPos = { x: e.clientX, y: e.clientY };
+    const distance = Math.sqrt(
+      Math.pow(endPos.x - startPos.current.x, 2) +
+        Math.pow(endPos.y - startPos.current.y, 2)
+    );
+
+    if (distance > 5) {
+      // 드래그로 간주하는 최소 거리
+      isDragging.current = true;
+    } else {
+      handleCardClick();
+    }
   };
 
   const handleHoneyClick = async e => {
@@ -107,11 +133,18 @@ const Card = ({ data, index, type, toggleScrap }) => {
     }
 
     try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      };
+
       if (isHoney) {
         await axios.delete(
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
             data: { userId: user.id },
+            headers: config.headers, // 인증 헤더 추가
           }
         );
         setHoneyCount(honeyCount - 1);
@@ -120,7 +153,8 @@ const Card = ({ data, index, type, toggleScrap }) => {
           `http://localhost:5001/api/projects/${data.id}/honey`,
           {
             userId: user.id,
-          }
+          },
+          config // 인증 헤더 추가
         );
         setHoneyCount(honeyCount + 1);
       }
@@ -131,10 +165,15 @@ const Card = ({ data, index, type, toggleScrap }) => {
   };
 
   return (
-    <div className="mainpage-card" key={index} onClick={handleCardClick}>
+    <div
+      className="mainpage-card"
+      key={index}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <div className="mainpage-card-image-wrapper">
         <img
-          src={data.main_image}
+          src={data.main_image || mockImage}
           alt="Sample"
           className="mainpage-card-image"
         />
@@ -146,14 +185,16 @@ const Card = ({ data, index, type, toggleScrap }) => {
           alt={isHoney ? "scrap_yes" : "scrap_none"}
           className="mainpage-scrap-icon"
           onClick={handleHoneyClick}
+          onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
         />
       </div>
       <div className="mainpage-card-content">
         <div className="mainpage-card-line-1">
-          <h3>{data.title}</h3>
-          <span>작성자: {data.author}</span>
+          <h3 className="mainpage-card-title">{data.title}</h3>
+          <span>{data.author}</span>
         </div>
-        <p>조회수: {data.view_count || 0}</p>
+        <p>조회수 {data.view_count || 0}</p>
         <p className="mainpage-card_desc">{stripHtmlTags(data.description)}</p>
         <div className="mainpage-hashtags" ref={hashtagsRef}>
           {hashtags.map((tag, idx) => (

@@ -3,7 +3,7 @@
   height: auto;
   display: flex;
   justify-content: center;
-  padding: 145px 0 175px 2.5%;
+  padding: 150px 0 175px 2.5%;
 }
 
 .login-page-layout-back-img {
@@ -13,7 +13,7 @@
 .login-page-layout-back-img img {
   position: absolute;
   left: -200px;
-  top: -155px;
+  top: -150px;
 }
 
 .login-page-layout-form {
@@ -23,15 +23,12 @@
 }
 .login-page-layout-wrapper {
   width: 400px;
-  /* height: 550px; */
-  /* width: 50%;
-    height: 30%; */
   background-color: white;
   border: 2px solid black;
   z-index: 1;
   box-shadow: 7px 8px 0 0 rgb(0, 0, 0);
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 70px;
   flex: 1;
 }
 
@@ -42,7 +39,7 @@
 
 .login-page-layout-cloud-img img {
   position: absolute;
-  bottom: -59px;
+  bottom: -60px;
   right: -67px;
 }
 
@@ -77,4 +74,46 @@
 }
 .color-red {
   background-color: #ff8473;
+}
+
+/* 미디어쿼리_ media query */
+@media (min-width: 480px) and (max-width: 767px) {
+  .login-page-layout {
+    width: 92%;
+    padding: 150px 0 175px 8%;
+  }
+
+  .login-page-layout-wrapper {
+    width: 350px;
+  }
+  .login-page-layout-back-img img {
+    left: -180px;
+    top: -140px;
+    width: 330px;
+    height: 330px;
+    rotate: 5deg;
+  }
+
+  .login-page-layout-cloud-img img {
+    width: 140px;
+    height: 130px;
+    right: -45px;
+    bottom: -68px;
+  }
+}
+
+@media (max-width: 479px) {
+  .login-page-layout {
+    width: 100%;
+    padding: 56px 0 20% 0;
+  }
+  .login-page-layout-wrapper {
+    width: 90vw;
+    box-shadow: 0px 7px 0 0 rgb(0, 0, 0);
+  }
+
+  .login-page-layout-back-img img,
+  .login-page-layout-cloud-img img {
+    display: none;
+  }
 }

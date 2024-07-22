@@ -23,6 +23,41 @@
   justify-content: flex-end;
 }
 
+.sns-login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0px 9% 0 0;
+}
+
+.sns-login-wrapper p {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  align-items: flex-end;
+}
+
+.sns-login-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.sns-login-icons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 3px;
+}
+
+.sns-login-icons img {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s;
+}
+
+.sns-login-icons button:hover img {
+  transform: scale(1.5);
+}
+
 .login-page-register-dropdown {
   position: absolute;
   top: 410px;
@@ -72,7 +107,6 @@
   box-shadow: 2px 2px 0 0 rgb(0, 0, 0);
   cursor: pointer;
   transition: 0.2s;
-  margin-bottom: 49px;
 }
 
 .login-page-btn-wrapper button:focus {
@@ -92,4 +126,136 @@
 
 .login-page-dropdown-list li:hover {
   font-weight: bold;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 0 rgb(0, 0, 0);
+  max-width: 500px;
+  width: 350px;
+  z-index: 99999;
+  box-sizing: border-box;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sns-signup-btn {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 0 rgb(0, 0, 0);
+  transition: 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.sns-signup-btn span {
+  margin-bottom: 1px;
+}
+.sns-signup-btn:hover {
+  transform: scale(1.05);
+}
+
+.sns-signup-btn:focus {
+  box-shadow: none;
+  transform: translateX(2px);
+}
+
+.sns-signup-btn img {
+  width: 14px; /* 원하는 크기로 조절 */
+  height: 14px; /* 원하는 크기로 조절 */
+}
+.naver img {
+  width: 18px;
+  height: 18px;
+}
+.kakao img {
+  width: 22px;
+  height: 22px;
+}
+.naver {
+  background-color: #00bf18;
+  color: white;
+  padding: 9px;
+}
+
+.kakao {
+  background-color: #ffe90a;
+  color: black;
+  padding: 7px;
+}
+
+.google {
+  background-color: white;
+  color: black;
+}
+.modal-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* 미디어 쿼리 */
+@media (min-width: 480px) and (max-width: 767px) {
+  .login-page-register-dropdown {
+    top: 400px;
+    right: 28px;
+    width: 130px;
+  }
+}
+
+@media (max-width: 479px) {
+  .login-page-register-dropdown {
+    top: 77%;
+    right: 7.4vw;
+    width: 130px;
+  }
+
+  .login-page-icon-wrapper img {
+    width: 5.5rem;
+  }
+
+  .login-page-icon-wrapper h2 {
+    font-size: 1.9rem;
+    margin: 20px 0 36px 0;
+  }
+
+  .login-page-input-wrapper input {
+    padding: 12px 16px;
+    margin-bottom: 7px;
+    border-radius: 40px;
+    border: 1px solid black;
+  }
 }

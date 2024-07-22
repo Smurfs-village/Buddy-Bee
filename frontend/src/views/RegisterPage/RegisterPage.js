@@ -7,6 +7,7 @@ import LoginPageLayout from "../../components/Layout/LoginPageLayout";
 import "./RegisterPage.css";
 import { register, checkNicknameAvailability } from "../../api/api"; // checkNicknameAvailability 함수 추가
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const RegisterPage = () => {
   const [nickname, setNickname] = useState("");
@@ -31,17 +32,35 @@ const RegisterPage = () => {
     try {
       const userData = await register(email, password, nickname);
       setUser(userData); // setUser 호출
+      Swal.fire({
+        icon: "success",
+        title: "회원가입에 성공했습니다!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      Swal.fire({
+        title: "Error",
+        text: "회원가입에 실패했습니다. 다시 시도해주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     }
   };
 
   const validateForm = () => {
     const errors = {};
-    if (nickname.length > 8) {
-      errors.nickname = "닉네임은 8글자 이하로 입력해주세요.";
+    // 닉네임은 영문, 숫자, 한글만 허용
+    const nicknamePattern = /^[a-zA-Z0-9가-힣]*$/;
+
+    if (!nickname.length === 0 || nickname.trim().length === 0) {
+      errors.nickname = "닉네임을 입력바랍니다.";
+    } else if (!nicknamePattern.test(nickname)) {
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+    } else if (nickname.length > 8) {
+      errors.nickname = "닉네임은 1~8 글자 사이로 입력해주세요.";
     }
     if (!email.includes("@")) {
       errors.email = "유효한 이메일 주소를 입력해주세요.";
@@ -53,17 +72,58 @@ const RegisterPage = () => {
   };
 
   const handleCheckNickname = async () => {
+    const errors = {};
+    const nicknamePattern = /^[a-zA-Z0-9가-힣]*$/;
+
+    if (nickname.length === 0 || nickname.trim().length === 0) {
+      errors.nickname = "닉네임을 입력해주세요.";
+    } else if (!nicknamePattern.test(nickname)) {
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+    } else if (nickname.length > 8) {
+      errors.nickname = "닉네임은 1~8글자 사이로 입력해주세요.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     try {
       const isAvailable = await checkNicknameAvailability(nickname);
       setIsNicknameAvailable(isAvailable);
       if (isAvailable) {
-        alert("사용 가능한 닉네임입니다.");
+        Swal.fire({
+          icon: "success",
+          title: "사용 가능한 닉네임입니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
-        alert("이미 사용 중인 닉네임입니다.");
+        Swal.fire({
+          title: "Error",
+          text: "이미 사용 중인 닉네임입니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
       }
     } catch (error) {
-      console.error("Error checking nickname availability:", error);
-      alert("닉네임 중복 확인 중 오류가 발생했습니다.");
+      if (error.message === "cannot be empty") {
+        console.error("Error checking nickname availability:", error);
+        Swal.fire({
+          title: "Error",
+          text: "닉네임을 입력해주세요.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
+      } else {
+        console.error("Error checking nickname availability:", error);
+        Swal.fire({
+          title: "Error",
+          text: "닉네임 중복 확인 중 오류가 발생했습니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
+      }
     }
   };
 

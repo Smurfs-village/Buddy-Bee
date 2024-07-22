@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
+  "name": "buddy_bee_backend",
+  "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
     "bcrypt": "^5.1.1",

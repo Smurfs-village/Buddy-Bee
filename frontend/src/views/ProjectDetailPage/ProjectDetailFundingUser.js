@@ -159,7 +159,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           timerProgressBar: true,
           icon: "success",
           title: "펀딩 참여에 성공하였습니다.",
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
@@ -203,7 +203,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     calculateTotalPrice(newOptions); // 옵션이 변경될 때마다 총합 가격을 계산
   };
 
-  const calculateTotalPrice = options => {
+  const calculateTotalPrice = (options) => {
     const total = options.reduce(
       (total, option) => total + option.price * option.quantity,
       0
@@ -212,7 +212,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   };
 
   const initializeOptions = useCallback(() => {
-    const initialOptions = project.options.map(option => ({
+    const initialOptions = project.options.map((option) => ({
       name: option.name,
       price: option.price,
       quantity: 0,
@@ -226,12 +226,17 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     }
   }, [project, initializeOptions]);
 
-  const formatDate = date => {
+  const formatDate = (date) => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });
+  };
+
+  // 가격에 쉼표를 추가하는 함수
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   if (!project) {
@@ -283,7 +288,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                         >
                           <div className="ProjectDetailPage-goods">
                             {index + 1}. {option.name}{" "}
-                            <span>({option.price}원/1개)</span>
+                            <span>({formatPrice(option.price)}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
                             <input
@@ -291,7 +296,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                               name="optionCount"
                               min="0"
                               value={options[index]?.quantity || 0}
-                              onChange={e =>
+                              onChange={(e) =>
                                 handleOptionChange(
                                   index,
                                   parseInt(e.target.value, 10)
@@ -310,7 +315,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                     총 결제금액
                   </div>
                   <div className="ProjectDetailPage-total-cash">
-                    {totalPrice} <span>원</span>
+                    {formatPrice(totalPrice)} <span>원</span>
                   </div>
                 </div>
               </div>

@@ -72,12 +72,17 @@ const ProjectDetailPageWith = ({ hashtags }) => {
     navigate(`/projects/${projectId}/edit`);
   };
 
-  const formatDate = date => {
+  const formatDate = (date) => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });
+  };
+
+  // 가격에 쉼표를 추가하는 함수
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   if (!project) {
@@ -129,7 +134,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
                         >
                           <div className="ProjectDetailPage-goods">
                             {index + 1}. {option.name}{" "}
-                            <span>({option.price}원/1개)</span>
+                            <span>({formatPrice(option.price)}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
                             <input type="checkbox" name="optionCount" />

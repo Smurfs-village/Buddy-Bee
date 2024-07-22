@@ -11,7 +11,6 @@ import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import googleLogo from "../../img/google.png";
 import kakaoLogo from "../../img/KakaoTalk_logo.png";
 import naverLogo from "../../img/naver.png";
-import KakaoRedirectHandler from "./KakaoRedirectHandler";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -89,12 +88,17 @@ const LoginPage = ({ onLogin }) => {
     const REST_API_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY;
     const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(REST_API_KEY);
+    // window.Kakao 객체가 존재하는지 확인
+    if (window.Kakao) {
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init(REST_API_KEY);
+      }
+      window.Kakao.Auth.authorize({
+        redirectUri: REDIRECT_URI,
+      });
+    } else {
+      console.error("Kakao SDK not loaded.");
     }
-    window.Kakao.Auth.authorize({
-      redirectUri: REDIRECT_URI,
-    });
   };
 
   const handleNaverLogin = () => {
@@ -103,10 +107,6 @@ const LoginPage = ({ onLogin }) => {
 
   const handleGoogleLogin = () => {
     // Google 로그인 처리 로직 추가
-  };
-
-  const handleKakaoAuth = () => {
-    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -221,7 +221,6 @@ const LoginPage = ({ onLogin }) => {
           )}
         </LoginPageLayout>
       </BackGroundGrid>
-      <KakaoRedirectHandler onKakaoAuth={handleKakaoAuth} />
     </Layout>
   );
 };

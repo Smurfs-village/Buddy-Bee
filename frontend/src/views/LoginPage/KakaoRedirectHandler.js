@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const KakaoRedirectHandler = ({ onKakaoAuth }) => {
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+
   useEffect(() => {
     const handleKakaoLogin = async () => {
       const params = new URLSearchParams(window.location.search);
@@ -14,14 +19,16 @@ const KakaoRedirectHandler = ({ onKakaoAuth }) => {
             { code }
           );
 
-          if (response.data.isNewUser) {
+          const { token, userId, nickname, isNewUser } = response.data;
+
+          if (isNewUser) {
             onKakaoAuth(response.data.email, response.data.nickname);
           } else {
-            const { token, userId, nickname } = response.data;
+            setUser({ id: userId, nickname }); // AuthContext를 통해 사용자 정보 설정
             localStorage.setItem("token", token);
             localStorage.setItem("userId", userId);
             localStorage.setItem("nickname", nickname);
-            window.location.href = "/"; // 새로고침 방식으로 홈으로 이동
+            navigate("/");
           }
         } catch (error) {
           console.error("Kakao login failed", error);
@@ -31,7 +38,7 @@ const KakaoRedirectHandler = ({ onKakaoAuth }) => {
     };
 
     handleKakaoLogin();
-  }, [onKakaoAuth]);
+  }, [onKakaoAuth, navigate, setUser]);
 
   return null;
 };

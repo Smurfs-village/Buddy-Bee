@@ -749,6 +749,9 @@ body {
     display: none;
   }
 
+  .mainpage-left_bee_icon img {
+    display: none;
+  }
   /* 텍스트 컨테이너 */
   .mainpage-text-container {
     width: 100%;

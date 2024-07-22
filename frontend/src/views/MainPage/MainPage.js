@@ -138,7 +138,7 @@ const MainPage = () => {
       <div className="mainpage-main-page">
         <div className="mainpage-main-section">
           <div className="mainpage-left-section">
-            <div>
+            <div className="main-page-left_in">
               <div className="mainpage-left_bee_icon">
                 <div>
                   <h1 className="mainpage-h1_buddy">BUDDY </h1>

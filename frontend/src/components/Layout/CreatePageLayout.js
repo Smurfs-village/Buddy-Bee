@@ -353,7 +353,6 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
-                        value={formatPrice(optionName)}
                         onChange={(e) => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />

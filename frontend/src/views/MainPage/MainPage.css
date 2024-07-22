@@ -186,6 +186,7 @@ body {
   font-weight: 100;
   line-height: 37px;
   width: 70%;
+  word-break: keep-all;
 }
 
 .mainpage-recruitment-section {
@@ -452,7 +453,7 @@ body {
 
 @keyframes fadeInLeft {
   from {
-    transform: translateX(-150px);
+    transform: translateX(-15vw);
   }
   to {
     transform: translateX(0);
@@ -461,7 +462,7 @@ body {
 
 @keyframes fadeInRight {
   from {
-    transform: translateX(150px);
+    transform: translateX(15vw);
   }
   to {
     transform: translateX(0);
@@ -489,7 +490,6 @@ body {
 .from-down,
 .from-bounce {
   opacity: 0;
-  transform: translateY(0);
 }
 .from-bounce.fade-in-bounce,/*애니메이션 실행 후 보이도록 설정*/
 .from-left.fade-in-left,
@@ -542,6 +542,146 @@ body {
   width: 60px; /* 호버 시 길어지는 너비 */
 }
 
+/*text-section bee-icon, clould-icon, flower-icon전용*/
+@media (min-width: 976px) and (max-width: 1128px) {
+  .mainpage-cloud-icon {
+    left: 1.5vw;
+    bottom: 180px;
+    width: 130px;
+  }
+
+  .mainpage-bee-icon {
+    right: -1vw;
+    top: 290px;
+    width: 150px;
+  }
+}
+@media (min-width: 769px) and (max-width: 975px) {
+  .mainpage-cloud-icon,
+  .mainpage-bee-icon {
+    display: none;
+  }
+}
+
+/* 480px ~ 768px 버전 */
+@media (min-width: 480px) and (max-width: 768px) {
+  .mainpage-left-section {
+    width: 100%;
+    background-color: #c4a1ff;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 50px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .mainpage-card-content h3 {
+    font-size: 1rem;
+  }
+
+  .mainpage-left-section .mainpage-left_p {
+    margin: 30px 10px 20px 0px;
+    font-size: 1.2em;
+    line-height: 1.7;
+    width: 85%;
+    word-break: keep-all;
+  }
+  .mainpage-left-section h1 {
+    font-size: 5rem;
+  }
+
+  .mainpage-button-container {
+    gap: 10px;
+    padding-bottom: 40px;
+  }
+
+  .mainpage-main-button {
+    box-sizing: border-box; /* padding과 border를 포함하여 계산 */
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1em;
+    width: 30vw;
+  }
+
+  .mainpage-right-section {
+    display: none;
+  }
+
+  .mainpage-left_bee_icon img {
+    display: none;
+  }
+  /* 텍스트 컨테이너 */
+  .mainpage-text-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .mainpage-text-section {
+    width: 100%;
+    height: 600px;
+  }
+
+  .mainpage-text-up-section {
+    width: 100%;
+  }
+
+  .mainpage-text-section h1 {
+    font-size: 4rem;
+  }
+
+  .mainpage-flower-icon {
+    position: absolute;
+    left: 18%;
+    top: 5vw;
+    rotate: -8deg;
+    width: 15%;
+  }
+
+  .mainpage-cloud-icon {
+    display: none;
+  }
+
+  .mainpage-bee-icon {
+    display: none;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    display: none;
+  }
+
+  .mainpage-ranking-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .mainpage-ranking-keywords {
+    margin-top: 60px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mainpage-card {
+    width: 300px !important; /* 카드 너비 조정 */
+    height: 400px; /* 카드 높이 조정 */
+  }
+
+  .mainpage-card-image {
+    width: 300px; /* 이미지 너비 조정 */
+    height: 250px; /* 이미지 높이 조정 */
+  }
+
+  .mainpage-card-content {
+    height: 150px; /* 컨텐츠 높이 조정 */
+  }
+
+  .mainpage-hashtag {
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+}
+
 /* 479px 이하 버전 */
 @media (max-width: 479px) {
   .mainpage-left-section {
@@ -550,7 +690,7 @@ body {
     color: #000;
     display: flex;
     flex-direction: column;
-    padding: 44px 25px;
+    padding: 44px 25px 44px 27px;
     box-sizing: border-box;
     justify-content: space-between;
   }
@@ -569,6 +709,19 @@ body {
     line-height: 1.5;
   }
 
+  .mainpage-main-button {
+    padding: 10px 20px 10px 20px;
+
+    font-size: 1em;
+    width: 250px;
+    height: 114px;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .mainpage-main-button p {
+    margin: 10px 0 10px 0;
+  }
   .mainpage-left_bee_icon img {
     display: none;
   }
@@ -611,7 +764,6 @@ body {
     font-size: 1em;
     font-weight: 100;
     line-height: 33px;
-    word-break: keep-all;
     width: 90%;
   }
   .mainpage-text-up-section {
@@ -698,126 +850,6 @@ body {
   .mainpage-card-content h3 {
     font-size: 1rem;
   }
-  .mainpage-hashtag {
-    margin-top: 5px;
-    margin-bottom: 3px;
-  }
-}
-
-/* 480px ~ 768px 버전 */
-@media (min-width: 480px) and (max-width: 768px) {
-  .mainpage-left-section {
-    width: 100%;
-    background-color: #c4a1ff;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    padding: 70px 50px;
-    box-sizing: border-box;
-    justify-content: space-between;
-  }
-  .mainpage-card-content h3 {
-    font-size: 1rem;
-  }
-
-  .mainpage-left-section .mainpage-left_p {
-    margin: 30px 10px 20px 0px;
-    font-size: 1.2em;
-    line-height: 1.7;
-    width: 85%;
-    word-break: keep-all;
-  }
-  .mainpage-left-section h1 {
-    font-size: 5rem;
-  }
-
-  .mainpage-button-container {
-    /* display: flex; */
-    gap: 10px;
-    padding-bottom: 40px;
-  }
-
-  .mainpage-main-button {
-    box-sizing: border-box; /* padding과 border를 포함하여 계산 */
-    padding: 10px 0;
-    color: #fff;
-    font-size: 1em;
-    width: 100%;
-  }
-
-  .mainpage-right-section {
-    display: none;
-  }
-
-  .mainpage-left_bee_icon img {
-    display: none;
-  }
-  /* 텍스트 컨테이너 */
-  .mainpage-text-container {
-    width: 100%;
-    padding: 0;
-  }
-
-  .mainpage-text-section {
-    width: 100%;
-    height: 600px;
-  }
-
-  .mainpage-text-up-section {
-    width: 100%;
-  }
-
-  .mainpage-text-section h1 {
-    font-size: 4rem;
-  }
-
-  .mainpage-flower-icon {
-    position: absolute;
-    left: 18%;
-    top: 5vw;
-    rotate: -8deg;
-    width: 15%;
-  }
-
-  .mainpage-cloud-icon {
-    display: none;
-  }
-
-  .mainpage-bee-icon {
-    display: none;
-  }
-
-  .slick-prev:before,
-  .slick-next:before {
-    display: none;
-  }
-
-  .mainpage-ranking-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .mainpage-ranking-keywords {
-    margin-top: 60px;
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .mainpage-card {
-    width: 300px !important; /* 카드 너비 조정 */
-    height: 400px; /* 카드 높이 조정 */
-  }
-
-  .mainpage-card-image {
-    width: 300px; /* 이미지 너비 조정 */
-    height: 250px; /* 이미지 높이 조정 */
-  }
-
-  .mainpage-card-content {
-    height: 150px; /* 컨텐츠 높이 조정 */
-  }
-
   .mainpage-hashtag {
     margin-top: 5px;
     margin-bottom: 3px;

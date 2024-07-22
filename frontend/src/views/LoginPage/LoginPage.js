@@ -96,6 +96,14 @@ const LoginPage = ({ onLogin }) => {
     });
   };
 
+  const handleNaverLogin = () => {
+    // Naver 로그인 처리 로직 추가
+  };
+
+  const handleGoogleLogin = () => {
+    // Google 로그인 처리 로직 추가
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -148,6 +156,22 @@ const LoginPage = ({ onLogin }) => {
               Login
             </button>
           </div>
+
+          <div className="sns-login-wrapper">
+            <p>SNS Login</p>
+            <div className="sns-login-icons">
+              <button onClick={handleNaverLogin}>
+                <img src={naverLogo} alt="Naver" />
+              </button>
+              <button onClick={handleKakaoLogin}>
+                <img src={kakaoLogo} alt="Kakao" />
+              </button>
+              <button onClick={handleGoogleLogin}>
+                <img src={googleLogo} alt="Google" />
+              </button>
+            </div>
+          </div>
+
           {isRegisterDropDownOpen && (
             <div className="login-page-register-dropdown" ref={registerRef}>
               <ul className="login-page-dropdown-list">

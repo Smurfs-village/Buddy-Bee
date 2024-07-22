@@ -23,6 +23,41 @@
   justify-content: flex-end;
 }
 
+.sns-login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0px 9% 0 0;
+}
+
+.sns-login-wrapper p {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  align-items: flex-end;
+}
+
+.sns-login-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.sns-login-icons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 3px;
+}
+
+.sns-login-icons img {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s;
+}
+
+.sns-login-icons button:hover img {
+  transform: scale(1.5);
+}
+
 .login-page-register-dropdown {
   position: absolute;
   top: 410px;
@@ -72,7 +107,6 @@
   box-shadow: 2px 2px 0 0 rgb(0, 0, 0);
   cursor: pointer;
   transition: 0.2s;
-  margin-bottom: 49px;
 }
 
 .login-page-btn-wrapper button:focus {

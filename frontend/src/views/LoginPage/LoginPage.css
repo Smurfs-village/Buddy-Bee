@@ -128,33 +128,39 @@
   font-weight: bold;
 }
 
+/*모달 창*/
+.sns-register-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.671);
+  z-index: 9999;
+}
+
 .modal {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 51%;
   right: auto;
   bottom: auto;
   margin-right: -50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
+  padding: 20px 36px 36px 40px;
   border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 4px 4px 0 0 rgb(0, 0, 0);
-  max-width: 500px;
-  width: 350px;
-  z-index: 99999;
-  box-sizing: border-box;
-}
-
-.overlay {
-  background: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  max-width: 350px;
   z-index: 9999;
+  box-sizing: border-box;
 }
 
 .modal-close-btn {
   position: absolute;
-  top: 10px;
+  top: 6px;
   right: 10px;
   background: none;
   border: none;
@@ -181,6 +187,7 @@
   justify-content: center;
   gap: 7px;
 }
+
 .sns-signup-btn span {
   margin-bottom: 1px;
 }
@@ -202,8 +209,8 @@
   height: 18px;
 }
 .kakao img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 .naver {
   background-color: #00bf18;
@@ -214,17 +221,27 @@
 .kakao {
   background-color: #ffe90a;
   color: black;
-  padding: 7px;
+  padding: 8px;
 }
 
 .google {
   background-color: white;
   color: black;
+  padding: 9px;
 }
+.google img {
+  margin-left: 4px;
+  margin-right: 4px;
+  scale: 1.1;
+}
+.google span {
+  margin-right: 9px;
+}
+
 .modal-title {
   text-align: center;
   font-size: 1.5rem;
-  margin-bottom: 20px;
+  margin: 20px 0 34px 10px;
 }
 
 /* 미디어 쿼리 */
@@ -233,6 +250,12 @@
     top: 400px;
     right: 28px;
     width: 130px;
+  }
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    max-width: 300px;
   }
 }
 
@@ -257,5 +280,19 @@
     margin-bottom: 7px;
     border-radius: 40px;
     border: 1px solid black;
+  }
+  .modal {
+    width: 80%;
+    box-shadow: none;
+    border-radius: 18px;
+  }
+  .modal-close-btn {
+    top: 4px;
+    right: 10px;
+  }
+  .modal-title {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 20px 0 30px 0;
   }
 }

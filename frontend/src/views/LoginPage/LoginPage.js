@@ -11,6 +11,7 @@ import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import googleLogo from "../../img/google.png";
 import kakaoLogo from "../../img/KakaoTalk_logo.png";
 import naverLogo from "../../img/naver.png";
+import KakaoRedirectHandler from "./KakaoRedirectHandler";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -102,6 +103,10 @@ const LoginPage = ({ onLogin }) => {
 
   const handleGoogleLogin = () => {
     // Google 로그인 처리 로직 추가
+  };
+
+  const handleKakaoAuth = () => {
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -216,6 +221,7 @@ const LoginPage = ({ onLogin }) => {
           )}
         </LoginPageLayout>
       </BackGroundGrid>
+      <KakaoRedirectHandler onKakaoAuth={handleKakaoAuth} />
     </Layout>
   );
 };

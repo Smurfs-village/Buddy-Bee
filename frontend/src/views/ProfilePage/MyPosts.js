@@ -147,8 +147,8 @@ const MainRightContainer = () => {
             onCardClick={onCardClick} // 추가
           />
         ))}
+        <FlowerImg />
       </div>
-      <FlowerImg />
       <Pagination
         activePage={activePage}
         totalItemsCount={totalItemsCount}

@@ -6,7 +6,6 @@ import Bookmarks from "./Bookmarks";
 import ParticipatedProjects from "./ParticipatedProjects";
 import Top from "../../components/Common/Top";
 import Aside from "../../components/Common/Aside";
-import BackgroundGrid from "../../components/Layout/BackGroundGrid";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {

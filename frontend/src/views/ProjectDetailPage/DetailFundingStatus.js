@@ -97,10 +97,14 @@ const DetailFundingStatus = ({ projectId }) => {
             </div>
           </div>
           <div className="ProjectDetailPage-status-rate">
-            {achievementRate} <span>% 달성중</span>
+            {targetAmount === null ? 0 : achievementRate} <span>% 달성중</span>
           </div>
           <div className="ProjectDetailPage-status-money">
-            목표 금액 {parseInt(targetAmount).toLocaleString()} <span>원</span>
+            목표 금액{" "}
+            {targetAmount === null
+              ? 0
+              : parseInt(targetAmount).toLocaleString()}{" "}
+            <span>원</span>
           </div>
         </div>
       </div>

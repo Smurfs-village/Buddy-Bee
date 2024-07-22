@@ -590,6 +590,7 @@ body {
 /* 메인 페이지 전체 480px ~ 768px 버전 */
 @media (min-width: 480px) and (max-width: 768px) {
   .mainpage-left-section {
+    width: 100%;
     padding: 80px 50px;
   }
   .mainpage-card-content h3 {
@@ -702,6 +703,7 @@ body {
 /* 479px 이하 버전 */
 @media (max-width: 479px) {
   .mainpage-left-section {
+    width: 100%;
     padding: 44px 25px 60px 27px;
   }
 

@@ -187,7 +187,7 @@ exports.kakaoLogin = async (req, res) => {
             const token = jwt.sign({ userId }, JWT_SECRET, {
               expiresIn: "2h",
             });
-            res.status(200).json({ token, userId, nickname });
+            res.status(200).json({ token, userId, nickname, isNewUser: true });
           }
         );
       } else {
@@ -197,7 +197,12 @@ exports.kakaoLogin = async (req, res) => {
         });
         res
           .status(200)
-          .json({ token, userId: user.id, nickname: user.username });
+          .json({
+            token,
+            userId: user.id,
+            nickname: user.username,
+            isNewUser: false,
+          });
       }
     });
   } catch (error) {

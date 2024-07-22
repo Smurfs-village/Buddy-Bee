@@ -11,6 +11,7 @@ import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import googleLogo from "../../img/google.png";
 import kakaoLogo from "../../img/KakaoTalk_logo.png";
 import naverLogo from "../../img/naver.png";
+import KakaoRedirectHandler from "./KakaoRedirectHandler";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -96,6 +97,18 @@ const LoginPage = ({ onLogin }) => {
     });
   };
 
+  const handleNaverLogin = () => {
+    // Naver 로그인 처리 로직 추가
+  };
+
+  const handleGoogleLogin = () => {
+    // Google 로그인 처리 로직 추가
+  };
+
+  const handleKakaoAuth = () => {
+    setIsModalOpen(true);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -148,6 +161,22 @@ const LoginPage = ({ onLogin }) => {
               Login
             </button>
           </div>
+
+          <div className="sns-login-wrapper">
+            <p>SNS Login</p>
+            <div className="sns-login-icons">
+              <button onClick={handleNaverLogin}>
+                <img src={naverLogo} alt="Naver" />
+              </button>
+              <button onClick={handleKakaoLogin}>
+                <img src={kakaoLogo} alt="Kakao" />
+              </button>
+              <button onClick={handleGoogleLogin}>
+                <img src={googleLogo} alt="Google" />
+              </button>
+            </div>
+          </div>
+
           {isRegisterDropDownOpen && (
             <div className="login-page-register-dropdown" ref={registerRef}>
               <ul className="login-page-dropdown-list">
@@ -192,6 +221,7 @@ const LoginPage = ({ onLogin }) => {
           )}
         </LoginPageLayout>
       </BackGroundGrid>
+      <KakaoRedirectHandler onKakaoAuth={handleKakaoAuth} />
     </Layout>
   );
 };

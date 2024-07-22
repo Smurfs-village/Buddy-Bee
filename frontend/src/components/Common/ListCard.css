@@ -22,6 +22,11 @@
   box-sizing: border-box;
   cursor: pointer;
   aspect-ratio: 225 / 301;
+  transition: all 0.2s ease;
+}
+
+.common-card:hover {
+  transform: translateY(-15px);
 }
 
 .common-card-line-1 {
@@ -36,6 +41,7 @@
   position: relative;
   background-size: cover;
   background-position: center;
+  transition: transform 0.3s ease;
   /* opacity: 0.6; */
 }
 

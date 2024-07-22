@@ -199,7 +199,7 @@ const LoginPage = ({ onLogin }) => {
               <button className="modal-close-btn" onClick={handleCloseModal}>
                 &times;
               </button>
-              <h2 className="modal-title">SNS로 가입하기</h2>{" "}
+              <h2 className="modal-title">SNS 가입하기</h2>{" "}
               <div className="modal-content">
                 <button className="sns-signup-btn naver">
                   <img src={naverLogo} alt="Naver" />

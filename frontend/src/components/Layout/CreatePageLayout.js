@@ -203,6 +203,43 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     setOptionPrice(unformattedValue);
   };
 
+  // 제목 입력 제한
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+
+    // 제목이 30자를 넘지 않도록 제한
+    if (newTitle.length <= 30) {
+      setTitle(newTitle);
+    }
+  };
+
+  // 본문 길이 제한
+  const handleContentChange = (desc) => {
+    if (desc.length <= 3000) {
+      setContent(desc);
+    } else {
+      alert("3000자 이상은 작성할 수 없습니다.");
+      setContent(desc.slice(0, 3000));
+    }
+  };
+
+  // 종료 날짜가 시작 날짜보다 빠르지 않도록 설정
+  const handleStartDateChange = (date) => {
+    if (endDate && date > endDate) {
+      alert("시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
+    } else {
+      setStartDate(date);
+    }
+  };
+
+  const handleEndDateChange = (date) => {
+    if (startDate && date < startDate) {
+      alert("종료 날짜는 시작 날짜보다 빠를 수 없습니다.");
+    } else {
+      setEndDate(date);
+    }
+  };
+
   return (
     <Layout>
       <BackGroundGrid>
@@ -227,15 +264,17 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   className="createpage-title-input"
                   type="text"
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="제목을 작성해주세요"
+                  onChange={handleTitleChange}
+                  placeholder="제목을 작성해주세요 (30자 이하)"
+                  required
                 />
               </div>
               <div className="createpage-form-group">
                 <Editor
-                  setDesc={setContent}
+                  setDesc={handleContentChange}
                   desc={content}
                   setImage={setMainImage}
+                  required
                 />
               </div>
               <div className="createpage-form-group">
@@ -355,6 +394,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         type="text"
                         onChange={(e) => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
+                        required
                       />
                     </div>
                     <div className="input-wrapper">
@@ -364,6 +404,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         value={formatPrice(optionPrice)}
                         onChange={handleOptionPriceChange}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
+                        required
                       />
                     </div>
 
@@ -423,6 +464,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             value={maxParticipants}
                             onChange={(e) => setMaxParticipants(e.target.value)}
                             placeholder="모집 인원"
+                            required
                           />
                         </div>
                         <span>명</span>
@@ -439,6 +481,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                               value={targetAmount}
                               onChange={(e) => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
+                              required
                             />
                           </div>
                           <span>원</span>
@@ -461,7 +504,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          onChange={handleStartDateChange}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />
@@ -472,7 +515,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <div className="createpage-date-input">
                         <DatePicker
                           selected={endDate}
-                          onChange={(date) => setEndDate(date)}
+                          onChange={handleEndDateChange}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                         />

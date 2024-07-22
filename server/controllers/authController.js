@@ -158,13 +158,34 @@ exports.kakaoLogin = async (req, res) => {
 
     const { kakao_account } = kakaoUserResponse.data;
     const email = kakao_account.email;
-    const nickname = kakao_account.profile.nickname;
+    let nickname = kakao_account.profile.nickname;
 
     console.log("Kakao User Email:", email);
     console.log("Kakao User Nickname:", nickname);
 
     if (!email) {
       return res.status(400).send("Email not provided by Kakao");
+    }
+
+    // 닉네임 중복 확인 및 수정 로직
+    const checkNickname = async nickname => {
+      const query = `SELECT COUNT(*) as count FROM user WHERE username = ?`;
+      return new Promise((resolve, reject) => {
+        connection.query(query, [nickname], (error, results) => {
+          if (error) return reject(error);
+          resolve(results[0].count);
+        });
+      });
+    };
+
+    let count = await checkNickname(nickname);
+    let baseNickname = nickname;
+    let suffix = 1;
+
+    while (count > 0) {
+      nickname = `${baseNickname}${suffix}`;
+      count = await checkNickname(nickname);
+      suffix++;
     }
 
     const query = `SELECT * FROM user WHERE email = ?`;
@@ -185,11 +206,7 @@ exports.kakaoLogin = async (req, res) => {
               return res.status(500).send("Server error");
             }
             const userId = results.insertId;
-            const token = jwt.sign({ userId }, JWT_SECRET, {
-              expiresIn: "2h",
-            });
-            console.log("Generated JWT for new user:", token); // 디버깅 로그 추가
-            res.status(200).json({ token, userId, nickname, isNewUser: true });
+            res.status(200).json({ userId, nickname, isNewUser: true });
           }
         );
       } else {
@@ -197,13 +214,14 @@ exports.kakaoLogin = async (req, res) => {
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
           expiresIn: "2h",
         });
-        console.log("Generated JWT for existing user:", token); // 디버깅 로그 추가
-        res.status(200).json({
-          token,
-          userId: user.id,
-          nickname: user.username,
-          isNewUser: false,
-        });
+        res
+          .status(200)
+          .json({
+            token,
+            userId: user.id,
+            nickname: user.username,
+            isNewUser: false,
+          });
       }
     });
   } catch (error) {

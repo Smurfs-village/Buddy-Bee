@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
-const KakaoRedirectHandler = ({ onKakaoAuth }) => {
+const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
@@ -22,7 +23,14 @@ const KakaoRedirectHandler = ({ onKakaoAuth }) => {
           const { token, userId, nickname, isNewUser } = response.data;
 
           if (isNewUser) {
-            onKakaoAuth(response.data.email, response.data.nickname);
+            Swal.fire({
+              title: "회원가입에 성공했습니다!",
+              text: "로그인해 주세요",
+              icon: "success",
+              confirmButtonText: "확인",
+            }).then(() => {
+              navigate("/login?newUser=true&nickname=" + nickname);
+            });
           } else {
             setUser({ id: userId, nickname }); // AuthContext를 통해 사용자 정보 설정
             localStorage.setItem("token", token);
@@ -38,7 +46,7 @@ const KakaoRedirectHandler = ({ onKakaoAuth }) => {
     };
 
     handleKakaoLogin();
-  }, [onKakaoAuth, navigate, setUser]);
+  }, [navigate, setUser]);
 
   return null;
 };

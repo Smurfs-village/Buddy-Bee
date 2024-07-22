@@ -91,10 +91,10 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     checkParticipationStatus();
   }, [project, user]);
 
-  const handleOptionChange = optionName => {
-    setSelectedOptions(prevOptions => {
+  const handleOptionChange = (optionName) => {
+    setSelectedOptions((prevOptions) => {
       if (prevOptions.includes(optionName)) {
-        return prevOptions.filter(option => option !== optionName);
+        return prevOptions.filter((option) => option !== optionName);
       } else {
         return [...prevOptions, optionName];
       }
@@ -130,7 +130,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           timerProgressBar: true,
           icon: "success",
           title: "동행 참여에 성공하였습니다.",
-          didOpen: toast => {
+          didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
@@ -145,12 +145,17 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     }
   }, [user, project, selectedOptions]);
 
-  const formatDate = date => {
+  const formatDate = (date) => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });
+  };
+
+  // 가격에 쉼표를 추가하는 함수
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   if (!project) {
@@ -202,7 +207,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
                         >
                           <div className="ProjectDetailPage-goods">
                             {index + 1}. {option.name}{" "}
-                            <span>({option.price}원/1개)</span>
+                            <span>({formatPrice(option.price)}원/1개)</span>
                           </div>
                           <div className="ProjectDetailPage-input">
                             <input

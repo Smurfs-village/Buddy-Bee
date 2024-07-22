@@ -128,10 +128,21 @@
   font-weight: bold;
 }
 
+/*모달 창*/
+.sns-register-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.63);
+  z-index: 9999;
+}
+
 .modal {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 51%;
   right: auto;
   bottom: auto;
   margin-right: -50%;
@@ -145,11 +156,6 @@
   width: 350px;
   z-index: 99999;
   box-sizing: border-box;
-}
-
-.overlay {
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 9999;
 }
 
 .modal-close-btn {

@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const connection = require("../models/db");
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -214,14 +214,12 @@ exports.kakaoLogin = async (req, res) => {
         const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
           expiresIn: "2h",
         });
-        res
-          .status(200)
-          .json({
-            token,
-            userId: user.id,
-            nickname: user.username,
-            isNewUser: false,
-          });
+        res.status(200).json({
+          token,
+          userId: user.id,
+          nickname: user.username,
+          isNewUser: false,
+        });
       }
     });
   } catch (error) {

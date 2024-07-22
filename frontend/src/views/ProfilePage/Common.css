@@ -36,7 +36,8 @@
   width: 100%;
   background-color: rgb(0, 0, 0, 0.6);
   height: 100%;
-  border-radius: inherit; /* 상위 요소와 같은 둥근 모서리 적용 */
+  border-radius: inherit;
+  /*상위 요소와 같은 둥근 모서리 적용*/
 }
 
 .MyPosts_ParticipatedProjects_activePendingProjectImg {
@@ -100,6 +101,10 @@
   position: absolute;
   bottom: -70px;
   left: -50px;
+  cursor: pointer;
+}
+.ProfilePage_main_right_container_flowerImg:hover {
+  transform: rotate(20deg);
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
@@ -156,6 +161,7 @@
 
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn {
   background-color: white;
+  transition: 0.2s ease;
 }
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn:hover {
   transform: scale(1.05);

@@ -20,7 +20,7 @@ const MainRightContainer = () => {
     intro: "",
     profile_image: "", // 초기값 빈 문자열
   });
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const [editableFields, setEditableFields] = useState({
     username: false,
     phone_number: false,
@@ -33,7 +33,7 @@ const MainRightContainer = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/user", {
+        const response = await axios.get("${API_BASE_URL}/user", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -52,7 +52,7 @@ const MainRightContainer = () => {
   const onSaveUserProfile = useCallback(async () => {
     const { password, ...updatedUserInfo } = userInfo; // 비밀번호 필드를 제거
     try {
-      await axios.put("http://localhost:5001/api/user", updatedUserInfo, {
+      await axios.put("${API_BASE_URL}/user", updatedUserInfo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -98,7 +98,7 @@ const MainRightContainer = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5001/api/upload/profile",
+        "${API_BASE_URL}/upload/profile",
         formData,
         {
           headers: {

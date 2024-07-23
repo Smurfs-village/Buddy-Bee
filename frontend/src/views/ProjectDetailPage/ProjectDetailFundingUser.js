@@ -36,13 +36,13 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [phone, setPhone] = useState("");
   const [agreement, setAgreement] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/with-author`
+          `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
         console.log("Project data:", response.data); // 디버깅 로그 추가
@@ -59,7 +59,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/participants`
+          `${API_BASE_URL}/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
       } catch (error) {
@@ -75,7 +75,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
       if (user && project) {
         try {
           const response = await axios.get(
-            `http://localhost:5001/api/projects/${project.id}/participation/${user.id}`,
+            `${API_BASE_URL}/projects/${project.id}/participation/${user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -128,7 +128,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/projects/${project.id}/participate`,
+        `${API_BASE_URL}/projects/${project.id}/participate`,
         {
           userId: user.id,
           options,
@@ -159,7 +159,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           timerProgressBar: true,
           icon: "success",
           title: "펀딩 참여에 성공하였습니다.",
-          didOpen: (toast) => {
+          didOpen: toast => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
@@ -203,7 +203,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     calculateTotalPrice(newOptions); // 옵션이 변경될 때마다 총합 가격을 계산
   };
 
-  const calculateTotalPrice = (options) => {
+  const calculateTotalPrice = options => {
     const total = options.reduce(
       (total, option) => total + option.price * option.quantity,
       0
@@ -212,7 +212,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   };
 
   const initializeOptions = useCallback(() => {
-    const initialOptions = project.options.map((option) => ({
+    const initialOptions = project.options.map(option => ({
       name: option.name,
       price: option.price,
       quantity: 0,
@@ -226,7 +226,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     }
   }, [project, initializeOptions]);
 
-  const formatDate = (date) => {
+  const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -235,7 +235,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   };
 
   // 가격에 쉼표를 추가하는 함수
-  const formatPrice = (price) => {
+  const formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
@@ -296,7 +296,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                               name="optionCount"
                               min="0"
                               value={options[index]?.quantity || 0}
-                              onChange={(e) =>
+                              onChange={e =>
                                 handleOptionChange(
                                   index,
                                   parseInt(e.target.value, 10)

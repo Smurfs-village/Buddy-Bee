@@ -9,12 +9,12 @@ const DetailFundingStatus = ({ projectId }) => {
   const barRef = useRef(null);
   const [barWidth, setBarWidth] = useState(0);
   const beeRef = useRef(null);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchFundingStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}`
+          `${API_BASE_URL}/projects/${projectId}`
         );
         setTargetAmount(response.data.target_amount);
         setCurrentAmount(response.data.current_amount);

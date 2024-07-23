@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
@@ -14,12 +14,9 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (token && !user) {
         try {
-          const response = await axios.get(
-            "http://localhost:5001/api/auth/me",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
+          const response = await axios.get("${API_BASE_URL}/auth/me", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
           setUser(response.data);
         } catch (error) {
           console.error("Error fetching user:", error);

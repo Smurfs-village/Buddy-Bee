@@ -28,3 +28,5 @@ yarn-error.log*
 /server/uploads
 .env
 server/.env
+buddybeejunsummer.pem
+buddybeehoneypopsummer.pem

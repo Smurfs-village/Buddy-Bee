@@ -17,7 +17,7 @@ const ProjectListPageLayout = () => {
   const [activePage, setActivePage] = useState(1);
   const location = useLocation();
   const [title, setTitle] = useState("전체");
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -25,7 +25,7 @@ const ProjectListPageLayout = () => {
           new URLSearchParams(location.search).get("query") || "전체";
         setTitle(`${query} 검색결과`);
         const response = await axios.get(
-          `http://localhost:5001/api/projects/search?query=${query}`
+          `${API_BASE_URL}/projects/search?query=${query}`
         );
 
         const activeProjects = response.data.filter(

@@ -12,7 +12,7 @@ import moment from "moment";
 import { useAuth } from "../../contexts/AuthContext";
 import addIcon from "../../img/create_icon.svg";
 
-const handleGlobalError = (event) => {
+const handleGlobalError = event => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -46,13 +46,13 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { id: projectId } = useParams();
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/with-author`
+          `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         const projectData = response.data;
         setTitle(projectData.title);
@@ -75,7 +75,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     fetchProject();
   }, [projectId]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const formattedStartDate = startDate
@@ -95,7 +95,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       endDate: formattedEndDate,
       maxParticipants,
       targetAmount: targetAmount === "" ? null : targetAmount,
-      options: options.map((option) => ({
+      options: options.map(option => ({
         ...option,
         price: option.price.replace(/,/g, ""), // 숫자 자릿수(콤마)
       })),
@@ -108,20 +108,16 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     try {
       if (projectId) {
         // Update existing project
-        await axios.put(
-          `http://localhost:5001/api/projects/${projectId}`,
-          projectData,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        await axios.put(`${API_BASE_URL}/projects/${projectId}`, projectData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         navigate(`/projects/${projectId}`);
       } else {
         // Create new project
         const response = await axios.post(
-          "http://localhost:5001/api/projects",
+          "${API_BASE_URL}/projects",
           projectData,
           {
             headers: {
@@ -150,8 +146,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const removeHashtag = (tag) => {
-    setHashtags(hashtags.filter((t) => t !== tag));
+  const removeHashtag = tag => {
+    setHashtags(hashtags.filter(t => t !== tag));
   };
 
   const addOption = () => {
@@ -165,7 +161,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const removeOption = (index) => {
+  const removeOption = index => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -178,7 +174,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   //엔터 키를 눌렀을 때 해시태그 추가
-  const handleHashtagKeyPress = (event) => {
+  const handleHashtagKeyPress = event => {
     if (event.key === "Enter") {
       event.preventDefault(); //폼 제출 방지
       addHashtag();
@@ -186,7 +182,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   //엔터 키를 눌렀을 때 옵션 추가
-  const handleOptionKeyPress = (event) => {
+  const handleOptionKeyPress = event => {
     if (event.key === "Enter") {
       event.preventDefault();
       addOption();
@@ -194,17 +190,17 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   //숫자 자릿수(콤마)
-  const formatPrice = (value) => {
+  const formatPrice = value => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const handleOptionPriceChange = (e) => {
+  const handleOptionPriceChange = e => {
     const unformattedValue = e.target.value.replace(/,/g, "");
     setOptionPrice(unformattedValue);
   };
 
   // 제목 입력 제한
-  const handleTitleChange = (e) => {
+  const handleTitleChange = e => {
     const newTitle = e.target.value;
 
     // 제목이 30자를 넘지 않도록 제한
@@ -214,7 +210,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   // 본문 길이 제한
-  const handleContentChange = (desc) => {
+  const handleContentChange = desc => {
     if (desc.length <= 3000) {
       setContent(desc);
     } else {
@@ -224,7 +220,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   // 종료 날짜가 시작 날짜보다 빠르지 않도록 설정
-  const handleStartDateChange = (date) => {
+  const handleStartDateChange = date => {
     if (endDate && date > endDate) {
       alert("시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
     } else {
@@ -232,7 +228,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const handleEndDateChange = (date) => {
+  const handleEndDateChange = date => {
     if (startDate && date < startDate) {
       alert("종료 날짜는 시작 날짜보다 빠를 수 없습니다.");
     } else {
@@ -288,7 +284,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={(e) => setHashtag(e.target.value)}
+                    onChange={e => setHashtag(e.target.value)}
                     onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
@@ -339,7 +335,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={(e) => setAccountInfo(e.target.value)}
+                      onChange={e => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
@@ -392,7 +388,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
-                        onChange={(e) => setOptionName(e.target.value)}
+                        onChange={e => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                         required
                       />
@@ -462,7 +458,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             type="number"
                             min={1}
                             value={maxParticipants}
-                            onChange={(e) => setMaxParticipants(e.target.value)}
+                            onChange={e => setMaxParticipants(e.target.value)}
                             placeholder="모집 인원"
                             required
                           />
@@ -479,7 +475,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={(e) => setTargetAmount(e.target.value)}
+                              onChange={e => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                               required
                             />

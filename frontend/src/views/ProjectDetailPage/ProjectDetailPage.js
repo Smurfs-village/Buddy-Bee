@@ -14,13 +14,11 @@ const ProjectDetailPage = () => {
   const [hashtags, setHashtags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5001/api/projects/${id}`
-        );
+        const response = await axios.get(`${API_BASE_URL}/projects/${id}`);
         setProject(response.data);
         setLoading(false);
       } catch (err) {
@@ -31,9 +29,7 @@ const ProjectDetailPage = () => {
 
     const incrementViewCount = async () => {
       try {
-        await axios.patch(
-          `http://localhost:5001/api/projects/${id}/increment-view`
-        );
+        await axios.patch(`${API_BASE_URL}/projects/${id}/increment-view`);
       } catch (err) {
         console.error("Failed to increment view count", err);
       }
@@ -42,7 +38,7 @@ const ProjectDetailPage = () => {
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${id}/hashtags`
+          `${API_BASE_URL}/projects/${id}/hashtags`
         );
         setHashtags(response.data);
       } catch (err) {

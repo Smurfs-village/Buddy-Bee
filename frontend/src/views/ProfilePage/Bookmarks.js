@@ -56,12 +56,12 @@ const MainRightContainer = () => {
   const [bookmarks, setBookmarks] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchBookmarkedProjects = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/projects/bookmarked",
+          "${API_BASE_URL}/projects/bookmarked",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -88,7 +88,7 @@ const MainRightContainer = () => {
   const toggleBookmark = async (projectId, index) => {
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/projects/${projectId}/toggle-honey`,
+        `${API_BASE_URL}/projects/${projectId}/toggle-honey`,
         {},
         {
           headers: {

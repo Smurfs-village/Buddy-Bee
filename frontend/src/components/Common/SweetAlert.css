@@ -1,0 +1,26 @@
+/*sweet alert창 css*/
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+  display: none;
+  position: relative;
+  box-sizing: border-box;
+  grid-template-columns: minmax(0, 100%);
+  width: 32em;
+  max-width: 100%;
+  padding: 0 0 1.25em;
+  border: none;
+  border-radius: 5px;
+  background: #fff;
+  color: #ff7575;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/*버튼*/
+.swal2-confirm:hover {
+  transform: scale(1.1);
+}
+
+div:where(.swal2-container) button:where(.swal2-styled) :where(.swal2-confirm) {
+  background-color: #545454;
+}

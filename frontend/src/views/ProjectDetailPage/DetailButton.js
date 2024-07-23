@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import shareIcon from "../../img/share-icon.svg";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import "./DetailButton.css";
 
 const DetailButton = ({ projectId }) => {
   const { user } = useAuth();
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
-  const nowLocation = useLocation();
-  // const [pageURL, setPageURL] = useState("");
+  const [pageURL, setPageURL] = useState("");
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const NOW_URL = API_BASE_URL.replace("/api", ""); //공유하기 버튼 용
+
   useEffect(() => {
     const checkHoneyStatus = async () => {
       try {
@@ -83,9 +84,38 @@ const DetailButton = ({ projectId }) => {
     }
   };
 
-  const shareURL = () => {
-    // setPageURL(window.location.href);
-    console.log(nowLocation);
+  const shareURL = e => {
+    e.preventDefault();
+    setPageURL(`${NOW_URL}/projects/${projectId}`);
+    copyURL(pageURL);
+  };
+
+  const copyURL = async url => {
+    try {
+      await navigator.clipboard.writeText(url);
+      // alert(`${NOW_URL}/projects/${projectId}`);
+      Swal.fire({
+        toast: true,
+        position: "bottom", // 하단 오른쪽에 표시
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: "success",
+        title: "링크 복사 완료!",
+        didOpen: toast => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } catch (error) {
+      console.log("error while copying URL", error);
+      Swal.fire({
+        title: "Error",
+        text: "복사 중 문제가 생겼습니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+    }
   };
 
   return (

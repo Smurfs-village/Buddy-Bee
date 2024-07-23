@@ -11,8 +11,9 @@ import Editor from "../Common/Editor";
 import moment from "moment";
 import { useAuth } from "../../contexts/AuthContext";
 import addIcon from "../../img/create_icon.svg";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
-const handleGlobalError = event => {
+const handleGlobalError = (event) => {
   if (
     event.message === "ResizeObserver loop limit exceeded" ||
     event.message ===
@@ -75,8 +76,19 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     fetchProject();
   }, [projectId]);
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    //펀딩: 옵션 추가 필수
+    if (type === "funding" && options.length === 0) {
+      Swal.fire({
+        title: "Error",
+        text: "펀딩은 적어도 하나의 옵션이 필요합니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
 
     const formattedStartDate = startDate
       ? moment(startDate).format("YYYY-MM-DD")
@@ -95,7 +107,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       endDate: formattedEndDate,
       maxParticipants,
       targetAmount: targetAmount === "" ? null : targetAmount,
-      options: options.map(option => ({
+      options: options.map((option) => ({
         ...option,
         price: option.price.replace(/,/g, ""), // 숫자 자릿수(콤마)
       })),
@@ -117,7 +129,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       } else {
         // Create new project
         const response = await axios.post(
-          "${API_BASE_URL}/projects",
+          `${API_BASE_URL}/projects`,
           projectData,
           {
             headers: {
@@ -146,22 +158,26 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const removeHashtag = tag => {
-    setHashtags(hashtags.filter(t => t !== tag));
+  const removeHashtag = (tag) => {
+    setHashtags(hashtags.filter((t) => t !== tag));
   };
 
   const addOption = () => {
-    if (optionName.trim() && optionPrice.trim()) {
+    // 옵션명을 입력했을 때, 가격이 없어도 등록 가능하도록 수정
+    if (optionName.trim()) {
       setOptions([
         ...options,
-        { name: optionName, price: formatPrice(optionPrice) },
+        {
+          name: optionName,
+          price: formatPrice(optionPrice) || "", // 가격 없이 추가 가능
+        },
       ]);
       setOptionName("");
       setOptionPrice("");
     }
   };
 
-  const removeOption = index => {
+  const removeOption = (index) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
@@ -174,7 +190,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   //엔터 키를 눌렀을 때 해시태그 추가
-  const handleHashtagKeyPress = event => {
+  const handleHashtagKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); //폼 제출 방지
       addHashtag();
@@ -182,25 +198,26 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   //엔터 키를 눌렀을 때 옵션 추가
-  const handleOptionKeyPress = event => {
+  const handleOptionKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      // 옵션명을 입력했을 때, 가격이 없어도 등록 가능하도록 수정
       addOption();
     }
   };
 
   //숫자 자릿수(콤마)
-  const formatPrice = value => {
+  const formatPrice = (value) => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const handleOptionPriceChange = e => {
+  const handleOptionPriceChange = (e) => {
     const unformattedValue = e.target.value.replace(/,/g, "");
     setOptionPrice(unformattedValue);
   };
 
   // 제목 입력 제한
-  const handleTitleChange = e => {
+  const handleTitleChange = (e) => {
     const newTitle = e.target.value;
 
     // 제목이 30자를 넘지 않도록 제한
@@ -210,7 +227,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   // 본문 길이 제한
-  const handleContentChange = desc => {
+  const handleContentChange = (desc) => {
     if (desc.length <= 3000) {
       setContent(desc);
     } else {
@@ -220,7 +237,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   // 종료 날짜가 시작 날짜보다 빠르지 않도록 설정
-  const handleStartDateChange = date => {
+  const handleStartDateChange = (date) => {
     if (endDate && date > endDate) {
       alert("시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
     } else {
@@ -228,7 +245,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  const handleEndDateChange = date => {
+  const handleEndDateChange = (date) => {
     if (startDate && date < startDate) {
       alert("종료 날짜는 시작 날짜보다 빠를 수 없습니다.");
     } else {
@@ -270,7 +287,6 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   setDesc={handleContentChange}
                   desc={content}
                   setImage={setMainImage}
-                  required
                 />
               </div>
               <div className="createpage-form-group">
@@ -284,7 +300,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={e => setHashtag(e.target.value)}
+                    onChange={(e) => setHashtag(e.target.value)}
                     onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
@@ -335,7 +351,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                     <input
                       type="text"
                       value={accountInfo}
-                      onChange={e => setAccountInfo(e.target.value)}
+                      onChange={(e) => setAccountInfo(e.target.value)}
                       readOnly={!isEditingAccount}
                       className={isEditingAccount ? "editable" : ""}
                     />
@@ -380,7 +396,19 @@ const CreatePageLayout = ({ children, type: initialType }) => {
               )}
 
               <div className="createpage-form-group">
-                <label>{type === "funding" ? "펀딩" : "동행"} 옵션 추가 </label>
+                <label>
+                  {type === "funding" ? (
+                    <>
+                      펀딩 옵션 추가{""}
+                      <span className="createpage-form-required-check"> *</span>
+                    </>
+                  ) : (
+                    "동행 옵션 추가"
+                  )}
+                  <span class="createpage-hashtag-limit">
+                    (옵션명 중복 불가)
+                  </span>
+                </label>
 
                 <div className="createpage-form-group createpage-option-form-group">
                   <div className="createpage-option-input-wrapper">
@@ -388,9 +416,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
-                        onChange={e => setOptionName(e.target.value)}
+                        onChange={(e) => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
-                        required
                       />
                     </div>
                     <div className="input-wrapper">
@@ -400,7 +427,6 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         value={formatPrice(optionPrice)}
                         onChange={handleOptionPriceChange}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
-                        required
                       />
                     </div>
 
@@ -458,7 +484,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             type="number"
                             min={1}
                             value={maxParticipants}
-                            onChange={e => setMaxParticipants(e.target.value)}
+                            onChange={(e) => setMaxParticipants(e.target.value)}
                             placeholder="모집 인원"
                             required
                           />
@@ -475,7 +501,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                             <input
                               type="number"
                               value={targetAmount}
-                              onChange={e => setTargetAmount(e.target.value)}
+                              onChange={(e) => setTargetAmount(e.target.value)}
                               placeholder="목표 금액"
                               required
                             />

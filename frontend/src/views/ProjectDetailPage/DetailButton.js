@@ -4,6 +4,7 @@ import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import shareIcon from "../../img/share-icon.svg";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 import "./DetailButton.css";
 
 const DetailButton = ({ projectId }) => {
@@ -11,6 +12,7 @@ const DetailButton = ({ projectId }) => {
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const checkHoneyStatus = async () => {
       try {
@@ -80,6 +82,34 @@ const DetailButton = ({ projectId }) => {
     }
   };
 
+  const copyURL = async url => {
+    /*복사하기 버튼*/
+    try {
+      await navigator.clipboard.writeText(url);
+      Swal.fire({
+        toast: true,
+        position: "bottom", // 하단 오른쪽에 표시
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        icon: "success",
+        title: "링크 복사 완료!",
+        didOpen: toast => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+    } catch (error) {
+      console.log("error while copying URL", error);
+      Swal.fire({
+        title: "Error",
+        text: "복사 중 문제가 생겼습니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+    }
+  };
+
   return (
     <div className="ProjectDetailPage-btn">
       <button className="ProjectDetailPage-like" onClick={handleHoneyClick}>
@@ -90,11 +120,15 @@ const DetailButton = ({ projectId }) => {
         />
         <span>{honeyCount}개</span> {/* Display honey count */}
       </button>
-      <button className="ProjectDetailPage-share">
+      <button
+        className="ProjectDetailPage-share"
+        onClick={() => copyURL(window.location.href)}
+      >
         <img
           src={shareIcon}
           alt="shareIcon"
           className="ProjectDetailPage-share-icon"
+          onClick={() => copyURL(window.location.href)}
         />
         <span>공유하기</span>
       </button>

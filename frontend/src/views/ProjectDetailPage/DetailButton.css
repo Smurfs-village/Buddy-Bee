@@ -112,9 +112,9 @@
     height: 52px;
     font-size: 16px;
     border: 1px solid #000;
-    transition: 0.2s ease;
   }
-  .ProjectDetailPage-btn button:hover {
-    transform: scale(1.05);
+  .ProjectDetailPage-like img:hover,
+  .ProjectDetailPage-share img:hover {
+    transform: none;
   }
 }

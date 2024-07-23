@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Editor = ({ setDesc, desc, setImage }) => {
   const [flag, setFlag] = useState(false);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const customUploadAdapter = loader => {
     return {
       upload() {
@@ -15,7 +15,7 @@ const Editor = ({ setDesc, desc, setImage }) => {
             data.append("file", file);
 
             axios
-              .post("http://localhost:5001/api/upload", data)
+              .post(`${API_BASE_URL}/upload`, data)
               .then(res => {
                 if (!flag) {
                   setFlag(true);

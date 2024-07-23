@@ -192,34 +192,34 @@ const LoginPage = ({ onLogin }) => {
               </ul>
             </div>
           )}
-          {isModalOpen && (
-            <div className="overlay">
-              <div className="modal">
-                <button className="modal-close-btn" onClick={handleCloseModal}>
-                  &times;
+        </LoginPageLayout>
+        {isModalOpen && (
+          <div className="sns-register-overlay">
+            <div className="modal">
+              <button className="modal-close-btn" onClick={handleCloseModal}>
+                &times;
+              </button>
+              <h2 className="modal-title">SNS 가입하기</h2>{" "}
+              <div className="modal-content">
+                <button className="sns-signup-btn naver">
+                  <img src={naverLogo} alt="Naver" />
+                  <span>네이버 가입하기</span>
                 </button>
-                <h2 className="modal-title">SNS로 가입하기</h2>{" "}
-                <div className="modal-content">
-                  <button className="sns-signup-btn naver">
-                    <img src={naverLogo} alt="Naver" />
-                    <span>네이버 가입하기</span>
-                  </button>
-                  <button
-                    className="sns-signup-btn kakao"
-                    onClick={handleKakaoLogin}
-                  >
-                    <img src={kakaoLogo} alt="Kakao" />
-                    <span>카카오 가입하기</span>
-                  </button>
-                  <button className="sns-signup-btn google">
-                    <img src={googleLogo} alt="Google" />
-                    <span>구글 가입하기</span>
-                  </button>
-                </div>
+                <button
+                  className="sns-signup-btn kakao"
+                  onClick={handleKakaoLogin}
+                >
+                  <img src={kakaoLogo} alt="Kakao" />
+                  <span>카카오 가입하기</span>
+                </button>
+                <button className="sns-signup-btn google">
+                  <img src={googleLogo} alt="Google" />
+                  <span>구글 가입하기</span>
+                </button>
               </div>
             </div>
-          )}
-        </LoginPageLayout>
+          </div>
+        )}
       </BackGroundGrid>
     </Layout>
   );

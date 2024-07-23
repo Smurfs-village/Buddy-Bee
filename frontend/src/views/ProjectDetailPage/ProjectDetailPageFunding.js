@@ -22,13 +22,13 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const { id: projectId } = useParams();
   const navigate = useNavigate();
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/with-author`
+          `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
         console.log("Project data:", response.data); // 디버깅 로그 추가
@@ -45,7 +45,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/participants`
+          `${API_BASE_URL}/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
       } catch (error) {
@@ -59,7 +59,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
   const handleDelete = async () => {
     if (!projectId) return;
     try {
-      await axios.delete(`http://localhost:5001/api/projects/${projectId}`, {
+      await axios.delete(`${API_BASE_URL}/projects/${projectId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -75,7 +75,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
     navigate(`/projects/${projectId}/edit`);
   };
 
-  const formatDate = (date) => {
+  const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -84,7 +84,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
   };
 
   // 가격에 쉼표를 추가하는 함수
-  const formatPrice = (price) => {
+  const formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 

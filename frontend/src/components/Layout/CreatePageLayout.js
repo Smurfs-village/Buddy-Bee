@@ -278,7 +278,9 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   type="text"
                   value={title}
                   onChange={handleTitleChange}
-                  placeholder="제목을 작성해주세요 (30자 이하)"
+                  placeholder={`${
+                    type === "funding" ? "펀딩" : "동행"
+                  } 제목을 작성해주세요 (30자 이하)`}
                   required
                 />
               </div>

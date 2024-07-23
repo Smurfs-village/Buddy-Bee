@@ -31,6 +31,11 @@
 }
 
 /* 미디어쿼리_ media query */
+@media (min-width: 926px) and (max-width: 1920px) {
+  .sub-nav-all-btn {
+    margin-left: 7%;
+  }
+}
 @media (min-width: 768px) and (max-width: 925px) {
   .sub-nav-all-btn {
     margin-left: 7%;

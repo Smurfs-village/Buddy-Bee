@@ -237,15 +237,8 @@ const updateProjectCurrentAmount = projectId => {
 exports.participateInProject = (req, res) => {
   const projectId = req.params.id;
   const userId = req.user.userId;
-  const {
-    selectedOptions,
-    options,
-    applicantName,
-    email,
-    phone,
-    agreement,
-    totalPrice,
-  } = req.body;
+  const { selectedOptions, options, applicantName, email, phone, agreement } =
+    req.body;
 
   const checkQuery = `
     SELECT COUNT(*) as count
@@ -292,38 +285,9 @@ exports.participateInProject = (req, res) => {
 
           const insertDetailsTasks = [];
 
-          if (selectedOptions && selectedOptions.length > 0) {
-            selectedOptions.forEach(option => {
-              insertDetailsTasks.push(
-                new Promise((resolve, reject) => {
-                  connection.query(
-                    insertDetailsQuery,
-                    [
-                      participantId,
-                      userId,
-                      option,
-                      null,
-                      applicantName,
-                      email,
-                      phone,
-                      agreement,
-                      totalPrice,
-                    ],
-                    (detailsError, detailsResults) => {
-                      if (detailsError) {
-                        reject(detailsError);
-                      } else {
-                        resolve(detailsResults);
-                      }
-                    }
-                  );
-                })
-              );
-            });
-          }
-
           if (options && options.length > 0) {
             options.forEach(option => {
+              const optionTotalPrice = option.price * option.quantity;
               insertDetailsTasks.push(
                 new Promise((resolve, reject) => {
                   connection.query(
@@ -337,7 +301,7 @@ exports.participateInProject = (req, res) => {
                       email,
                       phone,
                       agreement,
-                      totalPrice,
+                      optionTotalPrice,
                     ],
                     (detailsError, detailsResults) => {
                       if (detailsError) {

@@ -11,9 +11,7 @@ const DetailButton = ({ projectId }) => {
   const { user } = useAuth();
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
-  const [pageURL, setPageURL] = useState("");
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-  const NOW_URL = API_BASE_URL.replace("/api", ""); //공유하기 버튼 용
 
   useEffect(() => {
     const checkHoneyStatus = async () => {
@@ -84,16 +82,10 @@ const DetailButton = ({ projectId }) => {
     }
   };
 
-  const shareURL = e => {
-    e.preventDefault();
-    setPageURL(`${NOW_URL}/projects/${projectId}`);
-    copyURL(pageURL);
-  };
-
   const copyURL = async url => {
+    /*복사하기 버튼*/
     try {
       await navigator.clipboard.writeText(url);
-      // alert(`${NOW_URL}/projects/${projectId}`);
       Swal.fire({
         toast: true,
         position: "bottom", // 하단 오른쪽에 표시
@@ -128,11 +120,15 @@ const DetailButton = ({ projectId }) => {
         />
         <span>{honeyCount}개</span> {/* Display honey count */}
       </button>
-      <button className="ProjectDetailPage-share" onClick={shareURL}>
+      <button
+        className="ProjectDetailPage-share"
+        onClick={() => copyURL(window.location.href)}
+      >
         <img
           src={shareIcon}
           alt="shareIcon"
           className="ProjectDetailPage-share-icon"
+          onClick={() => copyURL(window.location.href)}
         />
         <span>공유하기</span>
       </button>

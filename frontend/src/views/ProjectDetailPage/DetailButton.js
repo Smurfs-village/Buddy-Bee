@@ -12,13 +12,13 @@ const DetailButton = ({ projectId }) => {
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
   const nowLocation = useLocation();
-  const [pageURL, setPageURL] = useState("");
-
+  // const [pageURL, setPageURL] = useState("");
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const checkHoneyStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/honey/${user.id}`,
+          `${API_BASE_URL}/projects/${projectId}/honey/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -34,7 +34,7 @@ const DetailButton = ({ projectId }) => {
     const fetchHoneyCount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/honey`
+          `${API_BASE_URL}/projects/${projectId}/honey`
         );
         setHoneyCount(response.data.honeyCount);
       } catch (error) {
@@ -56,19 +56,16 @@ const DetailButton = ({ projectId }) => {
 
     try {
       if (isHoney) {
-        await axios.delete(
-          `http://localhost:5001/api/projects/${projectId}/honey`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            data: { userId: user.id },
-          }
-        );
+        await axios.delete(`${API_BASE_URL}/projects/${projectId}/honey`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data: { userId: user.id },
+        });
         setHoneyCount(honeyCount - 1); // Decrement honey count
       } else {
         await axios.post(
-          `http://localhost:5001/api/projects/${projectId}/honey`,
+          `${API_BASE_URL}/projects/${projectId}/honey`,
           {
             userId: user.id,
           },

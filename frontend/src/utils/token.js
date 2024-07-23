@@ -2,7 +2,7 @@ import axios from "axios";
 import { logout } from "../api/api";
 import Swal from "sweetalert2";
 
-const API_BASE_URL = "http://localhost:5001/api";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 axios.defaults.baseURL = API_BASE_URL;
 

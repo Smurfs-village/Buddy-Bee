@@ -65,12 +65,12 @@ const MainRightContainer = () => {
   const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate(); // 추가
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const onCancelParticipation = async targetId => {
     try {
       // 서버로 참여 취소 요청
       await axios.post(
-        `http://localhost:5001/api/projects/${targetId}/cancel-participation`,
+        `${API_BASE_URL}/projects/${targetId}/cancel-participation`,
         { userId: user.id },
         {
           headers: {
@@ -94,7 +94,7 @@ const MainRightContainer = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/projects/participated",
+          "${API_BASE_URL}/projects/participated",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

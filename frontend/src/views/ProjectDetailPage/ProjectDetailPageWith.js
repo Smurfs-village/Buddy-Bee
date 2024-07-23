@@ -14,7 +14,7 @@ import DetailProfile from "./DetailProfile";
 import DetailHashtag from "./DetailHashtag";
 import "./ProjectDetailPageWith.css";
 import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const ProjectDetailPageWith = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
@@ -27,7 +27,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/with-author`
+          `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
         console.log("Fetched project data in Author Page:", response.data); // 디버깅 로그 추가
@@ -44,7 +44,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/participants`
+          `${API_BASE_URL}/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
       } catch (error) {
@@ -57,7 +57,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5001/api/projects/${projectId}`, {
+      await axios.delete(`${API_BASE_URL}/projects/${projectId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -72,7 +72,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
     navigate(`/projects/${projectId}/edit`);
   };
 
-  const formatDate = (date) => {
+  const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -81,7 +81,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
   };
 
   // 가격에 쉼표를 추가하는 함수
-  const formatPrice = (price) => {
+  const formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 

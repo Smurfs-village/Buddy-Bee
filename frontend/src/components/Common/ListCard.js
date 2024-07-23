@@ -15,6 +15,8 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
   const { user } = useAuth(); // Get current user from AuthContext
   const navigate = useNavigate();
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     if (hashtagsRef.current) {
       const containerWidth = hashtagsRef.current.offsetWidth;
@@ -36,7 +38,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/hashtags`
+          `${API_BASE_URL}/projects/${data.id}/hashtags`
         );
         if (isMounted) setHashtags(response.data);
       } catch (error) {
@@ -47,7 +49,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/participants`
+          `${API_BASE_URL}/projects/${data.id}/participants`
         );
         if (isMounted)
           setCurrentParticipants(response.data.currentParticipants);
@@ -60,7 +62,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
       if (!user) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/honey/${user.id}`
+          `${API_BASE_URL}/projects/${data.id}/honey/${user.id}`
         );
         if (isMounted) setIsHoney(response.data.isHoney);
       } catch (error) {
@@ -75,7 +77,7 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     return () => {
       isMounted = false;
     };
-  }, [data.id, user]);
+  }, [data.id, user, API_BASE_URL]);
 
   const stripHtmlTags = html => {
     const tempDiv = document.createElement("div");
@@ -95,18 +97,15 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     }
     try {
       if (isHoney) {
-        await axios.delete(
-          `http://localhost:5001/api/projects/${data.id}/honey`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            data: { userId: user.id },
-          }
-        );
+        await axios.delete(`${API_BASE_URL}/projects/${data.id}/honey`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data: { userId: user.id },
+        });
       } else {
         await axios.post(
-          `http://localhost:5001/api/projects/${data.id}/honey`,
+          `${API_BASE_URL}/projects/${data.id}/honey`,
           { userId: user.id },
           {
             headers: {

@@ -28,13 +28,13 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth();
   const { id: projectId } = useParams();
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/with-author`
+          `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
         console.log("Project data:", response.data); // 디버깅 로그 추가
@@ -51,7 +51,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
       if (!projectId) return;
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${projectId}/participants`
+          `${API_BASE_URL}/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
         // setMaxParticipants(response.data.maxParticipants);
@@ -68,7 +68,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
       if (user && project) {
         try {
           const response = await axios.get(
-            `http://localhost:5001/api/projects/${project.id}/participation/${user.id}`,
+            `${API_BASE_URL}/projects/${project.id}/participation/${user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -91,10 +91,10 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     checkParticipationStatus();
   }, [project, user]);
 
-  const handleOptionChange = (optionName) => {
-    setSelectedOptions((prevOptions) => {
+  const handleOptionChange = optionName => {
+    setSelectedOptions(prevOptions => {
       if (prevOptions.includes(optionName)) {
-        return prevOptions.filter((option) => option !== optionName);
+        return prevOptions.filter(option => option !== optionName);
       } else {
         return [...prevOptions, optionName];
       }
@@ -108,7 +108,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/projects/${project.id}/participate`,
+        `${API_BASE_URL}/projects/${project.id}/participate`,
         { userId: user.id, selectedOptions },
         {
           headers: {
@@ -130,7 +130,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           timerProgressBar: true,
           icon: "success",
           title: "동행 참여에 성공하였습니다.",
-          didOpen: (toast) => {
+          didOpen: toast => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
@@ -145,7 +145,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     }
   }, [user, project, selectedOptions]);
 
-  const formatDate = (date) => {
+  const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "2-digit",
@@ -154,7 +154,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   };
 
   // 가격에 쉼표를 추가하는 함수
-  const formatPrice = (price) => {
+  const formatPrice = price => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 

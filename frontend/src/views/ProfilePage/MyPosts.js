@@ -62,11 +62,11 @@ const MainRightContainer = () => {
   const [projects, setProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate(); // 추가
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const onDeleteActiveProject = async targetId => {
     try {
       // 서버로 삭제 요청
-      await axios.delete(`http://localhost:5001/api/projects/${targetId}`, {
+      await axios.delete(`${API_BASE_URL}/projects/${targetId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -86,14 +86,11 @@ const MainRightContainer = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5001/api/projects/user",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await axios.get("${API_BASE_URL}/projects/user", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         console.log("Fetched projects:", response.data);
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;

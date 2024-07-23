@@ -8,7 +8,7 @@ const Top = () => {
   const [profileImg, setProfileImg] = useState("");
   const [username, setUsername] = useState("");
   const [intro, setIntro] = useState();
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProfileImage = async () => {
       try {

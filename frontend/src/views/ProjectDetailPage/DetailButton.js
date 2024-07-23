@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
@@ -10,6 +11,8 @@ const DetailButton = ({ projectId }) => {
   const { user } = useAuth();
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
+  const nowLocation = useLocation();
+  const [pageURL, setPageURL] = useState("");
 
   useEffect(() => {
     const checkHoneyStatus = async () => {
@@ -83,6 +86,11 @@ const DetailButton = ({ projectId }) => {
     }
   };
 
+  const shareURL = () => {
+    // setPageURL(window.location.href);
+    console.log(nowLocation);
+  };
+
   return (
     <div className="ProjectDetailPage-btn">
       <button className="ProjectDetailPage-like" onClick={handleHoneyClick}>
@@ -93,7 +101,7 @@ const DetailButton = ({ projectId }) => {
         />
         <span>{honeyCount}개</span> {/* Display honey count */}
       </button>
-      <button className="ProjectDetailPage-share">
+      <button className="ProjectDetailPage-share" onClick={shareURL}>
         <img
           src={shareIcon}
           alt="shareIcon"

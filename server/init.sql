@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `participant_details` (
   `agreement` tinyint(1) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL, -- 새로운 컬럼 추가
   PRIMARY KEY (`id`),
   KEY `participant_id` (`participant_id`),
   CONSTRAINT `participant_details_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participant` (`id`)

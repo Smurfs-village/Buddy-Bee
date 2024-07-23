@@ -52,11 +52,11 @@ const MainPage = () => {
 
   const [recruitmentCards, setRecruitmentCards] = useState([]);
   const [fundingCards, setFundingCards] = useState([]);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/projects");
+        const response = await axios.get("${API_BASE_URL}/projects");
         const projects = response.data;
 
         const activeProjects = projects.filter(

@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 const uploadDir = path.join(__dirname, "uploads");
 app.use("/uploads", express.static(uploadDir));
 
+// 정적 파일 서빙
+const publicPath = path.join(__dirname, "public");
+app.use(express.static(publicPath));
+
+// 기존 라우트 설정
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -26,6 +31,11 @@ app.use("/api", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api", userRoutes);
 app.use("/api", uploadRoutes);
+
+// 모든 경로에 대해 index.html을 응답
+app.get("*", (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
+});
 
 const port = 5001;
 app.listen(port, () => {

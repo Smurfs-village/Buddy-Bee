@@ -17,7 +17,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
 
   const startPos = useRef({ x: 0, y: 0 });
   const isDragging = useRef(false);
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     if (hashtagsRef.current) {
       const containerWidth = hashtagsRef.current.offsetWidth;
@@ -39,7 +39,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     const fetchHashtags = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/hashtags`
+          `${API_BASE_URL}/projects/${data.id}/hashtags`
         );
         if (isMounted) setHashtags(response.data);
       } catch (error) {
@@ -50,7 +50,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/participants`
+          `${API_BASE_URL}/projects/${data.id}/participants`
         );
         if (isMounted)
           setCurrentParticipants(response.data.currentParticipants);
@@ -62,7 +62,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     const fetchHoneyStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/honey/${user.id}`
+          `${API_BASE_URL}/projects/${data.id}/honey/${user.id}`
         );
         if (isMounted) setIsHoney(response.data.isHoney);
       } catch (error) {
@@ -73,7 +73,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     const fetchHoneyCount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/projects/${data.id}/honey`
+          `${API_BASE_URL}/projects/${data.id}/honey`
         );
         if (isMounted) setHoneyCount(response.data.honeyCount);
       } catch (error) {
@@ -140,17 +140,14 @@ const Card = ({ data, index, type, toggleScrap }) => {
       };
 
       if (isHoney) {
-        await axios.delete(
-          `http://localhost:5001/api/projects/${data.id}/honey`,
-          {
-            data: { userId: user.id },
-            headers: config.headers, // 인증 헤더 추가
-          }
-        );
+        await axios.delete(`${API_BASE_URL}/projects/${data.id}/honey`, {
+          data: { userId: user.id },
+          headers: config.headers, // 인증 헤더 추가
+        });
         setHoneyCount(honeyCount - 1);
       } else {
         await axios.post(
-          `http://localhost:5001/api/projects/${data.id}/honey`,
+          `${API_BASE_URL}/projects/${data.id}/honey`,
           {
             userId: user.id,
           },

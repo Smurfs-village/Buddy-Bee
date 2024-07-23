@@ -236,10 +236,22 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     }
   };
 
-  // 종료 날짜가 시작 날짜보다 빠르지 않도록 설정
+  const today = new Date();
+
+  // 종료날짜: 시작날짜보다 빠르지 않게 설정
   const handleStartDateChange = (date) => {
+    // 오늘을 기준으로 이전 날짜는 고를 수 없게 설정
+    if (date === today) {
+      return;
+    }
+
     if (endDate && date > endDate) {
-      alert("시작 날짜는 종료 날짜보다 빠를 수 없습니다.");
+      Swal.fire({
+        title: "Error",
+        text: "시작일은 종료일보다 빠르게 설정할 수 없습니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     } else {
       setStartDate(date);
     }
@@ -247,7 +259,12 @@ const CreatePageLayout = ({ children, type: initialType }) => {
 
   const handleEndDateChange = (date) => {
     if (startDate && date < startDate) {
-      alert("종료 날짜는 시작 날짜보다 빠를 수 없습니다.");
+      Swal.fire({
+        title: "Error",
+        text: "시작일은 종료일보다 빠르게 설정할 수 없습니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     } else {
       setEndDate(date);
     }
@@ -531,6 +548,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                           onChange={handleStartDateChange}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
+                          minDate={today}
                         />
                       </div>
                     </div>
@@ -542,6 +560,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                           onChange={handleEndDateChange}
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
+                          minDate={startDate || today}
                         />
                       </div>
                     </div>

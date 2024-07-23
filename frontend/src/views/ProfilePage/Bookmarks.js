@@ -61,7 +61,7 @@ const MainRightContainer = () => {
     const fetchBookmarkedProjects = async () => {
       try {
         const response = await axios.get(
-          "${API_BASE_URL}/projects/bookmarked",
+          `${API_BASE_URL}/projects/bookmarked`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

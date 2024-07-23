@@ -117,7 +117,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
       } else {
         // Create new project
         const response = await axios.post(
-          "${API_BASE_URL}/projects",
+          `${API_BASE_URL}/projects`,
           projectData,
           {
             headers: {

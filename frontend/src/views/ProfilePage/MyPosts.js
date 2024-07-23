@@ -86,7 +86,7 @@ const MainRightContainer = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("${API_BASE_URL}/projects/user", {
+        const response = await axios.get(`${API_BASE_URL}/projects/user`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

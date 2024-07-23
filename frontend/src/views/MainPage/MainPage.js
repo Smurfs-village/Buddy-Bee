@@ -56,7 +56,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("${API_BASE_URL}/projects");
+        const response = await axios.get(`${API_BASE_URL}/projects`);
         const projects = response.data;
 
         const activeProjects = projects.filter(

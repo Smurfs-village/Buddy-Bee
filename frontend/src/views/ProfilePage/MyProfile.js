@@ -33,7 +33,7 @@ const MainRightContainer = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("${API_BASE_URL}/user", {
+        const response = await axios.get(`${API_BASE_URL}/user`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -52,7 +52,7 @@ const MainRightContainer = () => {
   const onSaveUserProfile = useCallback(async () => {
     const { password, ...updatedUserInfo } = userInfo; // 비밀번호 필드를 제거
     try {
-      await axios.put("${API_BASE_URL}/user", updatedUserInfo, {
+      await axios.put(`${API_BASE_URL}/user`, updatedUserInfo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -98,7 +98,7 @@ const MainRightContainer = () => {
 
     try {
       const response = await axios.post(
-        "${API_BASE_URL}/upload/profile",
+        `${API_BASE_URL}/upload/profile`,
         formData,
         {
           headers: {

@@ -94,7 +94,7 @@ const MainRightContainer = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(
-          "${API_BASE_URL}/projects/participated",
+          `${API_BASE_URL}/projects/participated`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (token && !user) {
         try {
-          const response = await axios.get("${API_BASE_URL}/auth/me", {
+          const response = await axios.get(`${API_BASE_URL}/auth/me`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(response.data);

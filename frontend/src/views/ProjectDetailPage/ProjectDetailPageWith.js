@@ -19,6 +19,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
   const [currentParticipants, setCurrentParticipants] = useState(0);
+  const [maxParticipants, setMaxParticipants] = useState(0);
   const { id: projectId } = useParams();
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
           `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
+        setMaxParticipants(response.data.max_participants);
         console.log("Fetched project data in Author Page:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -100,6 +102,7 @@ const ProjectDetailPageWith = ({ hashtags }) => {
               currentParticipants={currentParticipants}
               handleModify={handleModify}
               handleDelete={handleDelete}
+              maxParticipants={maxParticipants}
             />
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />

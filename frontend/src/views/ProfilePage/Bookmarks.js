@@ -83,7 +83,7 @@ const MainRightContainer = () => {
     if (user) {
       fetchBookmarkedProjects();
     }
-  }, [user]);
+  }, [user, API_BASE_URL]);
 
   const toggleBookmark = async (projectId, index) => {
     try {

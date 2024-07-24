@@ -49,7 +49,7 @@ const ProjectDetailPage = () => {
     fetchProject();
     incrementViewCount();
     fetchHashtags();
-  }, [id]);
+  }, [id, API_BASE_URL]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading project details</div>;

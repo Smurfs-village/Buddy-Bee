@@ -46,7 +46,7 @@ const DetailButton = ({ projectId }) => {
       checkHoneyStatus();
       fetchHoneyCount();
     }
-  }, [projectId, user]);
+  }, [projectId, user, API_BASE_URL]);
 
   const handleHoneyClick = async () => {
     if (!user) {

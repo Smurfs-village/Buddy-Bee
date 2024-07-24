@@ -48,7 +48,7 @@ const MainRightContainer = () => {
     if (user) {
       fetchUserInfo();
     }
-  }, [user]);
+  }, [user, API_BASE_URL]);
 
   const onSaveUserProfile = useCallback(async () => {
     const { password, ...updatedUserInfo } = userInfo; // 비밀번호 필드를 제거
@@ -75,7 +75,7 @@ const MainRightContainer = () => {
         confirmButtonText: "확인",
       });
     }
-  }, [userInfo]);
+  }, [userInfo, API_BASE_URL]);
 
   const onChangeUsernameValue = event => {
     setUserInfo(prev => ({ ...prev, username: event.target.value || "" }));

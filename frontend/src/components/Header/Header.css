@@ -107,13 +107,14 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.25s ease;
+  border: 2px solid rgb(54, 54, 54);
 }
 
 .headerpage-login-button {
   background-color: #ff8473;
   border-radius: 15px;
   box-sizing: border-box;
-  padding: 8px 13px;
+  padding: 9px 13px;
   font-weight: bold;
   text-decoration: none; /* 밑줄 제거 */
   color: black; /* 글자 색상 */
@@ -121,6 +122,7 @@ body {
   transition: background-color 0.3s ease; /* 호버 시 배경색 전환 */
   cursor: pointer; /* 버튼 커서 지정 */
   transition: 0.2s ease;
+  border: 2px solid rgb(54, 54, 54);
 }
 
 .headerpage-login-button:hover {
@@ -449,6 +451,13 @@ body {
 
 /* 미디어쿼리_ media query */
 @media (min-width: 768px) and (max-width: 1920px) {
+  .headerpage-header-left img {
+    transition: 0.15s ease;
+  }
+  .headerpage-header-left img:hover {
+    scale: 1.1;
+  }
+
   .headerpage-hamburger-dropdown.hamburger-open,
   .headerpage-overlay {
     display: none;

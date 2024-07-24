@@ -171,7 +171,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 : {currentParticipants} / {maxParticipants}
+                참여자: {currentParticipants} / {maxParticipants}
               </div>
             </div>
             <DetailTitle title={project.title} />

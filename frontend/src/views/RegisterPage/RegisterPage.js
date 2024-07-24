@@ -24,7 +24,7 @@ const RegisterPage = () => {
     if (Object.keys(validationErrors).length > 0 || !isNicknameAvailable) {
       setErrors(validationErrors);
       if (!isNicknameAvailable) {
-        validationErrors.nickname = "닉네임 중복 확인이 필요합니다.";
+        validationErrors.nickname = "닉네임 중복 확인이 필요합니다";
       }
       return;
     }
@@ -36,14 +36,14 @@ const RegisterPage = () => {
         icon: "success",
         title: "회원가입에 성공했습니다!",
         showConfirmButton: false,
-        timer: 1500,
+        // timer: 1500,
       });
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
       Swal.fire({
         title: "Error",
-        text: "회원가입에 실패했습니다. 다시 시도해주세요.",
+        text: "회원가입에 실패했습니다. 다시 시도해주세요",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -58,15 +58,15 @@ const RegisterPage = () => {
     if (!nickname.length === 0 || nickname.trim().length === 0) {
       errors.nickname = "닉네임을 입력바랍니다.";
     } else if (!nicknamePattern.test(nickname)) {
-      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다";
     } else if (nickname.length > 8) {
-      errors.nickname = "닉네임은 1~8 글자 사이로 입력해주세요.";
+      errors.nickname = "닉네임은 1~8 글자 사이로 입력해주세요";
     }
     if (!email.includes("@")) {
-      errors.email = "유효한 이메일 주소를 입력해주세요.";
+      errors.email = "유효한 이메일 주소를 입력해주세요";
     }
     if (password.length < 8) {
-      errors.password = "비밀번호는 최소 8자 이상이어야 합니다.";
+      errors.password = "비밀번호는 최소 8자 이상이어야 합니다";
     }
     return errors;
   };
@@ -76,11 +76,11 @@ const RegisterPage = () => {
     const nicknamePattern = /^[a-zA-Z0-9가-힣]*$/;
 
     if (nickname.length === 0 || nickname.trim().length === 0) {
-      errors.nickname = "닉네임을 입력해주세요.";
+      errors.nickname = "닉네임을 입력해주세요";
     } else if (!nicknamePattern.test(nickname)) {
-      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다.";
+      errors.nickname = "닉네임은 영문, 숫자, 한글만 사용할 수 있습니다";
     } else if (nickname.length > 8) {
-      errors.nickname = "닉네임은 1~8글자 사이로 입력해주세요.";
+      errors.nickname = "닉네임은 1~8글자 사이로 입력해주세요";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -94,14 +94,14 @@ const RegisterPage = () => {
       if (isAvailable) {
         Swal.fire({
           icon: "success",
-          title: "사용 가능한 닉네임입니다.",
+          title: "사용 가능한 닉네임입니다",
           showConfirmButton: false,
-          timer: 1500,
+          // timer: 1500,
         });
       } else {
         Swal.fire({
           title: "Error",
-          text: "이미 사용 중인 닉네임입니다.",
+          text: "이미 사용 중인 닉네임입니다",
           icon: "error",
           confirmButtonText: "확인",
         });
@@ -111,7 +111,7 @@ const RegisterPage = () => {
         console.error("Error checking nickname availability:", error);
         Swal.fire({
           title: "Error",
-          text: "닉네임을 입력해주세요.",
+          text: "닉네임을 입력해주세요",
           icon: "error",
           confirmButtonText: "확인",
         });
@@ -119,7 +119,7 @@ const RegisterPage = () => {
         console.error("Error checking nickname availability:", error);
         Swal.fire({
           title: "Error",
-          text: "닉네임 중복 확인 중 오류가 발생했습니다.",
+          text: "닉네임 중복 확인 중 오류가 발생했습니다",
           icon: "error",
           confirmButtonText: "확인",
         });

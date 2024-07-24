@@ -280,9 +280,9 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   position: relative;
   box-sizing: border-box;
   grid-template-columns: minmax(0, 100%);
-  width: 30em;
+  width: 29em;
   max-width: 100%;
-  padding: 0 0 1.25em;
+  padding: 10px 0 30px;
   border: 1px solid black;
   border-radius: 10px;
   background: #fff;
@@ -300,9 +300,9 @@ div:where(.swal2-container) h2:where(.swal2-title) {
   position: relative;
   max-width: 100%;
   margin: 0;
-  padding: 0.6em 1em 0;
+  padding: 0.6em 1em 0.4em;
   color: inherit;
-  font-size: 1.875em;
+  font-size: 1.5em;
   font-weight: 600;
   text-align: center;
   text-transform: none;
@@ -467,7 +467,7 @@ div:where(.swal2-container) .swal2-html-container {
   z-index: 1;
   justify-content: center;
   margin: 0;
-  padding: 0.8em 1.6em 0.3em;
+  padding: 0.2em 1.6em 0.3em;
   overflow: auto;
   color: inherit;
   font-size: 1.125em;
@@ -740,8 +740,8 @@ div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content {
   animation: swal2-animate-question-mark 0.8s;
 }
 div:where(.swal2-icon).swal2-success {
-  border-color: #a5dc86;
-  color: #a5dc86;
+  border-color: #34b28cbe;
+  color: #34b28cbe;
 }
 div:where(.swal2-icon).swal2-success [class^="swal2-success-circular-line"] {
   position: absolute;
@@ -773,7 +773,7 @@ div:where(.swal2-icon).swal2-success .swal2-success-ring {
   box-sizing: content-box;
   width: 100%;
   height: 100%;
-  border: 0.25em solid rgba(165, 220, 134, 0.3);
+  border: 0.25em solid #34b28cbe;
   border-radius: 50%;
 }
 div:where(.swal2-icon).swal2-success .swal2-success-fix {
@@ -791,7 +791,7 @@ div:where(.swal2-icon).swal2-success [class^="swal2-success-line"] {
   z-index: 2;
   height: 0.3125em;
   border-radius: 0.125em;
-  background-color: #a5dc86;
+  background-color: #34b28cd8;
 }
 div:where(.swal2-icon).swal2-success
   [class^="swal2-success-line"][class$="tip"] {

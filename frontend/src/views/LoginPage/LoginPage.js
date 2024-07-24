@@ -80,6 +80,11 @@ const LoginPage = ({ onLogin }) => {
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+    const scrollPosition = window.pageYOffset;
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
   };
 
   const handleCloseModal = () => {

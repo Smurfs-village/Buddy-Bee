@@ -24,6 +24,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [fundingState, setFundingState] = useState(false);
   const [currentParticipants, setCurrentParticipants] = useState(0);
+  const [maxParticipants, setMaxParticipants] = useState(0);
   const buttonRef = useRef();
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
@@ -45,6 +46,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
+        setMaxParticipants(response.data.max_participants);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -52,7 +54,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     };
 
     fetchProject();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -68,7 +70,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     };
 
     fetchParticipants();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -96,7 +98,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     };
 
     checkParticipationStatus();
-  }, [project, user]);
+  }, [project, user, API_BASE_URL]);
 
   const fundingStateHandler = useCallback(async () => {
     if (!user) {
@@ -194,6 +196,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     agreement,
     totalPrice,
     navigate,
+    API_BASE_URL,
   ]);
 
   const handleOptionChange = (index, newQuantity) => {
@@ -252,7 +255,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 수: {currentParticipants}
+                참여자: {currentParticipants} / {maxParticipants}
               </div>
             </div>
             <DetailTitle title={project.title} />

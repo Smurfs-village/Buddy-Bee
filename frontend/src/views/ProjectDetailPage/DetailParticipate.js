@@ -4,11 +4,12 @@ const DetailParticipate = ({
   currentParticipants,
   handleModify,
   handleDelete,
+  maxParticipants,
 }) => {
   return (
     <div className="ProjectDetailPage-participate">
       <div className="ProjectDetailPage-participate-txt">
-        참여자 수: {currentParticipants}
+        참여자: {currentParticipants} / {maxParticipants}
       </div>
       <div className="ProjectDetailPage-participate-btn">
         <button className="ProjectDetailPage-modify" onClick={handleModify}>

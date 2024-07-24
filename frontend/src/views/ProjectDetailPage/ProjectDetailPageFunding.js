@@ -19,6 +19,7 @@ import "./ProjectDetailPage.css"; //공통 css 요소는 전부 이 파일에서
 const ProjectDetailPageFunding = ({ hashtags }) => {
   const [project, setProject] = useState(null);
   const [currentParticipants, setCurrentParticipants] = useState(0); // 참여자 수 상태 추가
+  const [maxParticipants, setMaxParticipants] = useState(0);
   const [filterItem, setFilterItem] = useState(false);
   const { id: projectId } = useParams();
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
           `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
+        setMaxParticipants(response.data.max_participants);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -38,7 +40,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
     };
 
     fetchProject();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -54,7 +56,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
     };
 
     fetchParticipants();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   const handleDelete = async () => {
     if (!projectId) return;
@@ -103,6 +105,7 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
               currentParticipants={currentParticipants}
               handleModify={handleModify}
               handleDelete={handleDelete}
+              maxParticipants={maxParticipants}
             />
             <DetailTitle title={project.title} />
             <DetailContent content={project.description} />

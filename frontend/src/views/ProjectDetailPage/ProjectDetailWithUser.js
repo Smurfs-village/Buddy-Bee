@@ -20,7 +20,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   const [filterItem, setFilterItem] = useState(false);
   const [project, setProject] = useState(null);
   const [currentParticipants, setCurrentParticipants] = useState(0);
-  // const [maxParticipants, setMaxParticipants] = useState(0);
+  const [maxParticipants, setMaxParticipants] = useState(0);
   const [withState, setWithState] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const buttonRef = useRef();
@@ -37,6 +37,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           `${API_BASE_URL}/projects/${projectId}/with-author`
         );
         setProject(response.data);
+        setMaxParticipants(response.data.max_participants);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -44,7 +45,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     };
 
     fetchProject();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -54,14 +55,13 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           `${API_BASE_URL}/projects/${projectId}/participants`
         );
         setCurrentParticipants(response.data.currentParticipants);
-        // setMaxParticipants(response.data.maxParticipants);
       } catch (error) {
         console.error("Error fetching participants:", error);
       }
     };
 
     fetchParticipants();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -89,7 +89,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     };
 
     checkParticipationStatus();
-  }, [project, user]);
+  }, [project, user, API_BASE_URL]);
 
   const handleOptionChange = optionName => {
     setSelectedOptions(prevOptions => {
@@ -143,7 +143,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project, selectedOptions]);
+  }, [user, project, selectedOptions, API_BASE_URL]);
 
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {
@@ -171,7 +171,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           <div className="ProjectDetailPage-container">
             <div className="ProjectDetailPage-participate">
               <div className="ProjectDetailPage-participate-txt">
-                참여자 : {currentParticipants} /{/* {maxParticipants} 명 */}
+                참여자: {currentParticipants} / {maxParticipants}
               </div>
             </div>
             <DetailTitle title={project.title} />

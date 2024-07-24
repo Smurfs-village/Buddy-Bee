@@ -6,6 +6,7 @@ import pen from "../../img/mingcute_quill-pen-line.png";
 import mockImg from "../../img/mock.svg"; // 기본 이미지 경로 추가
 import { useAuth } from "../../contexts/AuthContext";
 import myProfileFlower from "../../img/myPage_flower.svg";
+import Swal from "sweetalert2"; // SweetAlert2 import
 
 const FlowerImg = () => {
   return <img src={myProfileFlower} alt="" className="MyProfile_flowerImg" />;
@@ -57,10 +58,20 @@ const MainRightContainer = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      alert("User profile updated successfully");
+      Swal.fire({
+        title: "Success",
+        text: "User profile updated successfully",
+        icon: "success",
+        confirmButtonText: "확인",
+      });
     } catch (error) {
       console.error("Error updating user profile:", error);
-      alert("Failed to update user profile");
+      Swal.fire({
+        title: "Error",
+        text: "Failed to update user profile",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     }
   }, [userInfo]);
 
@@ -156,7 +167,12 @@ const MainRightContainer = () => {
               alt="Edit"
               className="pen-icon"
               onClick={() =>
-                alert("비밀번호 변경 기능은 추후에 추가될 예정입니다.")
+                Swal.fire({
+                  title: "Info",
+                  text: "비밀번호 변경 기능은 추후에 추가될 예정입니다.",
+                  icon: "info",
+                  confirmButtonText: "확인",
+                })
               }
             />
           </label>
@@ -170,7 +186,19 @@ const MainRightContainer = () => {
               onChange={onChangePhoneNumberValue}
               readOnly={!editableFields.phone_number}
             />
-            <button className="MyProfile_certification_Btn">인증하기</button>
+            <button
+              className="MyProfile_certification_Btn"
+              onClick={() =>
+                Swal.fire({
+                  title: "Info",
+                  text: "휴대폰 번호 인증은 추후에 추가될 예정입니다.",
+                  icon: "info",
+                  confirmButtonText: "확인",
+                })
+              }
+            >
+              인증하기
+            </button>
           </label>
           <label className="MyProfile_label_with_pen">
             <span>계좌정보</span>

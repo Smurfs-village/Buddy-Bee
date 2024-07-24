@@ -127,7 +127,7 @@ const MainRightContainer = () => {
       <div className="MyProfile_main_right_container_userInfo_wrapper">
         <div className="MyProfile_input_box">
           <label className="MyProfile_label_with_pen">
-            닉네임
+            <span>닉네임</span>
             <input
               type="text"
               value={username || ""}
@@ -143,7 +143,8 @@ const MainRightContainer = () => {
             />
           </label>
           <label className="MyProfile_label_with_pen">
-            비밀번호
+            <span>비밀번호</span>
+
             <input
               type="password"
               value="********"
@@ -160,7 +161,8 @@ const MainRightContainer = () => {
             />
           </label>
           <label className="MyProfile_contactInfo_label">
-            연락처
+            <span>연락처</span>
+
             <input
               type="text"
               value={phone_number || ""}
@@ -171,7 +173,8 @@ const MainRightContainer = () => {
             <button className="MyProfile_certification_Btn">인증하기</button>
           </label>
           <label className="MyProfile_label_with_pen">
-            계좌정보
+            <span>계좌정보</span>
+
             <input
               type="text"
               value={account_number || ""}

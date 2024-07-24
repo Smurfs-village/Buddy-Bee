@@ -15,6 +15,9 @@
   padding-top: 12px;
   border-bottom: 1px solid black;
   width: 100%;
+
+  white-space: nowrap;
+
   /* white-space: nowrap; */
 }
 
@@ -47,9 +50,17 @@
   outline: none;
   padding-top: 10px;
   position: relative;
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
+  width: 70%;
 }
 
+.MyProfile_main_right_container_userInfo_input::placeholder {
+  text-align: left; /* 플레이스홀더 텍스트도 왼쪽 정렬 */
+}
+.MyProfile_input_box span {
+  width: 60px;
+}
 .MyProfile_main_right_container_profile_edit_img_wrapper {
   display: flex;
   align-items: center;
@@ -181,6 +192,7 @@
 @media (max-width: 550px) {
   .MyProfile_main_right_container_userInfo_input {
     font-size: 10px;
+    width: 60%;
   }
   .MyProfile_main_right_container_userInfo_wrapper label,
   .MyProfile_main_right_container_userInfo_wrapper label input,
@@ -198,6 +210,9 @@
   .MyProfile_main_right_container_saveBtn {
     margin: 0% 5% 1% 0%;
   }
+  .MyProfile_input_box span {
+    width: 50px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -214,7 +229,17 @@
   .MyProfile_main_right_container_profile_edit_img_wrapper_inner {
     display: none;
   }
+  .MyProfile_main_right_container_userInfo_input {
+    width: 60%;
+  }
   .MyProfile_input_box {
     width: 100%;
+  }
+}
+@media (max-width: 1075px) {
+  .MyProfile_main_right_container_userInfo_input {
+    width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

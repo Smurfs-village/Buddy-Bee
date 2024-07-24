@@ -234,6 +234,29 @@ const updateProjectCurrentAmount = projectId => {
     });
   });
 };
+
+const updateProjectCurrentParticipants = projectId => {
+  const query = `
+    UPDATE project
+    SET current_participants = (
+      SELECT COUNT(*)
+      FROM participant
+      WHERE project_id = ?
+    )
+    WHERE id = ?
+  `;
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, [projectId, projectId], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
 exports.participateInProject = (req, res) => {
   const projectId = req.params.id;
   const userId = req.user.userId;
@@ -262,9 +285,9 @@ exports.participateInProject = (req, res) => {
       }
 
       const insertParticipantQuery = `
-      INSERT INTO participant (project_id, user_id)
-      VALUES (?, ?)
-    `;
+        INSERT INTO participant (project_id, user_id)
+        VALUES (?, ?)
+      `;
 
       connection.query(
         insertParticipantQuery,
@@ -319,11 +342,16 @@ exports.participateInProject = (req, res) => {
           if (insertDetailsTasks.length > 0) {
             Promise.all(insertDetailsTasks)
               .then(() => {
-                updateProjectCurrentAmount(projectId); // 참가 시 current_amount 업데이트
+                return Promise.all([
+                  updateProjectCurrentAmount(projectId), // amount 업데이트
+                  updateProjectCurrentParticipants(projectId), // 참가자 수 업데이트
+                ]);
+              })
+              .then(() => {
                 res.status(200).send("Participation successful");
               })
               .catch(error => {
-                console.error("Error inserting participant details:", error);
+                console.error("Error updating project details:", error);
                 res.status(500).send("Server error");
               });
           } else {

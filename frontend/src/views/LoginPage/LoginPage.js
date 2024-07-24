@@ -8,6 +8,7 @@ import { useRef, useState, useEffect } from "react";
 import { login } from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 import Swal from "sweetalert2"; // SweetAlert2 import 추가
+import "../../components/Common/SweetAlert.css";
 import googleLogo from "../../img/google.png";
 import kakaoLogo from "../../img/KakaoTalk_logo.png";
 import naverLogo from "../../img/naver.png";
@@ -36,6 +37,7 @@ const LoginPage = ({ onLogin }) => {
         text: "이메일과 비밀번호를 입력해주세요.",
         icon: "error",
         confirmButtonText: "확인",
+        confirmButtonColor: "#3085d",
       });
       return;
     }

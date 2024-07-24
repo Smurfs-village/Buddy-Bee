@@ -60,9 +60,11 @@ const MainRightContainer = () => {
       });
       Swal.fire({
         title: "Success",
-        text: "User profile updated successfully",
+        text: "변경이 완료 되었습니다.",
         icon: "success",
         confirmButtonText: "확인",
+      }).then(() => {
+        window.location.reload();
       });
     } catch (error) {
       console.error("Error updating user profile:", error);

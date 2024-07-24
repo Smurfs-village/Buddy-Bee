@@ -43,6 +43,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   const [accountInfo, setAccountInfo] = useState("고준기 국민KB 1234123456");
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [type, setType] = useState(initialType || "defaultType"); // 수정된 부분
+  const [deleteOptionName, setDeleteOptionName] = useState(null); // 삭제된 옵션명 부분
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -165,20 +166,38 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   const addOption = () => {
     // 옵션명을 입력했을 때, 가격이 없어도 등록 가능하도록 수정
     if (optionName.trim()) {
-      setOptions([
-        ...options,
-        {
-          name: optionName,
-          price: formatPrice(optionPrice) || "", // 가격 없이 추가 가능
-        },
-      ]);
+      const isDuplicate = options.some(
+        (option) => option.name === optionName.trim()
+      );
+      const isSameAsDeleted = optionName.trim() === deleteOptionName;
+      // 중복이 아니라면 추가
+      if (!isDuplicate || isSameAsDeleted) {
+        setOptions([
+          ...options,
+          {
+            name: optionName,
+            price: formatPrice(optionPrice) || "", // 가격 없이 추가 가능
+          },
+        ]);
+
+        setDeleteOptionName(null);
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "옵션명이 중복됩니다. 다른 옵션명을 입력하세요.",
+          icon: "warning",
+          confirmButtonText: "확인",
+        });
+      }
       setOptionName("");
       setOptionPrice("");
     }
   };
 
   const removeOption = (index) => {
+    const removedOptionName = options[index].name;
     setOptions(options.filter((_, i) => i !== index));
+    setDeleteOptionName(removedOptionName);
   };
 
   const handleAccountEdit = () => {
@@ -220,8 +239,8 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
 
-    // 제목이 30자를 넘지 않도록 제한
-    if (newTitle.length <= 30) {
+    // 제목이 50자를 넘지 않도록 제한
+    if (newTitle.length <= 50) {
       setTitle(newTitle);
     }
   };
@@ -297,7 +316,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   onChange={handleTitleChange}
                   placeholder={`${
                     type === "funding" ? "펀딩" : "동행"
-                  } 제목을 작성해주세요 (30자 이하)`}
+                  } 제목을 작성해주세요 (50자 이하)`}
                   required
                 />
               </div>
@@ -310,7 +329,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
               </div>
               <div className="createpage-form-group">
                 <label className="createpage-hashtag-label">
-                  해시태그 입력{" "}
+                  해시태그 입력
                   <span className="createpage-hashtag-limit">
                     (최대 10개, 중복 제한)
                   </span>
@@ -435,6 +454,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>옵션명</span>
                       <input
                         type="text"
+                        value={optionName}
                         onChange={(e) => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />

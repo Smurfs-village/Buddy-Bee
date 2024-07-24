@@ -54,7 +54,6 @@
   font-size: 24px;
   display: inline-block;
   padding-bottom: 1px;
-  margin-left: 5px;
 }
 .createpage-hashtag-label {
   margin-bottom: 0px !important;
@@ -95,6 +94,8 @@
 .createpage-hashtag-limit {
   color: #d8d8d8;
   font-size: 18px;
+  font-weight: 500;
+  margin-left: 5px;
 }
 .createpage-form-group label {
   font-weight: 1000;

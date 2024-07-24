@@ -150,7 +150,7 @@
   background: white;
   padding: 20px 40px 40px 40px;
   border: 1px solid black;
-  border-radius: 15px;
+  border-radius: 8px;
   width: 100%;
   max-width: 400px;
   z-index: 9999;
@@ -212,14 +212,13 @@
   height: 20px;
 }
 .naver {
-  background-color: #00bf18;
+  background-color: #34b2a7;
   color: white;
   padding: 9px;
 }
 
 .kakao {
-  background-color: #ffe90a;
-  color: black;
+  background-color: #ffd43a;
   padding: 8px;
 }
 

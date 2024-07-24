@@ -5,6 +5,7 @@ import { FlowerImg } from "./Common";
 import Pagination from "./Common";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import mockImage from "../../img/mock.svg";
 
 const Card = ({
@@ -46,9 +47,19 @@ const Card = ({
         className="MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn"
         onClick={e => {
           e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
-          if (window.confirm("정말로 이 프로젝트를 삭제하시겠습니까?")) {
-            onDeleteActiveProject(id);
-          }
+          Swal.fire({
+            title: "정말로 이 프로젝트를 삭제하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "삭제",
+            cancelButtonText: "취소",
+          }).then(result => {
+            if (result.isConfirmed) {
+              onDeleteActiveProject(id);
+            }
+          });
         }}
       >
         삭제
@@ -117,7 +128,7 @@ const MainRightContainer = () => {
     if (user) {
       fetchProjects();
     }
-  }, [user]);
+  }, [user, API_BASE_URL]);
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 

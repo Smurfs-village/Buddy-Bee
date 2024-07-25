@@ -60,6 +60,7 @@ body {
   margin: 30px 10px 20px 0px;
   font-size: 1.2em;
   line-height: 1.7;
+  word-break: keep-all;
 }
 
 .mainpage-button-container {
@@ -602,7 +603,6 @@ body {
     font-size: 1.2em;
     line-height: 1.7;
     width: 85%;
-    word-break: keep-all;
   }
   .mainpage-left-section h1 {
     font-size: 5rem;

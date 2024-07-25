@@ -8,6 +8,7 @@ import { useRef, useState, useEffect } from "react";
 import { login } from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext"; // useAuth import 추가
 import Swal from "sweetalert2"; // SweetAlert2 import 추가
+import "../../components/Common/SweetAlert.css";
 import googleLogo from "../../img/google.png";
 import kakaoLogo from "../../img/KakaoTalk_logo.png";
 import naverLogo from "../../img/naver.png";
@@ -26,9 +27,10 @@ const LoginPage = ({ onLogin }) => {
     if (!email || !password) {
       Swal.fire({
         title: "Error",
-        text: "이메일과 비밀번호를 입력해주세요.",
+        text: "이메일과 비밀번호를 입력해주세요",
         icon: "error",
         confirmButtonText: "확인",
+        confirmButtonColor: "#3085d",
       });
       return;
     }
@@ -44,7 +46,7 @@ const LoginPage = ({ onLogin }) => {
       if (error.response && error.response.status === 401) {
         Swal.fire({
           title: "Error",
-          text: "Invalid email or password",
+          text: "유효하지 않은 아이디 또는 비밀번호입니다",
           icon: "error",
           confirmButtonText: "확인",
         });
@@ -71,6 +73,11 @@ const LoginPage = ({ onLogin }) => {
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+    const scrollPosition = window.pageYOffset;
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
   };
 
   const handleCloseModal = () => {

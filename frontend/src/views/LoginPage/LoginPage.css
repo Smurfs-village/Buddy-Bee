@@ -31,8 +31,10 @@
 }
 
 .sns-login-wrapper p {
-  font-size: 0.8rem;
-  margin-bottom: 10px;
+  font-size: 0.73rem;
+  margin-bottom: 8px;
+  margin-right: 3px;
+  color: rgb(146, 146, 146);
   align-items: flex-end;
 }
 
@@ -52,6 +54,7 @@
   width: 14px;
   height: 14px;
   transition: transform 0.2s;
+  border-radius: 3px;
 }
 
 .sns-login-icons button:hover img {
@@ -136,25 +139,27 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
   z-index: 9999;
 }
 
 .modal {
   position: absolute;
   top: 50%;
-  left: 51%;
+  left: 51.3%;
   right: auto;
   bottom: auto;
   margin-right: -50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px 36px 36px 40px;
+  padding: 20px 40px 40px 40px;
   border: 1px solid black;
-  border-radius: 15px;
-  box-shadow: 4px 4px 0 0 rgb(0, 0, 0);
+  border-radius: 8px;
   width: 100%;
-  max-width: 350px;
+  max-width: 440px;
   z-index: 9999;
+  overflow: hidden;
+
   box-sizing: border-box;
 }
 
@@ -213,14 +218,13 @@
   height: 20px;
 }
 .naver {
-  background-color: #00bf18;
+  background-color: #34b2a7;
   color: white;
   padding: 9px;
 }
 
 .kakao {
-  background-color: #ffe90a;
-  color: black;
+  background-color: #ffd43a;
   padding: 8px;
 }
 

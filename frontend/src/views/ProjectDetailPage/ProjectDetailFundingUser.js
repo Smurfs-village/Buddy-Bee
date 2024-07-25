@@ -113,7 +113,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     if (!agreement) {
       Swal.fire({
         title: "Error",
-        text: "개인정보 제 3자 제공 동의를 해야합니다.",
+        text: "개인정보 제 3자 제공 동의를 해주세요",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -122,7 +122,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     if (!applicantName || !email || !phone) {
       Swal.fire({
         title: "Error",
-        text: "신청자 정보를 모두 입력해야 합니다.",
+        text: "신청자 정보를 모두 입력해야 합니다",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -160,7 +160,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           timer: 3000,
           timerProgressBar: true,
           icon: "success",
-          title: "펀딩 참여에 성공하였습니다.",
+          title: "펀딩 참여에 성공했습니다!",
           didOpen: toast => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -172,7 +172,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
         console.error("Already participating in this project");
         Swal.fire({
           title: "Error",
-          text: "이미 이 프로젝트에 참여하고 있습니다.",
+          text: "이미 이 프로젝트에 참여하고 있습니다",
           icon: "error",
           confirmButtonText: "확인",
         });
@@ -180,7 +180,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
         console.error("Error participating in project:", error);
         Swal.fire({
           title: "Error",
-          text: "프로젝트 참여 중 오류가 발생했습니다.",
+          text: "프로젝트 참여 중 오류가 발생했습니다",
           icon: "error",
           confirmButtonText: "확인",
         });

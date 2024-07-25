@@ -60,7 +60,7 @@ const MainRightContainer = () => {
       });
       Swal.fire({
         title: "Success",
-        text: "변경이 완료 되었습니다.",
+        text: "변경 완료 되었습니다!",
         icon: "success",
         confirmButtonText: "확인",
       }).then(() => {
@@ -70,7 +70,7 @@ const MainRightContainer = () => {
       console.error("Error updating user profile:", error);
       Swal.fire({
         title: "Error",
-        text: "Failed to update user profile",
+        text: "변경 중 오류가 발생했습니다",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -171,7 +171,7 @@ const MainRightContainer = () => {
               onClick={() =>
                 Swal.fire({
                   title: "Info",
-                  text: "비밀번호 변경 기능은 추후에 추가될 예정입니다.",
+                  text: "비밀번호 변경 기능은 추후 추가될 예정입니다",
                   icon: "info",
                   confirmButtonText: "확인",
                 })
@@ -193,7 +193,7 @@ const MainRightContainer = () => {
               onClick={() =>
                 Swal.fire({
                   title: "Info",
-                  text: "휴대폰 번호 인증은 추후에 추가될 예정입니다.",
+                  text: "휴대폰 번호 인증은 추후 추가될 예정입니다",
                   icon: "info",
                   confirmButtonText: "확인",
                 })

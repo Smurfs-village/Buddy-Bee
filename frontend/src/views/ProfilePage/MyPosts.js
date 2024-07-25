@@ -48,12 +48,12 @@ const Card = ({
         onClick={e => {
           e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
           Swal.fire({
-            title: "정말로 이 프로젝트를 삭제하시겠습니까?",
+            title: "프로젝트를 삭제하시겠습니까?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "삭제",
+            confirmButtonColor: "#ff8473",
+            cancelButtonColor: "#aeaeae",
+            confirmButtonText: "확인",
             cancelButtonText: "취소",
           }).then(result => {
             if (result.isConfirmed) {

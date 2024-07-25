@@ -36,7 +36,7 @@ const RegisterPage = () => {
         icon: "success",
         title: "회원가입에 성공했습니다!",
         showConfirmButton: false,
-        // timer: 1500,
+        timer: 1500,
       });
       navigate("/login");
     } catch (error) {
@@ -96,7 +96,7 @@ const RegisterPage = () => {
           icon: "success",
           title: "사용 가능한 닉네임입니다",
           showConfirmButton: false,
-          // timer: 1500,
+          timer: 1500,
         });
       } else {
         Swal.fire({

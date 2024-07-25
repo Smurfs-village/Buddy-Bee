@@ -129,7 +129,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
           timer: 3000,
           timerProgressBar: true,
           icon: "success",
-          title: "동행 참여에 성공하였습니다.",
+          title: "동행 참여에 성공했습니다!",
           didOpen: toast => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);

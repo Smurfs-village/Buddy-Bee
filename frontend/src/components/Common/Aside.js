@@ -17,11 +17,11 @@ const Aside = () => {
   const onDeleteId = e => {
     e.preventDefault();
     Swal.fire({
-      title: "정말로 탈퇴하시겠습니까?",
+      title: "정말 탈퇴하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+      confirmButtonColor: "#ff8473",
+      cancelButtonColor: "#aeaeae",
       confirmButtonText: "탈퇴",
       cancelButtonText: "취소",
     }).then(result => {

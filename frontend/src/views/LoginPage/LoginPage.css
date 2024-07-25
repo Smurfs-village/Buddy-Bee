@@ -31,8 +31,10 @@
 }
 
 .sns-login-wrapper p {
-  font-size: 0.8rem;
-  margin-bottom: 10px;
+  font-size: 0.73rem;
+  margin-bottom: 8px;
+  margin-right: 3px;
+  color: rgb(146, 146, 146);
   align-items: flex-end;
 }
 
@@ -52,6 +54,7 @@
   width: 14px;
   height: 14px;
   transition: transform 0.2s;
+  border-radius: 3px;
 }
 
 .sns-login-icons button:hover img {

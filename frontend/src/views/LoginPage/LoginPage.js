@@ -34,7 +34,7 @@ const LoginPage = ({ onLogin }) => {
     if (!email || !password) {
       Swal.fire({
         title: "Error",
-        text: "이메일과 비밀번호를 입력해주세요.",
+        text: "이메일과 비밀번호를 입력해주세요",
         icon: "error",
         confirmButtonText: "확인",
         confirmButtonColor: "#3085d",
@@ -53,7 +53,7 @@ const LoginPage = ({ onLogin }) => {
       if (error.response && error.response.status === 401) {
         Swal.fire({
           title: "Error",
-          text: "Invalid email or password",
+          text: "유효하지 않은 아이디 또는 비밀번호입니다",
           icon: "error",
           confirmButtonText: "확인",
         });

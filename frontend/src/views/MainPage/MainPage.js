@@ -18,8 +18,8 @@ const MainPage = () => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     autoplaySpeed: 3000,
     arrows: true,
     draggable: true,

@@ -1,25 +1,75 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const connection = require("../models/db");
-const JWT_SECRET = process.env.JWT_SECRET;
+const nodemailer = require("nodemailer");
 const axios = require("axios");
+require("dotenv").config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 exports.register = async (req, res) => {
   const { email, password, nickname } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const query = `INSERT INTO user (email, password, username) VALUES (?, ?, ?)`;
-    connection.query(query, [email, hashedPassword, nickname], error => {
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
+
+    const query = `INSERT INTO user (email, password, username, token) VALUES (?, ?, ?, ?)`;
+    connection.query(query, [email, hashedPassword, nickname, token], error => {
       if (error) {
         console.error("Error inserting user:", error);
         return res.status(500).send("Server error");
       }
-      res.status(201).send("User registered");
+
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: "Email Verification",
+        text: `Please verify your email by clicking on the following link: http://localhost:3001/verify?token=${token}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Failed to send verification email:", error);
+          return res.status(500).send("Failed to send verification email");
+        }
+        res
+          .status(201)
+          .send(
+            "User registered. Please check your email for verification link."
+          );
+      });
     });
   } catch (error) {
     console.error("Error hashing password:", error);
     res.status(500).send("Server error");
+  }
+};
+
+exports.verifyEmail = (req, res) => {
+  const { token } = req.query;
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const query = `UPDATE user SET is_verified = 1 WHERE email = ?`;
+    connection.query(query, [decoded.email], (error, results) => {
+      if (error) {
+        console.error("Error verifying email:", error);
+        return res.status(500).send("Server error");
+      }
+      res.status(200).send("Email verified successfully");
+    });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    res.status(400).send("Invalid token");
   }
 };
 
@@ -43,7 +93,6 @@ exports.login = (req, res) => {
       const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
         expiresIn: "2h",
       });
-      console.log("Generated JWT:", token);
       res.status(200).json({ token, userId: user.id, nickname: user.username });
     } catch (error) {
       console.error("Error comparing password:", error);
@@ -125,9 +174,6 @@ exports.kakaoLogin = async (req, res) => {
   const { code } = req.body;
 
   try {
-    console.log("Kakao Client ID:", process.env.KAKAO_CLIENT_ID);
-    console.log("Kakao Redirect URI:", process.env.KAKAO_REDIRECT_URI);
-
     const kakaoTokenResponse = await axios.post(
       `https://kauth.kakao.com/oauth/token`,
       null,
@@ -145,7 +191,6 @@ exports.kakaoLogin = async (req, res) => {
     );
 
     const { access_token } = kakaoTokenResponse.data;
-    console.log("Kakao Access Token:", access_token);
 
     const kakaoUserResponse = await axios.get(
       `https://kapi.kakao.com/v2/user/me`,
@@ -160,14 +205,10 @@ exports.kakaoLogin = async (req, res) => {
     const email = kakao_account.email;
     let nickname = kakao_account.profile.nickname;
 
-    console.log("Kakao User Email:", email);
-    console.log("Kakao User Nickname:", nickname);
-
     if (!email) {
       return res.status(400).send("Email not provided by Kakao");
     }
 
-    // 닉네임 중복 확인 및 수정 로직
     const checkNickname = async nickname => {
       const query = `SELECT COUNT(*) as count FROM user WHERE username = ?`;
       return new Promise((resolve, reject) => {

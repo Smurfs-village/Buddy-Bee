@@ -25,6 +25,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [fundingState, setFundingState] = useState(false);
   const [currentParticipants, setCurrentParticipants] = useState(0);
   const [maxParticipants, setMaxParticipants] = useState(0);
+  const [currentAmount, setCurrentAmount] = useState(0);
   const buttonRef = useRef();
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
@@ -38,6 +39,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [agreement, setAgreement] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
@@ -47,6 +49,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
         );
         setProject(response.data);
         setMaxParticipants(response.data.max_participants);
+        setCurrentAmount(response.data.current_amount);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -56,21 +59,21 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     fetchProject();
   }, [projectId, API_BASE_URL]);
 
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      if (!projectId) return;
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/projects/${projectId}/participants`
-        );
-        setCurrentParticipants(response.data.currentParticipants);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
-      }
-    };
-
-    fetchParticipants();
+  const fetchParticipants = useCallback(async () => {
+    if (!projectId) return;
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/projects/${projectId}/participants`
+      );
+      setCurrentParticipants(response.data.currentParticipants);
+    } catch (error) {
+      console.error("Error fetching participants:", error);
+    }
   }, [projectId, API_BASE_URL]);
+
+  useEffect(() => {
+    fetchParticipants();
+  }, [fetchParticipants]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -153,6 +156,14 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           buttonRef.current.innerText = "펀딩 참여완료";
           buttonRef.current.disabled = true; // 버튼 비활성화
         }
+        // 최신 데이터 다시 가져오기
+        const updatedProject = await axios.get(
+          `${API_BASE_URL}/projects/${projectId}/with-author`
+        );
+        setProject(updatedProject.data);
+        setCurrentParticipants(updatedProject.data.currentParticipants);
+        setCurrentAmount(updatedProject.data.current_amount);
+
         Swal.fire({
           toast: true,
           position: "bottom",
@@ -197,6 +208,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     totalPrice,
     navigate,
     API_BASE_URL,
+    projectId,
   ]);
 
   const handleOptionChange = (index, newQuantity) => {
@@ -329,7 +341,10 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
               setPhone={setPhone}
             />
             <DetailAgree setAgreement={setAgreement} />
-            <DetailFundingStatus projectId={project.id} />
+            <DetailFundingStatus
+              projectId={project.id}
+              currentAmount={currentAmount}
+            />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button

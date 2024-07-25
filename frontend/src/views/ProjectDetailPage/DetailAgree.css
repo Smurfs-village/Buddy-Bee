@@ -31,7 +31,7 @@
   padding-right: 5px;
 }
 
-ProjectDetailPage-agree-check input[type="checkbox"] {
+.ProjectDetailPage-agree-check input[type="checkbox"] {
   accent-color: black;
 }
 

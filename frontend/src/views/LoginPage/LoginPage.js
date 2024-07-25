@@ -22,13 +22,6 @@ const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
   const { setUser } = useAuth(); // setUser 함수 가져오기
 
-  // 디버깅: 환경 변수 확인
-  console.log(
-    "Kakao JavaScript Key:",
-    process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY
-  );
-  console.log("Kakao Redirect URI:", process.env.REACT_APP_KAKAO_REDIRECT_URI);
-
   const handleLogin = async e => {
     e.preventDefault();
     if (!email || !password) {

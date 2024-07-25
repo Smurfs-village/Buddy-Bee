@@ -103,10 +103,25 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     checkParticipationStatus();
   }, [project, user, API_BASE_URL]);
 
+  const validateEmail = email => {
+    return email.includes("@");
+  };
+
+  const validatePhone = phone => {
+    const phoneRegex = /^[0-9-]+$/;
+    return phoneRegex.test(phone);
+  };
+
   const fundingStateHandler = useCallback(async () => {
     if (!user) {
-      console.error("User is not authenticated");
-      navigate("/login"); // 로그인 페이지로 리다이렉트
+      Swal.fire({
+        title: "Error",
+        text: "로그인 후 이용 가능합니다!",
+        icon: "error",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate("/login");
+      });
       return;
     }
     if (!project) {
@@ -126,6 +141,33 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
       Swal.fire({
         title: "Error",
         text: "신청자 정보를 모두 입력해야 합니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (!validateEmail(email)) {
+      Swal.fire({
+        title: "Error",
+        text: "올바른 이메일 주소를 입력하세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (!validatePhone(phone)) {
+      Swal.fire({
+        title: "Error",
+        text: "전화번호는 숫자와 '-'만 포함해야 합니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (totalPrice <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "최소 하나 이상의 옵션에 참여해 주세요.",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -177,6 +219,9 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
+
+        // 참가자 수와 현재 금액 다시 가져오기
+        fetchParticipants();
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -209,6 +254,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     navigate,
     API_BASE_URL,
     projectId,
+    fetchParticipants, // 참가자 수를 다시 가져오는 함수 추가
   ]);
 
   const handleOptionChange = (index, newQuantity) => {

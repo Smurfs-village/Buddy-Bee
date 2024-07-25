@@ -91,7 +91,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     return () => {
       isMounted = false;
     };
-  }, [data.id, user]);
+  }, [data.id, user, API_BASE_URL]);
 
   const stripHtmlTags = html => {
     const tempDiv = document.createElement("div");
@@ -177,14 +177,17 @@ const Card = ({ data, index, type, toggleScrap }) => {
         <div className="mainpage-participants-info">
           {currentParticipants} / {data.max_participants}명
         </div>
-        <img
-          src={isHoney ? scrap_yes : scrap_none}
-          alt={isHoney ? "scrap_yes" : "scrap_none"}
-          className="mainpage-scrap-icon"
-          onClick={handleHoneyClick}
-          onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
-          onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
-        />
+        <div className="mainpage-scrap-icon-wrapper">
+          <img
+            src={isHoney ? scrap_yes : scrap_none}
+            alt={isHoney ? "scrap_yes" : "scrap_none"}
+            className="mainpage-scrap-icon"
+            onClick={handleHoneyClick}
+            onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+            onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          />
+          <span className="mainpage-scarp-icon-info">나의 꿀단지</span>
+        </div>
       </div>
       <div className="mainpage-card-content">
         <div className="mainpage-card-line-1">

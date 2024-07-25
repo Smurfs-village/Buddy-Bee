@@ -78,7 +78,7 @@ const MainPage = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [API_BASE_URL]);
 
   const toggleScrap = (index, type) => {
     const updateCards = cards => {

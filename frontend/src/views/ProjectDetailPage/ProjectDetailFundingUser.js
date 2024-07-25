@@ -212,15 +212,38 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   ]);
 
   const handleOptionChange = (index, newQuantity) => {
+    // 공백을 숫자 0으로 처리
+    const quantity = newQuantity === "" ? 0 : parseInt(newQuantity, 10);
+
+    if (quantity < 0) {
+      Swal.fire({
+        title: "Error",
+        text: "옵션 수량은 0보다 작을 수 없습니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+
+    if (isNaN(quantity)) {
+      Swal.fire({
+        title: "Error",
+        text: "옵션 수량은 숫자여야 합니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+
     const newOptions = [...options];
-    newOptions[index] = { ...newOptions[index], quantity: newQuantity };
+    newOptions[index] = { ...newOptions[index], quantity: quantity };
     setOptions(newOptions);
     calculateTotalPrice(newOptions); // 옵션이 변경될 때마다 총합 가격을 계산
   };
 
   const calculateTotalPrice = options => {
     const total = options.reduce(
-      (total, option) => total + option.price * option.quantity,
+      (total, option) => total + option.price * (option.quantity || 0),
       0
     );
     setTotalPrice(total);
@@ -310,12 +333,13 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                               type="number"
                               name="optionCount"
                               min="0"
-                              value={options[index]?.quantity || 0}
+                              value={
+                                options[index]?.quantity === 0
+                                  ? ""
+                                  : options[index]?.quantity
+                              }
                               onChange={e =>
-                                handleOptionChange(
-                                  index,
-                                  parseInt(e.target.value, 10)
-                                )
+                                handleOptionChange(index, e.target.value)
                               }
                             />
                             <span>개</span>

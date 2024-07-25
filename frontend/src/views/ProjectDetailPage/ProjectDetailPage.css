@@ -90,7 +90,7 @@
   width: 30px;
   /* height: 20px; */
   margin-bottom: 3px;
-  padding: 1px 0 0 5px;
+  padding: 3px 5px 3px 5px;
   transition: 0.1s ease;
 }
 
@@ -98,6 +98,11 @@
 .ProjectDetailPage-input input[type="number"]:hover {
   transform: scale(1.1);
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+/* 화살표 배경과 색상 변경 */
 
 /* 총 결제금액 */
 .ProjectDetailPage-total {

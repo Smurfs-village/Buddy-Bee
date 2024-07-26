@@ -35,6 +35,17 @@
   text-overflow: ellipsis;
 }
 
+.Bookmarks_finishedProjects_text_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 5px 11px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.6;
+}
+
 .Bookmarks_main_right_container_box_status_wrapper {
   font-size: 10px;
 }
@@ -47,7 +58,7 @@
 }
 
 .Bookmarks_finishedProject_container {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .Bookmarks_finishedProjectImg {
@@ -73,8 +84,10 @@
   width: 100%;
   text-align: right;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .Bookmarks_honeyPot_img {
-  height: 30px;
+  height: 35px;
+  padding-right: 2px;
 }

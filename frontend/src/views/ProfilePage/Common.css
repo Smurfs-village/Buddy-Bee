@@ -22,6 +22,7 @@
 .status-btn.종료 {
   background-color: #bfbfbf; /* 종료 색상 */
   color: white;
+  opacity: 0.8;
 }
 
 .MyPosts_ParticipatedProjects_finishedProjectImg {
@@ -36,13 +37,15 @@
   width: 100%;
   background-color: rgb(0, 0, 0, 0.6);
   height: 100%;
+  opacity: 0.6;
   border-radius: inherit;
   /*상위 요소와 같은 둥근 모서리 적용*/
 }
 
 .MyPosts_ParticipatedProjects_activePendingProjectImg {
   position: relative;
-  opacity: 0.8; /* 대기중, 진행중 이미지의 투명도 설정 */
+  opacity: 0.8;
+  /* 대기중, 진행중 프로젝트 이미지의 투명도 설정 */
 }
 
 .Main_right_container {
@@ -95,7 +98,6 @@
   border-radius: 20px;
   margin-top: 18px;
   height: 84px;
-  opacity: 0.6;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_img {
@@ -127,7 +129,7 @@
   padding-left: 27.8px;
 }
 
-.MyPosts_ParticipatedProjects_finishedProject_text_wrapper {
+.Common_finishedProjects_text_wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -166,7 +168,6 @@
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper > button {
-  cursor: pointer;
   font-size: 12px;
   font-weight: bold;
   border-radius: 20px;
@@ -179,6 +180,7 @@
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn {
   background-color: white;
   transition: 0.2s ease;
+  cursor: pointer;
 }
 .MyPosts_ParticipatedProjects_main_right_container_box_deleteBtn:hover {
   transform: scale(1.05);
@@ -252,6 +254,12 @@
   }
   .MyPosts_ParticipatedProjects_main_right_container_box_btn_wrapper {
     margin: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .Main_right_container {
+    border: 2px solid black;
   }
 }
 

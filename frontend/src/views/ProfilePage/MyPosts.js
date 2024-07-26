@@ -14,7 +14,7 @@ const CardSorting = ({ onChangeOptionHandler }) => {
       className="Main_right_container_sortingBox"
       onChange={onChangeOptionHandler}
     >
-      <option value="defaultOption">전체</option>
+      <option value="전체">전체</option>
       <option value="동행">동행</option>
       <option value="펀딩">펀딩</option>
       <option value="진행중">진행중</option>
@@ -48,7 +48,13 @@ const Card = ({
       }`}
       style={{ backgroundImage: `url(${imgSrc || mockImage})` }}
     ></div>
-    <div className="MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper">
+    <div
+      className={`${
+        status === "종료"
+          ? "Common_finishedProjects_text_wrapper"
+          : "MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper"
+      }`}
+    >
       <div className="MyPosts_ParticipatedProjects_main_right_container_box_projectName">
         {projectName}
       </div>
@@ -63,7 +69,7 @@ const Card = ({
         onClick={e => {
           e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
           Swal.fire({
-            title: "프로젝트를 삭제하시겠습니까?",
+            title: "프로젝트 참여를 취소 하시겠습니까?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#ff8473",
@@ -105,10 +111,10 @@ const MainRightContainer = () => {
     }
   };
 
-  const onChangeOptionHandler = event => {
-    if (event.target.value === "동행")
+  const onChangeOptionHandler = e => {
+    if (e.target.value === "동행")
       setProjects(projects.filter(project => project.type === "with"));
-    else if (event.target.value === "펀딩") {
+    else if (e.target.value === "펀딩") {
       setProjects(projects.filter(project => project.type === "funding"));
     }
     // 필터링 두번하면 거른거에서 또 걸러서 안뜸

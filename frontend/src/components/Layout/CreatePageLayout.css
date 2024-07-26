@@ -72,7 +72,7 @@
   padding: 10px 2px;
   border-bottom: 1px solid black;
   font-size: 18px;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .createpage-title-input::placeholder {
@@ -88,7 +88,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 3px;
 }
 
 .createpage-hashtag-limit {

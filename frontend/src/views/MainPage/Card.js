@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import mockImage from "../../img/mock.svg"; // 기본 이미지 import
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const Card = ({ data, index, type, toggleScrap }) => {
   const { user } = useAuth(); // useAuth 훅 사용
@@ -14,10 +15,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
   const navigate = useNavigate();
-
   const startPos = useRef({ x: 0, y: 0 });
   const isDragging = useRef(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     if (hashtagsRef.current) {
       const containerWidth = hashtagsRef.current.offsetWidth;
@@ -91,7 +92,7 @@ const Card = ({ data, index, type, toggleScrap }) => {
     return () => {
       isMounted = false;
     };
-  }, [data.id, user]);
+  }, [data.id, user, API_BASE_URL]);
 
   const stripHtmlTags = html => {
     const tempDiv = document.createElement("div");
@@ -129,7 +130,14 @@ const Card = ({ data, index, type, toggleScrap }) => {
     e.stopPropagation();
     if (!user) {
       console.error("User is not authenticated");
-      return;
+      Swal.fire({
+        title: "로그인 후 이용 가능한 기능입니다",
+        text: "",
+        icon: "info",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate(`/login`);
+      });
     }
 
     try {
@@ -177,14 +185,17 @@ const Card = ({ data, index, type, toggleScrap }) => {
         <div className="mainpage-participants-info">
           {currentParticipants} / {data.max_participants}명
         </div>
-        <img
-          src={isHoney ? scrap_yes : scrap_none}
-          alt={isHoney ? "scrap_yes" : "scrap_none"}
-          className="mainpage-scrap-icon"
-          onClick={handleHoneyClick}
-          onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
-          onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
-        />
+        <div className="mainpage-scrap-icon-wrapper">
+          <img
+            src={isHoney ? scrap_yes : scrap_none}
+            alt={isHoney ? "scrap_yes" : "scrap_none"}
+            className="mainpage-scrap-icon"
+            onClick={handleHoneyClick}
+            onMouseDown={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+            onMouseUp={e => e.stopPropagation()} // 스크랩 클릭 시 드래그 방지
+          />
+          <span className="mainpage-scarp-icon-info">나의 꿀단지</span>
+        </div>
       </div>
       <div className="mainpage-card-content">
         <div className="mainpage-card-line-1">

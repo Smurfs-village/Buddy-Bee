@@ -1,6 +1,23 @@
+import React, { useState } from "react";
+import Swal from "sweetalert2";
 import "./DetailUserInfo.css";
 
 const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
+  const [localEmail, setLocalEmail] = useState("");
+  const [localPhone, setLocalPhone] = useState("");
+
+  const handleEmailChange = e => {
+    const value = e.target.value;
+    setLocalEmail(value);
+    setEmail(value);
+  };
+
+  const handlePhoneChange = e => {
+    const value = e.target.value;
+    setLocalPhone(value);
+    setPhone(value);
+  };
+
   return (
     <div className="ProjectDetailPage-user-wrap">
       <div className="ProjectDetailPage-user">
@@ -20,7 +37,8 @@ const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
             <input
               type="email"
               placeholder="이메일 주소"
-              onChange={e => setEmail(e.target.value)}
+              value={localEmail}
+              onChange={handleEmailChange}
               required
             />
           </div>
@@ -28,7 +46,8 @@ const DetailUserInfo = ({ setApplicantName, setEmail, setPhone }) => {
             <input
               type="tel"
               placeholder="전화번호"
-              onChange={e => setPhone(e.target.value)}
+              value={localPhone}
+              onChange={handlePhoneChange}
               required
             />
           </div>

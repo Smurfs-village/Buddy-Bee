@@ -3,13 +3,13 @@ import axios from "axios";
 import "./DetailFundingStatus.css";
 import bee_yellow from "../../img/bee_yellow.svg";
 
-const DetailFundingStatus = ({ projectId }) => {
+const DetailFundingStatus = ({ projectId, currentAmount }) => {
   const [targetAmount, setTargetAmount] = useState(0);
-  const [currentAmount, setCurrentAmount] = useState(0);
   const barRef = useRef(null);
   const [barWidth, setBarWidth] = useState(0);
   const beeRef = useRef(null);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchFundingStatus = async () => {
       try {
@@ -17,16 +17,16 @@ const DetailFundingStatus = ({ projectId }) => {
           `${API_BASE_URL}/projects/${projectId}`
         );
         setTargetAmount(response.data.target_amount);
-        setCurrentAmount(response.data.current_amount);
       } catch (error) {
         console.error("Error fetching funding status:", error);
       }
     };
 
     fetchFundingStatus();
-  }, [projectId]);
+  }, [projectId, API_BASE_URL]);
 
-  const achievementRate = ((currentAmount / targetAmount) * 100).toFixed(2);
+  const achievementRate =
+    targetAmount > 0 ? ((currentAmount / targetAmount) * 100).toFixed(2) : 0;
 
   useEffect(() => {
     const updateBarWidth = () => {
@@ -68,7 +68,8 @@ const DetailFundingStatus = ({ projectId }) => {
       <div className="ProjectDetailPage-funding">
         <div className="ProjectDetailPage-funding-title">현재 달성 금액</div>
         <div className="ProjectDetailPage-money">
-          {parseInt(currentAmount).toLocaleString()} <span>원</span>
+          {currentAmount ? parseInt(currentAmount).toLocaleString() : 0}{" "}
+          <span>원</span>
         </div>
         <div className="ProjectDetailPage-status">
           <div className="ProjectDetailPage-status-bar">
@@ -97,13 +98,11 @@ const DetailFundingStatus = ({ projectId }) => {
             </div>
           </div>
           <div className="ProjectDetailPage-status-rate">
-            {targetAmount === null ? 0 : achievementRate} <span>% 달성중</span>
+            {achievementRate} <span>% 달성중</span>
           </div>
           <div className="ProjectDetailPage-status-money">
             목표 금액{" "}
-            {targetAmount === null
-              ? 0
-              : parseInt(targetAmount).toLocaleString()}{" "}
+            {targetAmount ? parseInt(targetAmount).toLocaleString() : 0}{" "}
             <span>원</span>
           </div>
         </div>

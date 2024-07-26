@@ -161,7 +161,10 @@ const ProjectDetailPageFunding = ({ hashtags }) => {
                 </div>
               </div>
             </div>
-            <DetailFundingStatus projectId={project.id} />
+            <DetailFundingStatus
+              projectId={project.id}
+              currentAmount={project.current_amount}
+            />
           </div>
         </div>
       </PageLayout>

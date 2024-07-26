@@ -25,6 +25,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [fundingState, setFundingState] = useState(false);
   const [currentParticipants, setCurrentParticipants] = useState(0);
   const [maxParticipants, setMaxParticipants] = useState(0);
+  const [currentAmount, setCurrentAmount] = useState(0);
   const buttonRef = useRef();
   const fundingComplete = "ProjectDetailPage-funding-complete";
   const defaultButton = "ProjectDetailPage-click-btn";
@@ -38,6 +39,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
   const [agreement, setAgreement] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
@@ -47,6 +49,7 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
         );
         setProject(response.data);
         setMaxParticipants(response.data.max_participants);
+        setCurrentAmount(response.data.current_amount);
         console.log("Project data:", response.data); // 디버깅 로그 추가
       } catch (error) {
         console.error("Error fetching project:", error);
@@ -56,21 +59,21 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     fetchProject();
   }, [projectId, API_BASE_URL]);
 
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      if (!projectId) return;
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/projects/${projectId}/participants`
-        );
-        setCurrentParticipants(response.data.currentParticipants);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
-      }
-    };
-
-    fetchParticipants();
+  const fetchParticipants = useCallback(async () => {
+    if (!projectId) return;
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/projects/${projectId}/participants`
+      );
+      setCurrentParticipants(response.data.currentParticipants);
+    } catch (error) {
+      console.error("Error fetching participants:", error);
+    }
   }, [projectId, API_BASE_URL]);
+
+  useEffect(() => {
+    fetchParticipants();
+  }, [fetchParticipants]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -100,10 +103,25 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     checkParticipationStatus();
   }, [project, user, API_BASE_URL]);
 
+  const validateEmail = email => {
+    return email.includes("@");
+  };
+
+  const validatePhone = phone => {
+    const phoneRegex = /^[0-9-]+$/;
+    return phoneRegex.test(phone);
+  };
+
   const fundingStateHandler = useCallback(async () => {
     if (!user) {
-      console.error("User is not authenticated");
-      navigate("/login"); // 로그인 페이지로 리다이렉트
+      Swal.fire({
+        title: "Error",
+        text: "로그인 후 이용 가능합니다!",
+        icon: "error",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate("/login");
+      });
       return;
     }
     if (!project) {
@@ -123,6 +141,33 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
       Swal.fire({
         title: "Error",
         text: "신청자 정보를 모두 입력해야 합니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (!validateEmail(email)) {
+      Swal.fire({
+        title: "Error",
+        text: "올바른 이메일 주소를 입력하세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (!validatePhone(phone)) {
+      Swal.fire({
+        title: "Error",
+        text: "전화번호는 숫자와 '-'만 포함해야 합니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+    if (totalPrice <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "최소 하나 이상의 옵션에 참여해 주세요.",
         icon: "error",
         confirmButtonText: "확인",
       });
@@ -153,6 +198,14 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
           buttonRef.current.innerText = "펀딩 참여완료";
           buttonRef.current.disabled = true; // 버튼 비활성화
         }
+        // 최신 데이터 다시 가져오기
+        const updatedProject = await axios.get(
+          `${API_BASE_URL}/projects/${projectId}/with-author`
+        );
+        setProject(updatedProject.data);
+        setCurrentParticipants(updatedProject.data.currentParticipants);
+        setCurrentAmount(updatedProject.data.current_amount);
+
         Swal.fire({
           toast: true,
           position: "bottom",
@@ -166,6 +219,9 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
+
+        // 참가자 수와 현재 금액 다시 가져오기
+        fetchParticipants();
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -197,18 +253,43 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
     totalPrice,
     navigate,
     API_BASE_URL,
+    projectId,
+    fetchParticipants, // 참가자 수를 다시 가져오는 함수 추가
   ]);
 
   const handleOptionChange = (index, newQuantity) => {
+    // 공백을 숫자 0으로 처리
+    const quantity = newQuantity === "" ? 0 : parseInt(newQuantity, 10);
+
+    if (quantity < 0) {
+      Swal.fire({
+        title: "Error",
+        text: "옵션 수량은 0보다 작을 수 없습니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+
+    if (isNaN(quantity)) {
+      Swal.fire({
+        title: "Error",
+        text: "옵션 수량은 숫자여야 합니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+
     const newOptions = [...options];
-    newOptions[index] = { ...newOptions[index], quantity: newQuantity };
+    newOptions[index] = { ...newOptions[index], quantity: quantity };
     setOptions(newOptions);
     calculateTotalPrice(newOptions); // 옵션이 변경될 때마다 총합 가격을 계산
   };
 
   const calculateTotalPrice = options => {
     const total = options.reduce(
-      (total, option) => total + option.price * option.quantity,
+      (total, option) => total + option.price * (option.quantity || 0),
       0
     );
     setTotalPrice(total);
@@ -298,12 +379,13 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
                               type="number"
                               name="optionCount"
                               min="0"
-                              value={options[index]?.quantity || 0}
+                              value={
+                                options[index]?.quantity === 0
+                                  ? ""
+                                  : options[index]?.quantity
+                              }
                               onChange={e =>
-                                handleOptionChange(
-                                  index,
-                                  parseInt(e.target.value, 10)
-                                )
+                                handleOptionChange(index, e.target.value)
                               }
                             />
                             <span>개</span>
@@ -329,7 +411,10 @@ const ProjectDetailPageFundingUser = ({ hashtags }) => {
               setPhone={setPhone}
             />
             <DetailAgree setAgreement={setAgreement} />
-            <DetailFundingStatus projectId={project.id} />
+            <DetailFundingStatus
+              projectId={project.id}
+              currentAmount={currentAmount}
+            />
             <div className="ProjectDetailPage-click">
               <div className="ProjectDetailPage-click-btn_wrapper">
                 <button

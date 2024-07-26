@@ -79,7 +79,7 @@ body {
   border: 2px solid rgb(54, 54, 54);
   border-radius: 16px;
   box-sizing: border-box;
-  padding: 9px 9px 9.5px 12px;
+  padding: 12px 60px 12px 12px;
   outline: none;
   margin-right: 8px;
 }
@@ -179,7 +179,7 @@ body {
 
 .headerpage-dropdown-menu {
   top: 92px;
-  right: 100px;
+  right: 104px;
 }
 
 .headerpage-profile-dropdown-menu {

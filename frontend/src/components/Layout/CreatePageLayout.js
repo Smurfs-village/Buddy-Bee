@@ -148,14 +148,27 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   const addHashtag = () => {
-    if (
-      hashtag.trim() &&
-      !hashtags.includes(hashtag) &&
-      hashtag.length <= 15 &&
-      hashtags.length < 10
-    ) {
+    if (hashtags.length >= 10) {
+      Swal.fire({
+        title: "Error",
+        text: "해시태그는 최대 10개까지 등록이 가능합니다!",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
+
+    if (hashtag.trim() && !hashtags.includes(hashtag) && hashtag.length <= 15) {
       setHashtags([...hashtags, hashtag.trim()]);
       setHashtag("");
+    }
+  };
+
+  //해시태그 - 띄어쓰기 제한
+  const handleHashtagChange = (e) => {
+    const newHashtag = e.target.value;
+    if (!newHashtag.includes(" ")) {
+      setHashtag(newHashtag);
     }
   };
 
@@ -164,14 +177,44 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   const addOption = () => {
-    // 옵션명을 입력했을 때, 가격이 없어도 등록 가능하도록 수정
     if (optionName.trim()) {
+      const trimmedOptionName = optionName.trim();
       const isDuplicate = options.some(
-        (option) => option.name === optionName.trim()
+        (option) => option.name === trimmedOptionName
       );
-      const isSameAsDeleted = optionName.trim() === deleteOptionName;
-      // 중복이 아니라면 추가
+      const isSameAsDeleted = trimmedOptionName === deleteOptionName;
+
+      if (options.length >= 10) {
+        Swal.fire({
+          title: "Error",
+          text: "최대 10개까지만 추가할 수 있습니다.",
+          icon: "warning",
+          confirmButtonText: "확인",
+        });
+        return;
+      }
+
+      const maxPrice = 1000000000;
+      if (parseInt(optionPrice.replace(/,/g, ""), 10) > maxPrice) {
+        Swal.fire({
+          title: "Error",
+          text: "옵션 가격은 10억원을 초과할 수 없습니다.",
+          icon: "warning",
+          confirmButtonText: "확인",
+        });
+        return;
+      }
+
       if (!isDuplicate || isSameAsDeleted) {
+        if (type === "funding" && !optionPrice.trim()) {
+          Swal.fire({
+            title: "Error",
+            text: "펀딩 옵션의 가격을 입력해 주세요.",
+            icon: "error",
+            confirmButtonText: "확인",
+          });
+          return;
+        }
         setOptions([
           ...options,
           {
@@ -179,7 +222,6 @@ const CreatePageLayout = ({ children, type: initialType }) => {
             price: formatPrice(optionPrice) || "", // 가격 없이 추가 가능
           },
         ]);
-
         setDeleteOptionName(null);
       } else {
         Swal.fire({
@@ -189,6 +231,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
           confirmButtonText: "확인",
         });
       }
+
       setOptionName("");
       setOptionPrice("");
     }
@@ -250,7 +293,12 @@ const CreatePageLayout = ({ children, type: initialType }) => {
     if (desc.length <= 3000) {
       setContent(desc);
     } else {
-      alert("3000자 이상은 작성할 수 없습니다.");
+      Swal.fire({
+        title: "Error",
+        text: "3000자 이상은 작성할 수 없습니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       setContent(desc.slice(0, 3000));
     }
   };
@@ -304,6 +352,9 @@ const CreatePageLayout = ({ children, type: initialType }) => {
         </div>
         <PageLayout>
           <div className="createpage-create-main-section">
+            <div className="createpage-create-project-title">
+              <h2>{type === "funding" ? "펀딩 작성하기" : "동행 작성하기"}</h2>
+            </div>
             <form
               className="createpage-create-project-form"
               onSubmit={handleSubmit}
@@ -338,7 +389,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                   <input
                     type="text"
                     value={hashtag}
-                    onChange={(e) => setHashtag(e.target.value)}
+                    onChange={handleHashtagChange}
                     onKeyPress={handleHashtagKeyPress} //해시태그 추가 핸들러
                     maxLength="15"
                   />
@@ -463,6 +514,9 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>가격</span>
                       <input
                         type="text"
+                        name="quantity"
+                        min="0"
+                        max="2147483647"
                         value={formatPrice(optionPrice)}
                         onChange={handleOptionPriceChange}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
@@ -510,7 +564,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
 
               <div className="createpage-form-group createpage-recruitment-group-wrap">
                 <label>
-                  프로젝트 설정
+                  목표 설정
                   <span className="createpage-form-required-check"> *</span>
                 </label>
                 <div className="createpage-form-group createpage-recruitment-group">
@@ -581,6 +635,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                           minDate={startDate || today}
+                          required
                         />
                       </div>
                     </div>
@@ -589,9 +644,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
               </div>
 
               <button type="submit" className="createpage-submit-button">
-                <span>
-                  {projectId ? "프로젝트 수정하기" : "프로젝트 등록하기"}
-                </span>
+                <span>{projectId ? "수정하기" : "등록하기"}</span>
               </button>
             </form>
             {children}

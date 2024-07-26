@@ -3,6 +3,7 @@ import MainPage from "./views/MainPage/MainPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
+import ScrollToTop from "./components/Routing/ScrollToTop";
 import ProjectListPage from "./views/ProjectListPage/ProjectListPage";
 import ProjectDetailPage from "./views/ProjectDetailPage/ProjectDetailPage";
 import CreateFundingProjectPage from "./views/CreateProjectPage/CreateFundingProjectPage";
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" exact element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />

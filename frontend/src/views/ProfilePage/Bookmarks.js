@@ -7,6 +7,7 @@ import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import mockImage from "../../img/mock.svg";
+import CardSorting from "./CardSorting";
 
 const Card = ({
   imgSrc,
@@ -23,6 +24,8 @@ const Card = ({
     }`}
     onClick={onCardClick}
   >
+    <div className={isFinished ? "FinishedProject_overlay" : ""}></div>
+
     <div
       className={`Bookmarks_main_right_container_box_img_wrapper ${
         isFinished ? "Bookmarks_finishedProjectImg" : ""
@@ -40,7 +43,11 @@ const Card = ({
         />
       </div>
     </div>
-    <div className="Bookmarks_main_right_container_box_text_wrapper">
+    <div
+      className={`Bookmarks_main_right_container_box_text_wrapper ${
+        status === "종료" ? "Bookmarks_finishedProjects_text_wrapper" : ""
+      }`}
+    >
       <div className="Bookmarks_main_right_container_box_status_wrapper">
         {status}
       </div>
@@ -54,9 +61,12 @@ const Card = ({
 const MainRightContainer = () => {
   const { user } = useAuth();
   const [bookmarks, setBookmarks] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const [noResultsMessage, setNoResultsMessage] = useState("");
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchBookmarkedProjects = async () => {
       try {
@@ -70,11 +80,23 @@ const MainRightContainer = () => {
         );
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setBookmarks([
-          ...activeProjects,
-          ...pendingProjects,
-          ...finishedProjects,
-        ]);
+        const allProjects = [
+          ...pendingProjects.map(project => ({
+            ...project,
+            status: "대기중",
+          })),
+          ...activeProjects.map(project => ({
+            ...project,
+            status: "진행중",
+          })),
+          ...finishedProjects.map(project => ({
+            ...project,
+            status: "종료",
+          })),
+        ];
+        setBookmarks(allProjects);
+        setFilteredProjects(allProjects); // 초기에는 모든 프로젝트 표시
+        setNoResultsMessage("프로젝트가 없습니다."); // 초기 메시지 설정
       } catch (error) {
         console.error("Error fetching bookmarked projects:", error);
       }
@@ -114,12 +136,15 @@ const MainRightContainer = () => {
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const totalItemsCount = bookmarks.length;
+  const totalItemsCount = filteredProjects.length;
   const itemsCountPerPage = 10;
 
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-  const currentItems = bookmarks.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredProjects.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const getStatusText = status => {
     switch (status) {
@@ -138,37 +163,75 @@ const MainRightContainer = () => {
     navigate(`/projects/${id}`);
   };
 
+  const onChangeOptionHandler = event => {
+    const filterType = event.target.value;
+    let filtered = [];
+    let message = "검색 결과가 없습니다.";
+
+    if (filterType === "defaultOption") {
+      filtered = bookmarks;
+      message = "프로젝트가 없습니다.";
+    } else if (filterType === "동행") {
+      filtered = bookmarks.filter(project => project.type === "with");
+      message = "동행 프로젝트가 없습니다.";
+    } else if (filterType === "펀딩") {
+      filtered = bookmarks.filter(project => project.type === "funding");
+      message = "펀딩 프로젝트가 없습니다.";
+    } else if (filterType === "대기중") {
+      filtered = bookmarks.filter(project => project.status === "대기중");
+      message = "대기중인 프로젝트가 없습니다.";
+    } else if (filterType === "진행중") {
+      filtered = bookmarks.filter(project => project.status === "진행중");
+      message = "진행중인 프로젝트가 없습니다.";
+    } else if (filterType === "종료") {
+      filtered = bookmarks.filter(project => project.status === "종료");
+      message = "종료된 프로젝트가 없습니다.";
+    }
+
+    setFilteredProjects(filtered);
+    setNoResultsMessage(message);
+  };
+
   return (
     <div className="Main_right_container">
-      <div className="Main_right_container_writtenPosts">나의 꿀단지</div>
-      <div className="Bookmarks_main_right_container_cards_wrapper">
-        {currentItems.map((project, index) => {
-          const globalIndex = indexOfFirstItem + index;
-          const isFinished = project.status === "completed";
-          return (
-            <Card
-              key={project.id}
-              imgSrc={project.main_image}
-              projectName={project.title}
-              status={getStatusText(project.status)}
-              scrapState={project.scrapState}
-              onClickScrapButton={e => {
-                e.stopPropagation();
-                scrapStateHandler(globalIndex, project.id);
-              }}
-              onCardClick={() => onCardClick(project.id)}
-              isFinished={isFinished}
-            />
-          );
-        })}
+      <div className="Main_right_container_title_selectBox_wrapper">
+        <p className="Main_right_container_writtenPosts">나의 꿀단지</p>
+        <CardSorting onChangeOptionHandler={onChangeOptionHandler} />
       </div>
-      <Pagination
-        totalItemsCount={totalItemsCount}
-        activePage={activePage}
-        itemsCountPerPage={itemsCountPerPage}
-        pageRangeDisplayed={5}
-        handlePageChange={pageChangeHandler}
-      />
+      <div className="Bookmarks_main_right_container_cards_wrapper">
+        {currentItems.length > 0 ? (
+          currentItems.map((project, index) => {
+            const globalIndex = indexOfFirstItem + index;
+            const isFinished = project.status === "종료";
+            return (
+              <Card
+                key={project.id}
+                imgSrc={project.main_image}
+                projectName={project.title}
+                status={getStatusText(project.status)}
+                scrapState={project.scrapState}
+                onClickScrapButton={e => {
+                  e.stopPropagation();
+                  scrapStateHandler(globalIndex, project.id);
+                }}
+                onCardClick={() => onCardClick(project.id)}
+                isFinished={isFinished}
+              />
+            );
+          })
+        ) : (
+          <p className="no-projects">{noResultsMessage}</p>
+        )}
+      </div>
+      {totalItemsCount > 0 && (
+        <Pagination
+          activePage={activePage}
+          totalItemsCount={totalItemsCount}
+          itemsCountPerPage={itemsCountPerPage}
+          pageRangeDisplayed={5}
+          handlePageChange={pageChangeHandler}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 {
   "name": "buddy_bee_frontend",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^42.0.0",
@@ -20,6 +20,7 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.12.3",

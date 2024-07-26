@@ -78,6 +78,7 @@
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
+  transition: 0.2s ease;
 }
 
 .MyProfile_main_right_container_profile_edit_img {
@@ -135,7 +136,7 @@
   cursor: pointer;
   border-radius: 20px;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 16px;
   padding: 7px 20px;
   margin-right: 5px;
 }
@@ -172,6 +173,7 @@
   width: 16px; /* 적절한 크기로 조정 */
   height: 16px; /* 적절한 크기로 조정 */
   cursor: pointer;
+  transition: 0.2s ease;
 }
 .pen-icon:hover {
   transform: scale(1.2);
@@ -241,5 +243,11 @@
     width: 60%;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 1024px) {
+  .MyProfile_main_right_container_profile_edit_img_wrapper {
+    padding-left: 10px;
   }
 }

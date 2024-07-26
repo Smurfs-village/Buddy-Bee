@@ -79,7 +79,7 @@ body {
   border: 2px solid rgb(54, 54, 54);
   border-radius: 16px;
   box-sizing: border-box;
-  padding: 9px 9px 9.5px 12px;
+  padding: 12px 60px 12px 12px;
   outline: none;
   margin-right: 8px;
 }
@@ -179,7 +179,7 @@ body {
 
 .headerpage-dropdown-menu {
   top: 92px;
-  right: 100px;
+  right: 104px;
 }
 
 .headerpage-profile-dropdown-menu {
@@ -450,7 +450,7 @@ body {
 }
 
 /* 미디어쿼리_ media query */
-@media (min-width: 768px) and (max-width: 1920px) {
+@media (min-width: 840px) and (max-width: 1920px) {
   .headerpage-header-left img {
     transition: 0.15s ease;
   }
@@ -465,8 +465,62 @@ body {
     visibility: hidden;
   }
 }
-
-@media (min-width: 480px) and (max-width: 767px) {
+@media (max-width: 910px) {
+  .headerpage-search-container input {
+    padding-right: 30px; /* 검색 아이콘 공간 확보 */
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 12px 50px 12px 10px;
+    outline: none;
+    margin-right: 8px;
+  }
+}
+@media (max-width: 900px) {
+  .headerpage-search-container input {
+    padding-right: 30px; /* 검색 아이콘 공간 확보 */
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 12px 3vw 12px 10px;
+    outline: none;
+    margin-right: 8px;
+  }
+}
+@media (max-width: 880px) {
+  .headerpage-search-container input {
+    padding-right: 30px; /* 검색 아이콘 공간 확보 */
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 12px 2.5vw 12px 10px;
+    outline: none;
+    margin-right: 8px;
+  }
+}
+@media (max-width: 860px) {
+  .headerpage-search-container input {
+    padding-right: 30px; /* 검색 아이콘 공간 확보 */
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 12px 1.8vw 12px 8px;
+    outline: none;
+    margin-right: 8px;
+  }
+}
+@media (max-width: 850px) {
+  .headerpage-search-container input {
+    padding-right: 0px; /* 검색 아이콘 공간 확보 */
+    border: 2px solid rgb(54, 54, 54);
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 12px 1vw 12px 8px;
+    outline: none;
+    margin-right: 8px;
+  }
+}
+@media (min-width: 480px) and (max-width: 840px) {
   .headerpage-header-container {
     padding: 10px 0 10px 5px;
   }

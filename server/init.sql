@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS `project` (
   `title` varchar(255) NOT NULL,
   `description` text,
   `type` enum('funding','with') NOT NULL,
-  `target_amount` decimal(10,2) DEFAULT NULL,
-  `current_amount` decimal(10,2) DEFAULT '0.00',
+  `target_amount` decimal(15,2) DEFAULT NULL, -- target_amount 수정
+  `current_amount` decimal(12,2) DEFAULT '0.00',
   `status` enum('pending','active','completed','cancelled') NOT NULL DEFAULT 'pending',
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `project` (
 CREATE TABLE IF NOT EXISTS `hashtag` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `search_count` int DEFAULT 0, -- search_count 추가
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `accompaniment` (
 CREATE TABLE IF NOT EXISTS `funding` (
   `id` int NOT NULL AUTO_INCREMENT,
   `project_id` int NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
+  `amount` decimal(12,2) NOT NULL,
   `funded_by` int NOT NULL,
   `funded_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -113,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `participant_details` (
   `agreement` tinyint(1) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `total_price` decimal(10,2) DEFAULT NULL, -- 새로운 컬럼 추가
+  `total_price` decimal(15,2) DEFAULT NULL, -- 새로운 컬럼 추가
   PRIMARY KEY (`id`),
   KEY `participant_id` (`participant_id`),
   CONSTRAINT `participant_details_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participant` (`id`)

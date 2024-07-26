@@ -20,7 +20,6 @@
   background-size: cover;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  border-bottom: 2px solid black;
   flex: 1;
   position: relative;
 }
@@ -33,6 +32,8 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  border-top: 2px solid black;
+  letter-spacing: 0.5px;
 }
 
 .Bookmarks_main_right_container_box_status_wrapper {
@@ -44,10 +45,37 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
+/*종료 후 css*/
 .Bookmarks_finishedProject_container {
+  position: relative;
+  border: 2px solid rgb(66, 66, 66);
+  /* opacity: 0.8; */ /*너무 찐하면 이거 주석 해제 해주세용*/
+}
+.Bookmarks_finishedProjects_text_wrapper {
+  /*종료 후 text-box*/
   opacity: 0.6;
+}
+
+.FinishedProject_overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.452);
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  border-radius: 2%;
+  aspect-ratio: 137.04 / 171.3;
+}
+
+.FinishedProject_overlay::before {
+  content: "종료됨";
+  font-size: 0.9em;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  left: 41%;
+  top: 43%;
 }
 
 .Bookmarks_finishedProjectImg {
@@ -64,7 +92,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(143, 143, 143, 0.575);
   border-radius: inherit;
   pointer-events: none; /* 오버레이가 클릭 이벤트를 무시하도록 설정 */
 }
@@ -73,8 +101,25 @@
   width: 100%;
   text-align: right;
   box-sizing: border-box;
+  z-index: 9999;
 }
 
 .Bookmarks_honeyPot_img {
-  height: 30px;
+  height: 35px;
+  padding-right: 2px;
+  padding-top: 2px; /*hover scale때문에 추가*/
+  transition: 0.2s ease;
+}
+
+.Bookmarks_honeyPot_img:hover {
+  transform: scale(1.1);
+}
+.Main_right_container_title_selectBox_wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.Bookmarks_main_right_container_cards_wrapper {
+  position: relative;
+  z-index: 0;
 }

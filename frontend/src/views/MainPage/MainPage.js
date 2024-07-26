@@ -15,44 +15,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    autoplaySpeed: 3000,
-    arrows: true,
-    draggable: true,
-    pauseOnHover: true,
-    variableWidth: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 780,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 320,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   const [recruitmentCards, setRecruitmentCards] = useState([]);
   const [fundingCards, setFundingCards] = useState([]);
+  const [topHashtags, setTopHashtags] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -63,12 +30,12 @@ const MainPage = () => {
           project => project.status === "active"
         );
 
-        const recruitment = activeProjects.filter(
-          project => project.type === "with"
-        );
-        const funding = activeProjects.filter(
-          project => project.type === "funding"
-        );
+        const recruitment = activeProjects
+          .filter(project => project.type === "with")
+          .slice(0, 20); // 최대 20개로 제한
+        const funding = activeProjects
+          .filter(project => project.type === "funding")
+          .slice(0, 20); // 최대 20개로 제한
 
         setRecruitmentCards(recruitment);
         setFundingCards(funding);
@@ -76,9 +43,25 @@ const MainPage = () => {
         console.error("Error fetching projects:", error);
       }
     };
+    const fetchTopHashtags = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/projects/top-hashtags`
+        );
+        console.log("Fetched top hashtags:", response.data); // 콘솔 로그 추가
+        setTopHashtags(response.data);
+      } catch (error) {
+        console.error("Error fetching top hashtags:", error);
+      }
+    };
 
     fetchProjects();
-  }, []);
+    fetchTopHashtags();
+  }, [API_BASE_URL]);
+
+  useEffect(() => {
+    console.log("Updated top hashtags:", topHashtags); // 콘솔 로그 추가
+  }, [topHashtags]);
 
   const toggleScrap = (index, type) => {
     const updateCards = cards => {
@@ -133,6 +116,98 @@ const MainPage = () => {
     };
   }, []);
 
+  const calculateSlidesToScroll = cardsLength => {
+    if (cardsLength > 20) {
+      return 2;
+    } else if (cardsLength % 4 === 0) {
+      return 2;
+    } else if (cardsLength % 3 === 0) {
+      return 3;
+    } else if (cardsLength % 2 === 0) {
+      return 2;
+    } else {
+      return 1;
+    }
+  };
+
+  const recruitmentSettings = {
+    rows: 1,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: calculateSlidesToScroll(recruitmentCards.length),
+    slidesPerRow: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    draggable: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    waitForAnimate: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 320,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const fundingSettings = {
+    rows: 1,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: calculateSlidesToScroll(fundingCards.length),
+    slidesPerRow: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    draggable: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    waitForAnimate: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 320,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <Layout>
       <div className="mainpage-main-page">
@@ -153,15 +228,18 @@ const MainPage = () => {
 
               <h2 className="from-down">Be My Buddy! </h2>
               <p className="mainpage-left_p from-down">
-                버디비(BuddyBee)는 같은 관심사를 가진 친구들과 함께 꿀벌처럼
-                협력하며 꿈을 이루어 나가는 곳이에요! 서로의 프로젝트를
-                소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
+                Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
+                함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
+                있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요.
               </p>
             </div>
             <div className="mainpage-button-container">
               <Link to="/projects?query=동행">
                 <button className="mainpage-main-button from-down">
-                  Find Buddy <p>동행구하기</p>
+                  <p className="mainpage-main-button-text">동행 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    동행할 친구를 찾고 <span>싶어요</span>
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
@@ -173,7 +251,10 @@ const MainPage = () => {
               </Link>
               <Link to="/projects?query=펀딩">
                 <button className="mainpage-main-button from-down">
-                  Find Funding <p>펀딩구하기</p>
+                  <p className="mainpage-main-button-text">펀딩 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    펀딩에 참여하고 <span>싶어요</span>
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
@@ -198,10 +279,10 @@ const MainPage = () => {
               </h2>
               <h1 className="from-down">BUDDY BEE</h1>
               <p className="from-down">
-                Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
-                함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
-                있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요. Buddy Bee와
-                함께라면 모든 순간이 더 특별해질 거예요!
+                나와 같은 관심사를 가진 사람이 있을까? 카드를 눌러 최신글과
+                해시태그를 확인해보세요! 인기 있는 주제들을 한눈에 살펴보고,
+                새로운 이야기들로 하루를 시작하세요. Buddy Bee와 함께라면 특별한
+                하루가 될거예요!
               </p>
               <img
                 src={section1_flower}
@@ -222,8 +303,8 @@ const MainPage = () => {
           </div>
         </div>
         <div className="mainpage-recruitment-section">
-          <h2 className="from-down">#동행 모집</h2>
-          <Slider {...settings} className="from-down">
+          <h2 className="from-down">#동행 최신글</h2>
+          <Slider {...recruitmentSettings} className="from-down">
             {recruitmentCards.map((data, index) => (
               <Card
                 key={index}
@@ -237,8 +318,8 @@ const MainPage = () => {
           </Slider>
         </div>
         <div className="mainpage-funding-section">
-          <h2 className="from-down">#펀딩 모집</h2>
-          <Slider {...settings} className="from-down">
+          <h2 className="from-down">#펀딩 최신글</h2>
+          <Slider {...fundingSettings} className="from-down">
             {fundingCards.map((data, index) => (
               <Card
                 key={index}
@@ -254,12 +335,21 @@ const MainPage = () => {
         <div className="mainpage-ranking-section from-down">
           <h2 className="from-down">현재 많은 버디비들이 보고 있어요!</h2>
           <div className="mainpage-ranking-keywords from-down">
-            {["버디", "버디버디", "멈머", "슈머", "현머", "서머"].map(
-              (keyword, index) => (
-                <div key={index} className="mainpage-keyword from-down">
-                  {keyword}
-                </div>
-              )
+            {topHashtags.length > 0 ? (
+              topHashtags.map((keyword, index) => {
+                console.log("Rendering hashtag:", keyword); // 렌더링 로그 추가
+                return (
+                  <Link
+                    to={`/projects?query=${encodeURIComponent(keyword)}`}
+                    key={index}
+                    className="mainpage-keyword from-down fade-in-up"
+                  >
+                    {keyword}
+                  </Link>
+                );
+              })
+            ) : (
+              <p>Loading...</p>
             )}
           </div>
         </div>

@@ -5,6 +5,7 @@
   background-color: #c4a1ff;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .MyProfile_main_aside_rightContainer_wrapper {

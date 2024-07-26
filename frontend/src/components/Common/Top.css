@@ -1,16 +1,12 @@
 .MyProfile_main_top_container {
-  border-top-width: 2px;
-  border-bottom-width: 8px;
-  border-left-width: 2px;
-  border-right-width: 8px;
-  border-style: solid;
-  border-color: black;
+  border: 2px solid black;
   border-radius: 15px;
   margin: 10px;
   background-color: white;
   display: flex;
   padding: 0 0 0 30px;
   position: relative;
+  box-shadow: 4.5px 4.5px 0px 0px black;
 }
 
 .MyProfile_main_top_container_title_desc_wrapper {
@@ -46,7 +42,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   box-sizing: border-box;
   margin: 20px; /* 이미지 주위 여백 */
 }
@@ -71,11 +66,12 @@
 @media (max-width: 767px) {
   .MyProfile_main_top_container {
     padding: 0;
-    border: 2px solid black;
+    box-shadow: none;
   }
   .MyProfile_main_top_container_img_wrapper {
     flex: 1;
     max-width: 100px;
+    min-width: 100px;
   }
   .MyProfile_main_top_container_title {
     padding-top: 10px;

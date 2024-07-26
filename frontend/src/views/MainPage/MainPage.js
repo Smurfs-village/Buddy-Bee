@@ -27,14 +27,14 @@ const MainPage = () => {
         const projects = response.data;
 
         const activeProjects = projects.filter(
-          (project) => project.status === "active"
+          project => project.status === "active"
         );
 
         const recruitment = activeProjects
-          .filter((project) => project.type === "with")
+          .filter(project => project.type === "with")
           .slice(0, 20); // 최대 20개로 제한
         const funding = activeProjects
-          .filter((project) => project.type === "funding")
+          .filter(project => project.type === "funding")
           .slice(0, 20); // 최대 20개로 제한
 
         setRecruitmentCards(recruitment);
@@ -64,7 +64,7 @@ const MainPage = () => {
   }, [topHashtags]);
 
   const toggleScrap = (index, type) => {
-    const updateCards = (cards) => {
+    const updateCards = cards => {
       const updatedCards = [...cards];
       updatedCards[index].scrap = !updatedCards[index].scrap;
       return updatedCards;
@@ -82,8 +82,8 @@ const MainPage = () => {
       ".from-right, .from-left, .from-down, .from-bounce"
     );
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           if (entry.target.classList.contains("from-right")) {
             entry.target.classList.add("fade-in-right");
@@ -105,18 +105,18 @@ const MainPage = () => {
       });
     });
 
-    elements.forEach((element) => {
+    elements.forEach(element => {
       observer.observe(element);
     });
 
     return () => {
-      elements.forEach((element) => {
+      elements.forEach(element => {
         observer.unobserve(element);
       });
     };
   }, []);
 
-  const calculateSlidesToScroll = (cardsLength) => {
+  const calculateSlidesToScroll = cardsLength => {
     if (cardsLength > 20) {
       return 2;
     } else if (cardsLength % 4 === 0) {
@@ -236,7 +236,10 @@ const MainPage = () => {
             <div className="mainpage-button-container">
               <Link to="/projects?query=동행">
                 <button className="mainpage-main-button from-down">
-                  동행 모아보기 <p>동행할 친구를 찾고 싶어요</p>
+                  <p className="mainpage-main-button-text">동행 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    동행할 친구를 찾고 싶어요
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
@@ -248,7 +251,10 @@ const MainPage = () => {
               </Link>
               <Link to="/projects?query=펀딩">
                 <button className="mainpage-main-button from-down">
-                  펀딩 모아보기 <p>펀딩에 참여하고 싶어요</p>
+                  <p className="mainpage-main-button-text">펀딩 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    펀딩에 참여하고 싶어요
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}

@@ -69,20 +69,23 @@ body {
 }
 
 .mainpage-main-button {
-  padding: 10px 20px;
+  padding: 0px 20px 10px 20px;
   border: none;
   background-color: #000;
   color: #fff;
   cursor: pointer;
-  font-size: 1em;
   width: 274px;
   height: 114px;
   text-align: left;
+}
+.mainpage-main-button-text {
+  /* margin: ; */
+  font-size: 1.2em;
   font-weight: bold;
 }
-
-.mainpage-main-button p {
-  font-weight: normal;
+.mainpage-main-button-info {
+  padding-top: 0px;
+  font-size: 1em;
 }
 .mainpage-btn-arrow {
   display: flex;
@@ -658,6 +661,10 @@ body {
     padding: 10px 20px;
     font-size: 1em;
     width: 30vw;
+    height: auto;
+  }
+  .mainpage-main-button p {
+    font-size: 0.9em;
   }
 
   .mainpage-right-section {
@@ -769,8 +776,13 @@ body {
     height: 114px;
   }
 
-  .mainpage-main-button p {
+  .mainpage-main-button-text {
     margin: 10px 0 10px 0;
+    font-size: 1em;
+  }
+
+  .mainpage-main-button-info {
+    font-size: 0.9em;
   }
   .mainpage-left_bee_icon img {
     display: none;

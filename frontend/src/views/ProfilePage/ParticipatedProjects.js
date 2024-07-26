@@ -136,7 +136,7 @@ const MainRightContainer = () => {
       message = "진행중인 프로젝트가 없습니다.";
     } else if (filterType === "종료") {
       filtered = projects.filter(project => project.status === "종료");
-      message = "완료된 프로젝트가 없습니다.";
+      message = "종료된 프로젝트가 없습니다.";
     }
 
     setFilteredProjects(filtered);

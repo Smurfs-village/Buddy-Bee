@@ -122,7 +122,8 @@
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  padding-left: 27.8px;
+  padding: 0 27.8px;
+  letter-spacing: 0.5px;
 }
 
 .Common_finishedProjects_text_wrapper {
@@ -130,7 +131,7 @@
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  padding-left: 27.8px;
+  padding: 0 27.8px;
   opacity: 0.6;
 }
 

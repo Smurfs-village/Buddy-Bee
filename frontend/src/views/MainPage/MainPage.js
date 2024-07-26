@@ -15,44 +15,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    autoplaySpeed: 3000,
-    arrows: true,
-    draggable: true,
-    pauseOnHover: true,
-    variableWidth: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 780,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 320,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   const [recruitmentCards, setRecruitmentCards] = useState([]);
   const [fundingCards, setFundingCards] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -63,12 +29,12 @@ const MainPage = () => {
           project => project.status === "active"
         );
 
-        const recruitment = activeProjects.filter(
-          project => project.type === "with"
-        );
-        const funding = activeProjects.filter(
-          project => project.type === "funding"
-        );
+        const recruitment = activeProjects
+          .filter(project => project.type === "with")
+          .slice(0, 20); // 최대 20개로 제한
+        const funding = activeProjects
+          .filter(project => project.type === "funding")
+          .slice(0, 20); // 최대 20개로 제한
 
         setRecruitmentCards(recruitment);
         setFundingCards(funding);
@@ -132,6 +98,98 @@ const MainPage = () => {
       });
     };
   }, []);
+
+  const calculateSlidesToScroll = cardsLength => {
+    if (cardsLength > 20) {
+      return 2;
+    } else if (cardsLength % 4 === 0) {
+      return 2;
+    } else if (cardsLength % 3 === 0) {
+      return 3;
+    } else if (cardsLength % 2 === 0) {
+      return 2;
+    } else {
+      return 1;
+    }
+  };
+
+  const recruitmentSettings = {
+    rows: 1,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: calculateSlidesToScroll(recruitmentCards.length),
+    slidesPerRow: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    draggable: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    waitForAnimate: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 320,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const fundingSettings = {
+    rows: 1,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: calculateSlidesToScroll(fundingCards.length),
+    slidesPerRow: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    draggable: true,
+    pauseOnHover: true,
+    variableWidth: true,
+    waitForAnimate: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 320,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <Layout>
@@ -222,8 +280,8 @@ const MainPage = () => {
           </div>
         </div>
         <div className="mainpage-recruitment-section">
-          <h2 className="from-down">#동행 모집</h2>
-          <Slider {...settings} className="from-down">
+          <h2 className="from-down">#동행 최신글</h2>
+          <Slider {...recruitmentSettings} className="from-down">
             {recruitmentCards.map((data, index) => (
               <Card
                 key={index}
@@ -237,8 +295,8 @@ const MainPage = () => {
           </Slider>
         </div>
         <div className="mainpage-funding-section">
-          <h2 className="from-down">#펀딩 모집</h2>
-          <Slider {...settings} className="from-down">
+          <h2 className="from-down">#펀딩 최신글</h2>
+          <Slider {...fundingSettings} className="from-down">
             {fundingCards.map((data, index) => (
               <Card
                 key={index}

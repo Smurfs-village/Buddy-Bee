@@ -7,21 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import mockImage from "../../img/mock.svg";
-
-const CardSorting = ({ onChangeOptionHandler }) => {
-  return (
-    <select
-      className="Main_right_container_sortingBox"
-      onChange={onChangeOptionHandler}
-    >
-      <option value="전체">전체</option>
-      <option value="동행">동행</option>
-      <option value="펀딩">펀딩</option>
-      <option value="진행중">진행중</option>
-      <option value="종료">종료</option>
-    </select>
-  );
-};
+import CardSorting from "./CardSorting"; // CardSorting 컴포넌트를 import
 
 const Card = ({
   imgSrc,
@@ -92,9 +78,12 @@ const Card = ({
 const MainRightContainer = () => {
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [activePage, setActivePage] = useState(1);
-  const navigate = useNavigate(); // 추가
+  const [noResultsMessage, setNoResultsMessage] = useState(""); // 상태 추가
+  const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const onDeleteActiveProject = async targetId => {
     try {
       // 서버로 삭제 요청
@@ -106,18 +95,41 @@ const MainRightContainer = () => {
 
       // 삭제 성공 시 프론트엔드에서도 해당 프로젝트 제거
       setProjects(() => projects.filter(project => project.id !== targetId));
+      setFilteredProjects(() =>
+        filteredProjects.filter(project => project.id !== targetId)
+      );
     } catch (error) {
       console.error("Error deleting project:", error);
     }
   };
 
-  const onChangeOptionHandler = e => {
-    if (e.target.value === "동행")
-      setProjects(projects.filter(project => project.type === "with"));
-    else if (e.target.value === "펀딩") {
-      setProjects(projects.filter(project => project.type === "funding"));
+  const onChangeOptionHandler = event => {
+    const filterType = event.target.value;
+    let filtered = [];
+    let message = "검색 결과가 없습니다.";
+
+    if (filterType === "defaultOption") {
+      filtered = projects;
+      message = "프로젝트가 없습니다.";
+    } else if (filterType === "동행") {
+      filtered = projects.filter(project => project.type === "with");
+      message = "동행 프로젝트가 없습니다.";
+    } else if (filterType === "펀딩") {
+      filtered = projects.filter(project => project.type === "funding");
+      message = "펀딩 프로젝트가 없습니다.";
+    } else if (filterType === "대기중") {
+      filtered = projects.filter(project => project.type === "대기중");
+      message = "대기중인 프로젝트가 없습니다.";
+    } else if (filterType === "진행중") {
+      filtered = projects.filter(project => project.status === "진행중");
+      message = "진행중인 프로젝트가 없습니다.";
+    } else if (filterType === "종료") {
+      filtered = projects.filter(project => project.status === "종료");
+      message = "완료된 프로젝트가 없습니다.";
     }
-    // 필터링 두번하면 거른거에서 또 걸러서 안뜸
+
+    setFilteredProjects(filtered);
+    setNoResultsMessage(message);
   };
 
   const onCardClick = id => {
@@ -150,6 +162,8 @@ const MainRightContainer = () => {
           })),
         ];
         setProjects(allProjects);
+        setFilteredProjects(allProjects); // 초기에는 모든 프로젝트 표시
+        setNoResultsMessage("프로젝트가 없습니다."); // 초기 메시지 설정
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
@@ -162,12 +176,15 @@ const MainRightContainer = () => {
 
   const pageChangeHandler = pageNumber => setActivePage(pageNumber);
 
-  const totalItemsCount = projects.length;
+  const totalItemsCount = filteredProjects.length;
   const itemsCountPerPage = 4;
   const indexOfLastItem = activePage * itemsCountPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
 
-  const currentProjects = projects.slice(indexOfFirstItem, indexOfLastItem);
+  const currentProjects = filteredProjects.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <div className="Main_right_container">
@@ -176,27 +193,33 @@ const MainRightContainer = () => {
         <CardSorting onChangeOptionHandler={onChangeOptionHandler} />
       </div>
       <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
-        {currentProjects.map(project => (
-          <Card
-            key={project.id}
-            imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
-            projectName={project.title}
-            participants={`${project.current_participants}/${project.max_participants}명`}
-            status={project.status}
-            onDeleteActiveProject={onDeleteActiveProject}
-            id={project.id}
-            onCardClick={onCardClick} // 추가
-          />
-        ))}
+        {currentProjects.length > 0 ? (
+          currentProjects.map(project => (
+            <Card
+              key={project.id}
+              imgSrc={project.main_image} // 서버에서 가져온 이미지 URL 사용
+              projectName={project.title}
+              participants={`${project.current_participants}/${project.max_participants}명`}
+              status={project.status}
+              onDeleteActiveProject={onDeleteActiveProject}
+              id={project.id}
+              onCardClick={onCardClick} // 추가
+            />
+          ))
+        ) : (
+          <p className="no-projects">{noResultsMessage}</p>
+        )}
         <FlowerImg />
       </div>
-      <Pagination
-        activePage={activePage}
-        totalItemsCount={totalItemsCount}
-        itemsCountPerPage={itemsCountPerPage}
-        pageRangeDisplayed={5}
-        handlePageChange={pageChangeHandler}
-      />
+      {totalItemsCount > 0 && (
+        <Pagination
+          activePage={activePage}
+          totalItemsCount={totalItemsCount}
+          itemsCountPerPage={itemsCountPerPage}
+          pageRangeDisplayed={5}
+          handlePageChange={pageChangeHandler}
+        />
+      )}
     </div>
   );
 };

@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 const MainPage = () => {
   const [recruitmentCards, setRecruitmentCards] = useState([]);
   const [fundingCards, setFundingCards] = useState([]);
+  const [topHashtags, setTopHashtags] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -42,9 +43,25 @@ const MainPage = () => {
         console.error("Error fetching projects:", error);
       }
     };
+    const fetchTopHashtags = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/projects/top-hashtags`
+        );
+        console.log("Fetched top hashtags:", response.data); // 콘솔 로그 추가
+        setTopHashtags(response.data);
+      } catch (error) {
+        console.error("Error fetching top hashtags:", error);
+      }
+    };
 
     fetchProjects();
+    fetchTopHashtags();
   }, [API_BASE_URL]);
+
+  useEffect(() => {
+    console.log("Updated top hashtags:", topHashtags); // 콘솔 로그 추가
+  }, [topHashtags]);
 
   const toggleScrap = (index, type) => {
     const updateCards = cards => {
@@ -312,12 +329,20 @@ const MainPage = () => {
         <div className="mainpage-ranking-section from-down">
           <h2 className="from-down">현재 많은 버디비들이 보고 있어요!</h2>
           <div className="mainpage-ranking-keywords from-down">
-            {["버디", "버디버디", "멈머", "슈머", "현머", "서머"].map(
-              (keyword, index) => (
-                <div key={index} className="mainpage-keyword from-down">
-                  {keyword}
-                </div>
-              )
+            {topHashtags.length > 0 ? (
+              topHashtags.map((keyword, index) => {
+                console.log("Rendering hashtag:", keyword); // 렌더링 로그 추가
+                return (
+                  <div
+                    key={index}
+                    className="mainpage-keyword from-down fade-in-up"
+                  >
+                    {keyword}
+                  </div>
+                );
+              })
+            ) : (
+              <p>Loading...</p>
             )}
           </div>
         </div>

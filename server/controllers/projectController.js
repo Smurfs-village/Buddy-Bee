@@ -568,7 +568,6 @@ exports.checkProjectHoney = (req, res) => {
 };
 
 // projectController.js
-
 exports.searchProjects = (req, res) => {
   const query = req.query.query;
 
@@ -612,6 +611,25 @@ exports.searchProjects = (req, res) => {
       ORDER BY p.created_at DESC
     `;
     queryParams = [`%${query}%`];
+
+    // 해시태그 검색 횟수 증가
+    const incrementHashtagCountQuery = `
+      UPDATE hashtag
+      SET search_count = search_count + 1
+      WHERE name LIKE ?
+    `;
+    connection.query(
+      incrementHashtagCountQuery,
+      [`%${query}%`],
+      incrementError => {
+        if (incrementError) {
+          console.error(
+            "Error incrementing hashtag search count:",
+            incrementError
+          );
+        }
+      }
+    );
   }
 
   connection.query(searchQuery, queryParams, (error, results) => {
@@ -621,6 +639,26 @@ exports.searchProjects = (req, res) => {
       return;
     }
     res.status(200).json(results);
+  });
+};
+exports.getTopHashtags = (req, res) => {
+  const query = `
+    SELECT name
+    FROM hashtag
+    ORDER BY search_count DESC
+    LIMIT 6
+  `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error("Error fetching top hashtags:", error);
+      res.status(500).send("Server error");
+      return;
+    }
+
+    const topHashtags = results.map(row => row.name);
+    console.log("Top Hashtags:", topHashtags); // 콘솔 로그 추가
+    res.status(200).json(topHashtags);
   });
 };
 

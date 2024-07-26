@@ -8,6 +8,21 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import mockImage from "../../img/mock.svg";
 
+const CardSorting = ({ onChangeOptionHandler }) => {
+  return (
+    <select
+      className="Main_right_container_sortingBox"
+      onChange={onChangeOptionHandler}
+    >
+      <option value="defaultOption">전체</option>
+      <option value="동행">동행</option>
+      <option value="펀딩">펀딩</option>
+      <option value="진행중">진행중</option>
+      <option value="종료">종료</option>
+    </select>
+  );
+};
+
 const Card = ({
   imgSrc,
   projectName,
@@ -62,7 +77,7 @@ const Card = ({
           });
         }}
       >
-        삭제
+        취소
       </button>
     </div>
   </div>
@@ -88,6 +103,15 @@ const MainRightContainer = () => {
     } catch (error) {
       console.error("Error deleting project:", error);
     }
+  };
+
+  const onChangeOptionHandler = event => {
+    if (event.target.value === "동행")
+      setProjects(projects.filter(project => project.type === "with"));
+    else if (event.target.value === "펀딩") {
+      setProjects(projects.filter(project => project.type === "funding"));
+    }
+    // 필터링 두번하면 거른거에서 또 걸러서 안뜸
   };
 
   const onCardClick = id => {
@@ -141,7 +165,10 @@ const MainRightContainer = () => {
 
   return (
     <div className="Main_right_container">
-      <p className="Main_right_container_writtenPosts">작성한 글</p>
+      <div className="Main_right_container_title_selectBox_wrapper">
+        <p className="Main_right_container_writtenPosts">작성한 글</p>
+        <CardSorting onChangeOptionHandler={onChangeOptionHandler} />
+      </div>
       <div className="MyPosts_ParticipatedProjects_main_right_container_cards_wrapper">
         {currentProjects.map(project => (
           <Card

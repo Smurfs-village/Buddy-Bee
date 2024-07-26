@@ -46,7 +46,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   box-sizing: border-box;
   margin: 20px; /* 이미지 주위 여백 */
 }

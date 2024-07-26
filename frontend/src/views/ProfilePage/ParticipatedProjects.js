@@ -65,7 +65,7 @@ const Card = ({
           });
         }}
       >
-        삭제
+        취소
       </button>
     </div>
   </div>

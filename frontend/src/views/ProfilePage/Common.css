@@ -59,12 +59,24 @@
   flex-direction: column;
   padding: 2% 6% 3% 6%;
   position: relative;
+  min-height: 580px;
+}
+
+.Main_right_container_title_selectBox_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Main_right_container_sortingBox {
+  outline: none;
 }
 
 .Main_right_container_writtenPosts {
   font-size: 20px;
   font-weight: bold;
   margin: 2% 0;
+  width: 100%;
 }
 
 .MyPosts_ParticipatedProjects_main_right_container_box {
@@ -244,9 +256,6 @@
 }
 
 @media (min-width: 768px) and (max-width: 950px) {
-  /* .MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper {
-    display: none;
-  } */
   .MyPosts_ParticipatedProjects_main_right_container_box_text_wrapper {
     padding-left: 20px;
     overflow: hidden;

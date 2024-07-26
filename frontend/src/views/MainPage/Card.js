@@ -131,9 +131,9 @@ const Card = ({ data, index, type, toggleScrap }) => {
     if (!user) {
       console.error("User is not authenticated");
       Swal.fire({
-        title: "Error",
-        text: "로그인 후 이용 가능합니다",
-        icon: "error",
+        title: "로그인 후 이용 가능한 기능입니다",
+        text: "",
+        icon: "info",
         confirmButtonText: "확인",
       }).then(() => {
         navigate(`/login`);

@@ -6,6 +6,7 @@ import scrap_none from "../../img/scrap_none.svg";
 import { useAuth } from "../../contexts/AuthContext"; // Import useAuth
 import "./ListCard.css";
 import mockImage from "../../img/mock.svg";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const ListCard = ({ data, index, type, toggleScrap }) => {
   const hashtagsRef = useRef(null);
@@ -93,7 +94,14 @@ const ListCard = ({ data, index, type, toggleScrap }) => {
     e.stopPropagation();
     if (!user) {
       console.error("User is not authenticated");
-      return;
+      Swal.fire({
+        title: "로그인 후 이용 가능한 기능입니다",
+        text: "",
+        icon: "info",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate(`/login`);
+      });
     }
     try {
       if (isHoney) {

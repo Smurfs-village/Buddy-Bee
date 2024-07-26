@@ -33,6 +33,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   border-top: 2px solid black;
+  letter-spacing: 0.5px;
 }
 
 .Bookmarks_main_right_container_box_status_wrapper {
@@ -44,6 +45,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
 /*종료 후 css*/

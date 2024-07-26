@@ -177,12 +177,12 @@ const CreatePageLayout = ({ children, type: initialType }) => {
   };
 
   const addOption = () => {
-    // 옵션명을 입력했을 때, 가격이 없어도 등록 가능하도록 수정
     if (optionName.trim()) {
+      const trimmedOptionName = optionName.trim();
       const isDuplicate = options.some(
-        (option) => option.name === optionName.trim()
+        (option) => option.name === trimmedOptionName
       );
-      const isSameAsDeleted = optionName.trim() === deleteOptionName;
+      const isSameAsDeleted = trimmedOptionName === deleteOptionName;
 
       if (options.length >= 10) {
         Swal.fire({
@@ -193,6 +193,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
         });
         return;
       }
+
       const maxPrice = 1000000000;
       if (parseInt(optionPrice.replace(/,/g, ""), 10) > maxPrice) {
         Swal.fire({
@@ -203,7 +204,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
         });
         return;
       }
-      // 중복이 아니라면 추가
+
       if (!isDuplicate || isSameAsDeleted) {
         if (type === "funding" && !optionPrice.trim()) {
           Swal.fire({
@@ -221,7 +222,6 @@ const CreatePageLayout = ({ children, type: initialType }) => {
             price: formatPrice(optionPrice) || "", // 가격 없이 추가 가능
           },
         ]);
-
         setDeleteOptionName(null);
       } else {
         Swal.fire({
@@ -231,6 +231,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
           confirmButtonText: "확인",
         });
       }
+
       setOptionName("");
       setOptionPrice("");
     }
@@ -634,6 +635,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                           dateFormat="yyyy-MM-dd"
                           placeholderText="달력에서 선택"
                           minDate={startDate || today}
+                          required
                         />
                       </div>
                     </div>

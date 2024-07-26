@@ -118,7 +118,7 @@ const MainRightContainer = () => {
       filtered = projects.filter(project => project.type === "funding");
       message = "펀딩 프로젝트가 없습니다.";
     } else if (filterType === "대기중") {
-      filtered = projects.filter(project => project.type === "대기중");
+      filtered = projects.filter(project => project.status === "대기중");
       message = "대기중인 프로젝트가 없습니다.";
     } else if (filterType === "진행중") {
       filtered = projects.filter(project => project.status === "진행중");

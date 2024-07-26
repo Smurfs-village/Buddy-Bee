@@ -112,3 +112,12 @@
 .Bookmarks_honeyPot_img:hover {
   transform: scale(1.1);
 }
+.Main_right_container_title_selectBox_wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.Bookmarks_main_right_container_cards_wrapper {
+  position: relative;
+  z-index: 0;
+}

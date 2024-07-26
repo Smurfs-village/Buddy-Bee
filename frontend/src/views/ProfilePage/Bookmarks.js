@@ -40,7 +40,13 @@ const Card = ({
         />
       </div>
     </div>
-    <div className="Bookmarks_main_right_container_box_text_wrapper">
+    <div
+      className={`${
+        status === "종료"
+          ? "Bookmarks_finishedProjects_text_wrapper"
+          : "Bookmarks_main_right_container_box_text_wrapper"
+      }`}
+    >
       <div className="Bookmarks_main_right_container_box_status_wrapper">
         {status}
       </div>

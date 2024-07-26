@@ -333,12 +333,13 @@ const MainPage = () => {
               topHashtags.map((keyword, index) => {
                 console.log("Rendering hashtag:", keyword); // 렌더링 로그 추가
                 return (
-                  <div
+                  <Link
+                    to={`/projects?query=${encodeURIComponent(keyword)}`}
                     key={index}
                     className="mainpage-keyword from-down fade-in-up"
                   >
                     {keyword}
-                  </div>
+                  </Link>
                 );
               })
             ) : (

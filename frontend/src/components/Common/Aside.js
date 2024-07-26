@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 const Aside = () => {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const isProfile = pathname === "/profile";
   const isPost = pathname === "/profile/posts";
@@ -17,20 +17,22 @@ const Aside = () => {
   const onDeleteId = e => {
     e.preventDefault();
     Swal.fire({
-      title: "정말 탈퇴하시겠습니까?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#ff8473",
-      cancelButtonColor: "#aeaeae",
-      confirmButtonText: "탈퇴",
-      cancelButtonText: "취소",
-    }).then(result => {
-      if (result.isConfirmed) {
-        console.log("bye");
-        // 추가 로직: 메인 페이지로 보내고 아이디 삭제 처리
-        navigate("/"); // 메인 페이지로 라우팅
-      }
+      title: "Info",
+      text: "회원탈퇴 기능은 추후 추가될 예정입니다!",
+      icon: "info",
+      // showCancelButton: true,
+      // confirmButtonColor: "#ff8473",
+      // cancelButtonColor: "#aeaeae",
+      confirmButtonText: "확인",
+      // cancelButtonText: "취소",
     });
+    // .then(result => {
+    //   if (result.isConfirmed) {
+    //     console.log("bye");
+    //     // 추가 로직: 메인 페이지로 보내고 아이디 삭제 처리
+    //     navigate("/"); // 메인 페이지로 라우팅
+    //   }
+    // });
   };
 
   return (

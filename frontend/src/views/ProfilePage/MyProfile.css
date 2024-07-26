@@ -135,7 +135,7 @@
   cursor: pointer;
   border-radius: 20px;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 16px;
   padding: 7px 20px;
   margin-right: 5px;
 }
@@ -241,5 +241,11 @@
     width: 60%;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 1024px) {
+  .MyProfile_main_right_container_profile_edit_img_wrapper {
+    padding-left: 10px;
   }
 }

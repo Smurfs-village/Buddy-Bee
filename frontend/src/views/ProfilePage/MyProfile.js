@@ -171,7 +171,7 @@ const MainRightContainer = () => {
               onClick={() =>
                 Swal.fire({
                   title: "Info",
-                  text: "비밀번호 변경 기능은 추후 추가될 예정입니다",
+                  text: "비밀번호 변경 기능은 추후 추가될 예정입니다!",
                   icon: "info",
                   confirmButtonText: "확인",
                 })
@@ -193,7 +193,7 @@ const MainRightContainer = () => {
               onClick={() =>
                 Swal.fire({
                   title: "Info",
-                  text: "휴대폰 번호 인증은 추후 추가될 예정입니다",
+                  text: "휴대폰 번호 인증은 추후 추가될 예정입니다!",
                   icon: "info",
                   confirmButtonText: "확인",
                 })

@@ -14,7 +14,6 @@ const customStyles = {
   control: (provided, state) => ({
     ...provided,
     borderRadius: "4px",
-    padding: "2px 10px",
     fontSize: "14px",
     color: "#333",
     cursor: "pointer",
@@ -24,7 +23,7 @@ const customStyles = {
       borderColor: "#40a9ff",
     },
     minHeight: "17px",
-    width: "150px",
+    width: "90px",
     zIndex: 999,
   }),
   option: (provided, state) => ({

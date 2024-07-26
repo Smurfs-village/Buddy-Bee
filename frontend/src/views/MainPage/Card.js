@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/AuthContext"; // useAuth import
 import scrap_yes from "../../img/scrap_yes.svg";
 import scrap_none from "../../img/scrap_none.svg";
 import mockImage from "../../img/mock.svg"; // 기본 이미지 import
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
 
 const Card = ({ data, index, type, toggleScrap }) => {
   const { user } = useAuth(); // useAuth 훅 사용
@@ -14,10 +15,10 @@ const Card = ({ data, index, type, toggleScrap }) => {
   const [isHoney, setIsHoney] = useState(false);
   const [honeyCount, setHoneyCount] = useState(0);
   const navigate = useNavigate();
-
   const startPos = useRef({ x: 0, y: 0 });
   const isDragging = useRef(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     if (hashtagsRef.current) {
       const containerWidth = hashtagsRef.current.offsetWidth;
@@ -129,7 +130,14 @@ const Card = ({ data, index, type, toggleScrap }) => {
     e.stopPropagation();
     if (!user) {
       console.error("User is not authenticated");
-      return;
+      Swal.fire({
+        title: "Error",
+        text: "로그인 후 이용 가능합니다",
+        icon: "error",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate(`/login`);
+      });
     }
 
     try {

@@ -443,25 +443,25 @@ body {
 
 /*나의 꿀단지 info 말풍선*/
 .mainpage-scarp-icon-info {
-  position: absolute;
+  position: absolute; /*어떤 요소에 absolute를 주면 블럭요소는 inline으로 변경됨.*/
   background-color: #000;
-  color: #fff;
-  top: 68px;
-  left: 25px;
   width: 60px;
-  padding: 8px;
+  color: #fff;
+  top: 70px;
   font-size: 0.8em;
   text-align: center;
+  padding: 8px;
   border-radius: 5px;
-  transform: translateX(-50%); /*중앙배치*/
+  left: 25px;
+  transform: translateX(-50%); /*중앙배치 : X크기값을 50%만큼 이동*/
   opacity: 0;
   visibility: hidden;
+  z-index: 10000;
 }
 
 .mainpage-scarp-icon-info:after {
-  /*말풍선 삼각형 부분*/
-  content: ""; /*content가 있어야 작동*/
-  position: absolute;
+  content: ""; /*가상클래스 before, after는 무조건 content가 있어야 작동*/
+  position: absolute; /*상위클래스icon이 relative이므로, absolute로 설정하여 동적페이지에도 같은 위치로 유지*/
   background-color: #000;
   width: 10px;
   height: 10px;
@@ -472,7 +472,7 @@ body {
 
 .mainpage-scrap-icon-wrapper:hover span {
   opacity: 1;
-  visibility: visible;
+  visibility: visible; /*hover시 발생하ㅡㄴ 이벤트*/
 }
 
 .mainpage-card-title {

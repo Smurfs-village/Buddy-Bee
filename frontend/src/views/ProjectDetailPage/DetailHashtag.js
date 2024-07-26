@@ -1,4 +1,5 @@
 import "./DetailHashtag.css";
+import { Link } from "react-router-dom";
 
 const DetailHashtag = ({ hashtags }) => {
   return (
@@ -6,14 +7,15 @@ const DetailHashtag = ({ hashtags }) => {
       <div className="ProjectDetailPage-hash">
         <div className="ProjectDetailPage-hash-list">
           {hashtags.map((tag, index) => (
-            <div
+            <Link
               key={index}
+              to={`/projects?query=${tag}`}
               className={`ProjectDetailPage-hash-tag ${
                 index % 2 === 0 ? "yellow" : "purple"
               }`}
             >
               #{tag}
-            </div>
+            </Link>
           ))}
         </div>
       </div>

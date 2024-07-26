@@ -263,6 +263,7 @@ body {
   font-size: 1.4em;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none; /* 링크 밑줄 제거 */
 }
 
 /* Carousel Styles */

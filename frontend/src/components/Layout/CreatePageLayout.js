@@ -193,7 +193,16 @@ const CreatePageLayout = ({ children, type: initialType }) => {
         });
         return;
       }
-
+      const maxPrice = 1000000000;
+      if (parseInt(optionPrice.replace(/,/g, ""), 10) > maxPrice) {
+        Swal.fire({
+          title: "Error",
+          text: "옵션 가격은 10억원을 초과할 수 없습니다.",
+          icon: "warning",
+          confirmButtonText: "확인",
+        });
+        return;
+      }
       // 중복이 아니라면 추가
       if (!isDuplicate || isSameAsDeleted) {
         if (type === "funding" && !optionPrice.trim()) {
@@ -504,6 +513,9 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                       <span>가격</span>
                       <input
                         type="text"
+                        name="quantity"
+                        min="0"
+                        max="2147483647"
                         value={formatPrice(optionPrice)}
                         onChange={handleOptionPriceChange}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러

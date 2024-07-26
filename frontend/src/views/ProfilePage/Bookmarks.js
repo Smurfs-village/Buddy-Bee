@@ -66,6 +66,7 @@ const MainRightContainer = () => {
   const [noResultsMessage, setNoResultsMessage] = useState("");
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchBookmarkedProjects = async () => {
       try {
@@ -79,11 +80,23 @@ const MainRightContainer = () => {
         );
         const { activeProjects, finishedProjects, pendingProjects } =
           response.data;
-        setBookmarks([
-          ...activeProjects,
-          ...pendingProjects,
-          ...finishedProjects,
-        ]);
+        const allProjects = [
+          ...pendingProjects.map(project => ({
+            ...project,
+            status: "대기중",
+          })),
+          ...activeProjects.map(project => ({
+            ...project,
+            status: "진행중",
+          })),
+          ...finishedProjects.map(project => ({
+            ...project,
+            status: "종료",
+          })),
+        ];
+        setBookmarks(allProjects);
+        setFilteredProjects(allProjects); // 초기에는 모든 프로젝트 표시
+        setNoResultsMessage("프로젝트가 없습니다."); // 초기 메시지 설정
       } catch (error) {
         console.error("Error fetching bookmarked projects:", error);
       }
@@ -149,6 +162,7 @@ const MainRightContainer = () => {
   const onCardClick = id => {
     navigate(`/projects/${id}`);
   };
+
   const onChangeOptionHandler = event => {
     const filterType = event.target.value;
     let filtered = [];
@@ -164,7 +178,7 @@ const MainRightContainer = () => {
       filtered = bookmarks.filter(project => project.type === "funding");
       message = "펀딩 프로젝트가 없습니다.";
     } else if (filterType === "대기중") {
-      filtered = bookmarks.filter(project => project.type === "대기중");
+      filtered = bookmarks.filter(project => project.status === "대기중");
       message = "대기중인 프로젝트가 없습니다.";
     } else if (filterType === "진행중") {
       filtered = bookmarks.filter(project => project.status === "진행중");
@@ -177,6 +191,7 @@ const MainRightContainer = () => {
     setFilteredProjects(filtered);
     setNoResultsMessage(message);
   };
+
   return (
     <div className="Main_right_container">
       <div className="Main_right_container_title_selectBox_wrapper">
@@ -187,7 +202,7 @@ const MainRightContainer = () => {
         {currentItems.length > 0 ? (
           currentItems.map((project, index) => {
             const globalIndex = indexOfFirstItem + index;
-            const isFinished = project.status === "completed";
+            const isFinished = project.status === "종료";
             return (
               <Card
                 key={project.id}

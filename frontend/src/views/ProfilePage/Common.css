@@ -49,12 +49,8 @@
 }
 
 .Main_right_container {
-  border-top-width: 2px;
-  border-bottom-width: 8px;
-  border-left-width: 2px;
-  border-right-width: 8px;
-  border-style: solid;
-  border-color: black;
+  border: 2px solid black;
+  box-shadow: 4.5px 4.5px 0px 0px black;
   border-radius: 15px;
   margin: 10px;
   background-color: white;
@@ -259,7 +255,7 @@
 
 @media (max-width: 767px) {
   .Main_right_container {
-    border: 2px solid black;
+    box-shadow: none;
   }
 }
 

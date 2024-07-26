@@ -23,6 +23,8 @@ const Card = ({
     }`}
     onClick={onCardClick}
   >
+    <div className={isFinished ? "FinishedProject_overlay" : ""}></div>
+
     <div
       className={`Bookmarks_main_right_container_box_img_wrapper ${
         isFinished ? "Bookmarks_finishedProjectImg" : ""
@@ -41,10 +43,8 @@ const Card = ({
       </div>
     </div>
     <div
-      className={`${
-        status === "종료"
-          ? "Bookmarks_finishedProjects_text_wrapper"
-          : "Bookmarks_main_right_container_box_text_wrapper"
+      className={`Bookmarks_main_right_container_box_text_wrapper ${
+        status === "종료" ? "Bookmarks_finishedProjects_text_wrapper" : ""
       }`}
     >
       <div className="Bookmarks_main_right_container_box_status_wrapper">

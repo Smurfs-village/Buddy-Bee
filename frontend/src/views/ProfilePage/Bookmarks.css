@@ -20,7 +20,6 @@
   background-size: cover;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  border-bottom: 2px solid black;
   flex: 1;
   position: relative;
 }
@@ -33,17 +32,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.Bookmarks_finishedProjects_text_wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 5px 11px 10px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  opacity: 0.6;
+  border-top: 2px solid black;
 }
 
 .Bookmarks_main_right_container_box_status_wrapper {
@@ -57,8 +46,34 @@
   text-overflow: ellipsis;
 }
 
+/*종료 후 css*/
 .Bookmarks_finishedProject_container {
-  opacity: 0.8;
+  position: relative;
+  border: 2px solid rgb(66, 66, 66);
+  /* opacity: 0.8; */ /*너무 찐하면 이거 주석 해제 해주세용*/
+}
+.Bookmarks_finishedProjects_text_wrapper {
+  /*종료 후 text-box*/
+  opacity: 0.6;
+}
+
+.FinishedProject_overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.452);
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  border-radius: 2%;
+  aspect-ratio: 137.04 / 171.3;
+}
+
+.FinishedProject_overlay::before {
+  content: "종료됨";
+  font-size: 0.9em;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  left: 41%;
+  top: 43%;
 }
 
 .Bookmarks_finishedProjectImg {
@@ -75,7 +90,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(143, 143, 143, 0.575);
   border-radius: inherit;
   pointer-events: none; /* 오버레이가 클릭 이벤트를 무시하도록 설정 */
 }
@@ -84,10 +99,16 @@
   width: 100%;
   text-align: right;
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 9999;
 }
 
 .Bookmarks_honeyPot_img {
   height: 35px;
   padding-right: 2px;
+  padding-top: 2px; /*hover scale때문에 추가*/
+  transition: 0.2s ease;
+}
+
+.Bookmarks_honeyPot_img:hover {
+  transform: scale(1.1);
 }

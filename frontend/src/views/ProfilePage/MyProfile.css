@@ -78,6 +78,7 @@
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
+  transition: 0.2s ease;
 }
 
 .MyProfile_main_right_container_profile_edit_img {
@@ -172,6 +173,7 @@
   width: 16px; /* 적절한 크기로 조정 */
   height: 16px; /* 적절한 크기로 조정 */
   cursor: pointer;
+  transition: 0.2s ease;
 }
 .pen-icon:hover {
   transform: scale(1.2);

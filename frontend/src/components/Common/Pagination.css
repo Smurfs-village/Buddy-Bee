@@ -51,3 +51,26 @@
   background-color: #fadf0b;
   padding: 6px 10.4px;
 }
+
+@media (max-width: 479px) {
+  .pagination {
+    margin-bottom: 0;
+  }
+  .pagination a {
+    border-radius: 50%;
+    font-size: 12px;
+    margin-right: 5px;
+    padding: 6px 9.8px;
+    background-color: #ffffff;
+  }
+  .active a {
+    font-weight: bold;
+    background-color: #fadf0b;
+    padding: 6px 9.8px;
+  }
+  .pagination-right-arrow {
+    width: 30px;
+    margin-top: 7px;
+    margin-right: 0px;
+  }
+}

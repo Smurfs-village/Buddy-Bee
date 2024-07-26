@@ -87,6 +87,9 @@ body {
   padding-top: 0px;
   font-size: 1em;
 }
+.mainpage-main-button-info span {
+  white-space: nowrap;
+}
 .mainpage-btn-arrow {
   display: flex;
   flex-direction: row-reverse;
@@ -587,7 +590,12 @@ body {
 .mainpage-main-button:hover .mainpage-arrow-icon {
   width: 60px; /* 호버 시 길어지는 너비 */
 }
-
+@media (max-width: 626px) {
+  .mainpage-main-button-info {
+    display: flex;
+    flex-direction: column;
+  }
+}
 /*text-section bee-icon, clould-icon, flower-icon전용*/
 @media (min-width: 976px) and (max-width: 1128px) {
   .mainpage-cloud-icon {
@@ -662,6 +670,7 @@ body {
     font-size: 1em;
     width: 30vw;
     height: auto;
+    min-width: 147px;
   }
   .mainpage-main-button p {
     font-size: 0.9em;
@@ -783,6 +792,7 @@ body {
 
   .mainpage-main-button-info {
     font-size: 0.9em;
+    flex-direction: row;
   }
   .mainpage-left_bee_icon img {
     display: none;

@@ -238,7 +238,7 @@ const MainPage = () => {
                 <button className="mainpage-main-button from-down">
                   <p className="mainpage-main-button-text">동행 모아보기</p>
                   <p className="mainpage-main-button-info">
-                    동행할 친구를 찾고 싶어요
+                    동행할 친구를 찾고 <span>싶어요</span>
                   </p>
                   <div className="mainpage-btn-arrow">
                     <img
@@ -253,7 +253,7 @@ const MainPage = () => {
                 <button className="mainpage-main-button from-down">
                   <p className="mainpage-main-button-text">펀딩 모아보기</p>
                   <p className="mainpage-main-button-info">
-                    펀딩에 참여하고 싶어요
+                    펀딩에 참여하고 <span>싶어요</span>
                   </p>
                   <div className="mainpage-btn-arrow">
                     <img

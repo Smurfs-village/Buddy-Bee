@@ -26,11 +26,11 @@ body {
 
 .headerpage-header-logo {
   font-family: "cooper-black-std", sans-serif;
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   align-items: center;
   color: white;
   -webkit-text-stroke: 1.6px rgb(44, 44, 44);
-  margin: 0 0 2px 0;
+  margin: 0 0 3px 0;
 }
 
 /* headerpage 내 전체 a태그 스타일 제거 */
@@ -49,17 +49,21 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 20px 10px 30px;
+  padding: 10px 40px 10px 20px;
   text-align: center;
   margin: 0 20px;
 }
 
 .headerpage-header-left img {
-  margin-right: 20px;
+  margin-right: 15px;
+  width: 50px;
 }
 
 .headerpage-header-right img {
   margin: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 }
 
 .headerpage-header-left,
@@ -87,8 +91,9 @@ body {
 .headerpage-search-container .headerpage-search-icon {
   position: absolute;
   right: 17px;
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
+  padding-bottom: 2px;
   cursor: pointer; /*클릭 가능하다는 것을 명시*/
   transition: 0.25s ease;
 }
@@ -103,7 +108,7 @@ body {
   background-color: #ff8473;
   border-radius: 15px;
   box-sizing: border-box;
-  padding: 9px 15px;
+  padding: 11px 15px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.25s ease;
@@ -114,7 +119,7 @@ body {
   background-color: #ff8473;
   border-radius: 15px;
   box-sizing: border-box;
-  padding: 9px 13px;
+  padding: 11px 13px;
   font-weight: bold;
   text-decoration: none; /* 밑줄 제거 */
   color: black; /* 글자 색상 */
@@ -123,6 +128,7 @@ body {
   cursor: pointer; /* 버튼 커서 지정 */
   transition: 0.2s ease;
   border: 2px solid rgb(54, 54, 54);
+  margin-right: -7px;
 }
 
 .headerpage-login-button:hover {
@@ -178,18 +184,18 @@ body {
 }
 
 .headerpage-dropdown-menu {
-  top: 92px;
-  right: 104px;
+  top: 90px;
+  right: 125px;
 }
 
 .headerpage-profile-dropdown-menu {
-  top: 92px;
+  top: 90px;
   right: 38px;
 }
 
 .headerpage-dropdown-menu.headerpage-open,
 .headerpage-profile-dropdown-menu.headerpage-open {
-  max-height: 200px; /* 실제 높이보다 충분히 큰 값 */
+  max-height: 500px; /* 실제 높이보다 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -198,6 +204,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 
 .headerpage-dropdown-menu li,
@@ -434,6 +441,12 @@ body {
   transition: 0.3s ease;
 }
 
+.hamburger-profile-container img {
+  width: 30px;
+  height: 30px;
+  padding: 0 3px 3px 0;
+}
+
 .hamburger-login-button {
   margin-top: 4px;
   background-color: white;
@@ -515,7 +528,7 @@ body {
     border: 2px solid rgb(54, 54, 54);
     border-radius: 16px;
     box-sizing: border-box;
-    padding: 12px 1vw 12px 8px;
+    padding: 12px 1vw 12px 12px;
     outline: none;
     margin-right: 8px;
   }
@@ -523,6 +536,11 @@ body {
 @media (min-width: 480px) and (max-width: 840px) {
   .headerpage-header-container {
     padding: 10px 0 10px 5px;
+    margin: 0 24px;
+  }
+  .headerpage-header-left img {
+    margin-right: 0px;
+    width: 48px;
   }
   .headerpage-header-logo,
   .headerpage-hamburger-dropdown.hamburger-open,
@@ -532,12 +550,32 @@ body {
     visibility: hidden;
   }
   .headerpage-dropdown-menu {
-    top: 92px;
-    right: 80px;
+    top: 88px;
+    right: 83px;
   }
   .headerpage-profile-dropdown-menu {
-    top: 92px;
-    right: 20px;
+    top: 88px;
+    right: 10px;
+  }
+  .headerpage-search-container input {
+    padding: 12px 0.3vw 12px 12px;
+    margin-right: 2px;
+  }
+  .headerpage-search-container .headerpage-search-icon {
+    right: 12px;
+    width: 18px;
+    height: 20px;
+    cursor: pointer;
+    transition: 0.25s ease;
+  }
+  .headerpage-create-btn {
+    position: relative;
+    margin: 0 10px;
+    padding: 11px 13px;
+  }
+
+  .headerpage-login-button {
+    padding: 11px;
   }
 }
 

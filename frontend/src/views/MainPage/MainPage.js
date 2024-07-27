@@ -353,9 +353,6 @@ const MainPage = () => {
             )}
           </div>
         </div>
-        <div className="mainpage-to-section from-down">
-          <h2 className="from-down">현재 많은 버디비들이 보고 있어요!</h2>
-        </div>
       </div>
     </Layout>
   );

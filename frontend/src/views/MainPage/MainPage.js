@@ -234,7 +234,7 @@ const MainPage = () => {
               </p>
             </div>
             <div className="mainpage-button-container">
-              <Link to="/projects?query=동행">
+              <Link to="/projects?type=with">
                 <button className="mainpage-main-button from-down">
                   <p className="mainpage-main-button-text">동행 모아보기</p>
                   <p className="mainpage-main-button-info">
@@ -249,7 +249,7 @@ const MainPage = () => {
                   </div>
                 </button>
               </Link>
-              <Link to="/projects?query=펀딩">
+              <Link to="/projects?type=funding">
                 <button className="mainpage-main-button from-down">
                   <p className="mainpage-main-button-text">펀딩 모아보기</p>
                   <p className="mainpage-main-button-info">

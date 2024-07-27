@@ -5,7 +5,7 @@ const SubNav = () => {
   const navigate = useNavigate();
 
   const handleFilterClick = filter => {
-    navigate(`/projects?query=${filter}`);
+    navigate(`/projects?type=${filter}`);
   };
 
   return (
@@ -13,21 +13,21 @@ const SubNav = () => {
       <div className="sub-nav-wrapper">
         <button
           className="sub-nav-all-btn"
-          onClick={() => handleFilterClick("전체")}
+          onClick={() => handleFilterClick("all")}
         >
-          <Link to="/projects?query=전체">#전체</Link>
+          <Link to="/projects?type=all">#전체</Link>
         </button>
         <button
           className="sub-nav-with-btn"
-          onClick={() => handleFilterClick("동행")}
+          onClick={() => handleFilterClick("with")}
         >
-          <Link to="/projects?query=동행">#버디비_동행</Link>
+          <Link to="/projects?type=with">#버디비_동행</Link>
         </button>
         <button
           className="sub-nav-funding-btn"
-          onClick={() => handleFilterClick("펀딩")}
+          onClick={() => handleFilterClick("funding")}
         >
-          <Link to="/projects?query=펀딩">#버디비_펀딩</Link>
+          <Link to="/projects?type=funding">#버디비_펀딩</Link>
         </button>
       </div>
     </>

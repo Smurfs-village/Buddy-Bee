@@ -34,7 +34,7 @@ const Card = ({
       }`}
       style={{
         backgroundImage: `url(${imgSrc || mockImage})`,
-        opacity: status === "대기중" || status === "진행중" ? 0.5 : 1,
+        // opacity: status === "대기중" || status === "진행중" ? 0.5 : 1, // css로 적용
       }}
     ></div>
     <div

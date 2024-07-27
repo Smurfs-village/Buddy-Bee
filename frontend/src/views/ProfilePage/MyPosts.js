@@ -26,6 +26,9 @@ const Card = ({
     }`}
     onClick={() => onCardClick(id)} // 추가
   >
+    {/* <div
+      className={`${status === "종료" ? "FinishedProject_overlay" : ""}`}
+    ></div> */}
     <div
       className={`MyPosts_ParticipatedProjects_main_right_container_box_img_wrapper ${
         status === "종료"
@@ -55,7 +58,7 @@ const Card = ({
         onClick={e => {
           e.stopPropagation(); // 클릭 이벤트가 부모로 전파되지 않도록
           Swal.fire({
-            title: "프로젝트 참여를 취소 하시겠습니까?",
+            title: "게시글을 삭제 하시겠습니까?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#ff8473",
@@ -69,7 +72,7 @@ const Card = ({
           });
         }}
       >
-        취소
+        삭제
       </button>
     </div>
   </div>

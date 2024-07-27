@@ -29,11 +29,6 @@
 .MyProfile_contactInfo_label {
   position: relative;
 }
-
-.MyProfile_nickname_input {
-  padding-left: 6px;
-}
-
 .MyProfile_certification_Btn {
   cursor: pointer;
   background-color: black;
@@ -41,7 +36,7 @@
   border-radius: 20px;
   padding: 8px;
   position: absolute;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   right: 0;
 }
 

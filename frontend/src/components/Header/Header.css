@@ -49,7 +49,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 40px 10px 30px;
+  padding: 10px 40px 10px 20px;
   text-align: center;
   margin: 0 20px;
 }
@@ -61,6 +61,8 @@ body {
 
 .headerpage-header-right img {
   margin: 4px;
+  width: 30px;
+  height: 30px;
 }
 
 .headerpage-header-left,
@@ -88,8 +90,9 @@ body {
 .headerpage-search-container .headerpage-search-icon {
   position: absolute;
   right: 17px;
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
+  padding-bottom: 2px;
   cursor: pointer; /*클릭 가능하다는 것을 명시*/
   transition: 0.25s ease;
 }
@@ -124,6 +127,7 @@ body {
   cursor: pointer; /* 버튼 커서 지정 */
   transition: 0.2s ease;
   border: 2px solid rgb(54, 54, 54);
+  margin-right: -7px;
 }
 
 .headerpage-login-button:hover {
@@ -180,7 +184,7 @@ body {
 
 .headerpage-dropdown-menu {
   top: 90px;
-  right: 133px;
+  right: 125px;
 }
 
 .headerpage-profile-dropdown-menu {
@@ -190,7 +194,7 @@ body {
 
 .headerpage-dropdown-menu.headerpage-open,
 .headerpage-profile-dropdown-menu.headerpage-open {
-  max-height: 200px; /* 실제 높이보다 충분히 큰 값 */
+  max-height: 500px; /* 실제 높이보다 충분히 큰 값 */
   opacity: 1;
 }
 
@@ -199,6 +203,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 
 .headerpage-dropdown-menu li,
@@ -435,6 +440,12 @@ body {
   transition: 0.3s ease;
 }
 
+.hamburger-profile-container img {
+  width: 30px;
+  height: 30px;
+  padding: 0 3px 3px 0;
+}
+
 .hamburger-login-button {
   margin-top: 4px;
   background-color: white;
@@ -524,7 +535,7 @@ body {
 @media (min-width: 480px) and (max-width: 840px) {
   .headerpage-header-container {
     padding: 10px 0 10px 5px;
-    margin: 0 15px;
+    margin: 0 24px;
   }
   .headerpage-header-left img {
     margin-right: 0px;
@@ -538,12 +549,12 @@ body {
     visibility: hidden;
   }
   .headerpage-dropdown-menu {
-    top: 92px;
-    right: 80px;
+    top: 88px;
+    right: 83px;
   }
   .headerpage-profile-dropdown-menu {
-    top: 92px;
-    right: 20px;
+    top: 88px;
+    right: 10px;
   }
   .headerpage-search-container input {
     padding: 12px 0.3vw 12px 12px;

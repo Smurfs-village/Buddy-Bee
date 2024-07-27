@@ -100,13 +100,11 @@ const Header = () => {
 
   //만들기 버튼
   const handleCreateWithClick = e => {
-    e.preventDefault();
     e.stopPropagation();
     navigate("/create-with-project");
   };
 
   const handleCreateFundingClick = e => {
-    e.preventDefault();
     e.stopPropagation();
     navigate("/create-funding-project");
   };
@@ -216,7 +214,7 @@ const Header = () => {
                 <ul>
                   <li onClick={handleToProfile}>마이페이지</li>
                   <li onClick={handleToMyPosts}>작성한 글</li>
-                  <li onClick={handleToParticipatedProjects}>참여 현황</li>
+                  <li onClick={handleToParticipatedProjects}>참여 프로젝트</li>
                   <li onClick={handleLogout}>로그아웃</li>
                 </ul>
               </div>
@@ -341,8 +339,10 @@ const Header = () => {
                   >
                     <ul>
                       <li onClick={handleToProfile}>마이 페이지</li>
-                      <li onClick={handleToProfile}>작성한 글</li>
-                      <li onClick={handleToProfile}>참여 중 프로젝트</li>
+                      <li onClick={handleToMyPosts}>작성한 글</li>
+                      <li onClick={handleToParticipatedProjects}>
+                        참여 프로젝트
+                      </li>
                       <li onClick={handleLogout}>로그아웃</li>
                     </ul>
                   </div>

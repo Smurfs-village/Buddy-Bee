@@ -52,7 +52,7 @@ jobs:
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/buddy-bee:latest
     - 
         name: SSH Remote Commands
-        uses: appleboy/ssh-action@v1.0.3        
+        uses: appleboy/ssh-action@v1.0.3
         with:
             host: ${{ secrets.HOST }}      
             username: ${{ secrets.SSH_USERNAME }}

@@ -35,7 +35,7 @@ const Header = () => {
     }
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = event => {
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -53,7 +53,7 @@ const Header = () => {
     setIsSearchIconOpen(false);
   };
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = event => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
@@ -81,6 +81,12 @@ const Header = () => {
   const handleToProfile = () => {
     navigate("/profile");
   };
+  const handleToMyPosts = () => {
+    navigate("/profile/posts");
+  };
+  const handleToParticipatedProjects = () => {
+    navigate("/profile/participated-projects");
+  };
   const handleLogout = () => {
     logout(); // AuthContext의 logout 함수 호출
     setIsProfileDropdownOpen(false); // 프로필 드롭다운 닫기
@@ -93,19 +99,19 @@ const Header = () => {
   };
 
   //만들기 버튼
-  const handleCreateWithClick = (e) => {
+  const handleCreateWithClick = e => {
     e.preventDefault();
     e.stopPropagation();
     navigate("/create-with-project");
   };
 
-  const handleCreateFundingClick = (e) => {
+  const handleCreateFundingClick = e => {
     e.preventDefault();
     e.stopPropagation();
     navigate("/create-funding-project");
   };
 
-  const clickHamburger = (e) => {
+  const clickHamburger = e => {
     //하단 표현 방식 리액트에 맞게 수정 예정입니다!
     e.preventDefault();
     let icon1 = document.getElementById("a");
@@ -146,7 +152,7 @@ const Header = () => {
               type="text"
               placeholder="해시태그로 키워드 검색"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
             />
             <img
@@ -208,8 +214,10 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li onClick={handleToProfile}>Profile</li>
-                  <li onClick={handleLogout}>Logout</li>
+                  <li onClick={handleToProfile}>마이페이지</li>
+                  <li onClick={handleToMyPosts}>작성한 글</li>
+                  <li onClick={handleToParticipatedProjects}>참여 현황</li>
+                  <li onClick={handleLogout}>로그아웃</li>
                 </ul>
               </div>
             </>
@@ -218,7 +226,7 @@ const Header = () => {
               className="headerpage-login-button"
               onClick={handleLoginClick}
             >
-              Login
+              로그인
             </button>
           )}
         </div>
@@ -254,10 +262,10 @@ const Header = () => {
                 >
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="해시태그로 키워드 검색"
                     value={searchQuery}
                     ref={searchInputRef}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                     onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
                   />
                   <img
@@ -298,7 +306,7 @@ const Header = () => {
                       className="headerpage-create-withbtn"
                       onClick={handleCreateWithClick}
                     >
-                      동행 만들기
+                      동행 작성하기
                     </button>
                   </li>
                   <li>
@@ -306,7 +314,7 @@ const Header = () => {
                       className="headerpage-create-withbtn"
                       onClick={handleCreateFundingClick}
                     >
-                      펀딩 만들기
+                      펀딩 작성하기
                     </button>
                   </li>
                 </ul>
@@ -332,8 +340,10 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li onClick={handleToProfile}>Profile</li>
-                      <li onClick={handleLogout}>Logout</li>
+                      <li onClick={handleToProfile}>마이 페이지</li>
+                      <li onClick={handleToProfile}>작성한 글</li>
+                      <li onClick={handleToProfile}>참여 중 프로젝트</li>
+                      <li onClick={handleLogout}>로그아웃</li>
                     </ul>
                   </div>
                 </>
@@ -342,7 +352,7 @@ const Header = () => {
                   className="hamburger-login-button"
                   onClick={handleLoginClick}
                 >
-                  Login
+                  로그인
                 </button>
               )}
             </li>

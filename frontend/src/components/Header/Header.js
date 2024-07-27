@@ -172,7 +172,7 @@ const Header = () => {
           <div className="headerpage-search-container">
             <input
               type="text"
-              placeholder="해시태그로 키워드 검색!!!!!!!!!!!!!!!!!!!"
+              placeholder="해시태그로 키워드 검색"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가

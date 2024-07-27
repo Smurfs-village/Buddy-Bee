@@ -12,7 +12,7 @@ jobs:
     steps:
     - 
         name: SSH Remote Commands
-        uses: appleboy/ssh-action@v0.1.4        
+        uses: appleboy/ssh-action@v1.0.3        
         with:
             host: ${{ secrets.HOST }}      
             username: ${{ secrets.SSH_USERNAME }}

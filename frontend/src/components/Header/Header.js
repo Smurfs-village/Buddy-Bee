@@ -1,15 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가, useNavigate 훅 추가
+import axios from "axios";
 import icon from "../../img/nav_icon.svg";
 import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
+
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
+  const [profileImg, setProfileImg] = useState("");
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isSearchIconOpen, setIsSearchIconOpen] = useState(false); //햄버거 버튼 검색창 추가
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,11 +23,31 @@ const Header = () => {
   const searchInputRef = useRef(null); //햄버거 버튼 검색창 전용
   const navigate = useNavigate(); // useNavigate 훅 사용
   const { logout } = useAuth();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     // 로그인 상태 확인
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/user`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setProfileImg(response.data.profile_image);
+        } catch (error) {
+          console.error("Failed to fetch user data", error);
+          Swal.fire({
+            title: "Error",
+            text: "프로필 사진을 불러오는데 실패했습니다",
+            icon: "error",
+            confirmButtonText: "확인",
+          });
+        }
+      };
+      fetchUserData();
     } else {
       setIsLoggedIn(false);
     }
@@ -200,7 +224,7 @@ const Header = () => {
                 onClick={handleProfileClick}
               >
                 <img
-                  src={myprofile}
+                  src={profileImg || myprofile}
                   alt="My Profile"
                   className="headerpage-profile-image"
                 />

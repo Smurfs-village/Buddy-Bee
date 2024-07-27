@@ -1,15 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Link 컴포넌트 추가, useNavigate 훅 추가
+import axios from "axios";
 import icon from "../../img/nav_icon.svg";
 import myprofile from "../../img/bee.svg";
 import searchIcon from "../../img/search_icon.svg"; // 검색 아이콘 업데이트
 import createIcon from "../../img/create_icon.svg"; // 모바일뷰 전용 만들기 아이콘 추가
 import "./Header.css";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from "sweetalert2"; // SweetAlert2 import 추가
+
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
+  const [profileImg, setProfileImg] = useState("");
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isSearchIconOpen, setIsSearchIconOpen] = useState(false); //햄버거 버튼 검색창 추가
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,15 +23,35 @@ const Header = () => {
   const searchInputRef = useRef(null); //햄버거 버튼 검색창 전용
   const navigate = useNavigate(); // useNavigate 훅 사용
   const { logout } = useAuth();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     // 로그인 상태 확인
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/user`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          setProfileImg(response.data.profile_image);
+        } catch (error) {
+          console.error("Failed to fetch user data", error);
+          Swal.fire({
+            title: "Error",
+            text: "프로필 사진을 불러오는데 실패했습니다",
+            icon: "error",
+            confirmButtonText: "확인",
+          });
+        }
+      };
+      fetchUserData();
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -81,6 +105,12 @@ const Header = () => {
   const handleToProfile = () => {
     navigate("/profile");
   };
+  const handleToMyPosts = () => {
+    navigate("/profile/posts");
+  };
+  const handleToParticipatedProjects = () => {
+    navigate("/profile/participated-projects");
+  };
   const handleLogout = () => {
     logout(); // AuthContext의 logout 함수 호출
     setIsProfileDropdownOpen(false); // 프로필 드롭다운 닫기
@@ -94,13 +124,11 @@ const Header = () => {
 
   //만들기 버튼
   const handleCreateWithClick = e => {
-    e.preventDefault();
     e.stopPropagation();
     navigate("/create-with-project");
   };
 
   const handleCreateFundingClick = e => {
-    e.preventDefault();
     e.stopPropagation();
     navigate("/create-funding-project");
   };
@@ -144,7 +172,7 @@ const Header = () => {
           <div className="headerpage-search-container">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="해시태그로 키워드 검색"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
@@ -161,7 +189,7 @@ const Header = () => {
             className="headerpage-create-btn"
             onClick={handleButtonClick}
           >
-            만들기
+            + 작성하기
           </button>
           <div
             className={`headerpage-dropdown-menu ${
@@ -175,7 +203,7 @@ const Header = () => {
                   className="headerpage-dropdown-withbtn"
                   onClick={handleCreateWithClick}
                 >
-                  동행 만들기
+                  동행 작성하기
                 </button>
               </li>
               <li>
@@ -183,7 +211,7 @@ const Header = () => {
                   className="headerpage-dropdown-withbtn"
                   onClick={handleCreateFundingClick}
                 >
-                  펀딩 만들기
+                  펀딩 작성하기
                 </button>
               </li>
             </ul>
@@ -196,7 +224,7 @@ const Header = () => {
                 onClick={handleProfileClick}
               >
                 <img
-                  src={myprofile}
+                  src={profileImg || myprofile}
                   alt="My Profile"
                   className="headerpage-profile-image"
                 />
@@ -208,8 +236,10 @@ const Header = () => {
                 ref={profileDropdownRef}
               >
                 <ul>
-                  <li onClick={handleToProfile}>Profile</li>
-                  <li onClick={handleLogout}>Logout</li>
+                  <li onClick={handleToProfile}>마이페이지</li>
+                  <li onClick={handleToMyPosts}>작성한 글</li>
+                  <li onClick={handleToParticipatedProjects}>참여 프로젝트</li>
+                  <li onClick={handleLogout}>로그아웃</li>
                 </ul>
               </div>
             </>
@@ -218,7 +248,7 @@ const Header = () => {
               className="headerpage-login-button"
               onClick={handleLoginClick}
             >
-              Login
+              로그인
             </button>
           )}
         </div>
@@ -254,7 +284,7 @@ const Header = () => {
                 >
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder="해시태그로 키워드 검색"
                     value={searchQuery}
                     ref={searchInputRef}
                     onChange={e => setSearchQuery(e.target.value)}
@@ -298,7 +328,7 @@ const Header = () => {
                       className="headerpage-create-withbtn"
                       onClick={handleCreateWithClick}
                     >
-                      동행 만들기
+                      동행 작성하기
                     </button>
                   </li>
                   <li>
@@ -306,7 +336,7 @@ const Header = () => {
                       className="headerpage-create-withbtn"
                       onClick={handleCreateFundingClick}
                     >
-                      펀딩 만들기
+                      펀딩 작성하기
                     </button>
                   </li>
                 </ul>
@@ -332,8 +362,12 @@ const Header = () => {
                     ref={profileDropdownRef}
                   >
                     <ul>
-                      <li onClick={handleToProfile}>Profile</li>
-                      <li onClick={handleLogout}>Logout</li>
+                      <li onClick={handleToProfile}>마이 페이지</li>
+                      <li onClick={handleToMyPosts}>작성한 글</li>
+                      <li onClick={handleToParticipatedProjects}>
+                        참여 프로젝트
+                      </li>
+                      <li onClick={handleLogout}>로그아웃</li>
                     </ul>
                   </div>
                 </>
@@ -342,7 +376,7 @@ const Header = () => {
                   className="hamburger-login-button"
                   onClick={handleLoginClick}
                 >
-                  Login
+                  로그인
                 </button>
               )}
             </li>

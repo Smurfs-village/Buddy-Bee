@@ -24,7 +24,8 @@ const customStyles = {
     },
     minHeight: "17px",
     width: "90px",
-    zIndex: 999,
+    zIndex: 9999,
+    position: "relative", // 추가
   }),
   option: (provided, state) => ({
     ...provided,
@@ -34,10 +35,12 @@ const customStyles = {
     "&:hover": {
       backgroundColor: "#bae7ff",
     },
+    zIndex: 9999,
   }),
   singleValue: provided => ({
     ...provided,
     color: "#333",
+    zIndex: 9999,
   }),
   menu: provided => ({
     ...provided,
@@ -45,18 +48,22 @@ const customStyles = {
     borderRadius: "4px",
     border: "1px solid #ddd",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    zIndex: 999,
+    zIndex: 9999,
+    position: "absolute", // 추가
   }),
   menuList: provided => ({
     ...provided,
     padding: "0",
+    zIndex: 9999,
   }),
   indicatorSeparator: () => ({
     display: "none",
+    zIndex: 9999,
   }),
   dropdownIndicator: provided => ({
     ...provided,
     color: "#333",
+    zIndex: 9999,
   }),
 };
 

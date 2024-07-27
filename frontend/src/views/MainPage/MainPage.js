@@ -228,15 +228,18 @@ const MainPage = () => {
 
               <h2 className="from-down">Be My Buddy! </h2>
               <p className="mainpage-left_p from-down">
-                버디비(BuddyBee)는 같은 관심사를 가진 친구들과 함께 꿀벌처럼
-                협력하며 꿈을 이루어 나가는 곳이에요! 서로의 프로젝트를
-                소개하고, 든든한 버디비를 만나 특별한 경험을 만들어보세요.
+                Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
+                함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
+                있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요.
               </p>
             </div>
             <div className="mainpage-button-container">
               <Link to="/projects?query=동행">
                 <button className="mainpage-main-button from-down">
-                  Find Buddy <p>동행구하기</p>
+                  <p className="mainpage-main-button-text">동행 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    동행할 친구를 찾고 <span>싶어요</span>
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
@@ -248,7 +251,10 @@ const MainPage = () => {
               </Link>
               <Link to="/projects?query=펀딩">
                 <button className="mainpage-main-button from-down">
-                  Find Funding <p>펀딩구하기</p>
+                  <p className="mainpage-main-button-text">펀딩 모아보기</p>
+                  <p className="mainpage-main-button-info">
+                    펀딩에 참여하고 <span>싶어요</span>
+                  </p>
                   <div className="mainpage-btn-arrow">
                     <img
                       src={arrow_right}
@@ -273,10 +279,10 @@ const MainPage = () => {
               </h2>
               <h1 className="from-down">BUDDY BEE</h1>
               <p className="from-down">
-                Buddy Bee에 오신 걸 환영해요! 여기서는 좋아하는 콘서트나 행사에
-                함께 갈 동행자를 쉽게 찾을 수 있고, 필요한 펀딩도 모을 수
-                있어요. Buddy Bee와 함께 멋진 추억을 만들어 보세요. Buddy Bee와
-                함께라면 모든 순간이 더 특별해질 거예요!
+                나와 같은 관심사를 가진 사람이 있을까? 카드를 눌러 최신글과
+                해시태그를 확인해보세요! 인기 있는 주제들을 한눈에 살펴보고,
+                새로운 이야기들로 하루를 시작하세요. Buddy Bee와 함께라면 특별한
+                하루가 될거예요!
               </p>
               <img
                 src={section1_flower}

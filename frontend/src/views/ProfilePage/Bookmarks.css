@@ -33,6 +33,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   border-top: 2px solid black;
+  letter-spacing: 0.5px;
 }
 
 .Bookmarks_main_right_container_box_status_wrapper {
@@ -44,6 +45,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
 /*종료 후 css*/
@@ -111,4 +113,13 @@
 
 .Bookmarks_honeyPot_img:hover {
   transform: scale(1.1);
+}
+.Main_right_container_title_selectBox_wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.Bookmarks_main_right_container_cards_wrapper {
+  position: relative;
+  z-index: 0;
 }

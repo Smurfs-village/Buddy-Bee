@@ -29,6 +29,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   const { user } = useAuth();
   const { id: projectId } = useParams();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProject = async () => {
       if (!projectId) return;
@@ -47,21 +48,21 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
     fetchProject();
   }, [projectId, API_BASE_URL]);
 
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      if (!projectId) return;
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/projects/${projectId}/participants`
-        );
-        setCurrentParticipants(response.data.currentParticipants);
-      } catch (error) {
-        console.error("Error fetching participants:", error);
-      }
-    };
-
-    fetchParticipants();
+  const fetchParticipants = useCallback(async () => {
+    if (!projectId) return;
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/projects/${projectId}/participants`
+      );
+      setCurrentParticipants(response.data.currentParticipants);
+    } catch (error) {
+      console.error("Error fetching participants:", error);
+    }
   }, [projectId, API_BASE_URL]);
+
+  useEffect(() => {
+    fetchParticipants();
+  }, [fetchParticipants]);
 
   useEffect(() => {
     const checkParticipationStatus = async () => {
@@ -135,6 +136,12 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
+        // 최신 데이터 다시 가져오기
+        const updatedProject = await axios.get(
+          `${API_BASE_URL}/projects/${projectId}/with-author`
+        );
+        setProject(updatedProject.data);
+        fetchParticipants(); // 참가자 수 다시 가져오기
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -143,7 +150,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project, selectedOptions, API_BASE_URL]);
+  }, [user, project, selectedOptions, API_BASE_URL, fetchParticipants]);
 
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {

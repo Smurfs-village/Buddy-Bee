@@ -236,24 +236,28 @@ const updateProjectCurrentAmount = projectId => {
 };
 
 const updateProjectCurrentParticipants = projectId => {
-  const query = `
-    UPDATE project
-    SET current_participants = (
-      SELECT COUNT(*)
-      FROM participant
-      WHERE project_id = ?
-    )
-    WHERE id = ?
-  `;
-
   return new Promise((resolve, reject) => {
-    connection.query(query, [projectId, projectId], (error, results) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(results);
+    const updateQuery = `
+      UPDATE project
+      SET current_participants = (
+        SELECT COUNT(*)
+        FROM participant
+        WHERE project_id = ?
+      )
+      WHERE id = ?
+    `;
+
+    connection.query(
+      updateQuery,
+      [projectId, projectId],
+      (updateError, updateResults) => {
+        if (updateError) {
+          reject(updateError);
+        } else {
+          resolve(updateResults);
+        }
       }
-    });
+    );
   });
 };
 
@@ -355,7 +359,17 @@ exports.participateInProject = (req, res) => {
                 res.status(500).send("Server error");
               });
           } else {
-            res.status(200).send("Participation successful");
+            Promise.all([
+              updateProjectCurrentAmount(projectId), // amount 업데이트
+              updateProjectCurrentParticipants(projectId), // 참가자 수 업데이트
+            ])
+              .then(() => {
+                res.status(200).send("Participation successful");
+              })
+              .catch(error => {
+                console.error("Error updating project details:", error);
+                res.status(500).send("Server error");
+              });
           }
         }
       );
@@ -1079,44 +1093,98 @@ exports.cancelParticipation = (req, res) => {
     DELETE FROM participant WHERE project_id = ? AND user_id = ?;
   `;
 
+  const getTotalAmountQuery = `
+    SELECT SUM(total_price) as totalAmount
+    FROM participant_details
+    WHERE participant_id IN (SELECT id FROM participant WHERE project_id = ? AND user_id = ?);
+  `;
+
   connection.beginTransaction(err => {
     if (err) {
       console.error("Error starting transaction:", err);
       return res.status(500).send("Transaction error");
     }
 
+    // Get the total amount to subtract
     connection.query(
-      deleteParticipantDetailsQuery,
+      getTotalAmountQuery,
       [projectId, userId],
-      err => {
+      (err, results) => {
         if (err) {
-          console.error("Error deleting participant details:", err);
+          console.error("Error getting total amount:", err);
           return connection.rollback(() => {
             res.status(500).send("Server error");
           });
         }
 
-        connection.query(deleteParticipantQuery, [projectId, userId], err => {
-          if (err) {
-            console.error("Error deleting participant:", err);
-            return connection.rollback(() => {
-              res.status(500).send("Server error");
-            });
-          }
+        const totalAmountToSubtract = results[0].totalAmount || 0;
 
-          connection.commit(err => {
+        connection.query(
+          deleteParticipantDetailsQuery,
+          [projectId, userId],
+          err => {
             if (err) {
-              console.error("Error committing transaction:", err);
+              console.error("Error deleting participant details:", err);
               return connection.rollback(() => {
-                res.status(500).send("Transaction commit error");
+                res.status(500).send("Server error");
               });
             }
-            // 참가 취소 후 current_amount 업데이트
-            updateProjectCurrentAmount(projectId);
-            console.log("Participation cancelled successfully");
-            res.status(200).send("Participation cancelled successfully");
-          });
-        });
+
+            connection.query(
+              deleteParticipantQuery,
+              [projectId, userId],
+              err => {
+                if (err) {
+                  console.error("Error deleting participant:", err);
+                  return connection.rollback(() => {
+                    res.status(500).send("Server error");
+                  });
+                }
+
+                // Update the project current_amount and current_participants
+                const updateProjectQuery = `
+              UPDATE project
+              SET current_participants = (
+                SELECT COUNT(*)
+                FROM participant
+                WHERE project_id = ?
+              ), current_amount = current_amount - ?
+              WHERE id = ?
+            `;
+
+                connection.query(
+                  updateProjectQuery,
+                  [projectId, totalAmountToSubtract, projectId],
+                  (updateError, updateResults) => {
+                    if (updateError) {
+                      console.error(
+                        "Error updating project details:",
+                        updateError
+                      );
+                      return connection.rollback(() => {
+                        res.status(500).send("Server error");
+                      });
+                    }
+
+                    connection.commit(err => {
+                      if (err) {
+                        console.error("Error committing transaction:", err);
+                        return connection.rollback(() => {
+                          res.status(500).send("Transaction commit error");
+                        });
+                      }
+
+                      console.log("Participation cancelled successfully");
+                      res
+                        .status(200)
+                        .send("Participation cancelled successfully");
+                    });
+                  }
+                );
+              }
+            );
+          }
+        );
       }
     );
   });

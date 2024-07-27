@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Matter from "matter-js";
 import "./MatterComponent.css";
 import B from "../../img/B.svg";
-import bee from "../../img/bee.svg";
+import bee from "../../img/matterjs_bee_bee.svg";
 import D from "../../img/D.svg";
 import E from "../../img/E.svg";
 import flower from "../../img/flower.svg";
@@ -137,20 +137,20 @@ const MatterComponent = () => {
       { src: cloud, density: 0.001, x: 1100, y: 200 },
     ];
 
-    const boxes = images.map((img, index) =>
-      Bodies.rectangle(img.x, img.y, 200, 200, {
+    const boxes = images.map((img, index) => {
+      const scale = img.src === cloud ? 1.0 : img.src === star ? 1.4 : 1.49;
+      return Bodies.rectangle(img.x, img.y, 200, 200, {
         label: "box",
         render: {
           sprite: {
             texture: img.src,
-            xScale: 1.5,
-            yScale: 1.5,
+            xScale: scale,
+            yScale: scale,
           },
         },
         density: img.density,
-      })
-    );
-
+      });
+    });
     World.add(world, boxes);
 
     const mouse = Mouse.create(render.canvas);

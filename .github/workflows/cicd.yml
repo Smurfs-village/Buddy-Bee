@@ -1,0 +1,29 @@
+name: SSH Server and Restart Docker Compose
+
+on:
+    push:
+        branches:
+            - 'main'
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - 
+        name: SSH Remote Commands
+        uses: appleboy/ssh-action@v0.1.4        
+        with:
+            host: ${{ secrets.HOST }}      
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            port: 22
+            timeout: 40s  # 30초 기본        
+            script: |
+                cd Buddy-Bee
+                git pull
+                export DB_NAME=buddy_bee
+                export DB_USER=${{ secrets.DB_USER }}
+                export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                docker compose down
+                docker compose up -d

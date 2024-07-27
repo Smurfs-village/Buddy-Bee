@@ -44,7 +44,7 @@
 
 .MyPosts_ParticipatedProjects_activePendingProjectImg {
   position: relative;
-  opacity: 0.8;
+  opacity: 0.5;
   /* 대기중, 진행중 프로젝트 이미지의 투명도 설정 */
 }
 

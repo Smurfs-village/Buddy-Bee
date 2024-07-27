@@ -1,15 +1,10 @@
-/* .project-list-page-layout {
-  /* margin: 0; */
-/* width: 100%; 
-} */
-
 .project-list-page-layout-wrapper {
   box-sizing: border-box;
   border: 2px solid black;
   border-top: none;
   width: 100%;
   background-color: white;
-  padding: 0px 21px 40px 35px;
+  padding: 0px 28px 40px 35px;
 }
 
 .project-list-page-layout-grid {
@@ -26,6 +21,7 @@
 
 .project-list-btn-wrapper {
   align-items: flex-end;
+  margin-right: 12px;
 }
 
 .project-list-btn-wrapper button {

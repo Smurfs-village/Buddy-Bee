@@ -16,16 +16,31 @@ const ProjectListPageLayout = () => {
   const [sortedCardList, setSortedCardList] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const location = useLocation();
-  const [title, setTitle] = useState("전체");
+  const [title, setTitle] = useState("모아보기");
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query =
-          new URLSearchParams(location.search).get("query") || "전체";
-        setTitle(`${query} 검색결과`);
+        const query = new URLSearchParams(location.search).get("query");
+        const type = new URLSearchParams(location.search).get("type");
+
+        if (type === "funding") {
+          setTitle("펀딩 모아보기");
+        } else if (type === "with") {
+          setTitle("동행 모아보기");
+        } else if (type === "all") {
+          setTitle("전체 모아보기");
+        } else if (query) {
+          setTitle(`${query} 검색결과`);
+        } else {
+          setTitle("모아보기");
+        }
+
         const response = await axios.get(
-          `${API_BASE_URL}/projects/search?query=${query}`
+          `${API_BASE_URL}/projects/search?query=${query || ""}&type=${
+            type || ""
+          }`
         );
 
         const activeProjects = response.data.filter(

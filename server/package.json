@@ -1,6 +1,6 @@
 {
   "name": "buddy_bee_backend",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "server.js",
   "dependencies": {
     "axios": "^1.7.2",

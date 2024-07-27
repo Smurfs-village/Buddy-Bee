@@ -82,6 +82,8 @@ const LoginPage = ({ onLogin }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    document.body.style.overflow = "";
+    document.body.style.position = "";
   };
 
   const handleKakaoLogin = () => {

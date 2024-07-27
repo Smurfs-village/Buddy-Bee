@@ -51,7 +51,7 @@ const Header = () => {
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {

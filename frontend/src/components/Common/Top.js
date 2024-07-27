@@ -24,7 +24,7 @@ const Top = () => {
     };
 
     fetchProfileImage();
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <div className="MyProfile_main_top_container">

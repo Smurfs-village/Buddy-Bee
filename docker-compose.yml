@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: geunsam2/buddy-bee:latest
+    image: summer358/buddy-bee:latest
     ports:
       - "5001:5001"
     environment:

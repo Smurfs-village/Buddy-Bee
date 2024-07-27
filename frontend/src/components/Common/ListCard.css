@@ -12,11 +12,12 @@
 
 .common-card {
   width: 100%;
+  max-width: 301px;
   background-color: #fff; /* 카드 배경 색상 */
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   overflow: hidden;
   border: rgba(0, 0, 0, 0.836) solid 2px;
   box-sizing: border-box;
@@ -219,7 +220,7 @@
   }
 }
 
-@media (max-width: 386px) {
+@media (max-width: 557px) {
   .common-scrap-icon {
     top: 8px;
     right: 9px;

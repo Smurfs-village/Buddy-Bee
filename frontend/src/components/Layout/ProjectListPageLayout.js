@@ -73,7 +73,10 @@ const ProjectListPageLayout = () => {
   const containerClassName = () => {
     if (currentItems.length === 1)
       return "project-list-page-layout single-item";
-    if (currentItems.length <= 2) return "project-list-page-layout few-items";
+    if (currentItems.length === 2) return "project-list-page-layout few-items";
+    if (currentItems.length === 3)
+      return "project-list-page-layout three-items";
+    if (currentItems.length === 4) return "project-list-page-layout four-items";
     return "project-list-page-layout";
   };
 

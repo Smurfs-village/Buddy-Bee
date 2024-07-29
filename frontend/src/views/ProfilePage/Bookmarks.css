@@ -23,6 +23,9 @@
   flex: 1;
   position: relative;
 }
+.overlays {
+  background-color: rgb(255, 255, 255);
+}
 
 .Bookmarks_main_right_container_box_text_wrapper {
   display: flex;
@@ -52,7 +55,6 @@
 .Bookmarks_finishedProject_container {
   position: relative;
   border: 2px solid rgb(66, 66, 66);
-  /* opacity: 0.8; */ /*너무 찐하면 이거 주석 해제 해주세용*/
 }
 .Bookmarks_finishedProjects_text_wrapper {
   /*종료 후 text-box*/

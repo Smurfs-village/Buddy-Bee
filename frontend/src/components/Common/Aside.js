@@ -1,24 +1,18 @@
 import { useEffect } from "react";
-import {
-  Link,
-  useLinkClickHandler,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Aside.css";
 import Swal from "sweetalert2";
 
 const Aside = () => {
   const { pathname } = useLocation();
-  // const navigate = useNavigate();
 
   const setScrollHandler = () => {
     const setScrollPosition = window.pageYOffset;
-    localStorage.setItem("scrollPosition", setScrollPosition);
+    localStorage.setItem("ASIDE_scrollPosition", setScrollPosition);
   };
 
   useEffect(() => {
-    const getScrollPosition = localStorage.getItem("scrollPosition");
+    const getScrollPosition = localStorage.getItem("ASIDE_scrollPosition");
     if (getScrollPosition) {
       window.scrollTo(0, parseInt(getScrollPosition, 10));
     }

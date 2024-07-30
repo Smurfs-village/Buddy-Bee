@@ -401,6 +401,11 @@
   aspect-ratio: 33 / 10;
   margin-top: 2vh;
   padding: 0;
+  transition: 0.2s ease;
+}
+
+.createpage-submit-button:hover {
+  transform: scale(1.05);
 }
 
 .createpage-submit-button span {

@@ -362,7 +362,7 @@ const Header = () => {
                     onClick={handleProfileClick}
                   >
                     <img
-                      src={myprofile}
+                      src={profileImg || myprofile}
                       alt="My Profile"
                       className="hamburger-profile-image"
                     />

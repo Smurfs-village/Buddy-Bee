@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import scrap_yes from "../../img/scrap_yes.svg";
@@ -10,6 +11,7 @@ import "./DetailButton.css";
 const DetailButton = ({ projectId }) => {
   const { user } = useAuth();
   const [isHoney, setIsHoney] = useState(false);
+  const navigate = useNavigate();
   const [honeyCount, setHoneyCount] = useState(0);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const PageURL = `http://13.125.119.35:5001/projects/${projectId}`; /*복사용 사이트 */
@@ -50,8 +52,17 @@ const DetailButton = ({ projectId }) => {
 
   const handleHoneyClick = async () => {
     if (!user) {
-      console.error("User is not authenticated");
-      return;
+      if (!user) {
+        console.error("User is not authenticated");
+        Swal.fire({
+          title: "로그인 후 이용 가능한 기능입니다",
+          text: "",
+          icon: "info",
+          confirmButtonText: "확인",
+        }).then(() => {
+          navigate(`/login`);
+        });
+      }
     }
 
     try {

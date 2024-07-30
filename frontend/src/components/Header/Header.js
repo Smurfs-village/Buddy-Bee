@@ -24,6 +24,7 @@ const Header = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
   const { logout } = useAuth();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     // 로그인 상태 확인
     const token = localStorage.getItem("token");
@@ -102,18 +103,29 @@ const Header = () => {
     };
   }, []);
 
+  const clearScrollPosition = () => {
+    localStorage.removeItem("ASIDE_scrollPosition");
+  };
+
   const handleToProfile = () => {
+    clearScrollPosition();
     navigate("/profile");
   };
+
   const handleToMyPosts = () => {
+    clearScrollPosition();
     navigate("/profile/posts");
   };
+
   const handleToParticipatedProjects = () => {
+    clearScrollPosition();
     navigate("/profile/participated-projects");
   };
+
   const handleLogout = () => {
     logout(); // AuthContext의 logout 함수 호출
     setIsProfileDropdownOpen(false); // 프로필 드롭다운 닫기
+    clearScrollPosition();
     navigate("/");
     window.location.reload(); // 페이지 새로고침하여 상태 반영
   };
@@ -350,7 +362,7 @@ const Header = () => {
                     onClick={handleProfileClick}
                   >
                     <img
-                      src={myprofile}
+                      src={profileImg || myprofile}
                       alt="My Profile"
                       className="hamburger-profile-image"
                     />

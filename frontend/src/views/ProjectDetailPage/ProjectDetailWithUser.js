@@ -203,7 +203,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
                 </div>
                 <div className="ProjectDetailPage-option">
                   <div className="ProjectDetailPage-detail-title">
-                    옵션 선택 <span>*</span>
+                    옵션 선택
                   </div>
                   <div className="ProjectDetailPage-option-goods">
                     <div className="ProjectDetailPage-goods-list">

@@ -1,10 +1,22 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Aside.css";
 import Swal from "sweetalert2";
 
 const Aside = () => {
   const { pathname } = useLocation();
-  // const navigate = useNavigate();
+
+  const setScrollHandler = () => {
+    const setScrollPosition = window.pageYOffset;
+    localStorage.setItem("ASIDE_scrollPosition", setScrollPosition);
+  };
+
+  useEffect(() => {
+    const getScrollPosition = localStorage.getItem("ASIDE_scrollPosition");
+    if (getScrollPosition) {
+      window.scrollTo(0, parseInt(getScrollPosition, 10));
+    }
+  });
 
   const isProfile = pathname === "/profile";
   const isPost = pathname === "/profile/posts";
@@ -38,20 +50,34 @@ const Aside = () => {
   return (
     <div className="MyProfile_main_aside">
       <Link to="/profile">
-        <p className={isProfile ? activateColor : defaultColor}>프로필 설정</p>
+        <p
+          className={isProfile ? activateColor : defaultColor}
+          onClick={setScrollHandler}
+        >
+          프로필 설정
+        </p>
       </Link>
       <Link to="/profile/posts">
-        <p className={isPost ? activateColor : defaultColor} id="posts">
+        <p
+          className={isPost ? activateColor : defaultColor}
+          onClick={setScrollHandler}
+        >
           작성한 글
         </p>
       </Link>
       <Link to="/profile/participated-projects">
-        <p className={isParticipatedProject ? activateColor : defaultColor}>
+        <p
+          className={isParticipatedProject ? activateColor : defaultColor}
+          onClick={setScrollHandler}
+        >
           참여중인 프로젝트
         </p>
       </Link>
       <Link to="/profile/bookmarks">
-        <p className={isBookmarks ? activateColor : defaultColor}>
+        <p
+          className={isBookmarks ? activateColor : defaultColor}
+          onClick={setScrollHandler}
+        >
           나의 꿀단지
         </p>
       </Link>

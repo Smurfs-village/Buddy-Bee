@@ -517,6 +517,11 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         value={optionName}
                         onChange={e => setOptionName(e.target.value)}
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
+                        placeholder={
+                          type !== "funding"
+                            ? "장소, 수요조사, 교통수단 등"
+                            : ""
+                        }
                       />
                     </div>
                     <div className="input-wrapper">
@@ -528,6 +533,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         max="2147483647"
                         value={formatPrice(optionPrice)}
                         onChange={handleOptionPriceChange}
+                        placeholder={type !== "funding" ? "선택 사항" : ""} //동행 작성 시에만 placeholder 추가
                         onKeyDown={handleOptionKeyPress} //옵션 추가 핸들러
                       />
                     </div>

@@ -66,3 +66,7 @@ body.swal2-toast-shown .swal2-container {
   width: 360px !important;
   max-width: 100% !important;
 }
+
+.swal2-popup.swal2-toast {
+  padding: 1em !important;
+}

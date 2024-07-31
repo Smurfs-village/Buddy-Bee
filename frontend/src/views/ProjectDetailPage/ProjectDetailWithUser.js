@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import SubNav from "../../components/Layout/SubNav";
 import BackGroundGrid from "../../components/Layout/BackGroundGrid";
@@ -28,6 +28,7 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   const defaultButton = "ProjectDetailPage-click-btn";
   const { user } = useAuth();
   const { id: projectId } = useParams();
+  const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -103,7 +104,18 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
   };
 
   const withStateHandler = useCallback(async () => {
-    if (!user || !project) {
+    if (!user) {
+      Swal.fire({
+        title: "Error",
+        text: "로그인 후 이용 가능합니다!",
+        icon: "error",
+        confirmButtonText: "확인",
+      }).then(() => {
+        navigate("/login");
+      });
+      return;
+    }
+    if (!project) {
       console.error("User is not authenticated or project is not defined");
       return;
     }
@@ -150,7 +162,15 @@ const ProjectDetailPageWithUser = ({ hashtags }) => {
         console.error("Error participating in project:", error);
       }
     }
-  }, [user, project, selectedOptions, API_BASE_URL, fetchParticipants]);
+  }, [
+    user,
+    project,
+    selectedOptions,
+    fetchParticipants,
+    navigate,
+    API_BASE_URL,
+    projectId,
+  ]);
 
   const formatDate = date => {
     return new Date(date).toLocaleDateString("ko-KR", {

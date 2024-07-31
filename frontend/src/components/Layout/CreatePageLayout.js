@@ -520,7 +520,7 @@ const CreatePageLayout = ({ children, type: initialType }) => {
                         placeholder={
                           type !== "funding"
                             ? "장소, 수요조사, 교통수단 등"
-                            : ""
+                            : "펀딩 품목"
                         }
                       />
                     </div>

@@ -16,7 +16,7 @@ const KakaoRedirectHandler = () => {
       if (code) {
         try {
           const response = await axios.post(
-            "http://localhost:5001/api/auth/kakao",
+            "http://13.125.119.35:5001/api/auth/kakao",
             { code }
           );
 

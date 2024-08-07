@@ -24,8 +24,8 @@ jobs:
       - name: Add envs # Secret 여러개 새로 추가 됨
         run: |
           echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" > ./frontend/.env 
-          echo "REACT_APP_KAKAO_REDIRECT_URI=http://13.125.119.35:5001/auth/kakao/callback" >> ./frontend/.env
-          echo "REACT_APP_API_BASE_URL=http://13.125.119.35:5001/api" >> ./frontend/.env
+          echo "REACT_APP_KAKAO_REDIRECT_URI=http://13.125.239.176:5001/auth/kakao/callback" >> ./frontend/.env
+          echo "REACT_APP_API_BASE_URL=http://13.125.239.176:5001/api" >> ./frontend/.env
 
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > ./server/.env
           echo "DB_HOST=db" >> ./server/.env
@@ -34,7 +34,7 @@ jobs:
           echo "DB_NAME=buddy_bee" >> ./server/.env
           echo "DB_DATABASE=buddy_bee" >> ./server/.env
           echo "KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> ./server/.env
-          echo "KAKAO_REDIRECT_URI=http://13.125.119.35:5001/auth/kakao/callback" >> ./server/.env
+          echo "KAKAO_REDIRECT_URI=http://13.125.239.176:5001/auth/kakao/callback" >> ./server/.env
           echo "EMAIL_USER=gogo981004@gmail.com" >> ./server/.env
           echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> ./server/.env
       - name: Build Container Image
@@ -48,7 +48,7 @@ jobs:
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.NEW_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
